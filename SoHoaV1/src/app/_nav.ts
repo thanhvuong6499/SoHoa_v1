@@ -35,7 +35,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý người dùng',
-    url: '/',
+    url: '/quanLyNguoiDung',
     icon: 'icon-user'
   },
   {
@@ -45,7 +45,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý danh mục',
-    url: '/',
+    url: '/quanLyDanhMuc',
     icon: 'icon-list'
   },
   {
@@ -67,6 +67,11 @@ export const navItems: INavData[] = [
     name: 'Thống kê báo cáo',
     url: '/',
     icon: 'icon-chart'
+  },
+  {
+    name: 'Đăng nhập',
+    url: '/login',
+    icon: 'fa fa-user'
   },
   
   

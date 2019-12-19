@@ -40,6 +40,10 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { QuanLyNguoiDungComponent } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
+import { QuanLyDanhMucComponent } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.component';
+import { QuanLyNguoiDungModule } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.module';
+import { QuanLyDanhMucModule } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.module';
 
 @NgModule({
   imports: [
@@ -54,7 +58,9 @@ import { ChartsModule } from 'ng2-charts';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    QuanLyNguoiDungModule,
+    QuanLyDanhMucModule
   ],
   declarations: [
     AppComponent,
@@ -62,7 +68,7 @@ import { ChartsModule } from 'ng2-charts';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   providers: [{
     provide: LocationStrategy,
