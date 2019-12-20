@@ -44,6 +44,8 @@ import { QuanLyNguoiDungComponent } from './entities/quan-ly-nguoi-dung/quan-ly-
 import { QuanLyDanhMucComponent } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.component';
 import { QuanLyNguoiDungModule } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.module';
 import { QuanLyDanhMucModule } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.module';
+import { QuanLyHopSoComponent } from './entities/quan-ly-hop-so/quan-ly-hop-so.component';
+import { QuanLyHopSoModule } from './entities/quan-ly-hop-so/quan-ly-hop-so.module';
 
 @NgModule({
   imports: [
@@ -60,7 +62,8 @@ import { QuanLyDanhMucModule } from './entities/quan-ly-danh-muc/quan-ly-danh-mu
     TabsModule.forRoot(),
     ChartsModule,
     QuanLyNguoiDungModule,
-    QuanLyDanhMucModule
+    QuanLyDanhMucModule,
+    QuanLyHopSoModule
   ],
   declarations: [
     AppComponent,

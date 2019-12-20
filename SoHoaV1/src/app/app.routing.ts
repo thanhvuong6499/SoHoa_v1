@@ -10,6 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { QuanLyDanhMucComponent } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.component';
 import { QuanLyNguoiDungComponent } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
+import { QuanLyHopSoComponent } from './entities/quan-ly-hop-so/quan-ly-hop-so.component';
 
 export const routes: Routes = [
   {
@@ -85,13 +86,21 @@ export const routes: Routes = [
         loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
       {
+        path: 'HopSo',
+        loadChildren: () => import('./entities/quan-ly-hop-so/quan-ly-hop-so.module').then(m => m.QuanLyHopSoModule),
+      },
+      {
         path: 'quanLyDanhMuc',
         component: QuanLyDanhMucComponent,
       },
       {
         path: 'quanLyNguoiDung',
         component: QuanLyNguoiDungComponent,
-      }
+      },
+      // {
+      //   path: 'quanLyHopSo',
+      //   component: QuanLyHopSoComponent,
+      // },
     ]
   },
   { path: '**', component: P404Component }

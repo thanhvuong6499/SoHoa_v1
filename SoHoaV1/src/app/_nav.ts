@@ -50,7 +50,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý hộp số',
-    url: '/',
+    url: '/HopSo/quanLyHopSo',
     icon: 'fa fa-cube'
   },
   {
