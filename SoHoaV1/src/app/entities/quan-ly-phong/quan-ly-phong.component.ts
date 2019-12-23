@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
@@ -7,7 +7,8 @@ import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
   styleUrls: ['./quan-ly-phong.component.css']
 })
 export class QuanLyPhongComponent implements OnInit {
-  private ngModalRef : BsModalRef;
+  @ViewChild("modalPhong") public modalPhong : ModalDirective;
+
   constructor(
     
   ) { }

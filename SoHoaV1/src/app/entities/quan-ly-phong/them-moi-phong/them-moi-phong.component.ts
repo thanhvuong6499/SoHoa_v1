@@ -7,10 +7,19 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./them-moi-phong.component.css']
 })
 export class ThemMoiPhongComponent implements OnInit {
-  @Input() @ViewChild("createNewPhong") public createNewPhong : ModalDirective;
+  @ViewChild("createNewPhong") public createNewPhong : ModalDirective;
+  @Input() actionType : string;
+  @Input() iconClass : string;
+  @Input() btnClass: string;
+  @Input() data : string[];
   constructor() { }
 
   ngOnInit() {
-    
+    console.log(this.data);
+  }
+
+  onSubmit(event) {
+    console.log(event);
+    return false;
   }
 }
