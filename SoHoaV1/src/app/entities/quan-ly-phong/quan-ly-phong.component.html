@@ -3,7 +3,7 @@
       <div class="card">
         <div class="card-header">
         <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí phông</span>
-           <app-them-moi-phong></app-them-moi-phong>
+           <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong>
         </div>
         <div class="card-body">
           <table class="table table-bordered table-striped table-sm">
@@ -26,7 +26,7 @@
                 </td>
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" routerLink="/HopSo/quanLyHopSo/1"></button>
-                  <button class="btn btn-primary fa fa-edit" ><app-them-moi-phong hidden="true"></app-them-moi-phong></button>
+                  <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong>
                   <button class="btn btn-primary fa fa-trash"></button>
               </td>
               </tr>
