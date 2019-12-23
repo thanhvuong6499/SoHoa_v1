@@ -26,12 +26,7 @@ const routes: Routes = [
             title: "Hộp số Details"
           }
       }
-    
       ]
-  
-    
-    
-    
   },
 ];
 

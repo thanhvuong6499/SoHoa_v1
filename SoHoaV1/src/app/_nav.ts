@@ -12,23 +12,28 @@ export const navItems: INavData[] = [
   },
   
   {
-    name: 'Quản lý Phông ',
+    name: 'Quản lý Phông',
     url: '/login',
     icon: 'icon-note',
     children:[
       {
+         name: "Phông",
+         url: "/phong",
+         icon: "fa fa-navicon"
+      },
+      {
         name:'Hành pháp',
-        url:"/",
+        url: "/",
         icon: "fa fa-legal",
       },
       {
         name:'Tư pháp',
-        url:"/",
+        url: "/",
         icon: "fa fa-balance-scale",
       },
       {
         name:'Đơn vị hành chính',
-        url:"",
+        url: "",
         icon: "fa fa-institution",
       }
     ]
