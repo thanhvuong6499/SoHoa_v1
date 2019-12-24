@@ -89,7 +89,7 @@ export const routes: Routes = [
         loadChildren: () => import('./entities/quan-ly-hop-so/quan-ly-hop-so.module').then(m => m.QuanLyHopSoModule),
       },
       {
-        path: 'phong',
+        path: 'QuanLyPhong',
         loadChildren: () => import('./entities/quan-ly-phong/quan-ly-phong.module').then(m => m.QuanLyPhongModule)
       },
       {

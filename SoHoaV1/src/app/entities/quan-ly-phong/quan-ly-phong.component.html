@@ -3,7 +3,13 @@
       <div class="card">
         <div class="card-header">
         <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí phông</span>
-           <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong>
+           <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+           <button class="btn btn-primary " [routerLink]="['/', { outlets: { popup: ['phong-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+                Create new Font
+            </span>
+        </button>
         </div>
         <div class="card-body">
           <table class="table table-bordered table-striped table-sm">
@@ -26,7 +32,8 @@
                 </td>
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" routerLink="/HopSo/quanLyHopSo/1"></button>
-                  <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong>
+                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                  <button class="btn btn-primary fa fa-edit" type="submit" [routerLink]="['/', { outlets: { popup: 'phong/'+ 1 + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"></button>
                   <button class="btn btn-primary fa fa-trash"></button>
               </td>
               </tr>
@@ -100,5 +107,5 @@
       </div>
     </div>
     <!--/.col-->
-    
+    <app-phong-dialog></app-phong-dialog>
   </div>

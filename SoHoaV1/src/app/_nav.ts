@@ -13,30 +13,30 @@ export const navItems: INavData[] = [
   
   {
     name: 'Quản lý Phông',
-    url: '/login',
+    url: "/QuanLyPhong/phong",
     icon: 'icon-note',
-    children:[
-      {
-         name: "Phông",
-         url: "/phong",
-         icon: "fa fa-navicon"
-      },
-      {
-        name:'Hành pháp',
-        url: "/",
-        icon: "fa fa-legal",
-      },
-      {
-        name:'Tư pháp',
-        url: "/",
-        icon: "fa fa-balance-scale",
-      },
-      {
-        name:'Đơn vị hành chính',
-        url: "",
-        icon: "fa fa-institution",
-      }
-    ]
+    // children:[
+    //   {
+    //      name: "Phông",
+         
+    //      icon: "fa fa-navicon"
+    //   },
+    //   {
+    //     name:'Hành pháp',
+    //     url: "/",
+    //     icon: "fa fa-legal",
+    //   },
+    //   {
+    //     name:'Tư pháp',
+    //     url: "/",
+    //     icon: "fa fa-balance-scale",
+    //   },
+    //   {
+    //     name:'Đơn vị hành chính',
+    //     url: "",
+    //     icon: "fa fa-institution",
+    //   }
+    // ]
   },
   {
     name: 'Quản lý người dùng',

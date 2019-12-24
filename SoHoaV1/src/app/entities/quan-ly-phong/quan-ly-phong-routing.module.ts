@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuanLyPhongComponent } from './quan-ly-phong.component';
+import { PhongPopupComponent } from './phong-dialog/phong-dialog.component';
 
-const routes: Routes = [
+ export const quanLyPhongRoutes: Routes = [
   { 
       
       path: "",
-      component: QuanLyPhongComponent,
       data: {
           title: "Phông"
       },
@@ -17,13 +17,27 @@ const routes: Routes = [
                   title: "Phông"
               },
               component: QuanLyPhongComponent
-          }
+          },
+          
       ]
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class QuanLyPhongRoutingModule { }
+ export const phongPopupRoute : Routes = [
+  
+    {
+        path: 'phong-new',
+        component: PhongPopupComponent,
+        
+        outlet: 'popup'
+    },
+    {
+        path: 'phong/:id/edit',
+        component: PhongPopupComponent,
+        outlet: 'popup'
+    },
+]
+// @NgModule({
+//   imports: [RouterModule.forChild(ENTITY_STATES)],
+//   exports: [RouterModule]
+// })
+// export class QuanLyPhongRoutingModule { }

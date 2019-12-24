@@ -7,10 +7,7 @@ import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap'
   styleUrls: ['./quan-ly-phong.component.css']
 })
 export class QuanLyPhongComponent implements OnInit {
-<<<<<<< HEAD
-=======
   @ViewChild("modalPhong") public modalPhong : ModalDirective;
->>>>>>> origin/TuND
 
   constructor(
     
