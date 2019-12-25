@@ -4,7 +4,7 @@
         <div class="card-header">
         <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí phông</span>
            <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-           <button class="btn btn-primary " [routerLink]="['/', { outlets: { popup: ['phong-new'] } }]">
+           <button class="btn btn-primary " (click)="openDialog()">
             <span class="fa fa-plus"></span>
             <span >
                 Create new Font
@@ -16,79 +16,30 @@
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Tên  mục lục hồ sơ</th>
-                <th>Mục lục số</th>
-                <th>Phông</th>
-                <th>Action</th>
+                <th>Mã cơ quan</th>
+                <th>Mã phông</th>
+                <th>Lịch sử</th>
+                <th>Thời gian</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Vishnu Serghei</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
+              <tr *ngFor="let phong of phongs">
+                <td>{{ phong.id }}</td>
+                <td>{{ phong.macoquan }}</td>
+                <td>{{ phong.maphong }}</td>
+                <td>{{ phong.lichsu }}</td>
+                <td>{{ phong.thoigianbaoquan }}</td>
+                <td>{{ phong.ghichu }}</td>
+               
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" routerLink="/HopSo/quanLyHopSo/1"></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" type="submit" [routerLink]="['/', { outlets: { popup: 'phong/'+ 1 + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)" replaceUrl="true" queryParamsHandling="merge"></button>
                   <button class="btn btn-primary fa fa-trash"></button>
               </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Zbyněk Phoibos</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-danger">Banned</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye"></button>
-                  <button class="btn btn-primary fa fa-edit"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Einar Randall</td>
-                <td>Admin</td>
-                <td>
-                  <span class="badge badge-secondary">Inactive</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye"></button>
-                  <button class="btn btn-primary fa fa-edit"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Félix Troels</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-warning">Pending</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye"></button>
-                  <button class="btn btn-primary fa fa-edit"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Aulus Agmundr</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye"></button>
-                  <button class="btn btn-primary fa fa-edit"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
+            </tr>
             </tbody>
           </table>
           <nav>
@@ -107,5 +58,5 @@
       </div>
     </div>
     <!--/.col-->
-    <app-phong-dialog></app-phong-dialog>
+    <app-phong-dialog hidden="true"></app-phong-dialog>
   </div>
