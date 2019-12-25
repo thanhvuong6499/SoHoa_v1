@@ -1,12 +1,12 @@
 import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { Phong } from '../../model/phong.model';
+import { Phong, phongs } from '../../model/phong.model';
 
 @Injectable()
 export class QuanLyPhongPopupService {
     private ngbModalRef: NgbModalRef;
-
+    private id : number;
     constructor(
         private modalService: NgbModal,
         private router: Router,
@@ -14,8 +14,8 @@ export class QuanLyPhongPopupService {
     ) {
         this.ngbModalRef = null;
     }
-
-    open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    private phongs : Phong[];
+   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
@@ -29,10 +29,12 @@ export class QuanLyPhongPopupService {
                 //         this.ngbModalRef = this.batHoModalRef(component, batHo);
                 //         resolve(this.ngbModalRef);
                 //     });
-                const phong = new Phong();
-                this.ngbModalRef = this.phongModalRef(component,phong);
+                this.id = id;
+                
+                this.ngbModalRef = this.phongModalRef(component, this.getPhongById());
                 resolve(this.ngbModalRef);
-                console.log("aloalo");
+                console.log(this.getPhongById());
+                
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
@@ -43,8 +45,18 @@ export class QuanLyPhongPopupService {
             }
         });
     }
-
-    phongModalRef(component: Component, phong: Phong): NgbModalRef {
+    public getPhongById(){
+        this.phongs = phongs;
+                var phong = new Phong();
+                for (let i = 0; i < phongs.length; i ++) {
+                    if (this.id == phongs[i].id){
+                        phong = phongs[i];
+                    }
+                    
+                }
+                return phong;
+    };
+   public phongModalRef(component: Component, phong: Phong): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         //// Go back to home page after the modal is closed
         modalRef.result.then((result) => {
@@ -54,6 +66,7 @@ export class QuanLyPhongPopupService {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         });
+        console.log(modalRef)
         return modalRef;
     }
 }

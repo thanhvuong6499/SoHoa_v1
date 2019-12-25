@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuanLyPhongPopupService } from '../quan-ly-phong-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { phongPopupRoute } from '../quan-ly-phong-routing.module';
+import { Phong } from '../../../model/phong.model';
 
 @Component({
   selector: 'app-phong-dialog',
@@ -9,16 +11,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./phong-dialog.component.css']
 })
 export class PhongDialogComponent implements OnInit {
-
+  phong = new Phong();
   constructor(
     public activeModal: NgbActiveModal,
-
+    public phongPopupService: QuanLyPhongPopupService,
   ) {
 
    }
 
   ngOnInit() {
-    
+    this.phong = this.phongPopupService.getPhongById();
   }
   clear() {
     this.activeModal.dismiss('cancel');
@@ -38,17 +40,15 @@ export class PhongPopupComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-      this.routeSub = this.route.params.subscribe((params) => {
-          if ( params['id'] ) {
-              this.phongPopupService
-                  .open(PhongDialogComponent as Component, params['id']);
-          } else {
-              this.phongPopupService
-                  .open(PhongDialogComponent as Component);
-          }
-      });
-      
-      
+      // this.routeSub = this.route.params.subscribe((params) => {
+      //     if ( params['id'] ) {
+      //         this.phongPopupService
+      //             .open(PhongDialogComponent as Component, params['id']);
+      //     } else {
+      //         this.phongPopupService
+      //             .open(PhongDialogComponent as Component);
+      //     }
+      // });
       // this.phongPopupService.open(PhongDialogComponent as Component);
   }
 

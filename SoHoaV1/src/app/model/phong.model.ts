@@ -10,3 +10,46 @@ export class Phong  {
     ) {
     }
 }
+
+export const phongs : Phong[] = [
+    {
+        id: 1,
+        macoquan:"fdsfds",
+        maphong: "string",
+        lichsu: 1,
+        thoigianbaoquan: 1,
+        ghichu: "string", 
+      },
+      {
+        id: 2,
+        macoquan:"fdsfds",
+        maphong: "string",
+        lichsu: 1,
+        thoigianbaoquan: 1,
+        ghichu: "string", 
+      },
+      {
+        id: 3,
+        macoquan:"fdsfds",
+        maphong: "string",
+        lichsu: 1,
+        thoigianbaoquan: 1,
+        ghichu: "string", 
+      },
+      {
+        id: 4,
+        macoquan:"fdsfds",
+        maphong: "string",
+        lichsu: 1,
+        thoigianbaoquan: 1,
+        ghichu: "string", 
+      },
+      {
+        id: 5,
+        macoquan:"fdsfds",
+        maphong: "string",
+        lichsu: 1,
+        thoigianbaoquan: 1,
+        ghichu: "string", 
+      }
+]
