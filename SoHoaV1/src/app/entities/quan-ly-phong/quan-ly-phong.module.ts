@@ -27,6 +27,7 @@ const ENTITY_STATES = [
     RouterModule.forChild(ENTITY_STATES),
   ],
   entryComponents: [
+    QuanLyPhongComponent,
     PhongDialogComponent,
     PhongPopupComponent
   ],

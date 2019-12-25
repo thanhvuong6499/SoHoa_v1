@@ -46,6 +46,7 @@ export class QuanLyPhongPopupService {
 
     phongModalRef(component: Component, phong: Phong): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        //// Go back to home page after the modal is closed
         modalRef.result.then((result) => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
