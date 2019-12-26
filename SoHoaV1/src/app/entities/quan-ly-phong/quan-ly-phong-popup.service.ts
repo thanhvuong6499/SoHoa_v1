@@ -36,6 +36,7 @@ export class QuanLyPhongPopupService {
                 console.log(this.getPhongById());
                 
             } else {
+                this.id = null;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
                     this.ngbModalRef = this.phongModalRef(component, new Phong());
@@ -59,14 +60,14 @@ export class QuanLyPhongPopupService {
    public phongModalRef(component: Component, phong: Phong): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         //// Go back to home page after the modal is closed
-        modalRef.result.then((result) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-            this.ngbModalRef = null;
-        }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-            this.ngbModalRef = null;
-        });
-        console.log(modalRef)
+        // modalRef.result.then((result) => {
+        //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
+        //     this.ngbModalRef = null;
+        // }, (reason) => {
+        //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
+        //     this.ngbModalRef = null;
+        // });
+        // console.log(modalRef)
         return modalRef;
     }
 }

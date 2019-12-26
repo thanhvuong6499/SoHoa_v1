@@ -13,7 +13,7 @@ import { QuanLyPhongModule } from '../entities/quan-ly-phong/quan-ly-phong.modul
     QuanLyNguoiDungModule,
     QuanLyDanhMucModule,
     QuanLyHopSoModule,
-    QuanLyPhongModule
+    QuanLyPhongModule,
   ],
 })
 export class EntitiesModule { }

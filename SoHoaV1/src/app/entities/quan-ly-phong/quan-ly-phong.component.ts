@@ -14,7 +14,6 @@ import { phongs } from '../../model/phong.model';
 export class QuanLyPhongComponent implements OnInit {
   @ViewChild("modalPhong") public modalPhong : ModalDirective;
   phongs : Phong[];
-  
   routeSub: any;
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +24,7 @@ export class QuanLyPhongComponent implements OnInit {
     this.phongs = phongs;
   }
   
-  openDialog(id?: number) {
+  openDialog(id? : number) {
     
       if ( id ) {
           this.phongPopupService

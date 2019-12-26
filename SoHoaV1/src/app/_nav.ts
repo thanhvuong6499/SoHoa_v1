@@ -10,7 +10,11 @@ export const navItems: INavData[] = [
       text: 'NEW'
     }
   },
-  
+  {
+    name: 'Quản lý cơ quan',
+    url: '/',
+    icon: 'icon-user'
+  },
   {
     name: 'Quản lý Phông',
     url: "/QuanLyPhong/phong",
@@ -43,11 +47,11 @@ export const navItems: INavData[] = [
     url: '/quanLyNguoiDung',
     icon: 'icon-user'
   },
-  {
-    name: 'Quản lý kho',
-    url: '/stock',
-    icon: 'icon-home'
-  },
+  // {
+  //   name: 'Quản lý kho',
+  //   url: '/stock',
+  //   icon: 'icon-home'
+  // },
   {
     name: 'Quản lý danh mục',
     url: '/quanLyDanhMuc',

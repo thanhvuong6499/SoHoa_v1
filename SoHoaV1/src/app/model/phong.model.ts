@@ -4,8 +4,7 @@ export class Phong  {
         public id?: number,
         public macoquan?: string,
         public maphong?: string,
-        public lichsu?: number,
-        public thoigianbaoquan?: number,
+        public tenphong?: string,
         public ghichu?: string,
     ) {
     }
@@ -14,42 +13,37 @@ export class Phong  {
 export const phongs : Phong[] = [
     {
         id: 1,
-        macoquan:"fdsfds",
+        macoquan:"AB-BTC",
         maphong: "string",
-        lichsu: 1,
-        thoigianbaoquan: 1,
+        tenphong: "Phòng Tài chính kế toán",
         ghichu: "string", 
       },
       {
         id: 2,
-        macoquan:"fdsfds",
+        macoquan:"AB-NV",
         maphong: "string",
-        lichsu: 1,
-        thoigianbaoquan: 1,
+        tenphong: "Phòng Nội vụ",
         ghichu: "string", 
       },
       {
         id: 3,
-        macoquan:"fdsfds",
+        macoquan:"AB-KD",
         maphong: "string",
-        lichsu: 1,
-        thoigianbaoquan: 1,
+        tenphong: "Phòng Kinh doanh",
         ghichu: "string", 
       },
       {
         id: 4,
-        macoquan:"fdsfds",
+        macoquan:"AB-BTC",
         maphong: "string",
-        lichsu: 1,
-        thoigianbaoquan: 1,
+        tenphong: "Phòng Công nghệ",
         ghichu: "string", 
       },
       {
         id: 5,
-        macoquan:"fdsfds",
+        macoquan:"AB-GD",
         maphong: "string",
-        lichsu: 1,
-        thoigianbaoquan: 1,
+        tenphong: "Phòng Giáo dục",
         ghichu: "string", 
       }
 ]

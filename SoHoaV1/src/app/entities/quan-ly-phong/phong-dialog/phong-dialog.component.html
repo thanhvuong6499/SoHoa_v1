@@ -27,15 +27,69 @@
     <!-- </div>/.modal-dialog -->
   <!-- </div>/.modal --> 
   <div class="modal-header"   aria-hidden="true">
-    <h4 class="modal-title">Hi there!</h4>
+    <div *ngIf="phong.id != null; else themMoi">
+    <h4 class="modal-title">Chỉnh sửa phông</h4>
+    
+  </div>
+  
+  <ng-template #themMoi>
+    <h4 class="modal-title">Thêm mới phông</h4>
+
+  </ng-template>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p>Hello, {{phong.id}}!</p>
-    <p>Hello, {{phong.macoquan}}!</p>
+    <div class="form-group">
+      <label class="form-control-label">Mã phông</label>
+      <input type="number" class="form-control" name="maphong" id="field_maphong"
+          [(ngModel)]="phong.maphong" required/>
+      <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
+          <small class="form-text text-danger"
+             [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
+             This field is required.
+          </small>
+          <small class="form-text text-danger"
+              [hidden]="!editForm.controls.tienduakhach?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+          </small>
+      </div> -->
+  </div>
+    <!-- <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+        <div class="col-md-9">
+          <select id="select1" name="select1" class="form-control">
+            <option value="0">Chọn cơ quan</option>
+            <option value="1">Bộ tài chính</option>
+            <option value="2">Bộ công an</option>
+            <option value="3">Bộ nội vụ</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
+        <div class="col-md-9">
+          <input type="text" id="text-input" name="maphong" class="form-control" [([(ngModel)]="phong.maphong")] >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
+        <div class="col-md-9">
+          <input type="text" id="text-input" name="tenphong" class="form-control" [(ngModel)]="phong.tenphong" >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
+        <div class="col-md-9">
+          <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
+        </div>
+      </div>
+    </form> -->
   </div>
   <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
+    <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>
