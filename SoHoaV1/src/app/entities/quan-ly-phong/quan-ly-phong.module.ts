@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { phongPopupRoute, quanLyPhongRoutes } from './quan-ly-phong-routing.module';
 import { BaseModule } from '../../views/base/base.module';
+import { FormsComponent } from '../../views/base/forms.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { QuanLyPhongRoutingModule } from './quan-ly-phong-routing.module';
 const ENTITY_STATES = [
   ...quanLyPhongRoutes,
@@ -21,7 +23,8 @@ const ENTITY_STATES = [
   ],
   imports: [
     CommonModule,
-
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     ModalModule.forRoot(),
     RouterModule.forChild(ENTITY_STATES),

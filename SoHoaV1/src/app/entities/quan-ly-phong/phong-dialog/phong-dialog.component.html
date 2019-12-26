@@ -41,26 +41,22 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label class="form-control-label">Mã phông</label>
       <input type="number" class="form-control" name="maphong" id="field_maphong"
           [(ngModel)]="phong.maphong" required/>
-      <!-- <div [hidden]="!(editForm.controls.tienduakhach?.dirty && editForm.controls.tienduakhach?.invalid)">
-          <small class="form-text text-danger"
-             [hidden]="!editForm.controls.tienduakhach?.errors?.required" jhiTranslate="entity.validation.required">
-             This field is required.
-          </small>
-          <small class="form-text text-danger"
-              [hidden]="!editForm.controls.tienduakhach?.errors?.number" jhiTranslate="entity.validation.number">
-              This field should be a number.
-          </small>
-      </div> -->
-  </div>
-    <!-- <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+  </div> -->
+    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
+        <div class="col-md-9">
+          <input type="text" id="text-input" name="maphong" class="form-control" [(ngModel)]="phong.maphong" >
+        </div>
+      </div>
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
         <div class="col-md-9">
-          <select id="select1" name="select1" class="form-control">
+          <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan">
             <option value="0">Chọn cơ quan</option>
             <option value="1">Bộ tài chính</option>
             <option value="2">Bộ công an</option>
@@ -68,12 +64,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
-        <div class="col-md-9">
-          <input type="text" id="text-input" name="maphong" class="form-control" [([(ngModel)]="phong.maphong")] >
-        </div>
-      </div>
+      
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
         <div class="col-md-9">
@@ -86,7 +77,7 @@
           <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
         </div>
       </div>
-    </form> -->
+    </form>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
