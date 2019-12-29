@@ -10,6 +10,8 @@ import { phongPopupRoute, quanLyPhongRoutes } from './quan-ly-phong-routing.modu
 import { BaseModule } from '../../views/base/base.module';
 import { FormsComponent } from '../../views/base/forms.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PhongDeleteComponent } from './phong-delete/phong-delete.component';
+import { PhongDetailComponent } from './phong-detail/phong-detail.component';
 // import { QuanLyPhongRoutingModule } from './quan-ly-phong-routing.module';
 const ENTITY_STATES = [
   ...quanLyPhongRoutes,
@@ -19,7 +21,9 @@ const ENTITY_STATES = [
   declarations: [
     QuanLyPhongComponent,
     PhongDialogComponent,
-    PhongPopupComponent
+    PhongPopupComponent,
+    PhongDeleteComponent,
+    PhongDetailComponent
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ import { QuanLyPhongPopupService } from '../quan-ly-phong-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phongPopupRoute } from '../quan-ly-phong-routing.module';
 import { Phong } from '../../../model/phong.model';
+import { isDaylightSavingTime } from 'ngx-bootstrap/chronos/units/offset';
 
 @Component({
   selector: 'app-phong-dialog',
@@ -24,7 +25,13 @@ export class PhongDialogComponent implements OnInit {
   }
   clear() {
     this.activeModal.dismiss('cancel');
-}
+  
+  }
+  save(){
+    console.log(this.phong);
+    
+  }
+
 }
 @Component({
   selector: 'phong-popup',

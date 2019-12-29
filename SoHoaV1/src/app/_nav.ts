@@ -12,8 +12,8 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý cơ quan',
-    url: '/',
-    icon: 'icon-user'
+    url: '/QuanLyCoQuan/coQuan',
+    icon: 'fa fa-institution'
   },
   {
     name: 'Quản lý Phông',
@@ -44,7 +44,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý người dùng',
-    url: '/quanLyNguoiDung',
+    url: '/QuanLyNguoiDung/nguoiDung',
     icon: 'icon-user'
   },
   // {
@@ -54,7 +54,7 @@ export const navItems: INavData[] = [
   // },
   {
     name: 'Quản lý danh mục',
-    url: '/quanLyDanhMuc',
+    url: '/QuanLyDanhMuc/danhMuc',
     icon: 'icon-list'
   },
   {
@@ -64,12 +64,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý hồ sơ',
-    url: '/',
+    url: '/QuanLyHoSo/hoSo',
     icon: 'fa fa-folder'
   },
   {
     name: 'Quản lý tài liệu',
-    url: '/',
+    url: '/QuanLyTaiLieu/taiLieu',
     icon: 'fa fa-file-text'
   },
   {

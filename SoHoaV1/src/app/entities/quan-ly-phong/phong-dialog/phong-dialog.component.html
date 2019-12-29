@@ -1,41 +1,16 @@
-<!-- <span class="pull-right"><button class="{{ btnClass }}" data-toggle="modal" (click)="createNewPhong.show()">{{ actionType }}&nbsp;<i class="{{ iconClass }}"></i></button></span> -->
-<!-- <div bsModal  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Modal title</h4>
-          <button type="button" class="close" (click)="createNewPhong.hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="get">
-          <div class="form-control">
-            <span *ngFor="let item of data">
-              <input type="text" value="{{ item }}">
-            </span>
-          </div>
-          <br>
-          <div><button class="btn btn-primary btn-sm" (onSubmit)="onSubmit($event)">Save changes</button></div>
-        </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="createNewPhong.hide()">Close</button>
-          
-        </div>
-      </div>/.modal-content -->
-    <!-- </div>/.modal-dialog -->
-  <!-- </div>/.modal --> 
-  <div class="modal-header"   aria-hidden="true">
-    <div *ngIf="phong.id != null; else themMoi">
-    <h4 class="modal-title">Chỉnh sửa phông</h4>
-    
-  </div>
-  
-  <ng-template #themMoi>
-    <h4 class="modal-title">Thêm mới phông</h4>
 
-  </ng-template>
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+
+  <div class="modal-header" aria-hidden="true">
+    <div *ngIf="phong.id != null; else themMoi">
+      <h4 class="modal-title">Chỉnh sửa phông</h4>
+
+    </div>
+
+    <ng-template #themMoi>
+      <h4 class="modal-title">Thêm mới phông</h4>
+
+    </ng-template>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -46,41 +21,44 @@
       <input type="number" class="form-control" name="maphong" id="field_maphong"
           [(ngModel)]="phong.maphong" required/>
   </div> -->
-    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
-        <div class="col-md-9">
-          <input type="text" id="text-input" name="maphong" class="form-control" [(ngModel)]="phong.maphong" >
-        </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
+      <div class="col-md-9">
+        <input type="text" id="text-input" name="maphong" class="form-control" [(ngModel)]="phong.maphong">
       </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
-        <div class="col-md-9">
-          <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan">
-            <option value="0">Chọn cơ quan</option>
-            <option value="1">Bộ tài chính</option>
-            <option value="2">Bộ công an</option>
-            <option value="3">Bộ nội vụ</option>
-          </select>
-        </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+      <div class="col-md-9">
+        <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan">
+          <option value="0">Chọn cơ quan</option>
+          <option value="1">Bộ tài chính</option>
+          <option value="2">Bộ công an</option>
+          <option value="3">Bộ nội vụ</option>
+        </select>
       </div>
-      
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
-        <div class="col-md-9">
-          <input type="text" id="text-input" name="tenphong" class="form-control" [(ngModel)]="phong.tenphong" >
-        </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
+      <div class="col-md-9">
+        <input type="text" id="text-input" name="tenphong" class="form-control" [(ngModel)]="phong.tenphong">
       </div>
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
-        <div class="col-md-9">
-          <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
-        </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
+      <div class="col-md-9">
+        <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
       </div>
-    </form>
+    </div>
+
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
-    <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-  </div>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+        <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+    </button>
+    <button type="submit"  class="btn btn-primary">
+        <span class="fa fa-save"></span>&nbsp;<span >Save</span>
+    </button>
+</div>
+</form>

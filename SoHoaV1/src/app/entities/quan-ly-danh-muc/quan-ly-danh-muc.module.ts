@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuanLyDanhMucComponent } from './quan-ly-danh-muc.component';
+import { QuanLyDanhMucRoutingModule } from './quan-ly-danh-muc-routing.module';
 
 
 
@@ -9,7 +10,8 @@ import { QuanLyDanhMucComponent } from './quan-ly-danh-muc.component';
     QuanLyDanhMucComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    QuanLyDanhMucRoutingModule
   ]
 })
 export class QuanLyDanhMucModule { }

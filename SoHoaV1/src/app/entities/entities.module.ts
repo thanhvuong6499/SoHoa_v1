@@ -4,9 +4,16 @@ import { QuanLyNguoiDungModule } from './quan-ly-nguoi-dung/quan-ly-nguoi-dung.m
 import { QuanLyDanhMucModule } from './quan-ly-danh-muc/quan-ly-danh-muc.module';
 import { QuanLyHopSoModule } from './quan-ly-hop-so/quan-ly-hop-so.module';
 import { QuanLyPhongModule } from '../entities/quan-ly-phong/quan-ly-phong.module';
+import { QuanLyCoQuanComponent } from './quan-ly-co-quan/quan-ly-co-quan.component';
+import { QuanLyHoSoModule } from './quan-ly-ho-so/quan-ly-ho-so.module';
+import { QuanLyCoQuanModule } from './quan-ly-co-quan/quan-ly-co-quan.module';
+import { QuanLyTaiLieuModule } from './quan-ly-tai-lieu/quan-ly-tai-lieu.module';
+import { QuanLyHoSoComponent } from './quan-ly-ho-so/quan-ly-ho-so.component';
+import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.component';
 
 @NgModule({
   declarations: [
+  
   ],
   imports: [
     CommonModule,
@@ -14,6 +21,9 @@ import { QuanLyPhongModule } from '../entities/quan-ly-phong/quan-ly-phong.modul
     QuanLyDanhMucModule,
     QuanLyHopSoModule,
     QuanLyPhongModule,
+    QuanLyHoSoModule,
+    QuanLyCoQuanModule,
+    QuanLyTaiLieuModule
   ],
 })
 export class EntitiesModule { }

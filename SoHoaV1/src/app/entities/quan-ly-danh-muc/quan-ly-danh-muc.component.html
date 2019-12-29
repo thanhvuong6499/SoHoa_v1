@@ -1,102 +1,61 @@
 <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <i class="fa fa-align-justify"></i>Danh mục hồ sơ
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên  mục lục hồ sơ</th>
-                <th>Mục lục số</th>
-                <th>Phông</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Vishnu Serghei</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-sm btn-primary fa fa-eye"></button>
-                  <button class="btn btn-sm btn-primary fa fa-edit"></button>
-                  <button class="btn btn-sm btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Zbyněk Phoibos</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-danger">Banned</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-sm btn-primary fa fa-eye"></button>
-                  <button class="btn btn-sm btn-primary fa fa-edit"></button>
-                  <button class="btn btn-sm btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Einar Randall</td>
-                <td>Admin</td>
-                <td>
-                  <span class="badge badge-secondary">Inactive</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-sm btn-primary fa fa-eye"></button>
-                  <button class="btn btn-sm btn-primary fa fa-edit"></button>
-                  <button class="btn btn-sm btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Félix Troels</td>
-                <td>Member</td>
-                <td>
-                  <span class="badge badge-warning">Pending</span>
-                </td>
-                <td style="width:137px">
-                  <button class="btn btn-sm btn-primary fa fa-eye"></button>
-                  <button class="btn btn-sm btn-primary fa fa-edit"></button>
-                  <button class="btn btn-sm btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Aulus Agmundr</td>
-                <td>Staff</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
-                </td>
-                <td style="width:120px">
-                  <button class="btn btn-sm btn-primary fa fa-eye"></button>
-                  <button class="btn btn-sm btn-primary fa fa-edit"></button>
-                  <button class="btn btn-sm btn-primary fa fa-trash"></button>
-              </td>
-              </tr>
-            </tbody>
-          </table>
-          <nav>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
-        </div>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+      <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí Danh mục</span>
+         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+         <button class="btn btn-primary  "style="float: right" >
+          <span class="fa fa-plus"></span>
+          <span >
+              Thêm mới danh mục
+          </span>
+      </button>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên mục lục hồ sơ</th>
+              <th>Mục lục số</th>
+              <th>Số lượng hộp số</th>
+              <th>Ghi chú</th>
+              
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let danhmuc of danhmucs">
+              <td>{{ danhmuc.id }}</td>
+              <td>{{ danhmuc.tendanhmuc }}</td>
+              <td>{{ danhmuc.muclucso }}</td>
+              <td>{{ danhmuc.soluonghopso }}</td>
+              <td>{{ danhmuc.ghichu }}</td>
+             
+              <td style="width:137px">
+                <button class="btn btn-primary fa fa-eye" ></button>
+                <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                <button class="btn btn-primary fa fa-edit"  replaceUrl="true" queryParamsHandling="merge"></button>
+                <button class="btn btn-primary fa fa-trash"></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <nav>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
-    <!--/.col-->
   </div>
+  <!--/.col-->
+  <!-- <app-phong-dialog hidden="true"></app-phong-dialog> -->
+</div>

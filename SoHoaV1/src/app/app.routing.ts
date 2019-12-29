@@ -53,36 +53,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
-      },
-      {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
-      },
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
-      },
-      {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
-      },
-      {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
-      },
-      {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
       },
       {
         path: 'HopSo',
@@ -93,12 +65,24 @@ export const routes: Routes = [
         loadChildren: () => import('./entities/quan-ly-phong/quan-ly-phong.module').then(m => m.QuanLyPhongModule)
       },
       {
-        path: 'quanLyDanhMuc',
-        component: QuanLyDanhMucComponent,
+        path: 'QuanLyDanhMuc',
+        loadChildren: () => import('./entities/quan-ly-danh-muc/quan-ly-danh-muc.module').then(m => m.QuanLyDanhMucModule)
       },
       {
-        path: 'quanLyNguoiDung',
-        component: QuanLyNguoiDungComponent,
+        path: 'QuanLyNguoiDung',
+        loadChildren: () => import('./entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.module').then(m => m.QuanLyNguoiDungModule)
+      },
+      {
+        path: 'QuanLyCoQuan',
+        loadChildren: () => import('./entities/quan-ly-co-quan/quan-ly-co-quan.module').then(m => m.QuanLyCoQuanModule)
+      },
+      {
+        path: 'QuanLyHoSo',
+        loadChildren: () => import('./entities/quan-ly-ho-so/quan-ly-ho-so.module').then(m => m.QuanLyHoSoModule)
+      },
+      {
+        path: 'QuanLyTaiLieu',
+        loadChildren: () => import('./entities/quan-ly-tai-lieu/quan-ly-tai-lieu.module').then(m => m.QuanLyTaiLieuModule)
       },
       // {
       //   path: 'quanLyHopSo',

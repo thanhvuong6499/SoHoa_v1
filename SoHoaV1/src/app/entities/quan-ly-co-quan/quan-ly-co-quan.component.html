@@ -2,39 +2,33 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <span><i class="fa fa-cube"></i> &nbsp;Quản lí Hộp số</span>
-         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-         <button class="btn btn-primary btn-sm "style="float: right" >
-          <span class="fa fa-plus"></span>
-          <span >
-              Thêm mới hộp số
-          </span>
-      </button>
+        <span><i class="fa fa-institution"></i> &nbsp;Quản lí cơ quan</span>
+           <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+           <button class="btn btn-primary  "style="float: right" >
+            <span class="fa fa-plus"></span>
+            <span >
+                Thêm mới cơ quan
+            </span>
+        </button>
         </div>
         <div class="card-body">
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Mã danh mục</th>
-                <th>Mã hộp số</th>
-                <th>Tiêu đề hộp số</th>
-                <th>Số lượng hồ sơ</th>
-                <th>Số lượng văn bản</th>
-                <th>Ghi chú</th>
+                <th>Mã cơ quan</th>
+                <th>Tên cơ quan</th>
+                <th>Địa chỉ</th>
                 
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let hopso of hopsos">
-                <td>{{ hopso.id }}</td>
-                <td>{{ hopso.madanhmuc }}</td>
-                <td>{{ hopso.mahopso }}</td>
-                <td>{{ hopso.tieudehopso }}</td>
-                <td>{{ hopso.soluonghoso }}</td>
-                <td>{{ hopso.soluongvanban }}</td>
-                <td>{{ hopso.ghichu }}</td>
+              <tr *ngFor="let coquan of coquans">
+                <td>{{ coquan.id }}</td>
+                <td>{{ coquan.macoquan }}</td>
+                <td>{{ coquan.tencoquan }}</td>
+                <td>{{ coquan.diachi }}</td>
                
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" ></button>
@@ -61,4 +55,5 @@
       </div>
     </div>
     <!--/.col-->
+    <!-- <app-phong-dialog hidden="true"></app-phong-dialog> -->
   </div>
