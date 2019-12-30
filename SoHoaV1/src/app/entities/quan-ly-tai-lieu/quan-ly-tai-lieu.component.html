@@ -1,1 +1,69 @@
-<p>quan-ly-tai-lieu works!</p>
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <span><i class="fa fa-file"></i> &nbsp;Quản lí Tài liệu</span>
+         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+         <button class="btn btn-primary btn-sm "style="float: right" >
+          <span class="fa fa-plus"></span>
+          <span >
+              Thêm mới Văn bản
+          </span>
+      </button>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Hồ sơ số</th>
+                <th>Văn bản số</th>
+                <th>Stt trong hồ sơ</th>
+                <th>Loại văn bản</th>
+                <th>Nội dung</th>
+                <th>Số tờ</th>
+                <th>Mức độ tin cậy</th>
+                <th>Tình trạng</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vanban of vanbans">
+                <td>{{ vanban.id }}</td>
+                <td>{{ vanban.hososo }}</td>
+                <td>{{ vanban.vanbanso }}</td>
+                <td>{{ vanban.stttronghs }}</td>
+                <td>{{ vanban.loaivanban }}</td>
+                <td>{{ vanban.noidung }}</td>
+                <td>{{ vanban.soto }}</td>
+                <td>{{ vanban.mucdotincay }}</td>
+                <td>{{ vanban.tinhtrang }}</td>
+                <td>{{ vanban.ghichu }}</td>
+               
+                <td style="width:137px">
+                  <button class="btn btn-primary fa fa-eye" ></button>
+                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                  <button class="btn btn-primary fa fa-edit"  replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-trash"></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <nav>
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
