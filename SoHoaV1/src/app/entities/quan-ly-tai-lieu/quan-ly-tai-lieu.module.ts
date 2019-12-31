@@ -6,6 +6,9 @@ import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu.component';
 import { TaiLieuDialogComponent } from './tai-lieu-dialog/tai-lieu-dialog.component';
 import { TaiLieuDetailComponent } from './tai-lieu-detail/tai-lieu-detail.component';
 import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
 
 
 @NgModule({
@@ -17,7 +20,16 @@ import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.compon
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
     QuanLyTaiLieuRoutingModule
+  ],
+  entryComponents:[
+    TaiLieuDialogComponent,
+  ],
+  providers:[
+    QuanLyTaiLieuPopupService
   ]
 })
 export class QuanLyTaiLieuModule { }

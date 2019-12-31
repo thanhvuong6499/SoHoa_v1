@@ -7,6 +7,9 @@ export class HopSo  {
         public tieudehopso?: string,
         public soluonghoso?: number,
         public soluongvanban?: number,
+        public ngaybatdau?: Date,
+        public ngayketthuc?: Date,
+
         public ghichu?: string,
     ) {
     }

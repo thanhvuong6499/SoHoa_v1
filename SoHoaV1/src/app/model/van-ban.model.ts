@@ -8,8 +8,12 @@ export class VanBan  {
         public loaivanban?: string,
         public noidung?: string,
         public soto?: number,
+        public trangthai?: string,
         public mucdotincay?: string,
         public tinhtrang?: string,
+        public thoigianbatdau?: Date,
+        public thoigianketthuc?: Date,
+        public thoihanbaoquan?: Number,
         public ghichu?: string,
     ) {
     }
