@@ -5,6 +5,7 @@ export class CoQuan  {
         public macoquan?: string,
         public tencoquan?: string,
         public diachi?: string,
+        public loaicoquan?: string,
     ) {
     }
 }

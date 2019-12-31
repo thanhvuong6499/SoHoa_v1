@@ -6,6 +6,9 @@ import { QuanLyCoQuanComponent } from './quan-ly-co-quan.component';
 import { CoQuanDialogComponent } from './co-quan-dialog/co-quan-dialog.component';
 import { CoQuanDetailComponent } from './co-quan-detail/co-quan-detail.component';
 import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component';
+import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,9 +18,19 @@ import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component
     CoQuanDetailComponent,
     CoQuanDeleteComponent,
   ],
+  entryComponents: [
+    QuanLyCoQuanComponent,
+    CoQuanDialogComponent
+  ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule,
     QuanLyCoQuanRoutingModule
+  ],
+  providers:[
+    QuanLyCoQuanPopupService,
   ]
 })
 export class QuanLyCoQuanModule { }

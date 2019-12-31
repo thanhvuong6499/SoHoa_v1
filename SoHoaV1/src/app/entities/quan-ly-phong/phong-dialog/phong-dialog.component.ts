@@ -21,6 +21,7 @@ export class PhongDialogComponent implements OnInit {
    }
 
   ngOnInit() {
+    
     this.phong = this.phongPopupService.getPhongById();
   }
   clear() {
@@ -33,33 +34,4 @@ export class PhongDialogComponent implements OnInit {
   }
 
 }
-@Component({
-  selector: 'phong-popup',
-  template: ''
-})
-export class PhongPopupComponent implements OnInit, OnDestroy {
 
-  routeSub: any;
-
-  constructor(
-      private route: ActivatedRoute,
-      private phongPopupService: QuanLyPhongPopupService
-  ) {}
-
-  ngOnInit() {
-      // this.routeSub = this.route.params.subscribe((params) => {
-      //     if ( params['id'] ) {
-      //         this.phongPopupService
-      //             .open(PhongDialogComponent as Component, params['id']);
-      //     } else {
-      //         this.phongPopupService
-      //             .open(PhongDialogComponent as Component);
-      //     }
-      // });
-      // this.phongPopupService.open(PhongDialogComponent as Component);
-  }
-
-  ngOnDestroy() {
-      this.routeSub.unsubscribe();
-  }
-}

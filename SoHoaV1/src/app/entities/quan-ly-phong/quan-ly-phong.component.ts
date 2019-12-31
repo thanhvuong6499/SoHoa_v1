@@ -29,6 +29,7 @@ export class QuanLyPhongComponent implements OnInit {
       if ( id ) {
           this.phongPopupService
               .open(PhongDialogComponent as Component, id);
+              
       } else {
           this.phongPopupService
               .open(PhongDialogComponent as Component);

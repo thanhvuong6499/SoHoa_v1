@@ -1,1 +1,98 @@
-<p>co-quan-dialog works!</p>
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+
+  <div class="modal-header" aria-hidden="true">
+    <div *ngIf="coQuan.id != null; else themMoi">
+      <h4 class="modal-title">Chỉnh sửa cơ quan</h4>
+
+    </div>
+
+    <ng-template #themMoi>
+      <h4 class="modal-title">Thêm mới cơ quan</h4>
+
+    </ng-template>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+    <div class="form-group row">
+
+      <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+      <div class="col-md-9">
+        <input type="text" id="text-input" name="macoquan" class="form-control" [(ngModel)]="coQuan.macoquan">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+      <div class="col-md-9">
+        <input type="text" id="text-input" name="tencoquan" class="form-control" [(ngModel)]="coQuan.tencoquan">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Loại cơ quan</label>
+      <div class="col-md-9">
+        <select id="select1" name="select1" class="form-control" [(ngModel)]="coQuan.loaicoquan">
+          <option value="0">Chọn loại cơ quan</option>
+          <option value="1">Cơ quan tư pháp</option>
+          <option value="2">Cơ quan hành pháp</option>
+          <option value="3">Cơ quan hành chính</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Tỉnh / Thành phố</label>
+      <div class="col-md-9">
+        <select id="select1" name="select1" class="form-control">
+          <option value="0">Chọn Tỉnh / Thành phố</option>
+          <option value="1">Hà Nội</option>
+          <option value="2">Hồ Chí Minh</option>
+          <option value="3">Khánh Hòa</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Quận / Huyện</label>
+      <div class="col-md-9">
+        <select id="select1" name="select1" class="form-control">
+          <option value="0">Chọn Quận / Huyện</option>
+          <option value="1">Tây Hồ</option>
+          <option value="2">Quận 1</option>
+          <option value="3">Trường sa</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Xã / Phường</label>
+      <div class="col-md-9">
+        <select id="select1" name="select1" class="form-control">
+          <option value="0">Chọn Xã / Phường</option>
+          <option value="1">Xuân la</option>
+          <option value="2">Bến nghé</option>
+          <option value="3">Sa đéc</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="textarea-input">Địa chỉ chi tiết</label>
+      <div class="col-md-9">
+        <textarea id="textarea-input" name="ghichu" rows="9" class="form-control"
+          [(ngModel)]="coQuan.diachi"></textarea>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+      <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+    </button>
+    <button type="submit" class="btn btn-primary">
+      <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+    </button>
+  </div>
+</form>
