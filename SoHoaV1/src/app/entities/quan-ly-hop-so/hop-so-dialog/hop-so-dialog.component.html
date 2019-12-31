@@ -1,1 +1,65 @@
-<p>hop-so-dialog works!</p>
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+
+    <div class="modal-header" aria-hidden="true">
+        <div *ngIf="hopso.id != null; else themMoi">
+            <h4 class="modal-title">Chỉnh sửa hộp số</h4>
+
+        </div>
+
+        <ng-template #themMoi>
+            <h4 class="modal-title">Thêm mới hộp số</h4>
+
+        </ng-template>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hopso.mahopso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tieudehopso" class="form-control"
+                    [(ngModel)]="hopso.tieudehopso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="madanhmuc" class="form-control"
+                    [(ngModel)]="hopso.madanhmuc">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="ngaybatdau" placeholder="date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="ngayketthuc" placeholder="date">
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

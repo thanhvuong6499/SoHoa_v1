@@ -11,7 +11,7 @@ import { CoQuanDialogComponent } from './co-quan-dialog/co-quan-dialog.component
   styleUrls: ['./quan-ly-co-quan.component.css']
 })
 export class QuanLyCoQuanComponent implements OnInit {
-  coquans : CoQuan[];
+  coquans: CoQuan[];
   constructor(
     private route: ActivatedRoute,
     private coQuanPopupService: QuanLyCoQuanPopupService
@@ -20,17 +20,17 @@ export class QuanLyCoQuanComponent implements OnInit {
   ngOnInit() {
     this.coquans = coquans
   }
-  openDialog(id? : number) {
-    
-    if ( id ) {
-        this.coQuanPopupService
-            .open(CoQuanDialogComponent as Component, id);
-            console.log(id);
+  openDialog(id?: number) {
+
+    if (id) {
+      this.coQuanPopupService
+        .open(CoQuanDialogComponent as Component, id);
+      console.log(id);
 
     } else {
-        this.coQuanPopupService
-            .open(CoQuanDialogComponent as Component);
+      this.coQuanPopupService
+        .open(CoQuanDialogComponent as Component);
     }
 
-}
+  }
 }

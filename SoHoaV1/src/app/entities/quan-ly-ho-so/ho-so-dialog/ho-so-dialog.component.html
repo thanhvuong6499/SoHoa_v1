@@ -1,1 +1,69 @@
-<p>ho-so-dialog works!</p>
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+
+    <div class="modal-header" aria-hidden="true">
+        <div *ngIf="hoso.id != null; else themMoi">
+            <h4 class="modal-title">Chỉnh sửa hồ sơ</h4>
+
+        </div>
+
+        <ng-template #themMoi>
+            <h4 class="modal-title">Thêm mới hồ sơ</h4>
+
+        </ng-template>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tieudehoso" class="form-control"
+                    [(ngModel)]="hoso.tieude">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="hososo" class="form-control"
+                    [(ngModel)]="hoso.hososo">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
+            <div class="col-md-9">
+              <select id="select1" name="select1" class="form-control">
+                <option value="0">Chọn loại hồ sơ</option>
+                <option value="1">Tư pháp</option>
+                <option value="2">Tài chính</option>
+                <option value="3">Kỉ luật</option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

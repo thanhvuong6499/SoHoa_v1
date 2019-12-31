@@ -1,3 +1,4 @@
+import { Phong } from './phong.model';
 
 export class CoQuan  {
     constructor(
@@ -6,6 +7,7 @@ export class CoQuan  {
         public tencoquan?: string,
         public diachi?: string,
         public loaicoquan?: string,
+        
     ) {
     }
 }
@@ -16,6 +18,7 @@ export const coquans : CoQuan[] = [
         macoquan:"AB-BTC",
         tencoquan: "Phòng Tài chính kế toán",
         diachi: "string", 
+        
       },
       {
         id: 2,

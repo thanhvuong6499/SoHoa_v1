@@ -3,6 +3,7 @@ export class HoSo  {
     constructor(
         public id?: number,
         public mahopso?: string,
+        public mahoso?: string,
         public hososo?: number,
         public tieude?: string,
         public loaihoso?: string,

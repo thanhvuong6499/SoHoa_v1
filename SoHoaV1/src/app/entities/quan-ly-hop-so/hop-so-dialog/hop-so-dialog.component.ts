@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { HopSo } from '../../../model/hop-so.model';
+import { QuanLyHopSoPopupService } from '../quan-ly-hop-so-popup.service';
 
 @Component({
   selector: 'app-hop-so-dialog',
@@ -6,10 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hop-so-dialog.component.css']
 })
 export class HopSoDialogComponent implements OnInit {
-
-  constructor() { }
+  hopso: HopSo;
+  constructor(
+   private activeModal: NgbActiveModal,
+   private hopSoPopupService: QuanLyHopSoPopupService
+  ) { }
 
   ngOnInit() {
+    this.hopso = this.hopSoPopupService.getHopSoById()
+  }
+  clear() {
+    this.activeModal.dismiss('cancel');
+  
+  }
+  save(){
+    console.log(this.hopso);
+    
   }
 
 }

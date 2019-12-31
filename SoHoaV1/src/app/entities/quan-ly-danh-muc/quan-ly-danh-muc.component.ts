@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DanhMuc } from '../../model/danh-muc.model';
 import { danhmucs } from '../../model/danh-muc.model';
+import { QuanLyDanhMucPopupService } from './quan-ly-danh-muc-popup.service';
+import { DanhMucDialogComponent } from './danh-muc-dialog/danh-muc-dialog.component';
 
 @Component({
   selector: 'app-quan-ly-danh-muc',
@@ -9,10 +11,25 @@ import { danhmucs } from '../../model/danh-muc.model';
 })
 export class QuanLyDanhMucComponent implements OnInit {
   danhmucs: DanhMuc[];
-  constructor() { }
+  constructor(
+    private danhMucPopupService: QuanLyDanhMucPopupService
+  ) { }
 
   ngOnInit() {
     this.danhmucs = danhmucs;
   }
 
+  openDialog(id?: number) {
+
+    if (id) {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component, id);
+      console.log(id);
+
+    } else {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component);
+    }
+
+  }
 }

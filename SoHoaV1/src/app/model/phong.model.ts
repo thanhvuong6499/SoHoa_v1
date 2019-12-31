@@ -2,6 +2,7 @@
 export class Phong  {
     constructor(
         public id?: number,
+        public coquanid?: number,
         public macoquan?: string,
         public maphong?: string,
         public tenphong?: string,

@@ -1,1 +1,59 @@
-<p>danh-muc-dialog works!</p>
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+
+    <div class="modal-header" aria-hidden="true">
+        <div *ngIf="danhmuc.id != null; else themMoi">
+            <h4 class="modal-title">Chỉnh sửa danh mục</h4>
+
+        </div>
+
+        <ng-template #themMoi>
+            <h4 class="modal-title">Thêm mới danh mục</h4>
+
+        </ng-template>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="danhmuc.madanhmuc">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên danh mục</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tendanhmuc" class="form-control"
+                    [(ngModel)]="danhmuc.tendanhmuc">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mục lục số</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="muclucso" class="form-control" [(ngModel)]="danhmuc.muclucso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
+            <div class="col-md-9">
+                <textarea id="textarea-input" name="ghichu" rows="9" class="form-control"
+                    [(ngModel)]="danhmuc.ghichu"></textarea>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
