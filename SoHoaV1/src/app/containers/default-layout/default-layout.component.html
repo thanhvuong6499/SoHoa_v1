@@ -48,7 +48,7 @@
     </li> -->
   </ul>
 </app-header>
-<div class="app-body">
+<div class="app-body" style="background-color: white;">
   <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
     <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
@@ -335,5 +335,5 @@
     </tabset>
   </app-aside>
 </div>
-<app-footer>
-</app-footer>
+<!-- <app-footer>
+</app-footer> -->

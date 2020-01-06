@@ -6,6 +6,7 @@ export class Phong  {
         public macoquan?: string,
         public maphong?: string,
         public tenphong?: string,
+        public lichsuphong?: string,
         public ghichu?: string,
     ) {
     }

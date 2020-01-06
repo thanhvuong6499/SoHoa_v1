@@ -1,7 +1,7 @@
 
 <form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
-  <div class="modal-header" aria-hidden="true">
+  <div class="modal-header bg-primary" aria-hidden="true">
     <div *ngIf="phong.id != null; else themMoi">
       <h4 class="modal-title">Chỉnh sửa phông</h4>
 
@@ -46,6 +46,12 @@
       </div>
     </div>
     <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Lịch sử phông</label>
+      <div class="col-md-9">
+        <input type="text" id="text-input" name="lichsuphong" class="form-control" [(ngModel)]="phong.lichsuphong">
+      </div>
+    </div>
+    <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
       <div class="col-md-9">
         <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
@@ -54,7 +60,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
         <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
     </button>
     <button type="submit"  class="btn btn-primary">
