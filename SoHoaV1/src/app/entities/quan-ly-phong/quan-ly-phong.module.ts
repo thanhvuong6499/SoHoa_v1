@@ -36,6 +36,7 @@ const ENTITY_STATES = [
   entryComponents: [
     QuanLyPhongComponent,
     PhongDialogComponent,
+    PhongDeleteComponent
   ],
   providers: [
     

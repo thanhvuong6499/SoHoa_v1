@@ -1,1 +1,74 @@
-<p>co-quan-detail works!</p>
+<div class="card">
+    <div class="card-header">
+
+        <div *ngIf="coQuan">
+            <h4 class="modal-title">Chi tiết cơ quan</h4>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <!-- <div class="form-group">
+          <label class="form-control-label">Mã phông</label>
+          <input type="number" class="form-control" name="maphong" id="field_maphong"
+              [(ngModel)]="phong.maphong" required/>
+      </div> -->
+        <div class="form-group row">
+
+            <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+            <div class="col-md-9">
+                <span>{{coQuan.macoquan}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+            <div class="col-md-9">
+                <span>{{coQuan.tencoquan}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại cơ quan</label>
+            <div class="col-md-9">
+                <span>{{coQuan.loaicoquan}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Địa chỉ</label>
+            <div class="col-md-9">
+                <span>{{coQuan.diachi}}</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="card-footer">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã cơ quan</th>
+                <th>Mã phông</th>
+                <th>Tên phông</th>
+                
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let phong of phongs">
+                <td>{{ phong.id }}</td>
+                <td>{{ phong.macoquan }}</td>
+                <td>{{ phong.maphong }}</td>
+                <td>{{ phong.tenphong }}</td>
+                <td>{{ phong.ghichu }}</td>
+               
+                <td style="width:137px">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.id]"></button>
+                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)" replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-trash"></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

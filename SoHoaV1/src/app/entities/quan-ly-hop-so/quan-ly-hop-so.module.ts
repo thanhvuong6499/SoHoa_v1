@@ -9,6 +9,7 @@ import { HopSoDialogComponent } from './hop-so-dialog/hop-so-dialog.component';
 import { QuanLyHopSoPopupService } from './quan-ly-hop-so-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HoSoDeleteComponent } from '../quan-ly-ho-so/ho-so-delete/ho-so-delete.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   entryComponents:[
     HopSoDialogComponent,
+    HopSoDeleteComponent
   ],
   providers:[
     QuanLyHopSoPopupService

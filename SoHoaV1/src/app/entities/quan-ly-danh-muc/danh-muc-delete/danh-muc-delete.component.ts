@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DanhMuc } from '../../../model/danh-muc.model';
+import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-danh-muc-delete',
@@ -6,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./danh-muc-delete.component.css']
 })
 export class DanhMucDeleteComponent implements OnInit {
-
-  constructor() { }
+  danhmuc: DanhMuc;
+  constructor(
+    private danhMucPopupService: QuanLyDanhMucPopupService,
+    private activeModal: NgbActiveModal
+  ) { }
 
   ngOnInit() {
+    this.danhmuc = this.danhMucPopupService.getDanhMucById();
   }
 
 }

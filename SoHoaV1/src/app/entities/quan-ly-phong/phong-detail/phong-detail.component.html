@@ -1,1 +1,76 @@
-<p>phong-detail works!</p>
+<div class="card">
+
+    <div class="card-header" aria-hidden="true">
+        <div *ngIf="phong">
+            <h4 class="modal-title">Chi tiết phông</h4>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
+            <div class="col-md-9">
+                <span>{{phong.maphong}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+               <span>{{phong.macoquan}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
+            <div class="col-md-9">
+                <span>{{phong.tenphong}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
+            <div class="col-md-9">
+               <span>{{phong.ghichu}}</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên mục lục hồ sơ</th>
+                    <th>Mục lục số</th>
+                    <th>Số lượng hộp số</th>
+                    <th>Ghi chú</th>
+
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let danhmuc of danhmucs">
+                    <td>{{ danhmuc.id }}</td>
+                    <td>{{ danhmuc.tendanhmuc }}</td>
+                    <td>{{ danhmuc.muclucso }}</td>
+                    <td>{{ danhmuc.soluonghopso }}</td>
+                    <td>{{ danhmuc.ghichu }}</td>
+
+                    <td style="width:137px">
+                        <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.id]"
+                            routerLinkActive="router-link-active"></button>
+                        <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                        <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.id)" replaceUrl="true"
+                            queryParamsHandling="merge"></button>
+                        <button class="btn btn-primary fa fa-trash"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

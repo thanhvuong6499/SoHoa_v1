@@ -3,6 +3,7 @@ import { DanhMuc } from '../../model/danh-muc.model';
 import { danhmucs } from '../../model/danh-muc.model';
 import { QuanLyDanhMucPopupService } from './quan-ly-danh-muc-popup.service';
 import { DanhMucDialogComponent } from './danh-muc-dialog/danh-muc-dialog.component';
+import { DanhMucDeleteComponent } from './danh-muc-delete/danh-muc-delete.component';
 
 @Component({
   selector: 'app-quan-ly-danh-muc',
@@ -32,4 +33,13 @@ export class QuanLyDanhMucComponent implements OnInit {
     }
 
   }
+  openDeleteDialog(id?: number) {
+
+    this.danhMucPopupService
+      .open(DanhMucDeleteComponent as Component, id);
+    console.log(id);
+
+  
+
+}
 }

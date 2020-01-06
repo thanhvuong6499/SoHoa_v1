@@ -26,7 +26,8 @@ import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
     QuanLyHoSoRoutingModule
   ],
   entryComponents:[
-    HoSoDialogComponent
+    HoSoDialogComponent,
+    HoSoDeleteComponent
   ],
   providers:[
     QuanLyHoSoPopupService

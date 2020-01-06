@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuanLyPhongComponent } from './quan-ly-phong.component';
+import { PhongDetailComponent } from './phong-detail/phong-detail.component';
 
  export const quanLyPhongRoutes: Routes = [
   { 
@@ -17,6 +18,13 @@ import { QuanLyPhongComponent } from './quan-ly-phong.component';
               },
               component: QuanLyPhongComponent
           },
+          {
+            path: 'phong/:id',
+            component: PhongDetailComponent,
+            data: {
+              title: "Chi tiết phông"
+            }
+          }
           
       ]
   },

@@ -27,6 +27,7 @@ import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
   ],
   entryComponents:[
     TaiLieuDialogComponent,
+    TaiLieuDeleteComponent
   ],
   providers:[
     QuanLyTaiLieuPopupService

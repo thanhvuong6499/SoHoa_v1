@@ -1,1 +1,123 @@
-<p>tai-lieu-detail works!</p>
+<div class="card">
+
+    <div class="card-header" aria-hidden="true">
+        <div *ngIf="vanban">
+            <h4 class="modal-title">Chi tiết tài liệu</h4>
+
+        </div>
+
+    </div>
+    <div class="modal-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã văn bản</label>
+            <div class="col-md-9">
+                <span>{{vanban.mavanban}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+            <div class="col-md-9">
+                <span>{{vanban.mahoso}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề văn bản</label>
+            <div class="col-md-9">
+                <span>{{vanban.tieude}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Văn bản số</label>
+            <div class="col-md-9">
+                <span>{{vanban.vanbanso}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại văn bản</label>
+            <div class="col-md-9">
+                <span>{{vanban.loaivanban}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số tờ</label>
+            <div class="col-md-9">
+                <span>{{vanban.soto}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Stt trong hồ sơ</label>
+            <div class="col-md-9">
+                <span>{{vanban.stttronghs}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Nội dung</label>
+            <div class="col-md-9">
+                <span>{{vanban.noidung}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Trạng thái</label>
+            <div class="col-md-9">
+                <span>{{vanban.trangthai}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tình trạng</label>
+            <div class="col-md-9">
+                <span>{{vanban.tinhtrang}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="thoigianbatdau" placeholder="date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian kết thúc</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="thoigianketthuc" placeholder="date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tinhtrang" class="form-control"
+                    [(ngModel)]="vanban.thoihanbaoquan">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="inline-radios">Mức độ tin cậy</label>
+            <div class="col-md-9 col-form-label">
+                <div class="form-check form-check-inline mr-1" id="inline-radios">
+                    <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">Có</label>
+                </div>
+                <div class="form-check form-check-inline mr-1">
+                    <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">Không</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
+            <div class="col-md-9">
+                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div> -->
+</div>

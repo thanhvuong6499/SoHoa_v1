@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   entryComponents:[
     DanhMucDialogComponent,
+    DanhMucDeleteComponent
   ],
   providers:[
     QuanLyDanhMucPopupService

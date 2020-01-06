@@ -3,6 +3,7 @@ import { HopSo } from '../../model/hop-so.model';
 import { hopsos } from '../../model/hop-so.model';
 import { QuanLyHopSoPopupService } from './quan-ly-hop-so-popup.service';
 import { HopSoDialogComponent } from './hop-so-dialog/hop-so-dialog.component';
+import { HopSoDeleteComponent } from './hop-so-delete/hop-so-delete.component';
 
 @Component({
   selector: 'app-quan-ly-hop-so',
@@ -29,6 +30,13 @@ export class QuanLyHopSoComponent implements OnInit {
       this.hopSoPopupService
         .open(HopSoDialogComponent as Component);
     }
+
+  }
+  openDeleteDialog(id?: number) {
+
+      this.hopSoPopupService
+        .open(HopSoDeleteComponent as Component, id);
+      console.log(id);
 
   }
 

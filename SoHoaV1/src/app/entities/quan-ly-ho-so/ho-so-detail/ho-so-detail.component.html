@@ -1,1 +1,94 @@
-<p>ho-so-detail works!</p>
+<div class="card">
+
+    <div class="card-header" aria-hidden="true">
+        <div *ngIf="hoso">
+            <h4 class="modal-title">Chi tiết hồ sơ</h4>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <!-- <div class="form-group">
+        <label class="form-control-label">Mã phông</label>
+        <input type="number" class="form-control" name="maphong" id="field_maphong"
+            [(ngModel)]="phong.maphong" required/>
+    </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tieudehoso" class="form-control"
+                    [(ngModel)]="hoso.tieude">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="hososo" class="form-control"
+                    [(ngModel)]="hoso.hososo">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
+            <div class="col-md-9">
+              <select id="select1" name="select1" class="form-control">
+                <option value="0">Chọn loại hồ sơ</option>
+                <option value="1">Tư pháp</option>
+                <option value="2">Tài chính</option>
+                <option value="3">Kỉ luật</option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <div class="card-footer">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Hồ sơ số</th>
+                <th>Văn bản số</th>
+                <th>Stt trong hồ sơ</th>
+                <th>Loại văn bản</th>
+                <th>Nội dung</th>
+                <th>Số tờ</th>
+                <th>Mức độ tin cậy</th>
+                <th>Tình trạng</th>
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vanban of vanbans">
+                <td>{{ vanban.id }}</td>
+                <td>{{ vanban.hososo }}</td>
+                <td>{{ vanban.vanbanso }}</td>
+                <td>{{ vanban.stttronghs }}</td>
+                <td>{{ vanban.loaivanban }}</td>
+                <td>{{ vanban.noidung }}</td>
+                <td>{{ vanban.soto }}</td>
+                <td>{{ vanban.mucdotincay }}</td>
+                <td>{{ vanban.tinhtrang }}</td>
+                <td>{{ vanban.ghichu }}</td>
+               
+                <td style="width:137px">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu',vanban.id]" routerLinkActive="router-link-active"  ></button>
+                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.id)"  replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-trash"></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

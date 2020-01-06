@@ -4,6 +4,7 @@ import { coquans } from '../../model/co-quan.model';
 import { ActivatedRoute } from '@angular/router';
 import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { CoQuanDialogComponent } from './co-quan-dialog/co-quan-dialog.component';
+import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component';
 
 @Component({
   selector: 'app-quan-ly-co-quan',
@@ -31,6 +32,15 @@ export class QuanLyCoQuanComponent implements OnInit {
       this.coQuanPopupService
         .open(CoQuanDialogComponent as Component);
     }
+
+  }
+  openDeleteDialog(id?: number) {
+
+      this.coQuanPopupService
+        .open(CoQuanDeleteComponent as Component, id);
+      console.log(id);
+
+    
 
   }
 }

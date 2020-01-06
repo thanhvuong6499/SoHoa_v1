@@ -3,6 +3,8 @@ import { HoSo } from '../../model/ho-so.model';
 import { hosos } from '../../model/ho-so.model';
 import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
 import { HoSoDialogComponent } from './ho-so-dialog/ho-so-dialog.component';
+import { HoSoDeleteComponent } from './ho-so-delete/ho-so-delete.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-quan-ly-ho-so',
@@ -13,6 +15,8 @@ export class QuanLyHoSoComponent implements OnInit {
   hosos : HoSo[];
   constructor(
     private hoSoPopupService: QuanLyHoSoPopupService,
+    private activeModal: NgbActiveModal
+
   ) { }
 
   ngOnInit() {
@@ -29,6 +33,14 @@ export class QuanLyHoSoComponent implements OnInit {
       this.hoSoPopupService
         .open(HoSoDialogComponent as Component);
     }
+
+  }
+  openDeleteDialog(id?: number) {
+
+      this.hoSoPopupService
+        .open(HoSoDeleteComponent as Component, id);
+      console.log(id);
+
 
   }
 

@@ -20,6 +20,7 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   entryComponents: [
     QuanLyCoQuanComponent,
+    CoQuanDeleteComponent,
     CoQuanDialogComponent
   ],
   imports: [

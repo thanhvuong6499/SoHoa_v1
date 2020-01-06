@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Phong } from '../../../model/phong.model';
+import { Subscription } from 'rxjs';
+import { QuanLyPhongService } from '../quan-ly-phong.service';
+import { ActivatedRoute } from '@angular/router';
+import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 
 @Component({
   selector: 'app-phong-detail',
@@ -6,10 +11,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./phong-detail.component.css']
 })
 export class PhongDetailComponent implements OnInit {
-
-  constructor() { }
+  phong: Phong;
+  danhmucs: DanhMuc[];
+  private subscription: Subscription;
+  private eventSubscriber: Subscription;
+  constructor(
+    private quanLyPhongService: QuanLyPhongService, 
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.subscription = this.route.params.subscribe((params) => {
+      this.load(params['id']);
+    });
+    this.danhmucs = danhmucs;
+  }
+  load(id){
+    this.phong= this.quanLyPhongService.getPhongById(id);
   }
 
 }

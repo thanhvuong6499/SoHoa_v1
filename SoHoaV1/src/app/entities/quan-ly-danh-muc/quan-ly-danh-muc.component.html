@@ -2,14 +2,14 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-      <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí Danh mục</span>
-         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-         <button class="btn btn-primary  "style="float: right"  (click)="openDialog()">
+        <span><i class="fa fa-align-justify"></i> &nbsp;Quản lí Danh mục</span>
+        <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+        <button class="btn btn-primary  " style="float: right" (click)="openDialog()">
           <span class="fa fa-plus"></span>
-          <span >
-              Thêm mới danh mục
+          <span>
+            Thêm mới danh mục
           </span>
-      </button>
+        </button>
       </div>
       <div class="card-body">
         <table class="table table-bordered table-striped table-sm">
@@ -20,7 +20,7 @@
               <th>Mục lục số</th>
               <th>Số lượng hộp số</th>
               <th>Ghi chú</th>
-              
+
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -31,14 +31,16 @@
               <td>{{ danhmuc.muclucso }}</td>
               <td>{{ danhmuc.soluonghopso }}</td>
               <td>{{ danhmuc.ghichu }}</td>
-             
+
               <td style="width:137px">
-                <button class="btn btn-primary fa fa-eye" ></button>
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.id]"
+                  routerLinkActive="router-link-active"></button>
                 <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.id)"  replaceUrl="true" queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash"></button>
-            </td>
-          </tr>
+                <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.id)" replaceUrl="true"
+                  queryParamsHandling="merge"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(danhmuc.id)"></button>
+              </td>
+            </tr>
           </tbody>
         </table>
         <nav>

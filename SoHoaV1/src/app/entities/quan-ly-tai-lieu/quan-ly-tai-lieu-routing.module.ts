@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu.component';
+import { TaiLieuDetailComponent } from './tai-lieu-detail/tai-lieu-detail.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,13 @@ const routes: Routes = [
               },
               component: QuanLyTaiLieuComponent
           },
+          {
+            path: 'taiLieu/:id',
+            component: TaiLieuDetailComponent,
+            data: {
+              title: "Chi tiết hồ sơ"
+            }
+          }
           
       ]
   }
