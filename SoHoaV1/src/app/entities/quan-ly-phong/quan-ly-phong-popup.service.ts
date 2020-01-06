@@ -15,7 +15,7 @@ export class QuanLyPhongPopupService {
         this.ngbModalRef = null;
     }
     private phongs : Phong[];
-   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    public open(component: Component, id?: number | any): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {

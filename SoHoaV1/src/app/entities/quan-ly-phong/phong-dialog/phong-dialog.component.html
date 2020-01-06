@@ -1,5 +1,5 @@
 
-<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
 
   <div class="modal-header bg-primary" aria-hidden="true">
     <div *ngIf="phong.id != null; else themMoi">
@@ -60,11 +60,11 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
-        <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
-    </button>
-    <button type="submit"  class="btn btn-primary">
+    <button type="submit" class="btn btn-primary">
         <span class="fa fa-save"></span>&nbsp;<span >Save</span>
     </button>
+    <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
+      <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+  </button>
 </div>
 </form>

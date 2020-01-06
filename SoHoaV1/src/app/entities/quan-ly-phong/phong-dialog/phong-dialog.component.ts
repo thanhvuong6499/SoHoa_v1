@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { QuanLyPhongPopupService } from '../quan-ly-phong-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { phongPopupRoute } from '../quan-ly-phong-routing.module';
-import { Phong } from '../../../model/phong.model';
+import { Phong, phongs } from '../../../model/phong.model';
 import { isDaylightSavingTime } from 'ngx-bootstrap/chronos/units/offset';
 
 @Component({
@@ -16,21 +16,32 @@ export class PhongDialogComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     public phongPopupService: QuanLyPhongPopupService,
-  ) {
-
-   }
+  ) { }
 
   ngOnInit() {
-    
     this.phong = this.phongPopupService.getPhongById();
   }
   clear() {
     this.activeModal.dismiss('cancel');
-  
   }
-  save(){
-    console.log(this.phong);
-    
+  save(event){
+    if (this.phong.id && this.phong.id != undefined) {
+      for(let i = 0; i < phongs.length; i++) {
+        if (phongs[i].id == this.phong.id) {
+          phongs[i] = this.phong;
+          break;
+        }
+      }
+    }
+    else {
+      let id = phongs.length;
+      this.phong.id = id + 1;
+      phongs.push(this.phong);
+    }
+    this.clear();
+  }
+  deleteFont(event) {
+    console.log(event);
   }
 
 }
