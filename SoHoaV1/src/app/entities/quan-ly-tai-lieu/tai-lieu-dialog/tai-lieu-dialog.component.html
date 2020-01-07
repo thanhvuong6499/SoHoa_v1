@@ -3,12 +3,9 @@
     <div class="modal-header" aria-hidden="true">
         <div *ngIf="vanban.id != null; else themMoi">
             <h4 class="modal-title">Chỉnh sửa tài liệu</h4>
-
         </div>
-
         <ng-template #themMoi>
             <h4 class="modal-title">Thêm mới tài liệu</h4>
-
         </ng-template>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>

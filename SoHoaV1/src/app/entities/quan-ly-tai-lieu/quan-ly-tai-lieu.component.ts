@@ -11,13 +11,23 @@ import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.compon
   styleUrls: ['./quan-ly-tai-lieu.component.css']
 })
 export class QuanLyTaiLieuComponent implements OnInit {
-  vanbans: VanBan[];
+  public vanbans: VanBan[];
+  public userRole: string;
+  public roles : string;
   constructor(
     private taiLieuPopupService: QuanLyTaiLieuPopupService,
   ) { }
 
   ngOnInit() {
     this.vanbans = vanbans;
+    this.userRole = localStorage.getItem('role');
+    if (this.userRole === 'user') {
+      this.roles = localStorage.getItem('roles');
+      console.log(this.roles);
+    }
+    else {
+      this.roles = 'admin';
+    }
   }
   openDialog(id?: number) {
 

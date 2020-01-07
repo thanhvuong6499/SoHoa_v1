@@ -78,7 +78,7 @@ export const navItems: INavData[] = [
     icon: 'icon-chart'
   },
   {
-    name: 'Đăng nhập',
+    name: 'Đăng xuất',
     url: '/login',
     icon: 'fa fa-user'
   },
