@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HoSo } from '../../../model/ho-so.model';
+import { HoSo, hosos } from '../../../model/ho-so.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from '../quan-ly-ho-so-popup.service';
 
@@ -23,7 +23,20 @@ export class HoSoDialogComponent implements OnInit {
   
   }
   save(){
-    console.log(this.hoso);
+    if (this.hoso.id && this.hoso.id != undefined) {
+      for(let i = 0; i < hosos.length; i++) {
+        if (hosos[i].id == this.hoso.id) {
+          hosos[i] = this.hoso;
+          break;
+        }
+      }
+    }
+    else {
+      let id = hosos.length;
+      this.hoso.id = id + 1;
+      hosos.push(this.hoso);
+    }
+    this.clear();
     
   }
 

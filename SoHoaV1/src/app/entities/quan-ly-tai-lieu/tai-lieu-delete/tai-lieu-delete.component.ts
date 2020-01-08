@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VanBan } from '../../../model/van-ban.model';
+import { VanBan, vanbans } from '../../../model/van-ban.model';
 import { QuanLyTaiLieuPopupService } from '../quan-ly-tai-lieu-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,6 +17,17 @@ export class TaiLieuDeleteComponent implements OnInit {
 
   ngOnInit() {
     this.vanban = this.taiLieuPopupService.getVanBanById();
+  }
+  deleteTaiLieu(id : number) {
+    if (id && id != undefined) {
+      for (let i = 0; i < vanbans.length; i ++) {
+        if (vanbans[i].id == id) {
+          vanbans.splice(i, 1);
+          break;
+        }
+      }
+      this.activeModal.dismiss('cancel');
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HopSo } from '../../../model/hop-so.model';
+import { HopSo, hopsos } from '../../../model/hop-so.model';
 import { QuanLyHopSoPopupService } from '../quan-ly-hop-so-popup.service';
 
 @Component({
@@ -23,7 +23,20 @@ export class HopSoDialogComponent implements OnInit {
   
   }
   save(){
-    console.log(this.hopso);
+    if (this.hopso.id && this.hopso.id != undefined) {
+      for(let i = 0; i < hopsos.length; i++) {
+        if (hopsos[i].id == this.hopso.id) {
+          hopsos[i] = this.hopso;
+          break;
+        }
+      }
+    }
+    else {
+      let id = hopsos.length;
+      this.hopso.id = id + 1;
+      hopsos.push(this.hopso);
+    }
+    this.clear();
     
   }
 

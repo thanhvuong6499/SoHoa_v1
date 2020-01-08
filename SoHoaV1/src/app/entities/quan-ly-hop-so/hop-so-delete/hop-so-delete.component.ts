@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HopSo } from '../../../model/hop-so.model';
+import { HopSo, hopsos } from '../../../model/hop-so.model';
 import { QuanLyHopSoPopupService } from '../quan-ly-hop-so-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,6 +18,17 @@ export class HopSoDeleteComponent implements OnInit {
 
   ngOnInit() {
     this.hopso = this.hopSoPopupService.getHopSoById();
+  }
+  deleteHopSo(id : number) {
+    if (id && id != undefined) {
+      for (let i = 0; i < hopsos.length; i ++) {
+        if (hopsos[i].id == id) {
+          hopsos.splice(i, 1);
+          break;
+        }
+      }
+      this.activeModal.dismiss('cancel');
+    }
   }
 
 }

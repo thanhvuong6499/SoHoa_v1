@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VanBan } from '../../../model/van-ban.model';
+import { VanBan, vanbans } from '../../../model/van-ban.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyTaiLieuPopupService } from '../quan-ly-tai-lieu-popup.service';
 
@@ -24,7 +24,20 @@ export class TaiLieuDialogComponent implements OnInit {
   
   }
   save(){
-    console.log(this.vanban);
+    if (this.vanban.id && this.vanban.id != undefined) {
+      for(let i = 0; i < vanbans.length; i++) {
+        if (vanbans[i].id == this.vanban.id) {
+          vanbans[i] = this.vanban;
+          break;
+        }
+      }
+    }
+    else {
+      let id = vanbans.length;
+      this.vanban.id = id + 1;
+      vanbans.push(this.vanban);
+    }
+    this.clear();
     
   }
 
