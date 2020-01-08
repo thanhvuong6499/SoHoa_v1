@@ -74,14 +74,9 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/',
+    url: '/dashboard',
     icon: 'icon-chart'
-  },
-  {
-    name: 'Đăng xuất',
-    url: '/login',
-    icon: 'fa fa-user'
-  },
+  }
   
   
 //   {
