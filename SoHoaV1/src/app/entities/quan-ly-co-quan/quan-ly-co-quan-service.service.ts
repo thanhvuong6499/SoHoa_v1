@@ -9,7 +9,7 @@ export class QuanLyCoQuanService {
   coquans: CoQuan[];
   constructor() { }
 
-  public getCoQuanById(id) {
+  public getCoQuanById(id: number) {
     this.coquans = coquans;
     var coquan = new CoQuan();
     for (let i = 0; i < coquans.length; i++) {

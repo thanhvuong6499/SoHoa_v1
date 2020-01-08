@@ -30,11 +30,8 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan">
-          <option value="0">Chọn cơ quan</option>
-          <option value="1">Bộ tài chính</option>
-          <option value="2">Bộ công an</option>
-          <option value="3">Bộ nội vụ</option>
+        <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan" >
+          <option *ngFor="let coquan of coquans" [value]="coquan.macoquan" >{{ coquan.tencoquan }}</option>
         </select>
       </div>
     </div>
