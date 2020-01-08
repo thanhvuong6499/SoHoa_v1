@@ -45,3 +45,37 @@ export const coquans : CoQuan[] = [
         diachi: "string", 
       }
 ]
+
+export const coquans2 = [
+  {
+    id: 6,
+    macoquan:"FFFA",
+    tencoquan: "Phòng Công Vụ",
+    diachi: "Nam Từ Liêm, Hà Nội", 
+    
+  },
+  {
+    id: 7,
+    macoquan:"TEEE",
+    tencoquan: "Phòng Họp",
+    diachi: "Mỹ đình, Hà Nội", 
+  },
+  {
+    id: 8,
+    macoquan:"AB-AFTEE",
+    tencoquan: "Phòng Kinh doanh dự án",
+    diachi: "Bắc Thanh Xuân", 
+  },
+  {
+    id: 9,
+    macoquan:"AB-RRRRR",
+    tencoquan: "Phòng Phục hồi chức năng",
+    diachi: "Hà Đông", 
+  },
+  {
+    id: 10,
+    macoquan:"AB-GD",
+    tencoquan: "Phòng Giáo dục và đào tạo",
+    diachi: "Tây Nguyên", 
+  }
+]

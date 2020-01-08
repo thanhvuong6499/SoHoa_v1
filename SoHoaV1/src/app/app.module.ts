@@ -64,6 +64,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChartsModule,
     EntitiesModule,
     ModalModule.forRoot(),
+    NgbModule
   ],
   declarations: [
     AppComponent,

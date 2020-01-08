@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CoQuan } from '../../model/co-quan.model';
-import { coquans } from '../../model/co-quan.model';
+import { coquans, coquans2 } from '../../model/co-quan.model';
 import { ActivatedRoute } from '@angular/router';
 import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { CoQuanDialogComponent } from './co-quan-dialog/co-quan-dialog.component';
@@ -13,13 +13,19 @@ import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component
 })
 export class QuanLyCoQuanComponent implements OnInit {
   coquans: CoQuan[];
+  
+  page = 1;
+  previousPage : number;
+  pageSize : number = 5;
+  totalRecords : number = 10;
+
   constructor(
     private route: ActivatedRoute,
     private coQuanPopupService: QuanLyCoQuanPopupService
   ) { }
 
   ngOnInit() {
-    this.coquans = coquans
+    this.coquans = coquans;
   }
   openDialog(id?: number) {
 
@@ -39,8 +45,18 @@ export class QuanLyCoQuanComponent implements OnInit {
       this.coQuanPopupService
         .open(CoQuanDeleteComponent as Component, id);
       console.log(id);
+  }
 
-    
-
+  loadPages(page : number) {
+    switch (page) {
+      case 1:
+        this.coquans = coquans;
+        break;
+      case 2:
+        this.coquans = coquans2;
+        break;
+      default:
+        break;
+    }
   }
 }
