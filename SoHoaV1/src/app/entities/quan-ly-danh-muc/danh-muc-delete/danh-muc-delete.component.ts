@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DanhMuc } from '../../../model/danh-muc.model';
+import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,6 +17,17 @@ export class DanhMucDeleteComponent implements OnInit {
 
   ngOnInit() {
     this.danhmuc = this.danhMucPopupService.getDanhMucById();
+  }
+  deleteDanhMuc(id : number) {
+    if (id && id != undefined) {
+      for (let i = 0; i < danhmucs.length; i ++) {
+        if (danhmucs[i].id == id) {
+          danhmucs.splice(i, 1);
+          break;
+        }
+      }
+      this.activeModal.dismiss('cancel');
+    }
   }
 
 }

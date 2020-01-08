@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoQuan } from '../../../model/co-quan.model';
+import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -18,6 +18,17 @@ export class CoQuanDeleteComponent implements OnInit {
   ngOnInit() {
     this.coQuan = this.coQuanPopupService.getCoQuanById();
 
+  }
+  deleteCoQuan(id : number) {
+    if (id && id != undefined) {
+      for (let i = 0; i < coquans.length; i ++) {
+        if (coquans[i].id == id) {
+          coquans.splice(i, 1);
+          break;
+        }
+      }
+      this.activeModal.dismiss('cancel');
+    }
   }
 
 }

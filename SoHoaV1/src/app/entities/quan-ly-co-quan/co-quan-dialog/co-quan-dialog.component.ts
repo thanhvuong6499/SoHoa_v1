@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoQuan } from '../../../model/co-quan.model';
+import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan-popup.service';
 
@@ -26,7 +26,20 @@ export class CoQuanDialogComponent implements OnInit {
   
   }
   save(){
-    console.log(this.coQuanPopupService.getCoQuanById());
+    if (this.coQuan.id && this.coQuan.id != undefined) {
+      for(let i = 0; i < coquans.length; i++) {
+        if (coquans[i].id == this.coQuan.id) {
+          coquans[i] = this.coQuan;
+          break;
+        }
+      }
+    }
+    else {
+      let id = coquans.length;
+      this.coQuan.id = id + 1;
+      coquans.push(this.coQuan);
+    }
+    this.clear();
     
   }
 

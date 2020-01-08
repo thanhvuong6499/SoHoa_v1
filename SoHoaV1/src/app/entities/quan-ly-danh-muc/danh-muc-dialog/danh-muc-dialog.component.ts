@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DanhMuc } from '../../../model/danh-muc.model';
+import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
 
@@ -23,7 +23,20 @@ export class DanhMucDialogComponent implements OnInit {
   
   }
   save(){
-    console.log(this.danhmuc);
+    if (this.danhmuc.id && this.danhmuc.id != undefined) {
+      for(let i = 0; i < danhmucs.length; i++) {
+        if (danhmucs[i].id == this.danhmuc.id) {
+          danhmucs[i] = this.danhmuc;
+          break;
+        }
+      }
+    }
+    else {
+      let id = danhmucs.length;
+      this.danhmuc.id = id + 1;
+      danhmucs.push(this.danhmuc);
+    }
+    this.clear();
     
   }
 
