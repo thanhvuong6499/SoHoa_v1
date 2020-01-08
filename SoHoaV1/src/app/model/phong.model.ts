@@ -1,20 +1,18 @@
 
 export class Phong  {
-    constructor(
-        public id?: number,
-        public coquanid?: number,
-        public macoquan?: string,
-        public maphong?: string,
-        public tenphong?: string,
-        public lichsuphong?: string,
-        public ghichu?: string,
-    ) {
-    }
+        public id?: number
+        public coquanid?: number
+        public macoquan?: string
+        public maphong?: string
+        public tenphong?: string
+        public lichsuphong?: string
+        public ghichu?: string
 }
 
 export const phongs : Phong[] = [
     {
         id: 1,
+        coquanid: 1,
         macoquan:"AB-BTC",
         maphong: "string",
         tenphong: "Phòng Tài chính kế toán",
@@ -22,6 +20,7 @@ export const phongs : Phong[] = [
       },
       {
         id: 2,
+        coquanid: 2,
         macoquan:"AB-NV",
         maphong: "string",
         tenphong: "Phòng Nội vụ",
@@ -29,6 +28,7 @@ export const phongs : Phong[] = [
       },
       {
         id: 3,
+        coquanid: 3,
         macoquan:"AB-KD",
         maphong: "string",
         tenphong: "Phòng Kinh doanh",
@@ -36,6 +36,7 @@ export const phongs : Phong[] = [
       },
       {
         id: 4,
+        coquanid: 1,
         macoquan:"AB-BTC",
         maphong: "string",
         tenphong: "Phòng Công nghệ",
@@ -43,6 +44,7 @@ export const phongs : Phong[] = [
       },
       {
         id: 5,
+        coquanid: 4,
         macoquan:"AB-GD",
         maphong: "string",
         tenphong: "Phòng Giáo dục",
