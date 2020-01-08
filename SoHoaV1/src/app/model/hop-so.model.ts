@@ -3,6 +3,7 @@ export class HopSo  {
     constructor(
         public id?: number,
         public mahopso?: string,
+        public danhmucid?: number,
         public madanhmuc?: string,
         public tieudehopso?: string,
         public soluonghoso?: number,
@@ -19,6 +20,7 @@ export const hopsos : HopSo[] = [
     {
         id: 1,
         mahopso:"HS-BTC123",
+        danhmucid: 1,
         madanhmuc: "AB-BTC",
         tieudehopso: "Hộp số BTC",
         soluonghoso: 10,
@@ -28,6 +30,8 @@ export const hopsos : HopSo[] = [
       {
         id: 2,
         mahopso:"HS-NV123",
+        danhmucid: 2,
+        
         madanhmuc: "AB-NV",
         tieudehopso: "Hộp số NV",
         soluonghoso: 14,
@@ -37,6 +41,8 @@ export const hopsos : HopSo[] = [
       {
         id: 3,
         mahopso:"HS-KD123",
+        danhmucid: 3,
+
         madanhmuc: "AB-KD",
         tieudehopso: "Hộp số TC",
         soluonghoso: 8,
@@ -46,6 +52,8 @@ export const hopsos : HopSo[] = [
       {
         id: 4,
         mahopso:"HS-BTC123",
+        danhmucid: 1,
+
         madanhmuc: "AB-BTC",
         tieudehopso: "Hộp số BTC",
         soluonghoso: 6,
@@ -55,6 +63,8 @@ export const hopsos : HopSo[] = [
       {
         id: 5,
         mahopso:"HS-KD123",
+        danhmucid: 4,
+
         madanhmuc: "AB-KD",
         tieudehopso: "Hộp số KT",
         soluonghoso: 9,

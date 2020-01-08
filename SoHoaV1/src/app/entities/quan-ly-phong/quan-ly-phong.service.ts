@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Phong, phongs } from '../../model/phong.model';
+import { DanhMuc, danhmucs } from '../../model/danh-muc.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +19,13 @@ export class QuanLyPhongService {
     }
     return phong;
   };
+  public getListDanhMucByPhongId (id: number) {
+    var listdanhmuc : DanhMuc[] = [];
+    for (let i = 0; i < danhmucs.length; i ++) {
+      if (danhmucs[i].phongid == id) {
+        listdanhmuc.push(phongs[i]);
+      }
+    }
+    return listdanhmuc;
+  }
 }

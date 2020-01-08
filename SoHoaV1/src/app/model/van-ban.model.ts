@@ -3,6 +3,7 @@ export class VanBan  {
     constructor(
         public id?: number,
         public hososo?: number,
+        public hosoid?: number,
         public vanbanso?: string,
         public stttronghs?: number,
         public loaivanban?: string,
@@ -23,6 +24,7 @@ export const vanbans : VanBan[] = [
     {
         id: 1,
         hososo: 712,
+        hosoid: 1,
         vanbanso: "02",
         stttronghs: 21,
         loaivanban: "Văn bản hành chính",
@@ -35,6 +37,7 @@ export const vanbans : VanBan[] = [
       {
         id: 2,
         hososo: 715,
+        hosoid: 2,
         vanbanso: "02",
         stttronghs: 21,
         loaivanban: "Văn bản hành pháp",
@@ -47,6 +50,7 @@ export const vanbans : VanBan[] = [
       {
         id: 3,
         hososo: 812,
+        hosoid: 3,
         vanbanso: "02",
         stttronghs: 21,
         loaivanban: "Văn bản pháp lý",
@@ -59,6 +63,7 @@ export const vanbans : VanBan[] = [
       {
         id: 4,
         hososo: 613,
+        hosoid: 1,
         vanbanso: "02",
         stttronghs: 21,
         loaivanban: "Văn bản kiểm kê",
@@ -71,6 +76,7 @@ export const vanbans : VanBan[] = [
       {
         id: 5,
         hososo: 513,
+        hosoid: 4,
         vanbanso: "02",
         stttronghs: 21,
         loaivanban: "Văn bản thường",

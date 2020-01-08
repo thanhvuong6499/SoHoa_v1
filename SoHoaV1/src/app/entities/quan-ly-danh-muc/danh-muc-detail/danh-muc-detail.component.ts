@@ -24,10 +24,10 @@ export class DanhMucDetailComponent implements OnInit {
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
     });
-    this.hopsos = hopsos;
   }
   load(id){
     this.danhmuc= this.quanLyDanhMucService.getDanhMucById(id);
+    this.hopsos= this.quanLyDanhMucService.getListHopSoByDanhMucId(id);
   }
 
 }

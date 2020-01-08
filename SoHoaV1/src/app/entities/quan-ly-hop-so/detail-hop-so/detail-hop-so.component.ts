@@ -24,10 +24,10 @@ export class DetailHopSoComponent implements OnInit {
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
     });
-    this.hosos = hosos;
   }
   load(id){
     this.hopso= this.quanLyHopSoService.getHopSoById(id);
+    this.hosos= this.quanLyHopSoService.getListHoSoByHopSoId(id);
   }
 
 }

@@ -24,10 +24,11 @@ export class PhongDetailComponent implements OnInit {
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
     });
-    this.danhmucs = danhmucs;
   }
   load(id){
     this.phong= this.quanLyPhongService.getPhongById(id);
+    this.danhmucs = this.quanLyPhongService.getListDanhMucByPhongId(id);
+
   }
 
 }

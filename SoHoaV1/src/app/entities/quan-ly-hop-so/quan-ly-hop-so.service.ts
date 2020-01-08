@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HopSo, hopsos } from '../../model/hop-so.model';
+import { HoSo, hosos } from '../../model/ho-so.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +19,13 @@ export class QuanLyHopSoService {
     }
     return hopso;
   };
+  public getListHoSoByHopSoId (id: number) {
+    var listhoso : HoSo[] = [];
+    for (let i = 0; i < hosos.length; i ++) {
+      if (hosos[i].hopsoid == id) {
+        listhoso.push(hopsos[i]);
+      }
+    }
+    return listhoso;
+  }
 }
