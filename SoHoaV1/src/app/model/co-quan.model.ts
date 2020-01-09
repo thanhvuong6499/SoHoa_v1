@@ -2,22 +2,21 @@ import { Phong } from './phong.model';
 
 export class CoQuan  {
     constructor(
-        public id?: number,
-        public macoquan?: string,
-        public tencoquan?: string,
-        public diachi?: string,
-        public loaicoquan?: string,
-        
+        public coQuanID?: number,
+        public macoquan?: number,
+        public tenCoQuan?: string,
+        public diaChiID?: string,
+        public loaiCoQuan?: string
     ) {
     }
 }
 
-export const coquans : CoQuan[] = [
+export const coquans = [
     {
-        id: 1,
-        macoquan:"AB-BTC",
-        tencoquan: "Phòng Tài chính kế toán",
-        diachi: "string", 
+      coQuanID: 1,
+      tenCoQuan:"AB-BTC",
+      diaChiID: "Phòng Tài chính kế toán",
+      loaiCoQuan: "string", 
         
       },
       {

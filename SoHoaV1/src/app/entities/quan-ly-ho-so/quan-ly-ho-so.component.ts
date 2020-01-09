@@ -13,6 +13,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class QuanLyHoSoComponent implements OnInit {
   hosos : HoSo[];
+  page = 1;
   constructor(
     private hoSoPopupService: QuanLyHoSoPopupService,
     private activeModal: NgbActiveModal
@@ -40,8 +41,20 @@ export class QuanLyHoSoComponent implements OnInit {
       this.hoSoPopupService
         .open(HoSoDeleteComponent as Component, id);
       console.log(id);
-
-
   }
-
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
 }

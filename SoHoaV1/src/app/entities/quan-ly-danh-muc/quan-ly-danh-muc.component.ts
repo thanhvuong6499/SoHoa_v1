@@ -12,6 +12,7 @@ import { DanhMucDeleteComponent } from './danh-muc-delete/danh-muc-delete.compon
 })
 export class QuanLyDanhMucComponent implements OnInit {
   danhmucs: DanhMuc[];
+  page = 1;
   constructor(
     private danhMucPopupService: QuanLyDanhMucPopupService
   ) { }
@@ -38,8 +39,20 @@ export class QuanLyDanhMucComponent implements OnInit {
     this.danhMucPopupService
       .open(DanhMucDeleteComponent as Component, id);
     console.log(id);
-
-  
-
-}
+  }
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
 }

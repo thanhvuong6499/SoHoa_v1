@@ -13,6 +13,7 @@ import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 export class PhongDetailComponent implements OnInit {
   phong: Phong;
   danhmucs: DanhMuc[];
+  page = 1;
   private subscription: Subscription;
   private eventSubscriber: Subscription;
   constructor(
@@ -30,5 +31,19 @@ export class PhongDetailComponent implements OnInit {
     this.danhmucs = this.quanLyPhongService.getListDanhMucByPhongId(id);
 
   }
-
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
 }

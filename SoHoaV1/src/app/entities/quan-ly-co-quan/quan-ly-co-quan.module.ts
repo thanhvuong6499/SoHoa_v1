@@ -9,7 +9,7 @@ import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component
 import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,8 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    QuanLyCoQuanRoutingModule
+    QuanLyCoQuanRoutingModule,
+    HttpClientModule
   ],
   providers:[
     QuanLyCoQuanPopupService,

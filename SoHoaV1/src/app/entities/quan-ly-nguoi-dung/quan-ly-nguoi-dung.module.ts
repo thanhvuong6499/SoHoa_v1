@@ -5,9 +5,7 @@ import { QuanLyNguoiDungRoutingModule } from './quan-ly-nguoi-dung-routing.modul
 import { NguoiDungDialogComponent } from './nguoi-dung-dialog/nguoi-dung-dialog.component';
 import { NguoiDungDetailComponent } from './nguoi-dung-detail/nguoi-dung-detail.component';
 import { NguoiDungDeleteComponent } from './nguoi-dung-delete/nguoi-dung-delete.component';
-
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     QuanLyNguoiDungComponent,
@@ -18,7 +16,8 @@ import { NguoiDungDeleteComponent } from './nguoi-dung-delete/nguoi-dung-delete.
   ],
   imports: [
     CommonModule,
-    QuanLyNguoiDungRoutingModule
+    QuanLyNguoiDungRoutingModule,
+    NgbModule
   ]
 })
 export class QuanLyNguoiDungModule { }

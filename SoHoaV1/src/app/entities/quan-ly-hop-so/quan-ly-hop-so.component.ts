@@ -12,6 +12,7 @@ import { HopSoDeleteComponent } from './hop-so-delete/hop-so-delete.component';
 })
 export class QuanLyHopSoComponent implements OnInit {
   hopsos: HopSo[];
+  page = 1;
   constructor(
     private hopSoPopupService: QuanLyHopSoPopupService, 
   ) { }
@@ -37,7 +38,20 @@ export class QuanLyHopSoComponent implements OnInit {
       this.hopSoPopupService
         .open(HopSoDeleteComponent as Component, id);
       console.log(id);
-
   }
-
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
 }

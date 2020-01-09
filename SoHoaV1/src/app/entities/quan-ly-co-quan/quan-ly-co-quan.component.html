@@ -25,10 +25,10 @@
             </thead>
             <tbody>
               <tr *ngFor="let coquan of coquans">
-                <td>{{ coquan.id }}</td>
-                <td>{{ coquan.macoquan }}</td>
-                <td>{{ coquan.tencoquan }}</td>
-                <td>{{ coquan.diachi }}</td>
+                <td>{{ coquan.coQuanID }}</td>
+                <td>{{ coquan.tenCoQuan }}</td>
+                <td>{{ coquan.diaChiID }}</td>
+                <td>{{ coquan.loaiCoQuan }}</td>
                
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyCoQuan/coQuan',coquan.id]" routerLinkActive="router-link-active"  ></button>
@@ -49,7 +49,7 @@
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item"><a class="page-link" href="#">4</a></li>
               <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
-              <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
             </ul>
           </nav>
         </div>
