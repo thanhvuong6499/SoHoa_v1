@@ -18,7 +18,7 @@ export class CoQuanDialogComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.coQuan = this.coQuanPopupService.getCoQuanById();
+  //  this.coQuan = this.coQuanPopupService.getCoQuanById();
   }
 
   clear() {
@@ -26,20 +26,20 @@ export class CoQuanDialogComponent implements OnInit {
   
   }
   save(){
-    if (this.coQuan.id && this.coQuan.id != undefined) {
-      for(let i = 0; i < coquans.length; i++) {
-        if (coquans[i].id == this.coQuan.id) {
-          coquans[i] = this.coQuan;
-          break;
-        }
-      }
-    }
-    else {
-      let id = coquans.length;
-      this.coQuan.id = id + 1;
-      coquans.push(this.coQuan);
-    }
-    this.clear();
+    // if (this.coQuan.id && this.coQuan.id != undefined) {
+    //   for(let i = 0; i < coquans.length; i++) {
+    //     if (coquans[i].id == this.coQuan.id) {
+    //       coquans[i] = this.coQuan;
+    //       break;
+    //     }
+    //   }
+    // }
+    // else {
+    //   let id = coquans.length;
+    //   this.coQuan.id = id + 1;
+    //   coquans.push(this.coQuan);
+    // }
+    // this.clear();
     
   }
 

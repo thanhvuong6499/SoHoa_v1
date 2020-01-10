@@ -22,7 +22,7 @@ export class PhongDialogComponent implements OnInit {
 
   ngOnInit() {
     this.phong = this.phongPopupService.getPhongById();
-    this.coquans = coquans;
+  //  this.coquans = coquans;
   }
   clear() {
     this.activeModal.dismiss('cancel');

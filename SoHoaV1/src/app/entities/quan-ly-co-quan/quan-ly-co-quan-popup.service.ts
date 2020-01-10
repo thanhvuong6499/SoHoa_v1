@@ -31,7 +31,7 @@ export class QuanLyCoQuanPopupService {
               //     });
               this.id = id;
               
-              this.ngbModalRef = this.coQuanModalRef(component, this.getCoQuanById());
+           //   this.ngbModalRef = this.coQuanModalRef(component, this.getCoQuanById());
               resolve(this.ngbModalRef);
               console.log(this.getCoQuanById());
               
@@ -47,15 +47,15 @@ export class QuanLyCoQuanPopupService {
       });
   }
   public getCoQuanById(){
-      this.coquans = coquans;
-              var coquan = new CoQuan();
-              for (let i = 0; i < coquans.length; i ++) {
-                  if (this.id == coquans[i].id){
-                      coquan = coquans[i];
-                  }
+    //   this.coquans = coquans;
+    //           var coquan = new CoQuan();
+    //           for (let i = 0; i < coquans.length; i ++) {
+    //               if (this.id == coquans[i].id){
+    //                   coquan = coquans[i];
+    //               }
                   
-              }
-              return coquan;
+    //           }
+     //         return coquan;
   };
  public coQuanModalRef(component: Component, coquan: CoQuan): NgbModalRef {
       const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});

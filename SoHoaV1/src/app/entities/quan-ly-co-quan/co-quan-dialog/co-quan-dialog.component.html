@@ -1,14 +1,11 @@
-<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
   <div class="modal-header bg-primary" aria-hidden="true">
     <div *ngIf="coQuan.id != null; else themMoi">
       <h4 class="modal-title">Chỉnh sửa cơ quan</h4>
-
     </div>
-
     <ng-template #themMoi>
       <h4 class="modal-title">Thêm mới cơ quan</h4>
-
     </ng-template>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
@@ -96,3 +93,4 @@
     </button>
   </div>
 </form>
+<mat-spinner></mat-spinner>

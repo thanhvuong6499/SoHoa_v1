@@ -11,6 +11,7 @@ import { QuanLyTaiLieuModule } from './quan-ly-tai-lieu/quan-ly-tai-lieu.module'
 import { QuanLyHoSoComponent } from './quan-ly-ho-so/quan-ly-ho-so.component';
 import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.component';
 
+
 @NgModule({
   declarations: [
   
@@ -23,7 +24,7 @@ import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.comp
     QuanLyPhongModule,
     QuanLyHoSoModule,
     QuanLyCoQuanModule,
-    QuanLyTaiLieuModule
+    QuanLyTaiLieuModule,
   ],
 })
 export class EntitiesModule { }

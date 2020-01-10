@@ -66,7 +66,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   }
 
   loadPages(page : number) {
-    var condi : BaseCondition = new BaseCondition();
+    var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
     condi.PageIndex = page;
     this.coQuanService.getAllCoQuanWithPaging(condi).subscribe((data : HttpResponse<CoQuan[]>) => {
       this.coquans = data.body["itemList"];
