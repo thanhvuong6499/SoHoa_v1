@@ -3,6 +3,7 @@ import { CoQuan, coquans } from '../../model/co-quan.model';
 import { Phong, phongs } from '../../model/phong.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BaseCondition } from '../../common/BaseCondition';
+import {  HttpUtilities} from '../../common/Utilities';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,6 @@ export class QuanLyCoQuanService {
   coquans: CoQuan[];
   apiUrl = "https://localhost:44357/api/";
   constructor(private httpClient : HttpClient) { }
-
   public getCoQuanById(id: number) {
     // this.coquans = coquans;
     // var coquan = new CoQuan();
@@ -32,25 +32,39 @@ export class QuanLyCoQuanService {
     return phong;
   }
 
-  public getAllCoQuanWithPaging(condi? : BaseCondition) {
+  public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
     console.log(condi);
     var condition = {};
     if (condi != undefined) {
-      condition = {
-        PageIndex: condi.PageIndex.toString(),
-        PageSize: '5',
+      condi = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
         IN_WHERE: ""
       }
+      // condition = {
+      //   PageIndex: condi.PageIndex.toString(),
+      //   PageSize: '5',
+      //   IN_WHERE: ""
+      // }
     }
     else {
-      condition = {
-        PageIndex: '1',
-        PageSize: '5',
+      // condition = {
+      //   PageIndex: '1',
+      //   PageSize: '5',
+      //   IN_WHERE: ""
+      // }
+      condi = {
+        PageIndex : 1,
+        PageSize: 5,
         IN_WHERE: ""
       }
     }
-  //  var condition = JSON.stringify(condition);
-    return this.httpClient.get(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*'}, params: condition, observe: 'response' });
-  //  return this.httpClient.get<any>('http://5d103ffdc56e7600145a46d2.mockapi.io/api/user', {  params: { value }, responseType: 'json' });
+  //  var reqOptions = HttpUtilities.convert(condi);
+   var reqOptions = JSON.stringify(condi);
+    console.log(reqOptions);
+    const options = HttpUtilities.createRequestOption(reqOptions)
+    //  var condition = JSON.stringify(condition);
+    //  return this.httpClient.get<any>('http://5d103ffdc56e7600145a46d2.mockapi.io/api/user', {  params: { value }, responseType: 'json' });
+    return this.httpClient.get<any>(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: options, observe: 'response' });
   }
 }
