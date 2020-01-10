@@ -31,6 +31,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.coQuanService.getAllCoQuanWithPaging().subscribe((data : HttpResponse<CoQuan[]>) => {
+      console.log(data);
       console.log(data.body);
       // this.coquans = data.body.ItemList;
       // this.totalRecords = data.length;

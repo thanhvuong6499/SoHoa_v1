@@ -44,13 +44,13 @@ export class QuanLyCoQuanService {
     }
     else {
       condition = {
-        PageIndex: '0',
+        PageIndex: '1',
         PageSize: '5',
         IN_WHERE: ""
       }
     }
   //  var condition = JSON.stringify(condition);
-    return this.httpClient.get(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { params: condition, observe: 'response' });
+    return this.httpClient.get(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*'}, params: condition, observe: 'response' });
   //  return this.httpClient.get<any>('http://5d103ffdc56e7600145a46d2.mockapi.io/api/user', {  params: { value }, responseType: 'json' });
   }
 }

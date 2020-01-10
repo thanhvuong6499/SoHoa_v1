@@ -16,7 +16,7 @@ export class CoQuanDeleteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.coQuan = this.coQuanPopupService.getCoQuanById();
+ //   this.coQuan = this.coQuanPopupService.getCoQuanById();
 
   }
   deleteCoQuan(id : number) {
