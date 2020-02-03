@@ -23,9 +23,8 @@ export class CoQuanDialogComponent implements OnInit {
 
   clear() {
     this.activeModal.dismiss('cancel');
-  
   }
-  save(){
+  save() {
     if (this.coQuan.id && this.coQuan.id != undefined) {
       for(let i = 0; i < coquans.length; i++) {
         if (coquans[i].id == this.coQuan.id) {
@@ -40,7 +39,6 @@ export class CoQuanDialogComponent implements OnInit {
       coquans.push(this.coQuan);
     }
     this.clear();
-    
   }
 
 }
