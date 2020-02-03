@@ -23,6 +23,9 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   pageSize : number;
   totalRecords : number;
 
+  color: string = "primary";
+  mode: string = "indeterminate";
+  value: number = 30;
   constructor(
     private route: ActivatedRoute,
     private coQuanPopupService: QuanLyCoQuanPopupService,
@@ -74,6 +77,10 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       this.pageSize = 5;
       this.page = page;
       this.totalRecords = data.body["totalRows"];
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      console.log("Lấy dữ liệu thành công");
     });
   }
 

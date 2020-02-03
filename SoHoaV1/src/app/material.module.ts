@@ -3,15 +3,32 @@ import { CommonModule } from '@angular/common';
 import {
 MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, 
 MatProgressBarModule,MatToolbarModule ,
-MatProgressSpinnerModule} from '@angular/material';
+MatProgressSpinnerModule, MatDatepickerModule,
+MatNativeDateModule
+} from '@angular/material';
 
 @NgModule({
-imports: [MatButtonModule, MatToolbarModule, MatInputModule, 
- MatProgressBarModule, MatCardModule, MatFormFieldModule,
- MatProgressSpinnerModule],
-exports: [MatButtonModule, MatToolbarModule, MatInputModule, 
- MatProgressBarModule, MatCardModule, MatFormFieldModule,
- MatProgressSpinnerModule]
+imports: [
+    MatButtonModule,
+    MatToolbarModule,
+    MatInputModule, 
+    MatProgressBarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+],
+exports: [MatButtonModule,
+     MatToolbarModule,
+     MatInputModule, 
+    MatProgressBarModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+]
 
   })
 

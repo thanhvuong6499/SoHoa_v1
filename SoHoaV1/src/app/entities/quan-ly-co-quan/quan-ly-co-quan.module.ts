@@ -10,7 +10,7 @@ import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MaterialModule } from '../../material.module';
 @NgModule({
   declarations: [
     QuanLyCoQuanComponent,
@@ -29,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     NgbModule,
     QuanLyCoQuanRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule
   ],
   providers:[
     QuanLyCoQuanPopupService,
