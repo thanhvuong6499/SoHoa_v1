@@ -1,31 +1,16 @@
 
+import { Token } from './token.model';
+import { UserRole } from './userrole.model';
 export class User {
-       public id: number
-       public username: string
-       public password: string
-       public userole: string
-       public roles?: string
+       public Id: number;
+       public UserName: string;
+       public userrole?: UserRole = new UserRole();
+       public Password? : string;
+       public roles?: string;
+       public CreateBy?: string;
+       public UpdateBy?: string;
+       public CreateDate?: string;
+       public UpdateDate?: string;
+       public Status?: number;
+       public Token?: Token = new Token();
 }
-
-export const users : User[] = [
-    {
-        id: 1,
-        username: "test",
-        password: "test",
-        userole: "user",
-        roles: "edit"
-    },
-    {
-        id: 2,
-        username: "user",
-        password: "user",
-        userole: "user",
-        roles: "create"
-    },
-    {
-        id: 3,
-        username: "admin",
-        password: "admin",
-        userole: "admin"
-    }
-]

@@ -4,9 +4,9 @@ export class CoQuan  {
     constructor(
         public coQuanID?: number,
         public macoquan?: number,
-        public tenCoQuan?: string,
-        public diaChiID?: string,
-        public loaiCoQuan?: string
+        public tencoquan?: string,
+        public diachiid?: string,
+        public loaicoquan?: string
     ) {
     }
 }

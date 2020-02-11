@@ -21,3 +21,7 @@ main {
   min-width: 300px;
   min-height: 200px;
 }
+
+.mt-0 {
+  margin-top: 5px !important;
+}

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit } from '@angular/core';
 import { navItems } from '../../_nav';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DefaultLayoutComponent implements OnInit, OnDestroy {
   public userName : string;
-  constructor(private router : Router) 
+  constructor(private router : Router, private authenticationService: AuthenticationService) 
   {
     this.userName = localStorage.getItem('user');
   }
@@ -36,7 +37,7 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
 
   logout() {
     if(confirm("Bạn có chắc muốn đăng xuất không ?")) {
-      localStorage.clear();
+      this.authenticationService.logout();
       this.router.navigate(['/login'], { queryParams: { returnUrl: '/' } });
     }
     return;

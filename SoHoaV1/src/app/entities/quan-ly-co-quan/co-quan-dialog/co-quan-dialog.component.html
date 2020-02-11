@@ -12,26 +12,33 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
     <div class="form-group row">
-
-      <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+      <label class="col-md-3 col-form-label" for="textarea-input">Mã cơ quan</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="macoquan" class="form-control" [(ngModel)]="coQuan.macoquan">
+        <input id="textarea-input-1" name="ghichu" rows="9" class="form-control"
+          [(ngModel)]="coQuan.coQuanID" required>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+      <label class="col-md-3 col-form-label" for="textarea-input">Tên cơ quan</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="tencoquan" class="form-control" [(ngModel)]="coQuan.tencoquan">
+        <input id="textarea-input-2" name="ghichu" rows="9" class="form-control"
+          [(ngModel)]="coQuan.tencoquan" required/>
       </div>
     </div>
+    <!-- <div class="form-group row">
+      <label class="col-md-3 col-form-label lbl-padding" for="text-input">Mã cơ quan</label>
+        <mat-form-field class="col-md-9">
+          <input matInput value="" id="text-input" name="macoquan" [(ngModel)]="coQuan.macoquan">
+        </mat-form-field>
+    </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Loại cơ quan</label>
+      <label class="col-md-3 col-form-label lbl-padding" for="text-input">Tên cơ quan</label>
+        <mat-form-field class="col-md-9">
+          <input matInput value="" id="text-input-name" name="tencoquan" [(ngModel)]="coQuan.tencoquan">
+        </mat-form-field> -->
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label lbl-padding" for="select1">Loại cơ quan</label>
       <div class="col-md-9">
         <select id="select1" name="select1" class="form-control" [(ngModel)]="coQuan.loaicoquan">
           <option value="0">Chọn loại cơ quan</option>
@@ -39,12 +46,20 @@
           <option value="2">Cơ quan hành pháp</option>
           <option value="3">Cơ quan hành chính</option>
         </select>
+        <!-- <mat-form-field class="example-full-width">
+          <input type="text" placeholder="" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> -->
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Tỉnh / Thành phố</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control">
+        <select id="select2" name="select1" class="form-control">
           <option value="0">Chọn Tỉnh / Thành phố</option>
           <option value="1">Hà Nội</option>
           <option value="2">Hồ Chí Minh</option>
@@ -55,7 +70,7 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Quận / Huyện</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control">
+        <select id="select3" name="select1" class="form-control">
           <option value="0">Chọn Quận / Huyện</option>
           <option value="1">Tây Hồ</option>
           <option value="2">Quận 1</option>
@@ -66,7 +81,7 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Xã / Phường</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control">
+        <select id="select4" name="select1" class="form-control">
           <option value="0">Chọn Xã / Phường</option>
           <option value="1">Xuân la</option>
           <option value="2">Bến nghé</option>
@@ -78,11 +93,10 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Địa chỉ chi tiết</label>
       <div class="col-md-9">
-        <textarea id="textarea-input" name="ghichu" rows="9" class="form-control"
+        <textarea id="textarea-1" name="ghichu" rows="9" class="form-control"
           [(ngModel)]="coQuan.diachi"></textarea>
       </div>
     </div>
-
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
@@ -93,4 +107,3 @@
     </button>
   </div>
 </form>
-<mat-spinner></mat-spinner>

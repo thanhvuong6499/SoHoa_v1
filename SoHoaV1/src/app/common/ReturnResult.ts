@@ -1,9 +1,10 @@
 export class ReturnResult<T>{
-    message: string;
-    code: string;
-    listItem: T[];
+    isSuccess: boolean;
+    errorMessage: string;
+    errorCode: string;
     item: T;
-    totalCount: number;
+    listItem: T[];
     hasData: boolean;
     hasError: boolean;
+    totalRows?: number;
   }

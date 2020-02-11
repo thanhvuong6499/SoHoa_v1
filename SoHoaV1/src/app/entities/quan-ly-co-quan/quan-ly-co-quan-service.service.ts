@@ -4,6 +4,7 @@ import { Phong, phongs } from '../../model/phong.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BaseCondition } from '../../common/BaseCondition';
 import {  HttpUtilities} from '../../common/Utilities';
+import { ApiUrl } from '../../common/Enviroment';
 
 @Injectable({
   providedIn: 'root'
@@ -41,18 +42,18 @@ export class QuanLyCoQuanService {
         PageSize: 5,
         IN_WHERE: ""
       }
-      // condition = {
-      //   PageIndex: condi.PageIndex.toString(),
-      //   PageSize: '5',
-      //   IN_WHERE: ""
-      // }
+      condition = {
+        PageIndex: condi.PageIndex.toString(),
+        PageSize: '5',
+        IN_WHERE: ""
+      }
     }
     else {
-      // condition = {
-      //   PageIndex: '1',
-      //   PageSize: '5',
-      //   IN_WHERE: ""
-      // }
+      condition = {
+        PageIndex: '1',
+        PageSize: '5',
+        IN_WHERE: ""
+      }
       condi = {
         PageIndex : 1,
         PageSize: 5,
@@ -61,10 +62,12 @@ export class QuanLyCoQuanService {
     }
   //  var reqOptions = HttpUtilities.convert(condi);
    var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions)
+   var headers : HttpHeaders = new HttpHeaders();
+    headers.set('Access-Control-Allow-Origin', '*');
+  //  console.log(reqOptions);
+  //  const options = HttpUtilities.createRequestOption(reqOptions)
     //  var condition = JSON.stringify(condition);
     //  return this.httpClient.get<any>('http://5d103ffdc56e7600145a46d2.mockapi.io/api/user', {  params: { value }, responseType: 'json' });
-    return this.httpClient.get<any>(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: options, observe: 'response' });
+    return this.httpClient.get<any>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: headers, params: condition, observe: 'response' });
   }
 }

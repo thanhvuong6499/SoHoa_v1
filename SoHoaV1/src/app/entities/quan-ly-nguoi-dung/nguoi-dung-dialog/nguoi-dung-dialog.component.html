@@ -1,1 +1,72 @@
-<p>nguoi-dung-dialog works!</p>
+
+
+<form (ngSubmit)="save($event)" [formGroup]="formGroup" enctype="multipart/form-data" class="form-horizontal">
+    <div class="modal-header bg-primary" aria-hidden="true">
+      <div *ngIf="user.Id != null; else themMoi">
+        <h4 class="modal-title">Chỉnh sửa thông tin tài khoản</h4>
+      </div>
+      <ng-template #themMoi>
+        <h4 class="modal-title">Thêm mới tài khoản</h4>
+      </ng-template>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="textarea-input">Tên tài khoản</label>
+        <div class="col-md-9">
+          <input id="username" name="ghichu" rows="9" class="form-control" formControlName="UserName" name="UserName" [(ngModel)]="user.UserName" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="textarea-input">Mật khẩu</label>
+        <div class="col-md-9">
+          <input id="textarea-input" name="ghichu" rows="9" class="form-control" formControlName="Password" name="Password" [(ngModel)]="user.Password" required/>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label lbl-padding" for="select1">Nhóm quyền</label>
+        <div class="col-md-9">
+          <select id="select1" name="select1" class="custom-select"  [(ngModel)]="user.roles" required>
+            <option value="1">Admin</option>
+            <option value="0">User</option>
+          </select>
+        </div>
+      </div>
+      <div *ngIf="user.roles == 0" class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Quyền</label>
+        <div class="col-md-9">
+            <div class="custom-control custom-checkbox">
+                <div style="display: inline-block; margin-right: 40px;">
+                    <input type="checkbox" class="custom-control-input" id="customCheckCreate" formControlName="create"  name="create" (change)="onChangeCreateRole($event.target.checked)" [disabled]="create">
+                    <label class="custom-control-label" for="customCheckCreate">Nhập tài liệu</label>
+                </div>
+                <div style="display: inline-block;">
+                    <input type="checkbox" class="custom-control-input" id="customCheckEdit" formControlName="edit" name="edit" (change)="onChangeEditRole($event.target.checked)" [disabled]="edit">
+                    <label class="custom-control-label" for="customCheckEdit">Sửa tài liệu</label>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Trạng thái</label>
+        <div class="col-md-9">
+          <select id="select2" name="select2" class="custom-select" [(ngModel)]="user.Status" required>
+            <option value="0" selected>Không hoạt động</option>
+            <option value="1">Hoạt động</option>
+          </select>
+        </div>
+      </div>
+  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">
+        <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+      </button>
+      <button type="submit" class="btn btn-primary">
+        <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+      </button>
+    </div>
+  </form>
+  

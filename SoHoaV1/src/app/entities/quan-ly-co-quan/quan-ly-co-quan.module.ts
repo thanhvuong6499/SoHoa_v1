@@ -10,6 +10,10 @@ import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressSpinnerModule } from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     NgbModule,
     QuanLyCoQuanRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSliderModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatAutocompleteModule
   ],
   providers:[
     QuanLyCoQuanPopupService,

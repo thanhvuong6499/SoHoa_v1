@@ -60,10 +60,8 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
 
   }
   openDeleteDialog(id?: number) {
-
       this.coQuanPopupService
         .open(CoQuanDeleteComponent as Component, id);
-      console.log(id);
   }
 
   loadPages(page : number) {

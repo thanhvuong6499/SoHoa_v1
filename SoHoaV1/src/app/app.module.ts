@@ -9,7 +9,7 @@ import { MaterialModule } from './material.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { HttpClientInterceptor } from './interceptors/httpclient.interceptor';
+//import { HttpClientInterceptor } from './interceptors/httpclient.interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -50,6 +50,7 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   imports: [
@@ -86,7 +87,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpClientInterceptor,
+      useClass: JwtInterceptor,
       multi: true
     }
 ],
