@@ -23,7 +23,7 @@ export class QuanLyPhongService {
     var listdanhmuc : DanhMuc[] = [];
     for (let i = 0; i < danhmucs.length; i ++) {
       if (danhmucs[i].phongid == id) {
-        listdanhmuc.push(phongs[i]);
+        listdanhmuc.push(danhmucs[i]);
       }
     }
     return listdanhmuc;

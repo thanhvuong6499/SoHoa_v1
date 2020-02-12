@@ -1,15 +1,15 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-  {
-    name: 'Giới thiệu',
-    url: '/',
-    icon: 'fa fa-info',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
+  // {
+  //   name: 'Giới thiệu',
+  //   url: '/',
+  //   icon: 'fa fa-info',
+  //   badge: {
+  //     variant: 'info',
+  //     text: 'NEW'
+  //   }
+  // },
   {
     name: 'Quản lý cơ quan',
     url: '/QuanLyCoQuan/coQuan',
@@ -42,11 +42,7 @@ export const navItems: INavData[] = [
     //   }
     // ]
   },
-  {
-    name: 'Quản lý người dùng',
-    url: '/QuanLyNguoiDung/nguoiDung',
-    icon: 'icon-user'
-  },
+
   // {
   //   name: 'Quản lý kho',
   //   url: '/stock',
@@ -74,10 +70,19 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/dashboard',
+    url: '/',
     icon: 'icon-chart'
-  }
-  
+  },
+  {
+    name: 'Nhật kí',
+    url: '/',
+    icon: 'fa fa-address-book-o'
+  },
+  {
+    name: 'Quản lý người dùng',
+    url: '/QuanLyNguoiDung/nguoiDung',
+    icon: 'icon-user'
+  },
   
 //   {
 //     name: 'Dashboard',

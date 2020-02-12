@@ -18,6 +18,35 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+                <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+              </select2> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Phông</label>
+            <div class="col-md-9">
+                <!-- <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong">
+                    <option *ngFor="let phong of phongs" [value]="phong.maphong">{{ phong.maphong }}</option>
+                </select> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
+            <div class="col-md-9">
+                <!-- <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="hopso.madanhmuc"> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <div class="col-md-9">
+                <!-- <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso"> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã văn bản</label>
             <div class="col-md-9">
                 <input type="text" id="text-input" name="mavanban" class="form-control" [(ngModel)]="vanban.mavanban">
@@ -26,7 +55,7 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="vanban.mahoso">
+                <!-- <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="vanban.mahoso"> -->
             </div>
         </div>
         <div class="form-group row">
@@ -42,7 +71,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Loại văn bản</label>
+            <label class="col-md-3 col-form-label" for="select1">Tên loại văn bản</label>
             <div class="col-md-9">
                 <select id="select1" name="select1" class="form-control">
                     <option value="0">Chọn loại văn bản</option>
@@ -83,16 +112,16 @@
                 <input type="text" id="text-input" name="tinhtrang" class="form-control" [(ngModel)]="vanban.tinhtrang">
             </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
             <div class="col-md-9">
                 <input class="form-control" id="date-input" type="date" name="thoigianbatdau" placeholder="date">
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Thời gian kết thúc</label>
+            <label class="col-md-3 col-form-label" for="date-input">Ngày văn bản</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="thoigianketthuc" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="ngayvanban" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
@@ -103,6 +132,18 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="ngonngu" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang văn bản</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="ngonngu" class="form-control">
+            </div>
+        </div>
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="inline-radios">Mức độ tin cậy</label>
             <div class="col-md-9 col-form-label">
                 <div class="form-check form-check-inline mr-1" id="inline-radios">
@@ -114,13 +155,24 @@
                     <label class="form-check-label" for="inlineRadio2">Không</label>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Mức độ tin cậy</label>
+            <div class="col-md-9">
+                <select id="select1" name="select1" class="form-control">
+                    <option value="0">Chọn mức độ tin cậy</option>
+                    <option value="1">Bản chính</option>
+                    <option value="2">Bản sao</option>
+                    <option value="3">Bản photo</option>
+                </select>
+            </div>
+        </div>
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
             <div class="col-md-9">
                 <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

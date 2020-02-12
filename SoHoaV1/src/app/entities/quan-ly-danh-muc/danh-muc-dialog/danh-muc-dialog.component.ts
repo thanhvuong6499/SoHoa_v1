@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
+import { Phong, phongs } from '../../../model/phong.model';
 
 @Component({
   selector: 'app-danh-muc-dialog',
@@ -10,6 +11,7 @@ import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
 })
 export class DanhMucDialogComponent implements OnInit {
   danhmuc: DanhMuc;
+  phongs: Phong[];
   constructor(
     private activeModal: NgbActiveModal,
     private danhMucPopupService: QuanLyDanhMucPopupService,
@@ -17,6 +19,7 @@ export class DanhMucDialogComponent implements OnInit {
 
   ngOnInit() {
     this.danhmuc = this.danhMucPopupService.getDanhMucById();
+    this.phongs = phongs
   }
   clear() {
     this.activeModal.dismiss('cancel');

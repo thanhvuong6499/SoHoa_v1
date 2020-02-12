@@ -34,6 +34,21 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Phông</label>
+            <div class="col-md-9">
+              <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong" >
+                <option *ngFor="let phong of phongs" [value]="phong.maphong" >{{ phong.maphong }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+              <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+              </select2> -->
+            </div>
+          </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mục lục số</label>
             <div class="col-md-9">
                 <input type="text" id="text-input" name="muclucso" class="form-control" [(ngModel)]="danhmuc.muclucso">

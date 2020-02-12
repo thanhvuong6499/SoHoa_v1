@@ -13,6 +13,18 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+            <div class="col-md-9">
+                <span></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
+            <div class="col-md-9">
+                <span>{{danhmuc.maphong}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
             <div class="col-md-9">
                 <span>{{danhmuc.madanhmuc}}</span>
@@ -43,7 +55,6 @@
             <thead>
               <tr>
                 <th>STT</th>
-                <th>Mã danh mục</th>
                 <th>Mã hộp số</th>
                 <th>Tiêu đề hộp số</th>
                 <th>Số lượng hồ sơ</th>
@@ -56,7 +67,6 @@
             <tbody>
               <tr *ngFor="let hopso of hopsos">
                 <td>{{ hopso.id }}</td>
-                <td>{{ hopso.madanhmuc }}</td>
                 <td>{{ hopso.mahopso }}</td>
                 <td>{{ hopso.tieudehopso }}</td>
                 <td>{{ hopso.soluonghoso }}</td>

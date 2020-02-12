@@ -35,7 +35,14 @@
         </select>
       </div>
     </div>
-
+    <!-- Chưa binding -->
+    <!-- <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+      <div class="col-md-9">
+        <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+        </select2>
+      </div>
+    </div> -->
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
       <div class="col-md-9">
@@ -43,9 +50,9 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Lịch sử phông</label>
+      <label class="col-md-3 col-form-label" for="textarea-input">Lịch sử phông</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="lichsuphong" class="form-control" [(ngModel)]="phong.lichsuphong">
+        <textarea  id="textarea-input" name="lichsuphong" rows="9" class="form-control" [(ngModel)]="phong.lichsuphong"></textarea>
       </div>
     </div>
     <div class="form-group row">

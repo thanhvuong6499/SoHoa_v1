@@ -21,42 +21,140 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+                <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+              </select2> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Phông</label>
+            <div class="col-md-9">
+                <!-- <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong">
+                    <option *ngFor="let phong of phongs" [value]="phong.maphong">{{ phong.maphong }}</option>
+                </select> -->
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
+            <div class="col-md-9">
+                <!-- <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="hopso.madanhmuc"> -->
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <div class="col-md-9">
+                <!-- <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso"> -->
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
             <div class="col-md-9">
                 <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
-            <div class="col-md-9">
-                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso">
-            </div>
-        </div>
-        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehoso" class="form-control"
-                    [(ngModel)]="hoso.tieude">
+                <input type="text" id="text-input" name="tieudehoso" class="form-control" [(ngModel)]="hoso.tieude">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo">
+                <input type="text" id="text-input" name="hososo" class="form-control" [(ngModel)]="hoso.hososo">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
             <div class="col-md-9">
-              <select id="select1" name="select1" class="form-control">
-                <option value="0">Chọn loại hồ sơ</option>
-                <option value="1">Tư pháp</option>
-                <option value="2">Tài chính</option>
-                <option value="3">Kỉ luật</option>
-              </select>
+                <select id="select1" name="select1" class="form-control">
+                    <option value="0">Chọn loại hồ sơ</option>
+                    <option value="1">Tư pháp</option>
+                    <option value="2">Tài chính</option>
+                    <option value="3">Kỉ luật</option>
+                </select>
             </div>
-          </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="thoihanbaoquan" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="chedosudung" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="ngonngu" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="ngaybatdau" placeholder="date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian kết thúc</label>
+            <div class="col-md-9">
+                <input class="form-control" id="date-input" type="date" name="ngayketthuc" placeholder="date">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tongsovanban" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Chú thích</label>
+            <div class="col-md-9">
+                <textarea id="textarea-input" name="chuthich" rows="9" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="kyhieuthongtin" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tukhoa" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="soluongto" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="soluongtrang" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tình trạng vật lý</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="tinhtrangvatly" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
+            <div class="col-md-9">
+                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

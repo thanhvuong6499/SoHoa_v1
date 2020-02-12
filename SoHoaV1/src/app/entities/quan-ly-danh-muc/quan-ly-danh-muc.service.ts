@@ -23,7 +23,7 @@ export class QuanLyDanhMucService {
     var listhopso : HopSo[] = [];
     for (let i = 0; i < hopsos.length; i ++) {
       if (hopsos[i].danhmucid == id) {
-        listhopso.push(danhmucs[i]);
+        listhopso.push(hopsos[i]);
       }
     }
     return listhopso;

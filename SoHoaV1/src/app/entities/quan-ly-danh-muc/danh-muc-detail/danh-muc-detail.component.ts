@@ -28,6 +28,8 @@ export class DanhMucDetailComponent implements OnInit {
   load(id){
     this.danhmuc= this.quanLyDanhMucService.getDanhMucById(id);
     this.hopsos= this.quanLyDanhMucService.getListHopSoByDanhMucId(id);
+    console.log(this.hopsos);
+    
   }
 
 }

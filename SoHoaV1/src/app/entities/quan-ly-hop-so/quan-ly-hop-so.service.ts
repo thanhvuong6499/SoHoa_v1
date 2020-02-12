@@ -23,7 +23,7 @@ export class QuanLyHopSoService {
     var listhoso : HoSo[] = [];
     for (let i = 0; i < hosos.length; i ++) {
       if (hosos[i].hopsoid == id) {
-        listhoso.push(hopsos[i]);
+        listhoso.push(hosos[i]);
       }
     }
     return listhoso;
