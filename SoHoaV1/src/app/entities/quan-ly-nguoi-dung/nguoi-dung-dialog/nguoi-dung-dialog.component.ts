@@ -49,11 +49,11 @@ export class NguoiDungDialogComponent implements OnInit {
     this.user.Status = 0;
 
     // form
-    this.formGroup = this._formBuilder.group({
-      UserName: ['', Validators.required],
-      Password: ['', Validators.required],
-      checkArray: [this._formBuilder.array([])]
-    });
+    // this.formGroup = this._formBuilder.group({
+    //   UserName: ['', Validators.required],
+    //   Password: ['', Validators.required],
+    //   checkArray: [this._formBuilder.array([])]
+    // });
   }
 
   public get f() {

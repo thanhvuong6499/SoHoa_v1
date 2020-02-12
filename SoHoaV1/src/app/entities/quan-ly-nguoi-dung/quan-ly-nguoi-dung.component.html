@@ -22,16 +22,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Vishnu Serghei</td>
-                <td>123456</td>
-                <td>admin</td>
-                <td>2012/01/01</td>
-                <td>
-                  <span class="badge badge-success">Active</span>
+              <tr *ngFor="let user of users">
+                <td><b>&nbsp;{{ user.userName }}</b></td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.createBy }}</td>
+                <td>{{ user.createDate.split('T')[0] }}</td>
+                <td *ngIf="user.status == 1 else inactive">
+                  <span class="badge badge-success">Hoạt động</span>
                 </td>
-                <td>admin</td>
-                <td>Nhập tài liệu</td>
+                
+                <td>{{ user.roleName }}</td>
+                <td *ngIf="user.roleName == 'USER' else admin">
+                  <span *ngIf="user.menuRole && user.menuRole == 'create' else role" style="color: green;">Nhập tài liệu</span>
+                </td>
                 <td style="width:137px">
                     <button class="btn btn-primary fa fa-eye"></button>
                     <button class="btn btn-primary fa fa-edit" (click)="openDialog(1)"></button>
@@ -42,11 +45,24 @@
           </table>
           <nav>
             <ul class="pagination">
-              <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
             </ul>
           </nav>
         </div>
       </div>
     </div>
+    <ng-template #inactive>
+      <td>
+      <span class="badge badge-danger" style="margin-top: 5px;">Không hoạt động</span>
+    </td>
+    </ng-template>
+    <ng-template #role>
+      <span style="color: red;">Sửa tài liệu</span>
+    </ng-template>
+    <ng-template #admin>
+      <td>
+      <span style="color: yellowgreen">ADMIN</span>
+    </td>
+    </ng-template>
     <!--/.col-->
   </div>

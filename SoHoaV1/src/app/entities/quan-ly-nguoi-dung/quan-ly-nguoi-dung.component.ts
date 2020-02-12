@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan/quan-ly-co-quan-popup.service';
 import { NguoiDungDialogComponent } from './nguoi-dung-dialog/nguoi-dung-dialog.component';
 import { QuanLyNguoiDungPopupService } from './quan-ly-nguoi-dung-popup.service';
+import { UserService } from './user.service';
+import { BaseCondition } from '../../common';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-quan-ly-nguoi-dung',
@@ -10,10 +13,26 @@ import { QuanLyNguoiDungPopupService } from './quan-ly-nguoi-dung-popup.service'
 })
 export class QuanLyNguoiDungComponent implements OnInit {
   page = 1;
-  constructor(private quanLyNguoiDungService: QuanLyNguoiDungPopupService) { }
+  condition: BaseCondition<User> = new BaseCondition<User>();
+  pageSize: number;
+  totalRecords: number;
+  users: User[];
+
+  constructor(private quanLyNguoiDungService: QuanLyNguoiDungPopupService, private userService : UserService) { 
+    
+  }
 
   ngOnInit() {
-
+    this.condition.PageIndex = 1;
+    this.condition.PageSize = 5;
+    this.userService.userGetSearchWithPaging(this.condition)
+      .subscribe((result) => {
+        this.pageSize = result.itemList.length;
+        this.totalRecords = result.totalRows;
+        this.users = result.itemList;
+      }, (error) => {
+        console.log(error);
+      });
   }
 
   openDialog(id?: number) {
@@ -36,6 +55,14 @@ export class QuanLyNguoiDungComponent implements OnInit {
   }
 
   loadPages(page : number) {
-
+    this.condition.PageIndex = page;
+    this.userService.userGetSearchWithPaging(this.condition)
+      .subscribe((result) => {
+        // this.pageSize = result.itemList.length;
+        // this.totalRecords = result.totalRows;
+        this.users = result.itemList;
+      }, (error) => {
+        console.log(error);
+      });
   }
 }

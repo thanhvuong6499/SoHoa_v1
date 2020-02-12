@@ -52,6 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.router.navigate(['']);
         }
         else {
+          if (result.errorCode == "1") {
+            alert("Không thành công, vui lòng kiểm tra kết nối đến server và thử lại.");
+          }
+          
           this.loading = false;
           this.error = result.errorMessage;
         }

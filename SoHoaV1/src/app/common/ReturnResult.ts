@@ -3,7 +3,7 @@ export class ReturnResult<T>{
     errorMessage: string;
     errorCode: string;
     item: T;
-    listItem: T[];
+    itemList: T[];
     hasData: boolean;
     hasError: boolean;
     totalRows?: number;

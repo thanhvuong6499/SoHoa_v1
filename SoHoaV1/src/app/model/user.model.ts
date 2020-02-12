@@ -12,5 +12,7 @@ export class User {
        public CreateDate?: string;
        public UpdateDate?: string;
        public Status?: number;
+       public roleName: string;
+       public menuRole: string;
        public Token?: Token = new Token();
 }
