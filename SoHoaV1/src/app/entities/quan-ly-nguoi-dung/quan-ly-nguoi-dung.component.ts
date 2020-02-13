@@ -5,6 +5,7 @@ import { QuanLyNguoiDungPopupService } from './quan-ly-nguoi-dung-popup.service'
 import { UserService } from './user.service';
 import { BaseCondition } from '../../common';
 import { User } from '../../model/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-quan-ly-nguoi-dung',
@@ -18,7 +19,10 @@ export class QuanLyNguoiDungComponent implements OnInit {
   totalRecords: number;
   users: User[];
 
-  constructor(private quanLyNguoiDungService: QuanLyNguoiDungPopupService, private userService : UserService) { 
+  constructor(private quanLyNguoiDungService: QuanLyNguoiDungPopupService,
+              private userService : UserService,
+              private toastService: ToastrService
+  ) { 
     
   }
 

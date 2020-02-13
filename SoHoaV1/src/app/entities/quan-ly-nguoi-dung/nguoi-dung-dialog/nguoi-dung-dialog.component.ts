@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, FormControl, Validators, CheckboxRequiredValida
 import { Observable } from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
 import { User } from '../../../model/user.model';
+import { UserService } from '../user.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface StateGroup {
   letter: string;
@@ -35,7 +38,10 @@ export class NguoiDungDialogComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private userService: UserService,
+    private authenticationService: AuthenticationService,
+    private toast: ToastrService
   ) {
       
    }
@@ -54,6 +60,7 @@ export class NguoiDungDialogComponent implements OnInit {
     //   Password: ['', Validators.required],
     //   checkArray: [this._formBuilder.array([])]
     // });
+    this.user.CreateBy = JSON.parse(localStorage.getItem('currentUser')).userName;
   }
 
   public get f() {
@@ -71,6 +78,14 @@ export class NguoiDungDialogComponent implements OnInit {
   save(event){
     // do something
     console.log(this.user);
+    this.userService.createNewUser(this.user)
+      .subscribe((result) => {
+        this.clear();
+        this.toast.success("Thêm mới thành công.", "Thông báo");
+      },
+      (error) => {
+        console.log(error);
+      })
   }
 
   onChangeCreateRole(value: boolean) {

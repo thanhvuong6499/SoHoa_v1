@@ -52,6 +52,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
+// toast
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     EntitiesModule,
     ModalModule.forRoot(),
     NgbModule,
-    MaterialModule
+    MaterialModule,
+    ToastrModule.forRoot()
   ],
   declarations: [
     AppComponent,

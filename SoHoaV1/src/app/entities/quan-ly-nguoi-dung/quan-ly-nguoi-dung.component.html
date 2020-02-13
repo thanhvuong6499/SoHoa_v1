@@ -30,14 +30,13 @@
                 <td *ngIf="user.status == 1 else inactive">
                   <span class="badge badge-success">Hoạt động</span>
                 </td>
-                
                 <td>{{ user.roleName }}</td>
                 <td *ngIf="user.roleName == 'USER' else admin">
                   <span *ngIf="user.menuRole && user.menuRole == 'create' else role" style="color: green;">Nhập tài liệu</span>
                 </td>
                 <td style="width:137px">
                     <button class="btn btn-primary fa fa-eye"></button>
-                    <button class="btn btn-primary fa fa-edit" (click)="openDialog(1)"></button>
+                    <button class="btn btn-primary fa fa-edit" (click)="openDialog(user.id)"></button>
                     <button class="btn btn-primary fa fa-trash"></button>
                 </td>
               </tr>
@@ -61,7 +60,7 @@
     </ng-template>
     <ng-template #admin>
       <td>
-      <span style="color: yellowgreen">ADMIN</span>
+      <span style="color: orange">ADMIN</span>
     </td>
     </ng-template>
     <!--/.col-->

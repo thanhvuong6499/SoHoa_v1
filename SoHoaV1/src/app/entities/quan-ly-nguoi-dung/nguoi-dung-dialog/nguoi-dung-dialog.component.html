@@ -1,6 +1,6 @@
 
 
-<form (ngSubmit)="save($event)"  enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
     <div class="modal-header bg-primary" aria-hidden="true">
       <div *ngIf="user.Id != null; else themMoi">
         <h4 class="modal-title">Chỉnh sửa thông tin tài khoản</h4>
@@ -43,9 +43,10 @@
                     <label class="custom-control-label" for="customCheckCreate">Nhập tài liệu</label>
                 </div>
                 <div style="display: inline-block;">
-                    <input type="checkbox" class="custom-control-input" id="customCheckEdit" name="edit" (change)="onChangeEditRole($event.target.checked)" [disabled]="edit">
+                    <input type="checkbox" class="custom-control-input" id="customCheckEdit"  name="edit" (change)="onChangeEditRole($event.target.checked)" [disabled]="edit">
                     <label class="custom-control-label" for="customCheckEdit">Sửa tài liệu</label>
                 </div>
+                
             </div>
         </div>
       </div>
