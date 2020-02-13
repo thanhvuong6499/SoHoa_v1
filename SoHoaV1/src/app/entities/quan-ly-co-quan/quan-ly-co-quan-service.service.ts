@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { CoQuan, coquans } from '../../model/co-quan.model';
 import { Phong, phongs } from '../../model/phong.model';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
