@@ -1,64 +1,83 @@
 <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-          <span><i class="fa fa-cube"></i> &nbsp;Quản lí Hộp số</span>
-         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-         <button class="btn btn-primary btn-sm "style="float: right" (click)="openDialog()" >
-          <span class="fa fa-plus"></span>
-          <span >
-              Thêm mới hộp số
-          </span>
-      </button>
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã danh mục</th>
-                <th>Mã hộp số</th>
-                <th>Tiêu đề hộp số</th>
-                <th>Số lượng hồ sơ</th>
-                <th>Số lượng văn bản</th>
-                <th>Ghi chú</th>
-                
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let hopso of hopsos">
-                <td>{{ hopso.id }}</td>
-                <td>{{ hopso.madanhmuc }}</td>
-                <td>{{ hopso.mahopso }}</td>
-                <td>{{ hopso.tieudehopso }}</td>
-                <td>{{ hopso.soluonghoso }}</td>
-                <td>{{ hopso.soluongvanban }}</td>
-                <td>{{ hopso.ghichu }}</td>
-               
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.id]" routerLinkActive="router-link-active" ></button>
-                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.id)" replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.id)"></button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <nav>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="fa fa-cube"></i> &nbsp;Quản lí Hộp số</h3>
+        <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+
+        <div class="form-group row">
+          <label class="col-md-1.5 col-form-label" style="margin-left: 20px;" for="text-input">Mã danh mục</label>
+          <div class="col-md-2">
+            <input type="text" id="text-input" name="madanhmuc" class="form-control">
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">Mã hộp số</label>
+          <div class="col-md-2">
+            <input type="text" id="text-input" name="mahopso" class="form-control">
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">Tên hộp số</label>
+          <div class="col-md-2">
+            <input type="text" id="text-input" name="tenhopso" class="form-control">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary " style="float: right" (click)="openDialog()">
+              <span class="fa fa-plus"></span>
+              <span>
+                Thêm mới hộp số
+              </span>
+            </button>
+          </div>
         </div>
       </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mã danh mục</th>
+              <th>Mã hộp số</th>
+              <th>Tiêu đề hộp số</th>
+              <th>Số lượng hồ sơ</th>
+              <th>Số lượng văn bản</th>
+              <th>Ghi chú</th>
+
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hopso of hopsos">
+              <td>{{ hopso.id }}</td>
+              <td>{{ hopso.madanhmuc }}</td>
+              <td>{{ hopso.mahopso }}</td>
+              <td>{{ hopso.tieudehopso }}</td>
+              <td>{{ hopso.soluonghoso }}</td>
+              <td>{{ hopso.soluongvanban }}</td>
+              <td>{{ hopso.ghichu }}</td>
+
+              <td style="width:137px">
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.id]"
+                  routerLinkActive="router-link-active"></button>
+                <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.id)" replaceUrl="true"
+                  queryParamsHandling="merge"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.id)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nav>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
-    <!--/.col-->
   </div>
+  <!--/.col-->
+</div>

@@ -1,61 +1,79 @@
 <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-header">
-        <span><i class="icon-note"></i> &nbsp;Quản lí phông</span>
-           <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-           <button class="btn btn-primary " style="float: right;" (click)="openDialog()">
-            <span class="fa fa-plus"></span>
-            <span >
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <h3><i class="icon-note"></i> &nbsp;Quản lí phông</h3>
+        <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+
+        <div class="form-group row">
+          <label class="col-md-1 col-form-label" for="text-input">Mã cơ quan</label>
+          <div class="col-md-2">
+            <input type="text" id="text-input" name="macoquan" class="form-control">
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">Mã phông</label>
+          <div class="col-md-2">
+            <input type="text" id="text-input" name="maphong" class="form-control">
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">Tên phông</label>
+          <div class="col-md-3">
+            <input type="text" id="text-input" name="tenphong" class="form-control">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary " style="float: right;" (click)="openDialog()">
+              <span class="fa fa-plus"></span>
+              <span>
                 Thêm mới phông
-            </span>
-        </button>
-        </div>
-        <div class="card-body">
-          <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã cơ quan</th>
-                <th>Mã phông</th>
-                <th>Tên phông</th>
-                
-                <th>Ghi chú</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let phong of phongs">
-                <td>{{ phong.id }}</td>
-                <td>{{ phong.macoquan }}</td>
-                <td>{{ phong.maphong }}</td>
-                <td>{{ phong.tenphong }}</td>
-                <td>{{ phong.ghichu }}</td>
-               
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.id]"></button>
-                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)" replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(phong.id)"></button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <nav>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mã cơ quan</th>
+              <th>Mã phông</th>
+              <th>Tên phông</th>
+
+              <th>Ghi chú</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let phong of phongs">
+              <td>{{ phong.id }}</td>
+              <td>{{ phong.macoquan }}</td>
+              <td>{{ phong.maphong }}</td>
+              <td>{{ phong.tenphong }}</td>
+              <td>{{ phong.ghichu }}</td>
+
+              <td style="width:137px">
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.id]"></button>
+                <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)"
+                  replaceUrl="true" queryParamsHandling="merge"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(phong.id)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nav>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
-    <!--/.col-->
-    <app-phong-dialog hidden="true"></app-phong-dialog>
   </div>
+  <!--/.col-->
+  <app-phong-dialog hidden="true"></app-phong-dialog>
+</div>
