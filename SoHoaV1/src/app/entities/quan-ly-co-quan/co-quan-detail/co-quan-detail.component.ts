@@ -15,6 +15,7 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
 
   coQuan: CoQuan;
   phongs: Phong[];
+  page = 1;
   private subscription: Subscription;
   private eventSubscriber: Subscription;
 
@@ -28,10 +29,24 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
      });
   }
   load(id : number) {
-    this.coQuan = this.quanLyCoQuanService.getCoQuanById(id);
+  //  this.coQuan = this.quanLyCoQuanService.getCoQuanById(id);
     this.phongs = this.quanLyCoQuanService.getListPhongByCoQuanId(id);
   }
-
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

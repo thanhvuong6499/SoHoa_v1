@@ -1,40 +1,44 @@
-<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
   <div class="modal-header bg-primary" aria-hidden="true">
     <div *ngIf="coQuan.id != null; else themMoi">
       <h4 class="modal-title">Chỉnh sửa cơ quan</h4>
-
     </div>
-
     <ng-template #themMoi>
       <h4 class="modal-title">Thêm mới cơ quan</h4>
-
     </ng-template>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
     <div class="form-group row">
-
-      <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+      <label class="col-md-3 col-form-label" for="textarea-input">Mã cơ quan</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="macoquan" class="form-control" [(ngModel)]="coQuan.macoquan">
+        <input id="textarea-input-1" name="ghichu" rows="9" class="form-control"
+          [(ngModel)]="coQuan.coQuanID" required>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+      <label class="col-md-3 col-form-label" for="textarea-input">Tên cơ quan</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="tencoquan" class="form-control" [(ngModel)]="coQuan.tencoquan">
+        <input id="textarea-input-2" name="ghichu" rows="9" class="form-control"
+          [(ngModel)]="coQuan.tencoquan" required/>
       </div>
     </div>
+    <!-- <div class="form-group row">
+      <label class="col-md-3 col-form-label lbl-padding" for="text-input">Mã cơ quan</label>
+        <mat-form-field class="col-md-9">
+          <input matInput value="" id="text-input" name="macoquan" [(ngModel)]="coQuan.macoquan">
+        </mat-form-field>
+    </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Loại cơ quan</label>
+      <label class="col-md-3 col-form-label lbl-padding" for="text-input">Tên cơ quan</label>
+        <mat-form-field class="col-md-9">
+          <input matInput value="" id="text-input-name" name="tencoquan" [(ngModel)]="coQuan.tencoquan">
+        </mat-form-field> -->
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label lbl-padding" for="select1">Loại cơ quan</label>
       <div class="col-md-9">
         <select id="select1" name="select1" class="form-control" [(ngModel)]="coQuan.loaicoquan">
           <option value="0">Chọn loại cơ quan</option>
@@ -42,6 +46,14 @@
           <option value="2">Cơ quan hành pháp</option>
           <option value="3">Cơ quan hành chính</option>
         </select>
+        <!-- <mat-form-field class="example-full-width">
+          <input type="text" placeholder="" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field> -->
       </div>
     </div>
     <div class="form-group row">
@@ -71,11 +83,10 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Địa chỉ chi tiết</label>
       <div class="col-md-9">
-        <textarea id="textarea-input" name="ghichu" rows="9" class="form-control"
+        <textarea id="textarea-1" name="ghichu" rows="9" class="form-control"
           [(ngModel)]="coQuan.diachi"></textarea>
       </div>
     </div>
-
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clear()">

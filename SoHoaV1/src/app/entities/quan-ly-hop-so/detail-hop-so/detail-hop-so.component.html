@@ -77,5 +77,6 @@
             </tr>
             </tbody>
           </table>
+          <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
     </div>
 </div>

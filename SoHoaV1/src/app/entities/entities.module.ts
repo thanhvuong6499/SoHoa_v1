@@ -10,6 +10,7 @@ import { QuanLyCoQuanModule } from './quan-ly-co-quan/quan-ly-co-quan.module';
 import { QuanLyTaiLieuModule } from './quan-ly-tai-lieu/quan-ly-tai-lieu.module';
 import { QuanLyHoSoComponent } from './quan-ly-ho-so/quan-ly-ho-so.component';
 import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.component';
+import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.comp
     QuanLyPhongModule,
     QuanLyHoSoModule,
     QuanLyCoQuanModule,
-    QuanLyTaiLieuModule
+    QuanLyTaiLieuModule,
+    MaterialModule
   ],
 })
 export class EntitiesModule { }

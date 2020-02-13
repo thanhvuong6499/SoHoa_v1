@@ -2,22 +2,21 @@ import { Phong } from './phong.model';
 
 export class CoQuan  {
     constructor(
-        public id?: number,
-        public macoquan?: string,
+        public coQuanID?: number,
+        public macoquan?: number,
         public tencoquan?: string,
-        public diachi?: string,
-        public loaicoquan?: string,
-        
+        public diachiid?: string,
+        public loaicoquan?: string
     ) {
     }
 }
 
-export const coquans : CoQuan[] = [
+export const coquans = [
     {
-        id: 1,
-        macoquan:"AB-BTC",
-        tencoquan: "Phòng Tài chính kế toán",
-        diachi: "string", 
+      coQuanID: 1,
+      tenCoQuan:"AB-BTC",
+      diaChiID: "Phòng Tài chính kế toán",
+      loaiCoQuan: "string", 
         
       },
       {
@@ -44,4 +43,38 @@ export const coquans : CoQuan[] = [
         tencoquan: "Phòng Giáo dục",
         diachi: "string", 
       }
+]
+
+export const coquans2 = [
+  {
+    id: 6,
+    macoquan:"FFFA",
+    tencoquan: "Phòng Công Vụ",
+    diachi: "Nam Từ Liêm, Hà Nội", 
+    
+  },
+  {
+    id: 7,
+    macoquan:"TEEE",
+    tencoquan: "Phòng Họp",
+    diachi: "Mỹ đình, Hà Nội", 
+  },
+  {
+    id: 8,
+    macoquan:"AB-AFTEE",
+    tencoquan: "Phòng Kinh doanh dự án",
+    diachi: "Bắc Thanh Xuân", 
+  },
+  {
+    id: 9,
+    macoquan:"AB-RRRRR",
+    tencoquan: "Phòng Phục hồi chức năng",
+    diachi: "Hà Đông", 
+  },
+  {
+    id: 10,
+    macoquan:"AB-GD",
+    tencoquan: "Phòng Giáo dục và đào tạo",
+    diachi: "Tây Nguyên", 
+  }
 ]

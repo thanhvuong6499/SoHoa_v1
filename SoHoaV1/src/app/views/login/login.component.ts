@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User, users } from '../../model/user.model';
+import { User } from '../../model/user.model';
 import { AuthenticationService } from '../../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,20 +10,65 @@ import { Router } from '@angular/router';
   styleUrls: ["login.component.css"]
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  public user : User = new User();
-  constructor(private authenticationService : AuthenticationService, private router : Router) 
-  {}
+
+  loginForm : FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl : string = '';
+  error = '';
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private authenticationService : AuthenticationService,
+    private router : Router,
+    ) 
+  {
+
+  }
   
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
     
   } 
 
+  get f() {
+    return this.loginForm.controls;
+  }
+
   onSubmit(event) {
-    var result : User = this.authenticationService.login(this.user.username, this.user.password);
-    console.log(result);
-    if (result) {
-      this.router.navigate(['/']);
-    }
+    this.submitted = true;
+    if (this.loginForm.invalid) return;
+
+    this.loading = true;
+
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+      .subscribe((result) => {
+        console.log(result);
+        if (result.isSuccess == true) {
+          this.error = '';
+          this.router.navigate(['']);
+        }
+        else {
+          if (result.errorCode == "1") {
+            alert("Không thành công, vui lòng kiểm tra kết nối đến server và thử lại.");
+          }
+          
+          this.loading = false;
+          this.error = result.errorMessage;
+        }
+      },
+      (error) => {
+        this.error = error["message"];
+        this.loading = false;
+        alert("Không thành công, vui lòng kiểm tra kết nối đến server và thử lại.");
+        console.log(error);
+      }, () => {
+        this.loading = false;
+      });
+
   }
 
   ngOnDestroy(): void {

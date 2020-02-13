@@ -16,7 +16,7 @@ export class QuanLyPhongComponent implements OnInit {
   @ViewChild("modalPhong") public modalPhong: ModalDirective;
   phongs: Phong[];
   routeSub: any;
-  
+  page = 1;
   constructor(
     private route: ActivatedRoute,
     private phongPopupService: QuanLyPhongPopupService
@@ -42,5 +42,20 @@ export class QuanLyPhongComponent implements OnInit {
 
     this.phongPopupService
       .open(PhongDeleteComponent as Component, id);
+  }
+  loadPages(page : number) {
+    // switch (page) {
+    //   case 1:
+    //     this.coquans = coquans;
+    //     break;
+    //   case 2:
+    //     this.coquans = coquans2;
+    //     break;
+    //   case 3:
+    //     this.coquans = coquans;
+    //     break;
+    //   default:
+    //     break;
+    // }
   }
 }

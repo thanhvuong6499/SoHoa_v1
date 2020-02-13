@@ -12,6 +12,7 @@ import { Select2Data } from 'ng-select2-component';
   templateUrl: './co-quan-dialog.component.html',
   styleUrls: ['./co-quan-dialog.component.css']
 })
+
 export class CoQuanDialogComponent implements OnInit {
   coQuan = new CoQuan();
   data1 = data1;
@@ -25,8 +26,7 @@ export class CoQuanDialogComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.coQuan = this.coQuanPopupService.getCoQuanById();
-
+  
   }
   update1(value: string) {
     // this.value1 = value;
@@ -38,22 +38,23 @@ export class CoQuanDialogComponent implements OnInit {
   
   }
   save(){
-    if (this.coQuan.id && this.coQuan.id != undefined) {
-      for(let i = 0; i < coquans.length; i++) {
-        if (coquans[i].id == this.coQuan.id) {
-          coquans[i] = this.coQuan;
-          break;
-        }
-      }
-    }
-    else {
-      let id = coquans.length;
-      this.coQuan.id = id + 1;
-      coquans.push(this.coQuan);
-    }
-    this.clear();
+    // if (this.coQuan.id && this.coQuan.id != undefined) {
+    //   for(let i = 0; i < coquans.length; i++) {
+    //     if (coquans[i].id == this.coQuan.id) {
+    //       coquans[i] = this.coQuan;
+    //       break;
+    //     }
+    //   }
+    // }
+    // else {
+    //   let id = coquans.length;
+    //   this.coQuan.id = id + 1;
+    //   coquans.push(this.coQuan);
+    // }
+    // this.clear();
     
   }
+
 
 }
 export const data1: Select2Data = [
