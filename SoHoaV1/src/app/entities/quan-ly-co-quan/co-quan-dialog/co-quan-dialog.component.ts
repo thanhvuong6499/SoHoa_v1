@@ -14,7 +14,7 @@ import { Select2Data } from 'ng-select2-component';
 })
 
 export class CoQuanDialogComponent implements OnInit {
-  coQuan = new CoQuan();
+  coQuan : CoQuan = new CoQuan();
   data1 = data1;
   value1 = 'CA';
   constructor(
@@ -22,38 +22,37 @@ export class CoQuanDialogComponent implements OnInit {
     public coQuanPopupService: QuanLyCoQuanPopupService,
     public service: QuanLyCoQuanService,
   ) {
-
+    this.coQuan = this.coQuanPopupService.result.item;
    }
 
   ngOnInit() {
-  
+    // console.log(this.coQuanPopupService.result.item);
+    // this.coQuan = this.coQuanPopupService.result.item;
   }
   update1(value: string) {
-    // this.value1 = value;
-    console.log(value);
-    
-}
+
+  }
   clear() {
     this.activeModal.dismiss('cancel');
-  
   }
-  save(){
-    // if (this.coQuan.id && this.coQuan.id != undefined) {
-    //   for(let i = 0; i < coquans.length; i++) {
-    //     if (coquans[i].id == this.coQuan.id) {
-    //       coquans[i] = this.coQuan;
-    //       break;
-    //     }
-    //   }
-    // }
-    // else {
-    //   let id = coquans.length;
-    //   this.coQuan.id = id + 1;
-    //   coquans.push(this.coQuan);
-    // }
-    // this.clear();
+
+  save() {
+    console.log(this.coQuan);
+    this.coQuan.TinhID = 1;
+    this.coQuan.XaPhuongID = 1;
+    this.coQuan.HuyenID = 1;
     
+    this.service.Save(this.coQuan)
+      .subscribe((result) => {
+        console.log(result);
+      },
+      (error) => {
+        console.log(error);
+      }, () => {
+        this.activeModal.dismiss("Create new successfully");
+      });
   }
+
 
 
 }

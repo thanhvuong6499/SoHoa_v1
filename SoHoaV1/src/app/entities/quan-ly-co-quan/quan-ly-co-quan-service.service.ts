@@ -2,7 +2,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { CoQuan, coquans } from '../../model/co-quan.model';
 import { Phong, phongs } from '../../model/phong.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult } from '../../common';
+import { map } from 'rxjs/operators';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -12,16 +14,7 @@ export class QuanLyCoQuanService {
   coquans: CoQuan[];
   apiUrl = "https://localhost:44357/api/";
   constructor(private httpClient : HttpClient) { }
-  public getCoQuanById(id: number) {
-    // this.coquans = coquans;
-    // var coquan = new CoQuan();
-    // for (let i = 0; i < coquans.length; i++) {
-    //   if (id == coquans[i].id) {
-    //     coquan = coquans[i];
-    //   }
-    // }
-    // return coquan;
-  }
+
   public getListPhongByCoQuanId (id: number) {
     var phong : Phong[] = [];
     for (let i = 0; i < phongs.length; i ++) {
@@ -31,28 +24,41 @@ export class QuanLyCoQuanService {
     }
     return phong;
   }
-  //select2 autocomplete
-//   getDynamicList(): Observable<Array<Select2OptionData>> {
-//     return Observable.create((obs) => {
-//         obs.next([
-//             {
-//                 id: 'dyn1',
-//                 text: 'Dynamic 1'
-//             },
-//             {
-//                 id: 'dyn2',
-//                 text: 'Dynamic 2'
-//             },
-//             {
-//                 id: 'dyn3',
-//                 text: 'Dynamic 3'
-//             },
-//             {
-//                 id: 'dyn4',
-//                 text: 'Dynamic 4'
-//             }
-//         ]);
-//         obs.complete();
-//     });
-// }
+  public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
+    console.log(condi);
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        IN_WHERE: ""
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5,
+        IN_WHERE: ""
+      }
+    }
+   //  var reqOptions = HttpUtilities.convert(condi);
+   var reqOptions = JSON.stringify(condi);
+    console.log(reqOptions);
+    const options = HttpUtilities.createRequestOption(reqOptions);
+    return this.httpClient.get<CoQuan[]>(this.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  }
+
+   Save (coquan: CoQuan) {
+
+      var httpOptions : HttpHeaders = new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+      var body = JSON.stringify(coquan);
+      console.log(body);
+      return this.httpClient.post<CoQuan>(ApiUrl.apiUrl + "CoQuan/InsertCoQuan", body, { headers: httpOptions });
+  }
+
+  public getCoQuanById (id: number) {
+    return this.httpClient.get<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/GetCoQuanById/" + id);
+  }
 }
