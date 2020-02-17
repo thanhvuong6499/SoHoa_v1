@@ -3,6 +3,8 @@ import { CoQuan, coquans } from '../../model/co-quan.model';
 import { Phong, phongs } from '../../model/phong.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { BaseCondition, HttpUtilities, ApiUrl } from '../../common';
+import { User } from '../../model/user.model';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -10,7 +12,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuanLyCoQuanService {
   coquans: CoQuan[];
-  apiUrl = "https://localhost:44357/api/";
   constructor(private httpClient : HttpClient) { }
   public getCoQuanById(id: number) {
     // this.coquans = coquans;
@@ -31,28 +32,24 @@ export class QuanLyCoQuanService {
     }
     return phong;
   }
-  //select2 autocomplete
-//   getDynamicList(): Observable<Array<Select2OptionData>> {
-//     return Observable.create((obs) => {
-//         obs.next([
-//             {
-//                 id: 'dyn1',
-//                 text: 'Dynamic 1'
-//             },
-//             {
-//                 id: 'dyn2',
-//                 text: 'Dynamic 2'
-//             },
-//             {
-//                 id: 'dyn3',
-//                 text: 'Dynamic 3'
-//             },
-//             {
-//                 id: 'dyn4',
-//                 text: 'Dynamic 4'
-//             }
-//         ]);
-//         obs.complete();
-//     });
-// }
+  public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
+    console.log(condi);
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        IN_WHERE: ""
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5,
+        IN_WHERE: ""
+      }
+    }
+    console.log(condition);
+    return this.httpClient.get<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  }
 }
