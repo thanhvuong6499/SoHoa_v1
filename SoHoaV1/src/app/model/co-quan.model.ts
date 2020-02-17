@@ -8,7 +8,12 @@ export class CoQuan  {
         public loaiCoQuanID?: string,
         public TinhID? : number,
         public HuyenID? :number,
-        public XaPhuongID ?: number
+        public XaPhuongID ?: number,
+        public CreateBy? : string,
+        public UpdatedBy? :string,
+        public AddressDetail? :string,
+        public AddressID? :number,
+        public OrganType? : string
     ) {
     }
 }

@@ -16,7 +16,7 @@
       <label class="col-md-3 col-form-label" for="textarea-input">Mã cơ quan</label>
       <div class="col-md-9">
         <input id="textarea-input-1" name="coQuanID" rows="9" class="form-control"
-          [(ngModel)]="coQuan.coQuanID" required>
+          [(ngModel)]="coQuan.coQuanID" [readonly]="isEdit == true ? 'readonly' : false" required>
       </div>
     </div>
     <div class="form-group row">
@@ -37,43 +37,32 @@
         <mat-form-field class="col-md-9">
           <input matInput value="" id="text-input-name" name="tencoquan" [(ngModel)]="coQuan.tencoquan">
         </mat-form-field> -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="organ-type">Loại cơ quan</label>
+          <div class="col-md-9">
+            <select2 [data]="data1" (update)="update1($event)" id="organ-type" [value]="defaultValue">
+              <option selected>Chọn loại cơ quan</option>
+            </select2>
+          </div>
+        </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label lbl-padding" for="select1">Loại cơ quan</label>
+      <label class="col-md-3 col-form-label" for="city">Tỉnh / Thành phố</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control" [(ngModel)]="coQuan.loaiCoQuanID">
-          <option value="0">Chọn loại cơ quan</option>
-          <option value="1">Cơ quan tư pháp</option>
-          <option value="2">Cơ quan hành pháp</option>
-          <option value="3">Cơ quan hành chính</option>
-        </select>
-        <!-- <mat-form-field class="example-full-width">
-          <input type="text" placeholder="" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field> -->
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Tỉnh / Thành phố</label>
-      <div class="col-md-9">
-        <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+        <select2 [data]="data1" (update)="update1($event)" id="city">
         </select2>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Quận / Huyện</label>
+      <label class="col-md-3 col-form-label" for="district">Quận / Huyện</label>
       <div class="col-md-9">
-        <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+        <select2 [data]="data1" (update)="update1($event)" id="district">
         </select2>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Xã / Phường</label>
+      <label class="col-md-3 col-form-label" for="ward">Xã / Phường</label>
       <div class="col-md-9">
-        <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+        <select2 [data]="data1" (update)="update1($event)" id="ward">
         </select2>
       </div>
     </div>

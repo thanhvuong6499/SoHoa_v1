@@ -17,7 +17,6 @@
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <!-- <th>STT</th> -->
                 <th>Mã cơ quan</th>
                 <th>Tên cơ quan</th>
                 <th>Địa chỉ</th>
@@ -26,14 +25,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let coquan of coquans">
+              <tr *ngFor="let coquan of coquans; let count = index">
                 <td>{{ coquan.coQuanID }}</td>
                 <td>{{ coquan.tenCoQuan }}</td>
-                <td>{{ coquan.diaChiID }}</td>
-                <td>{{ coquan.loaiCoQuan }}</td>
+                <td>{{ coquan.addressDetail }}</td>
+                <td>{{ coquan.organType }}</td>
                
                 <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyCoQuan/coQuan',coquan.id]" routerLinkActive="router-link-active"  ></button>
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyCoQuan/coQuan',coquan.coQuanID]" routerLinkActive="router-link-active"  ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
                   <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(coquan.coQuanID)"  replaceUrl="true" queryParamsHandling="merge"></button>
                   <button class="btn btn-primary fa fa-trash" type="submit" (click)="openDeleteDialog(coquan.coQuanID)"></button>

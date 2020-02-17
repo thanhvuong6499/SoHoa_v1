@@ -24,6 +24,10 @@ export class AuthenticationService implements OnInit, OnDestroy {
     return this.behaviorUserSubject.value;
   }
 
+  public get getUserName() : string {
+    return JSON.parse(localStorage.getItem('currentUser')).userName;
+  }
+
   login(UserName : string, Password: string) {
     var account = {
       UserName: UserName,
