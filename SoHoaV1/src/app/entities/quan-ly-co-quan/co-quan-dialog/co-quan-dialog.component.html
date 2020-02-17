@@ -15,14 +15,14 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Mã cơ quan</label>
       <div class="col-md-9">
-        <input id="textarea-input-1" name="ghichu" rows="9" class="form-control"
-          [(ngModel)]="coQuan.coQuanID" value="{{ coQuan.tencoquan}}" required>
+        <input id="textarea-input-1" name="coQuanID" rows="9" class="form-control"
+          [(ngModel)]="coQuan.coQuanID" required>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Tên cơ quan</label>
       <div class="col-md-9">
-        <input id="textarea-input-2" name="ghichu" rows="9" class="form-control"
+        <input id="textarea-input-2" name="tenCoQuan" rows="9" class="form-control"
           [(ngModel)]="coQuan.tenCoQuan" required/>
       </div>
     </div>
@@ -83,8 +83,8 @@
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Địa chỉ chi tiết</label>
       <div class="col-md-9">
-        <textarea id="textarea-1" name="ghichu" rows="9" class="form-control"
-          [(ngModel)]="coQuan.diachi"></textarea>
+        <textarea id="textarea-1" name="diachiid" rows="9" class="form-control"
+          [(ngModel)]="coQuan.diachiid"></textarea>
       </div>
     </div>
   </div>

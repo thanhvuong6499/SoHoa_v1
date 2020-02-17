@@ -22,12 +22,18 @@ export class CoQuanDialogComponent implements OnInit {
     public coQuanPopupService: QuanLyCoQuanPopupService,
     public service: QuanLyCoQuanService,
   ) {
-    this.coQuan = this.coQuanPopupService.result.item;
    }
 
   ngOnInit() {
     // console.log(this.coQuanPopupService.result.item);
-    // this.coQuan = this.coQuanPopupService.result.item;
+    // debugger
+    // console.log(this.coQuanPopupService.result.item);
+    
+    if(this.coQuanPopupService.result.item != undefined){
+      this.coQuan = this.coQuanPopupService.result.item;
+      console.log(this.coQuan);
+    }
+    
   }
   update1(value: string) {
 
