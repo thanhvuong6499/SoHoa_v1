@@ -3,10 +3,12 @@ import { Phong } from './phong.model';
 export class CoQuan  {
     constructor(
         public coQuanID?: number,
-        public macoquan?: number,
-        public tencoquan?: string,
+        public tenCoQuan?: string,
         public diachiid?: string,
-        public loaicoquan?: string
+        public loaiCoQuanID?: string,
+        public TinhID? : number,
+        public HuyenID? :number,
+        public XaPhuongID ?: number
     ) {
     }
 }

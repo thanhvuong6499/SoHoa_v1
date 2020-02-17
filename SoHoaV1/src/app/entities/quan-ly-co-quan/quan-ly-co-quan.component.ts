@@ -54,8 +54,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     if (id) {
       this.coQuanPopupService
         .open(CoQuanDialogComponent as Component, id);
-      console.log(id);
-
     } else {
       this.coQuanPopupService
         .open(CoQuanDialogComponent as Component);

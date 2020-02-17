@@ -2,17 +2,21 @@ import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { CoQuan, coquans } from '../../model/co-quan.model';
+import { ReturnResult } from '../../common';
+import { QuanLyCoQuanService } from './quan-ly-co-quan-service.service';
 
 @Injectable()
 export class QuanLyCoQuanPopupService {
   private ngbModalRef: NgbModalRef;
   private id : number;
+  public result : ReturnResult<CoQuan>;
   constructor(
       private modalService: NgbModal,
       private router: Router,
-
+      private coQuanService: QuanLyCoQuanService
   ) {
       this.ngbModalRef = null;
+      this.result = new ReturnResult<CoQuan>();
   }
   private coquans : CoQuan[];
   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
@@ -22,13 +26,22 @@ export class QuanLyCoQuanPopupService {
               resolve(this.ngbModalRef);
           }
 
-          if (id) {
+          if (id !=null) {
               this.id = id;
-              resolve(this.ngbModalRef);
-              
+              this.coQuanService.getCoQuanById(id)
+                .subscribe((result) => {
+                    console.log(result);
+                    this.result = result;
+                    const coquan : CoQuan = result.item;
+                    this.ngbModalRef = this.coQuanModalRef(component, coquan);
+                    resolve(this.ngbModalRef);
+                });
+                
+                
           } else {
-              this.id = null;
+            //  this.id = null;
               // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
+              this.result.item = undefined;
               setTimeout(() => {
                   this.ngbModalRef = this.coQuanModalRef(component, new CoQuan());
                   resolve(this.ngbModalRef);
@@ -36,9 +49,7 @@ export class QuanLyCoQuanPopupService {
           }
       });
   }
-  public getUserByUserId(){
-
-  };
+  
  public coQuanModalRef(component: Component, coquan: CoQuan): NgbModalRef {
       const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
       //// Go back to home page after the modal is closed
