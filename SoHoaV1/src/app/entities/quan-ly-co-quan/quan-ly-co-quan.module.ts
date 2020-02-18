@@ -13,6 +13,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatFormFieldModule,MatInputModule } from '@angular/material';
 import { Select2Module } from "ng-select2-component";
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatAutocompleteModule,
     HttpClientModule,
-    
-    QuanLyCoQuanRoutingModule
+    QuanLyCoQuanRoutingModule,
+    NgSelect2Module
   ],
   providers:[
     QuanLyCoQuanPopupService,

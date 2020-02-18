@@ -4,7 +4,8 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // material module
 import { MaterialModule } from './material.module';
-//
+// autocomplete
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -26,6 +27,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { EntitiesModule } from './entities/entities.module';
 import { ModalModule } from "ngx-bootstrap";
+import { Observable } from 'rxjs';
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -54,6 +56,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 // toast
 import { ToastrModule } from 'ngx-toastr';
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   imports: [
@@ -75,7 +78,9 @@ import { ToastrModule } from 'ngx-toastr';
     ModalModule.forRoot(),
     NgbModule,
     MaterialModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AutocompleteLibModule,
+    NgSelect2Module
   ],
   declarations: [
     AppComponent,

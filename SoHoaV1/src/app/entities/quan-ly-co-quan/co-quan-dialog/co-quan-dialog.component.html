@@ -40,8 +40,8 @@
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="organ-type">Loại cơ quan</label>
           <div class="col-md-9">
-            <select2 [data]="data1" (update)="update1($event)" id="organ-type" [value]="defaultValue">
-              <option selected>Chọn loại cơ quan</option>
+            <select2 [data]="organTypeList" (update)="update1($event)" id="organ-type" [value]="defaultValue">
+             
             </select2>
           </div>
         </div>
@@ -50,6 +50,7 @@
       <div class="col-md-9">
         <select2 [data]="data1" (update)="update1($event)" id="city">
         </select2>
+        <ng-select2 [data]="organTypeList" [placeholder]="'Chọn loại cơ quan'"></ng-select2>
       </div>
     </div>
     <div class="form-group row">

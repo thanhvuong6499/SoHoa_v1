@@ -7,6 +7,7 @@ import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions 
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../services/authentication.service';
+import { OrganType } from '../../model/organ-type.model';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -62,5 +63,10 @@ export class QuanLyCoQuanService {
   updateCoQuan (coquan: CoQuan) {
     coquan.UpdatedBy = this.authenticationService.getUserName;
     return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/UpdateCoQuan", JSON.stringify(coquan), { headers: HttpHeadersOptions.headers });
+  }
+
+  // lấy danh sách loại cơ quan
+  getListOrganType() {
+    return this.httpClient.get<OrganType[]>(ApiUrl.apiUrl + "OrganType/GetAllOrganType");
   }
 }

@@ -9,6 +9,7 @@ import { QuanLyCoQuanService } from '../quan-ly-co-quan-service.service';
 import { Select2Data } from 'ng-select2-component';
 import { QuanLyCoQuanComponent } from '../quan-ly-co-quan.component';
 import { Router } from '@angular/router';
+import { OrganType } from '../../../model/organ-type.model';
 @Component({
   selector: 'app-co-quan-dialog',
   templateUrl: './co-quan-dialog.component.html',
@@ -22,6 +23,7 @@ export class CoQuanDialogComponent implements OnInit {
   isEdit : boolean = false;
   defaultValue : string;
   data: any;
+  organTypeList: Select2Data;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -29,6 +31,8 @@ export class CoQuanDialogComponent implements OnInit {
     public service: QuanLyCoQuanService,
     private router: Router,
   ) {
+    //  this.organTypeList = new Array<OrganType>();
+    this.organTypeList = [];
    }
 
   ngOnInit() {
@@ -38,31 +42,32 @@ export class CoQuanDialogComponent implements OnInit {
     if(this.coQuanPopupService.result.item != undefined){
       this.coQuan = this.coQuanPopupService.result.item;
       this.isEdit = true;
-      console.log(this.coQuan);
     }
     else {
       this.isEdit = false;
-      this.defaultValue = "Chọn loại cơ quan...";
+      
+      this.service.getListOrganType()
+        .subscribe((result) => {
+          if (result != undefined) {
+            var lstOrganType = [];
+            for (var item of result) {
+              var temp = { value: item.organTypeID, label: item.organTypeName };
+              lstOrganType.push(temp);
+            }
+            this.organTypeList = [
+              {
+                label: 'Danh sách cơ quan',
+                options: lstOrganType
+              }
+            ]
+            this.defaultValue = "Chọn loại cơ quan...";
+          }
+        },
+        (error) => {
+          console.log(error)
+        }, () => {
+        });
     }
-    this.data = [
-      {
-        id: 'basic1',
-        text: 'Basic 1'
-      },
-      {
-        id: 'basic2',
-        disabled: true,
-        text: 'Basic 2'
-      },
-      {
-        id: 'basic3',
-        text: 'Basic 3'
-      },
-      {
-        id: 'basic4',
-        text: 'Basic 4'
-      }
-    ];
   }
   update1(value: string) {
 
@@ -106,7 +111,6 @@ export class CoQuanDialogComponent implements OnInit {
     }
     
   }
-
 
 
 }
