@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { OrganType } from '../../../model/organ-type.model';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-co-quan-dialog',
@@ -42,6 +43,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
     public activeModal: NgbActiveModal,
     public coQuanPopupService: QuanLyCoQuanPopupService,
     public service: QuanLyCoQuanService,
+    private toastr: ToastrService,
     private router: Router,
   ) {
     //  this.organTypeList = new Array<OrganType>();
@@ -115,10 +117,16 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         },
         (error)=> {
           console.log(error);
+          
+          // this.onSaveError();
         },
         () => {
           // do something
+          
+
           this.activeModal.dismiss("Update successfully.");
+          this.onSaveSuccess("Chỉnh sửa thành công");
+
         });
     }
     else {
@@ -129,6 +137,8 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         (error) => {
           console.log(error);
         }, () => {
+          debugger
+          this.onSaveSuccess("Thêm mới thành công");
           this.activeModal.dismiss("Create new successfully");
         });
     }
@@ -179,6 +189,12 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
           this.enaWard = false;
         })
     }
+  }
+  onSaveSuccess(message: string){
+    this.toastr.success(message);
+  }
+  onSaveError(message){
+    this.toastr.success(message);
   }
   ngOnDestroy(): void {
     

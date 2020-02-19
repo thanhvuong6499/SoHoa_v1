@@ -45,10 +45,10 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     }
 
   }
-  // openDeleteDialog(id?: number) {
-  //     this.coQuanPopupService
-  //       .open(CoQuanDeleteComponent as Component, id);
-  // }
+  openDeleteDialog(id?: number) {
+      this.coQuanPopupService
+        .open(CoQuanDeleteComponent as Component, id);
+  }
 
   loadPages(page : number) {
     var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
@@ -77,18 +77,12 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteCoQuan(id: any) {
-    if (confirm("Bạn có muốn xóa cơ quan có id = " + id + " ?"))
-    {
-      this.coQuanService.deleteCoQuan(id)
-      .subscribe((result) => {
-        console.log(result)
-      },
-      (error) => {
-        alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
-      });
-    }
-  }
+  // deleteCoQuan(id: any) {
+  //   if (confirm("Bạn có muốn xóa cơ quan có id = " + id + " ?"))
+  //   {
+      
+  //   }
+  // }
 
   ngOnDestroy(): void {
     
