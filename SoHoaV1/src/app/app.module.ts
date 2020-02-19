@@ -54,6 +54,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 // toast
 import { ToastrModule } from 'ngx-toastr';
+import { AlertModule } from './containers/_alert';
 
 @NgModule({
   imports: [
@@ -75,6 +76,7 @@ import { ToastrModule } from 'ngx-toastr';
     ModalModule.forRoot(),
     NgbModule,
     MaterialModule,
+    AlertModule,
     ToastrModule.forRoot()
   ],
   declarations: [

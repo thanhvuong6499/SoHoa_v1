@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HoSo, hosos } from '../../../model/ho-so.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from '../quan-ly-ho-so-popup.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -12,7 +13,8 @@ export class HoSoDialogComponent implements OnInit {
   hoso: HoSo;
   constructor(
    private activeModal: NgbActiveModal,
-   private hoSoPopupService: QuanLyHoSoPopupService
+   private hoSoPopupService: QuanLyHoSoPopupService,
+   private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -35,9 +37,19 @@ export class HoSoDialogComponent implements OnInit {
       let id = hosos.length;
       this.hoso.id = id + 1;
       hosos.push(this.hoso);
+      this.success();
     }
     this.clear();
     
   }
+
+  success(){
+      
+    this.toastr.success('Thêm mới thành công');
+
+    
+  }
+
+ 
 
 }
