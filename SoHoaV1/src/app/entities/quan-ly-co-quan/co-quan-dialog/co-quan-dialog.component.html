@@ -40,31 +40,56 @@
         <div class="form-group row">
           <label class="col-md-3 col-form-label" for="organ-type">Loại cơ quan</label>
           <div class="col-md-9">
-            <select2 [data]="organTypeList" (update)="update1($event)" id="organ-type" [value]="defaultValue">
-             
-            </select2>
+            <!-- <select2 [data]="organTypeList" (update)="update1($event)" id="organ-type" [value]="defaultValue">
+            </select2> -->
+            <ng-select2
+            [data]="organTypeList"
+            [placeholder]="'Chọn loại cơ quan...'"
+            [options]="options"
+            name="loaiCoQuanID"
+            [(ngModel)]="coQuan.loaiCoQuanID"
+
+          ></ng-select2>
           </div>
         </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="city">Tỉnh / Thành phố</label>
       <div class="col-md-9">
-        <select2 [data]="data1" (update)="update1($event)" id="city">
-        </select2>
-        <ng-select2 [data]="organTypeList" [placeholder]="'Chọn loại cơ quan'"></ng-select2>
+        <ng-select2
+            [data]="provinceList"
+            [placeholder]="'Chọn Tỉnh/Thành phố...'"
+            [options]="options"
+            name="tinhID"
+            [(ngModel)]="coQuan.tinhID"
+            (valueChanged)="getDistrictByProvinceId($event)"
+          ></ng-select2>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="district">Quận / Huyện</label>
       <div class="col-md-9">
-        <select2 [data]="data1" (update)="update1($event)" id="district">
-        </select2>
+        <ng-select2
+            [data]="districtList"
+            [placeholder]="'Chọn Quận/Huyện...'"
+            [options]="options"
+            name="huyenID"
+            [(ngModel)]="coQuan.huyenID"
+            [disabled]="enaDistrict"
+            (valueChanged)="getWardByDistrictId($event)"
+            ></ng-select2>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="ward">Xã / Phường</label>
+      <label class="col-md-3 col-form-label" for="ward">Xã / Phường / Thị Trấn</label>
       <div class="col-md-9">
-        <select2 [data]="data1" (update)="update1($event)" id="ward">
-        </select2>
+        <ng-select2
+            [data]="wardList"
+            [placeholder]="'Chọn Xã/Phường/Thị Trấn...'"
+            [options]="options"
+            name="xaPhuongID"
+            [(ngModel)]="coQuan.xaPhuongID"
+            [disabled]="enaWard"
+            ></ng-select2>
       </div>
     </div>
     <div class="form-group row">
@@ -75,6 +100,7 @@
       <div class="col-md-9">
         <textarea id="textarea-1" name="diachiid" rows="9" class="form-control"
           [(ngModel)]="coQuan.diachiid"></textarea>
+          
       </div>
     </div>
   </div>
@@ -88,3 +114,4 @@
     </button>
   </div>
 </form>
+

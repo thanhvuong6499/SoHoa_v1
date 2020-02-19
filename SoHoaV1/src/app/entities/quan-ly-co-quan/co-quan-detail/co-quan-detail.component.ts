@@ -21,7 +21,10 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private quanLyCoQuanService: QuanLyCoQuanService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) {
+      this.coQuan = new CoQuan();
+    //  this.coQuan.coQuanID = 0;
+    }
   ngOnInit() {
      this.subscription = this.route.params.subscribe((params) => {
        console.log(params['id']);
@@ -30,7 +33,11 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
   }
   load(id : number) {
   //  this.coQuan = this.quanLyCoQuanService.getCoQuanById(id);
-    this.phongs = this.quanLyCoQuanService.getListPhongByCoQuanId(id);
+    this.quanLyCoQuanService.getCoQuanById(id)
+      .subscribe((result) => {
+        this.coQuan = result.item;
+        console.log(this.coQuan);
+      });
   }
   loadPages(page : number) {
     // switch (page) {

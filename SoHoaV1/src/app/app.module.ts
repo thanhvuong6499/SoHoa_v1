@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // material module
 import { MaterialModule } from './material.module';
 // autocomplete
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+//import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -79,7 +79,6 @@ import { NgSelect2Module } from 'ng-select2';
     NgbModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    AutocompleteLibModule,
     NgSelect2Module
   ],
   declarations: [

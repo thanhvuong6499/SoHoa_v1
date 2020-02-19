@@ -8,6 +8,9 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthenticationService } from '../../services/authentication.service';
 import { OrganType } from '../../model/organ-type.model';
+import { Tinh } from '../../model/tinh.model';
+import { Huyen } from '../../model/huyen.model';
+import { Xa } from '../../model/xa.model';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -51,7 +54,7 @@ export class QuanLyCoQuanService {
   }
 
    insertNewCoQuan (coquan: CoQuan) {
-      coquan.CreateBy = this.authenticationService.getUserName;
+      coquan.createBy = this.authenticationService.getUserName;
       var body = JSON.stringify(coquan);
       return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/InsertCoQuan", body, { headers: HttpHeadersOptions.headers });
    }
@@ -61,12 +64,42 @@ export class QuanLyCoQuanService {
   }
 
   updateCoQuan (coquan: CoQuan) {
-    coquan.UpdatedBy = this.authenticationService.getUserName;
+    coquan.updatedBy = this.authenticationService.getUserName;
     return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/UpdateCoQuan", JSON.stringify(coquan), { headers: HttpHeadersOptions.headers });
   }
 
   // lấy danh sách loại cơ quan
   getListOrganType() {
     return this.httpClient.get<OrganType[]>(ApiUrl.apiUrl + "OrganType/GetAllOrganType");
+  }
+
+  // lấy danh sách các tỉnh
+  getListProvince() {
+    return this.httpClient.get<Tinh[]>(ApiUrl.apiUrl + "Address/GetAllProvince");
+  }
+
+  // lấy danh sách quận huyện với tinhID
+  getDistrictByProvinceId (id: string) {
+    var params = {
+      provinceId: id
+    }
+    return this.httpClient.get<Huyen[]>(ApiUrl.apiUrl + "Address/GetDistrictByProvinceID", { params: params });
+  }
+
+  getWardByDistrictId (id: string) {
+    var params = {
+      districtId: id
+    }
+    return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetWardByDistrictID", { params: params });
+  }
+
+  // xóa cơ quan
+  deleteCoQuan (id: string) {
+    var body = {
+      id: id
+    }
+    var params = JSON.stringify(body);
+    console.log(params)
+    return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/DeleteCoQuan?id=" + id, { headers :HttpHeadersOptions.headers });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan-popup.service';
@@ -10,20 +10,33 @@ import { Select2Data } from 'ng-select2-component';
 import { QuanLyCoQuanComponent } from '../quan-ly-co-quan.component';
 import { Router } from '@angular/router';
 import { OrganType } from '../../../model/organ-type.model';
+import { Select2OptionData } from 'ng-select2';
+import { Options } from 'select2';
+
 @Component({
   selector: 'app-co-quan-dialog',
   templateUrl: './co-quan-dialog.component.html',
   styleUrls: ['./co-quan-dialog.component.css']
 })
 
-export class CoQuanDialogComponent implements OnInit {
+export class CoQuanDialogComponent implements OnInit, OnDestroy {
+
   coQuan : CoQuan = new CoQuan();
-  data1 = data1;
-  value1 = 'CA';
+  value1 = 'Default';
   isEdit : boolean = false;
   defaultValue : string;
   data: any;
-  organTypeList: Select2Data;
+//  organTypeList: Select2Data;
+
+  organTypeList: Array<Select2OptionData>;
+  options: Options;
+  provinceList: Array<Select2OptionData>;
+
+  enaDistrict: boolean = true;
+  districtList: Array<Select2OptionData>;
+
+  enaWard: boolean = true;
+  wardList: Array<Select2OptionData>;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -32,42 +45,59 @@ export class CoQuanDialogComponent implements OnInit {
     private router: Router,
   ) {
     //  this.organTypeList = new Array<OrganType>();
-    this.organTypeList = [];
+    this.options = {
+      multiple: false,
+      theme: 'classic',
+      closeOnSelect: true,
+      width: "100%"
+    }
    }
 
   ngOnInit() {
-    // console.log(this.coQuanPopupService.result.item);
-    // debugger
-    // console.log(this.coQuanPopupService.result.item);
+    this.isEdit = false;
+    
+    this.service.getListOrganType()
+      .subscribe((result) => {
+        if (result != undefined) {
+          var lstOrganType = [];
+          for (var item of result) {
+            var temp = { id: item.organTypeID, text: item.organTypeName };
+            lstOrganType.push(temp);
+          }
+          this.organTypeList = lstOrganType;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }, () => {
+      });
+    
+    this.service.getListProvince()
+      .subscribe((result) => {
+        var lstProvinces = [];
+        for (const item of result) {
+          var temp = { id: item.provincialID, text: item.provincialName }
+          lstProvinces.push(temp);
+        }
+        this.provinceList = lstProvinces;
+      },
+      (error) => {
+        console.log(error);
+        setTimeout(() => {
+          alert("Lấy dữ liệu về tỉnh/thành phố thất bại. Lỗi: " + JSON.stringify(error));
+        }, 1000);
+      },
+      () => {
+
+      });
+
+    // edit
     if(this.coQuanPopupService.result.item != undefined){
       this.coQuan = this.coQuanPopupService.result.item;
+      console.log(this.coQuan)
       this.isEdit = true;
     }
-    else {
-      this.isEdit = false;
-      
-      this.service.getListOrganType()
-        .subscribe((result) => {
-          if (result != undefined) {
-            var lstOrganType = [];
-            for (var item of result) {
-              var temp = { value: item.organTypeID, label: item.organTypeName };
-              lstOrganType.push(temp);
-            }
-            this.organTypeList = [
-              {
-                label: 'Danh sách cơ quan',
-                options: lstOrganType
-              }
-            ]
-            this.defaultValue = "Chọn loại cơ quan...";
-          }
-        },
-        (error) => {
-          console.log(error)
-        }, () => {
-        });
-    }
+
   }
   update1(value: string) {
 
@@ -78,9 +108,7 @@ export class CoQuanDialogComponent implements OnInit {
 
   save() {
     if (this.isEdit) {
-      this.coQuan.TinhID = 1;
-      this.coQuan.XaPhuongID = 1;
-      this.coQuan.HuyenID = 1;
+      console.log(this.coQuan);
       this.service.updateCoQuan(this.coQuan)
         .subscribe((result) => {
           console.log(result);
@@ -94,12 +122,7 @@ export class CoQuanDialogComponent implements OnInit {
         });
     }
     else {
-      console.log(this.coQuan);
-      this.coQuan.TinhID = 1;
-      this.coQuan.XaPhuongID = 1;
-      this.coQuan.HuyenID = 1;
-      
-      this.service.insertNewCoQuan(this.coQuan)
+        this.service.insertNewCoQuan(this.coQuan)
         .subscribe((result) => {
           console.log(result);
         },
@@ -109,86 +132,55 @@ export class CoQuanDialogComponent implements OnInit {
           this.activeModal.dismiss("Create new successfully");
         });
     }
+  }
+
+  getDistrictByProvinceId(value) {
+    if (value != null) {
+      this.service.getDistrictByProvinceId(value)
+      .subscribe((districs) => {
+        if (districs != undefined) {
+            var lstDistricts = [];
+            for (const item of districs) {
+              var temp = { id: item.districtID, text: item.districtName }
+              lstDistricts.push(temp);
+            }
+            this.districtList = lstDistricts;
+        }
+      },
+      (error) => {
+        alert("Lấy dữ liệu danh sách huyện thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+        this.enaDistrict = false;
+        if (this.isEdit)
+        {
+          this.enaWard = true;
+        }
+      });
+    }
+  }
+
+  getWardByDistrictId(value) {
+    if (value != null) {
+      this.service.getWardByDistrictId(value)
+        .subscribe((wards) => {
+            if (wards != undefined) {
+              var lstWards = [];
+              for (const item of wards) {
+                var temp = { id: item.wardsID, text: item.wardsName };
+                lstWards.push(temp);
+              }
+              this.wardList = lstWards;
+            }
+        }, (error) => {
+          alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
+        },
+        () => {
+          this.enaWard = false;
+        })
+    }
+  }
+  ngOnDestroy(): void {
     
   }
-
-
 }
-export const data1: Select2Data = [
-  {
-      label: '',
-      options: [
-          { value: 'AK', label: 'Alaska' },
-          { value: 'HI', label: 'Hawaii', disabled: true }
-      ]
-  },
-  {
-      label: 'Pacific Time Zone',
-      options: [
-          { value: 'CA', label: 'California' },
-          { value: 'NV', label: 'Nevada' },
-          { value: 'OR', label: 'Oregon' },
-          { value: 'WA', label: 'Washington' }
-      ]
-  },
-  {
-      label: 'Mountain Time Zone',
-      options: [
-          { value: 'AZ', label: 'Arizona' },
-          { value: 'CO', label: 'Colorado' },
-          { value: 'ID', label: 'Idaho' },
-          { value: 'MT', label: 'Montana' },
-          { value: 'NE', label: 'Nebraska' },
-          { value: 'NM', label: 'New Mexico' },
-          { value: 'ND', label: 'North Dakota' },
-          { value: 'UT', label: 'Utah' },
-          { value: 'WY', label: 'Wyoming' }
-      ]
-  },
-  {
-      label: 'Central Time Zone',
-      options: [
-          { value: 'AL', label: 'Alabama' },
-          { value: 'AR', label: 'Arkansas' },
-          { value: 'IL', label: 'Illinois' },
-          { value: 'IA', label: 'Iowa' },
-          { value: 'KS', label: 'Kansas' },
-          { value: 'KY', label: 'Kentucky' },
-          { value: 'LA', label: 'Louisiana' },
-          { value: 'MN', label: 'Minnesota' },
-          { value: 'MS', label: 'Mississippi' },
-          { value: 'MO', label: 'Missouri' },
-          { value: 'OK', label: 'Oklahoma' },
-          { value: 'SD', label: 'South Dakota' },
-          { value: 'TX', label: 'Texas' },
-          { value: 'TN', label: 'Tennessee' },
-          { value: 'WI', label: 'Wisconsin' }
-      ]
-  },
-  {
-      label: 'Eastern Time Zone',
-      options: [
-          { value: 'CT', label: 'Connecticut' },
-          { value: 'DE', label: 'Delaware' },
-          { value: 'FL', label: 'Florida' },
-          { value: 'GA', label: 'Georgia' },
-          { value: 'IN', label: 'Indiana' },
-          { value: 'ME', label: 'Maine' },
-          { value: 'MD', label: 'Maryland' },
-          { value: 'MA', label: 'Massachusetts' },
-          { value: 'MI', label: 'Michigan' },
-          { value: 'NH', label: 'New Hampshire' },
-          { value: 'NJ', label: 'New Jersey' },
-          { value: 'NY', label: 'New York' },
-          { value: 'NC', label: 'North Carolina' },
-          { value: 'OH', label: 'Ohio' },
-          { value: 'PA', label: 'Pennsylvania' },
-          { value: 'RI', label: 'Rhode Island' },
-          { value: 'SC', label: 'South Carolina' },
-          { value: 'VT', label: 'Vermont' },
-          { value: 'VA', label: 'Virginia' },
-          { value: 'WV', label: 'West Virginia' }
-      ]
-  }
-];
-

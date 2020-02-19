@@ -76,6 +76,20 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       console.log('Lấy dữ liệu thành công.');
     });
   }
+
+  deleteCoQuan(id: any) {
+    if (confirm("Bạn có muốn xóa cơ quan có id = " + id + " ?"))
+    {
+      this.coQuanService.deleteCoQuan(id)
+      .subscribe((result) => {
+        console.log(result)
+      },
+      (error) => {
+        alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
+      });
+    }
+  }
+
   ngOnDestroy(): void {
     
   }
