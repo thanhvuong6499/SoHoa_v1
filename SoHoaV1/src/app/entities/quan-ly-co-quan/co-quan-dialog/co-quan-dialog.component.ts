@@ -57,7 +57,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isEdit = false;
-    
+    debugger;
     this.service.getListOrganType()
       .subscribe((result) => {
         if (result != undefined) {
