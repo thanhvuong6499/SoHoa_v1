@@ -4,11 +4,16 @@ export class CoQuan  {
     constructor(
         public coQuanID?: number,
         public tenCoQuan?: string,
-        public diachiid?: string,
+        public diaChiID?: string,
         public loaiCoQuanID?: string,
-        public TinhID? : number,
-        public HuyenID? :number,
-        public XaPhuongID ?: number
+        public tinhID? : number,
+        public huyenID? :number,
+        public xaPhuongID ?: number,
+        public createBy? : string,
+        public updatedBy? :string,
+        public addressDetail? :string,
+        public addressID? :number,
+        public organType? : string
     ) {
     }
 }

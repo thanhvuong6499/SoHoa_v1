@@ -17,7 +17,7 @@ import { BaseCondition } from '../../common/BaseCondition';
 export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   
   coquans: CoQuan[];
-  
+  coquan: CoQuan;
   page = 0;
   previousPage : number;
   pageSize : number;
@@ -33,22 +33,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.coQuanService.getAllCoQuanWithPaging().subscribe((data : HttpResponse<CoQuan[]>) => {
-      console.log(data);
-      console.log(data.body);
-      // this.coquans = data.body.ItemList;
-      // this.totalRecords = data.length;
-      this.coquans = data.body["itemList"];
-      console.log(this.coquans);
-      this.pageSize = 5;
-      this.page = 0;
-      this.totalRecords = data.body["totalRows"];
-      console.log(this.totalRecords);
-    }, (error) => {
-      console.log(error);
-    }, () => {
-      console.log('Lấy dữ liệu thành công.');
-    });
+    this.loadAll();
   }
   openDialog(id?: number) {
     if (id) {
@@ -60,10 +45,10 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     }
 
   }
-  openDeleteDialog(id?: number) {
-      this.coQuanPopupService
-        .open(CoQuanDeleteComponent as Component, id);
-  }
+  // openDeleteDialog(id?: number) {
+  //     this.coQuanPopupService
+  //       .open(CoQuanDeleteComponent as Component, id);
+  // }
 
   loadPages(page : number) {
     var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
@@ -79,8 +64,34 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       console.log("Lấy dữ liệu thành công");
     });
   }
+  loadAll(){
+    this.coQuanService.getAllCoQuanWithPaging().subscribe((data : HttpResponse<CoQuan[]>) => {
+      this.coquans = data.body["itemList"];
+      this.pageSize = 5;
+      this.page = 0;
+      this.totalRecords = data.body["totalRows"];
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      console.log('Lấy dữ liệu thành công.');
+    });
+  }
+
+  deleteCoQuan(id: any) {
+    if (confirm("Bạn có muốn xóa cơ quan có id = " + id + " ?"))
+    {
+      this.coQuanService.deleteCoQuan(id)
+      .subscribe((result) => {
+        console.log(result)
+      },
+      (error) => {
+        alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
+      });
+    }
+  }
 
   ngOnDestroy(): void {
     
   }
 }
+
