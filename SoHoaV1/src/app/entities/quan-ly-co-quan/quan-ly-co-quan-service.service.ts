@@ -93,6 +93,13 @@ export class QuanLyCoQuanService {
     return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetWardByDistrictID", { params: params });
   }
 
+  getWardByProvinceId (id : string) {
+    var params = {
+      provinceId: id
+    }
+    return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetAllWardsByProvinceId", { params: params });
+  }
+
   // xóa cơ quan
   deleteCoQuan (id: string) {
     var body = {

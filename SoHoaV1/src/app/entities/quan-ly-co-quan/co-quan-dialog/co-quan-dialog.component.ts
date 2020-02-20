@@ -39,6 +39,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   enaWard: boolean = true;
   wardList: Array<Select2OptionData>;
 
+
   constructor(
     public activeModal: NgbActiveModal,
     public coQuanPopupService: QuanLyCoQuanPopupService,
@@ -155,6 +156,8 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
               lstDistricts.push(temp);
             }
             this.districtList = lstDistricts;
+            this.getWardByDistrictId(1);
+            this.enaWard = true;
         }
       },
       (error) => {
@@ -162,11 +165,27 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
       },
       () => {
         this.enaDistrict = false;
-        if (this.isEdit)
-        {
+        this.enaWard = true;
+        this.service.getWardByProvinceId(value)
+        .subscribe(
+          (wards) => {
+            if (wards != undefined) {
+              var lstWards = [];
+              for (const item of wards) {
+                var temp = { id: item.wardsID, text: item.wardsName };
+                lstWards.push(temp);
+              }
+              this.wardList = lstWards;
+            }
+        }, (error) => {
+          alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
+        },
+        () => {
           this.enaWard = true;
         }
+        )
       });
+      
     }
   }
 
