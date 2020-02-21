@@ -18,7 +18,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   
   coquans: CoQuan[];
   coquan: CoQuan;
-  page = 0;
+  page = 0; 
   previousPage : number;
   pageSize : number;
   totalRecords : number;

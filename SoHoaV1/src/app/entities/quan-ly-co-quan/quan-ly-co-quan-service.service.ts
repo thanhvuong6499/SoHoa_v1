@@ -93,7 +93,7 @@ export class QuanLyCoQuanService {
     return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetWardByDistrictID", { params: params });
   }
 
-  getWardByProvinceId (id : string) {
+  getWardByProvinceId (id : any) {
     var params = {
       provinceId: id
     }
