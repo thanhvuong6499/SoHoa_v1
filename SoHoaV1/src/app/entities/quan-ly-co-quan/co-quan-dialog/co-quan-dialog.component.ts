@@ -235,7 +235,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         
     }
     else {
-        console.log(this.coQuan.tinhID);
             this.service.getWardByProvinceId(this.coQuan.tinhID)
             .subscribe((wards) => {
               if (wards != undefined) {
