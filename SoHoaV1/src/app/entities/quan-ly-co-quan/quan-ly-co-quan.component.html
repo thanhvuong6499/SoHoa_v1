@@ -38,7 +38,7 @@
           ></ng-select2>
             </div>
             <div class="col-md-2">
-              <button class="btn btn-primary btn-sm"style="float: right" (click)="openDialog()">
+              <button class="btn btn-primary btn-sm"style="float: right; margin-top: 4px;" (click)="openDialog()">
                 <span class="fa fa-plus"></span>
                 <span >
                     Thêm mới cơ quan
@@ -84,7 +84,7 @@
               <li class="page-item"><a class="page-link" href="#">3</a></li>
               <li class="page-item"><a class="page-link" href="#">4</a></li>
               <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
-              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
             </ul>
           </nav>
         </div>

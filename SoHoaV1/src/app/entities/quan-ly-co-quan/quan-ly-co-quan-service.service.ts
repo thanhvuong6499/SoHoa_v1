@@ -31,6 +31,7 @@ export class QuanLyCoQuanService {
     return phong;
   }
   public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
+    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {

@@ -21,7 +21,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   
   coquans: CoQuan[];
   coquan: CoQuan;
-  page = 0; 
+  page = 1; 
   previousPage : number;
   pageSize : number;
   totalRecords : number;
@@ -80,32 +80,38 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         .open(CoQuanDeleteComponent as Component, id);
   }
 
-  loadPages(page : number) {
-    var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
-    condi.PageIndex = page;
-    this.coQuanService.getAllCoQuanWithPaging(condi).subscribe((data : any) => {
-      this.coquans = data.itemList;
-      this.pageSize = 5;
-      this.page = 0;
-      this.totalRecords = data.totalRows
-      console.log("đÂy là loadpages");
-    }, (error) => {
-      console.log(error);
-    }, () => {
-      console.log("Lấy dữ liệu thành công, loadpages");
-    });
+  loadPages(page : string) {
+    try {
+      var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
+      if (this.condition.FilterRuleList != undefined) {
+        condi.FilterRuleList = this.condition.FilterRuleList;
+      }
+      condi.PageIndex = parseInt(page);
+      this.coQuanService.getAllCoQuanWithPaging(condi).subscribe((data : any) => {
+        this.coquans = data.itemList;
+        this.pageSize = 5;
+        this.page = parseInt(page);
+        this.totalRecords = data.totalRows
+      }, (error) => {
+        console.log(error);
+      }, () => {
+
+      });
+    }
+    catch (e) {
+      alert(JSON.stringify(e))
+    }
   }
   loadAll(){
     this.coQuanService.getAllCoQuanWithPaging().subscribe((data : any) => {
       this.coquans = data.itemList;
       this.pageSize = 5;
-      this.page = 0;
+      this.page = 1;
       this.totalRecords = data.totalRows;
-      console.log("đÂy là loadall");
     }, (error) => {
       console.log(error);
     }, () => {
-      console.log('Lấy dữ liệu thành công., loadall');
+      
     });
   }
 
@@ -167,7 +173,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   }
 
   getFilterOptions (types: string[], name : string[], address: string[]) {
-
+    this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
         field: "lcq.TenLoaiCoQuan",
@@ -216,20 +222,20 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       }
     }
     
-    console.log(this.condition);
-    
-    this.coQuanService.getAllCoQuanWithPaging(this.condition)
+    if (types != undefined || name != undefined || address != undefined) {
+      this.coQuanService.getAllCoQuanWithPaging(this.condition)
       .subscribe((data) => {
         this.coquans = data["itemList"];
         this.pageSize = 5;
-        this.page = 0;
+        this.page = 1;
         this.totalRecords = data["totalRows"];
-        console.log("đÂy là filter");
       }, (error) => {
         console.log(error);
       }, () => {
-        console.log("filter thành công")
+        
       })
+    }
+    
   }
 
   ngOnDestroy(): void {
