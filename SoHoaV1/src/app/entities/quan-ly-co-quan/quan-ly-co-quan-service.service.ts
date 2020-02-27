@@ -31,7 +31,6 @@ export class QuanLyCoQuanService {
     return phong;
   }
   public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -45,10 +44,11 @@ export class QuanLyCoQuanService {
         PageIndex : 1,
         PageSize: 5
       }
+
     }
-    var body = JSON.stringify(condi);
+  //  var body = JSON.stringify(condi);
   //  return this.httpClient.get<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
-  return this.httpClient.post<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', body, { headers: HttpHeadersOptions.headers });
+  return this.httpClient.post<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
    insertNewCoQuan (coquan: CoQuan) {

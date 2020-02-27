@@ -84,27 +84,28 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
     condi.PageIndex = page;
     this.coQuanService.getAllCoQuanWithPaging(condi).subscribe((data : any) => {
-      this.coquans = data.body["itemList"];
+      this.coquans = data.itemList;
       this.pageSize = 5;
-      this.page = page;
-      this.totalRecords = data.body["totalRows"];
+      this.page = 0;
+      this.totalRecords = data.totalRows
+      console.log("đÂy là loadpages");
     }, (error) => {
       console.log(error);
     }, () => {
-      console.log("Lấy dữ liệu thành công");
+      console.log("Lấy dữ liệu thành công, loadpages");
     });
   }
   loadAll(){
     this.coQuanService.getAllCoQuanWithPaging().subscribe((data : any) => {
-      console.log(data);
-      this.coquans = data.body["itemList"];
+      this.coquans = data.itemList;
       this.pageSize = 5;
       this.page = 0;
-      this.totalRecords = data.body["totalRows"];
+      this.totalRecords = data.totalRows;
+      console.log("đÂy là loadall");
     }, (error) => {
       console.log(error);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      console.log('Lấy dữ liệu thành công., loadall');
     });
   }
 
@@ -146,6 +147,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         // this.arrayTypeValue = [this.organTypesArr[0].id, this.organTypesArr[1].id];
         // this.arrayNameValue = [this.organNameArr[0].id, this.organNameArr[1].id];
         // this.arrayAddressValue = [this.organAddressArr[0].id, this.organAddressArr[1].id];
+
       })
   }
 
@@ -168,17 +170,17 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
 
     this.condition.FilterRuleList = [
       {
-        field: "TenLoaiCoQuan",
+        field: "lcq.TenLoaiCoQuan",
         op: "",
         value: ""
       },
       {
-        field: "TenCoQuan",
+        field: "cq.TenCoQuan",
         op: "",
         value: ""
       },
       {
-        field: "AddressDetail",
+        field: "dc.DiaChiChiTiet",
         op: "",
         value: ""
       }
@@ -217,8 +219,16 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     console.log(this.condition);
     
     this.coQuanService.getAllCoQuanWithPaging(this.condition)
-      .subscribe((result) => {
-        console.log(result);
+      .subscribe((data) => {
+        this.coquans = data["itemList"];
+        this.pageSize = 5;
+        this.page = 0;
+        this.totalRecords = data["totalRows"];
+        console.log("đÂy là filter");
+      }, (error) => {
+        console.log(error);
+      }, () => {
+        console.log("filter thành công")
       })
   }
 
