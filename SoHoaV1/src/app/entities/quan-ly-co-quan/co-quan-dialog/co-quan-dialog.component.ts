@@ -172,70 +172,28 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   }
 
   getWardByDistrictId(value : any) {
-    console.log("value: " + value);
-    console.log("id: " + this.districtId);
     if (value != null) {
         if (this.districtId != undefined) {
           if (this.coQuan.tinhID != this.provinceId && value == this.districtId) {
-            this.service.getWardByProvinceId(this.coQuan.tinhID)
-            .subscribe((wards) => {
-              if (wards != undefined) {
-                var lstWards = [];
-                for (const item of wards) {
-                  var temp = { id: item.wardsID, text: item.wardsName };
-                  lstWards.push(temp);
-                }
-                this.wardList = lstWards;
-              }
-          }, (error) => {
-            alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
-          },
-          () => {
-            this.enaWard = false;
-          });
+            this.getWardByProvinceId(this.coQuan.tinhID);
           }
           else {
-            this.service.getWardByDistrictId(value)
-            .subscribe((wards) => {
-                if (wards != undefined) {
-                  var lstWards = [];
-                  for (const item of wards) {
-                    var temp = { id: item.wardsID, text: item.wardsName };
-                    lstWards.push(temp);
-                  }
-                  this.wardList = lstWards;
-                }
-            }, (error) => {
-              alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
-            },
-            () => {
-              this.enaWard = false;
-            });
+            this.getWardByDistrictIdSer(value);
           }
         }
         else {
-          // 
-          this.service.getWardByDistrictId(value)
-            .subscribe((wards) => {
-                if (wards != undefined) {
-                  var lstWards = [];
-                  for (const item of wards) {
-                    var temp = { id: item.wardsID, text: item.wardsName };
-                    lstWards.push(temp);
-                  }
-                  this.wardList = lstWards;
-                }
-            }, (error) => {
-              alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
-            },
-            () => {
-              this.enaWard = false;
-            });
+          //
+          this.getWardByDistrictIdSer(value);
         }
         
     }
     else {
-            this.service.getWardByProvinceId(this.coQuan.tinhID)
+      this.getWardByProvinceId(this.coQuan.tinhID);
+    }
+  }
+
+  getWardByProvinceId(id: number) {
+    this.service.getWardByProvinceId(id)
             .subscribe((wards) => {
               if (wards != undefined) {
                 var lstWards = [];
@@ -251,10 +209,29 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
           () => {
             this.enaWard = false;
           });
-    }
-
   }
-  onSaveSuccess(message: string){
+
+  getWardByDistrictIdSer(id : number) {
+    this.service.getWardByDistrictId(id.toString())
+            .subscribe((wards) => {
+                if (wards != undefined) {
+                  var lstWards = [];
+                  for (const item of wards) {
+                    var temp = { id: item.wardsID, text: item.wardsName };
+                    lstWards.push(temp);
+                  }
+                  this.wardList = lstWards;
+                }
+            }, (error) => {
+              alert("Lấy dữ liệu danh sách xã thất bại. Lỗi: " + JSON.stringify(error));
+            },
+            () => {
+              this.enaWard = false;
+            });
+  }
+ 
+
+  onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
   onSaveError(message){
