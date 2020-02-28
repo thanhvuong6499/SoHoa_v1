@@ -57,7 +57,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 // toast
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelect2Module } from 'ng-select2';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 @NgModule({
   imports: [
     BrowserModule,
@@ -79,7 +79,8 @@ import { NgSelect2Module } from 'ng-select2';
     NgbModule,
     MaterialModule,
     ToastrModule.forRoot(),
-    NgSelect2Module
+    NgSelect2Module,
+    PdfViewerModule
   ],
   declarations: [
     AppComponent,
