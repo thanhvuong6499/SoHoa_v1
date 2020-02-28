@@ -11,6 +11,7 @@ import { OrganType } from '../../model/organ-type.model';
 import { Tinh } from '../../model/tinh.model';
 import { Huyen } from '../../model/huyen.model';
 import { Xa } from '../../model/xa.model';
+import { OrganFilter } from '../../model/organ-filter.model';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -36,21 +37,19 @@ export class QuanLyCoQuanService {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
+
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  //  var body = JSON.stringify(condi);
+  //  return this.httpClient.get<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
    insertNewCoQuan (coquan: CoQuan) {
@@ -93,6 +92,13 @@ export class QuanLyCoQuanService {
     return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetWardByDistrictID", { params: params });
   }
 
+  getWardByProvinceId (id : any) {
+    var params = {
+      provinceId: id
+    }
+    return this.httpClient.get<Xa[]>(ApiUrl.apiUrl + "Address/GetAllWardsByProvinceId", { params: params });
+  }
+
   // xóa cơ quan
   deleteCoQuan (id: string) {
     var body = {
@@ -101,5 +107,10 @@ export class QuanLyCoQuanService {
     var params = JSON.stringify(body);
     console.log(params)
     return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/DeleteCoQuan?id=" + id, { headers :HttpHeadersOptions.headers });
+  }
+
+  // filter
+  getAllOrgan () {
+    return this.httpClient.get<OrganFilter>(ApiUrl.apiUrl + "CoQuan/GetAllCoQuan");
   }
 }
