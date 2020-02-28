@@ -56,6 +56,7 @@
     "ng-select2": "^1.2.2",
     "ng-select2-component": "^7.0.5",
     "ng2-charts": "^2.3.0",
+    "ng2-pdf-viewer": "^6.1.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-perfect-scrollbar": "^8.0.0",
     "ngx-toastr": "^12.0.0",

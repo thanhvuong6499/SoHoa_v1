@@ -9,6 +9,9 @@ import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.compon
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
+import { VanBanPdfComponent } from './van-ban-pdf/van-ban-pdf.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -17,13 +20,16 @@ import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
     TaiLieuDialogComponent,
     TaiLieuDetailComponent,
     TaiLieuDeleteComponent,
+    VanBanPdfComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    QuanLyTaiLieuRoutingModule
+    PdfViewerModule,
+    QuanLyTaiLieuRoutingModule,
+    MatSidenavModule
   ],
   entryComponents:[
     TaiLieuDialogComponent,

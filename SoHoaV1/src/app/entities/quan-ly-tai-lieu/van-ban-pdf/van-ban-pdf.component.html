@@ -1,0 +1,14 @@
+
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened="true" style="width:50%;">
+        <input (change)="onFileSelected()" type="file" id="file">
+    </mat-drawer>
+        <mat-drawer-content style="height: 650px;width: auto;" >
+            <pdf-viewer [src]="pdfSrc" 
+            [render-text]="true"
+            [show-borders]="true"
+            [fit-to-page]="true"
+            ></pdf-viewer>
+        </mat-drawer-content>
+    
+  </mat-drawer-container>
