@@ -4,7 +4,7 @@ import { QuanLyDanhMucComponent } from './quan-ly-danh-muc.component';
 import { DanhMucDetailComponent } from './danh-muc-detail/danh-muc-detail.component';
 
 
-const routes: Routes = [
+const quanLyDanhMucRoutes: Routes = [
   {
     path: "",
       data: {
@@ -28,9 +28,12 @@ const routes: Routes = [
       ]
   }
 ];
+export const danhMucPopupRoute : Routes = [
+  
+]
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(quanLyDanhMucRoutes)],
   exports: [RouterModule]
 })
 export class QuanLyDanhMucRoutingModule { }

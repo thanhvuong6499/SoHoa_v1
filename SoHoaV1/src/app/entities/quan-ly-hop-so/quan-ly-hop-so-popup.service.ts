@@ -52,7 +52,7 @@ export class QuanLyHopSoPopupService {
       this.hopsos = hopsos;
               var hopso = new HopSo();
               for (let i = 0; i < hopsos.length; i ++) {
-                  if (this.id == hopsos[i].id){
+                  if (this.id == hopsos[i].gearBoxID){
                       hopso = hopsos[i];
                   }
                   

@@ -2,74 +2,60 @@ import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { DanhMuc, danhmucs } from '../../model/danh-muc.model';
+import { Phong, phongs } from '../../model/phong.model';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from '../../services/authentication.service';
+import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
+import { QuanLyDanhMucService } from './quan-ly-danh-muc.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuanLyDanhMucPopupService {
-  private ngbModalRef: NgbModalRef;
-  private id : number;
-  constructor(
-      private modalService: NgbModal,
-      private router: Router,
+    private ngbModalRef: NgbModalRef;
+    private id : number;
+    public result : ReturnResult<DanhMuc>;
+    danhmuc: DanhMuc;
+    constructor(
+        private modalService: NgbModal,
+        private router: Router,
+        private httpClient : HttpClient, 
+        private authenticationService: AuthenticationService,
+        private danhMucService: QuanLyDanhMucService
+    ) {
+        this.ngbModalRef = null;
+        this.ngbModalRef = null;
+        this.result = new ReturnResult<DanhMuc>();
+    }
+    private DanhMucs : DanhMuc[];
+    public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+        return new Promise<NgbModalRef>((resolve, reject) => {
+            const isOpen = this.ngbModalRef !== null;
+            if (isOpen) {
+                resolve(this.ngbModalRef);
+            }
 
-  ) {
-      this.ngbModalRef = null;
-  }
-  private danhmucs : DanhMuc[];
-  public open(component: Component, id?: number | any): Promise<NgbModalRef> {
-      return new Promise<NgbModalRef>((resolve, reject) => {
-          const isOpen = this.ngbModalRef !== null;
-          if (isOpen) {
-              resolve(this.ngbModalRef);
-          }
-
-          if (id) {
-              // this.batHoService.find(id)
-              //     .subscribe((batHoResponse: HttpResponse<BatHo>) => {
-              //         const batHo: BatHo = batHoResponse.body;
-              //         this.ngbModalRef = this.batHoModalRef(component, batHo);
-              //         resolve(this.ngbModalRef);
-              //     });
-              this.id = id;
-              
-              this.ngbModalRef = this.danhMucModalRef(component, this.getDanhMucById());
-              resolve(this.ngbModalRef);
-              console.log(this.getDanhMucById());
-              
-          } else {
-              this.id = null;
-              // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
-              setTimeout(() => {
-                  this.ngbModalRef = this.danhMucModalRef(component, new DanhMuc());
-                  resolve(this.ngbModalRef);
-              }, 0);
-              console.log("aloalo");
-          }
-      });
-  }
-  public getDanhMucById(){
-      this.danhmucs = danhmucs;
-              var danhmuc = new DanhMuc();
-              for (let i = 0; i < danhmucs.length; i ++) {
-                  if (this.id == danhmucs[i].id){
-                      danhmuc = danhmucs[i];
-                  }
-                  
-              }
-              return danhmuc;
-  };
- public danhMucModalRef(component: Component, danhmuc: DanhMuc): NgbModalRef {
-      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-      //// Go back to home page after the modal is closed
-      // modalRef.result.then((result) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // }, (reason) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // });
-      // console.log(modalRef)
-      return modalRef;
-  }
+            if (id) {
+                this.id = id;
+                this.danhMucService.getDanhMucById(id)
+                .subscribe((result) => {
+                    this.result = result;
+                    const danhmuc : DanhMuc = result.item;
+                    this.ngbModalRef = this.DanhMucModalRef(component, danhmuc);
+                    resolve(this.ngbModalRef);
+                });
+                this.ngbModalRef = this.DanhMucModalRef(component, this.danhmuc);
+            } else {
+                this.result.item = undefined;
+                setTimeout(() => {
+                    this.ngbModalRef = this.DanhMucModalRef(component, new DanhMuc());
+                    resolve(this.ngbModalRef);
+                }, 0);
+            }
+        });
+    }
+    public DanhMucModalRef(component: Component, danhmuc: DanhMuc): NgbModalRef {
+            const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+            return modalRef;
+    }
 }

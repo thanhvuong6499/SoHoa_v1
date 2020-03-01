@@ -23,9 +23,9 @@ export class HopSoDialogComponent implements OnInit {
   
   }
   save(){
-    if (this.hopso.id && this.hopso.id != undefined) {
+    if (this.hopso.gearBoxID && this.hopso.gearBoxID != undefined) {
       for(let i = 0; i < hopsos.length; i++) {
-        if (hopsos[i].id == this.hopso.id) {
+        if (hopsos[i].gearBoxID == this.hopso.gearBoxID) {
           hopsos[i] = this.hopso;
           break;
         }
@@ -33,7 +33,7 @@ export class HopSoDialogComponent implements OnInit {
     }
     else {
       let id = hopsos.length;
-      this.hopso.id = id + 1;
+      this.hopso.gearBoxID = id + 1;
       hopsos.push(this.hopso);
     }
     this.clear();
