@@ -5,9 +5,9 @@
     </button>
 </div>
 <div class="modal-body">
-    <p>Bạn có muốn xóa phông <b>{{phong.id}}</b> ?</p>
+    <p>Bạn có muốn xóa phông <b>{{phong ? phong.fontID : ""}}</b> ?</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="deleteFont(phong.id)">Xóa</button>
+    <button type="button" class="btn btn-secondary" (click)="deleteFont(phong.fontID)">Xóa</button>
     <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()">Hủy</button>
 </div>

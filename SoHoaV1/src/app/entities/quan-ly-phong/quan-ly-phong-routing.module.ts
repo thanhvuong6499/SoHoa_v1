@@ -32,8 +32,8 @@ import { PhongDetailComponent } from './phong-detail/phong-detail.component';
  export const phongPopupRoute : Routes = [
   
 ]
-// @NgModule({
-//   imports: [RouterModule.forChild(ENTITY_STATES)],
-//   exports: [RouterModule]
-// })
-// export class QuanLyPhongRoutingModule { }
+@NgModule({
+  imports: [RouterModule.forChild(quanLyPhongRoutes)],
+  exports: [RouterModule]
+})
+export class QuanLyPhongRoutingModule { }
