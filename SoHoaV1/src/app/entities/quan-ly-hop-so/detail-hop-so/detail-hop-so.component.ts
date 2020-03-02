@@ -27,8 +27,11 @@ export class DetailHopSoComponent implements OnInit {
     });
   }
   load(id){
-    this.hopso= this.quanLyHopSoService.getHopSoById(id);
-    this.hosos= this.quanLyHopSoService.getListHoSoByHopSoId(id);
+    this.quanLyHopSoService.getHopSoById(id)
+    .subscribe((res=>{
+        this.hopso = res.item;
+    }));
+    // this.hosos= this.quanLyHopSoService.getListHoSoByHopSoId(id);
   }
   loadPages(page : number) {
     // switch (page) {

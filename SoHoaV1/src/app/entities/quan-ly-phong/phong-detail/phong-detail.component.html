@@ -7,7 +7,7 @@
         </div>
 
     </div>
-    <div class="card-body">
+    <div *ngIf="phong" class="card-body">
         <!-- <div class="form-group">
         <label class="form-control-label">Mã phông</label>
         <input type="number" class="form-control" name="maphong" id="field_maphong"
@@ -16,50 +16,50 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
             <div class="col-md-9">
-                <span>{{phong.maphong}}</span>
+                <span>{{phong.fontNumber}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
             <div class="col-md-9">
-               <span>{{phong.macoquan}}</span>
+               <span>{{phong.tenCoQuan}}</span>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
             <div class="col-md-9">
-                <span>{{phong.tenphong}}</span>
+                <span>{{phong.fontName}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tổng số tài liệu giấy</label>
             <div class="col-md-9">
-                <span>10</span>
+                <span>{{phong.soLuongTaiLieu}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng tài liệu giấy đã số hóa</label>
             <div class="col-md-9">
-                <span>10</span>
+                <span>{{phong.soLuongTaiLieuDaSoHoa}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng trang tài liệu đã được sao bảo hiểm</label>
             <div class="col-md-9">
-                <span>10</span>
+                <span>?????</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
             <div class="col-md-9">
-               <span>{{phong.ghichu}}</span>
+               <span>{{phong.note}}</span>
             </div>
         </div>
 
     </div>
     <div class="card-footer">
-        <table class="table table-bordered table-striped table-sm">
+        <table *ngIf="danhmucs" class="table table-bordered table-striped table-sm">
             <thead>
                 <tr>
                     <th>STT</th>
@@ -72,24 +72,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let danhmuc of danhmucs">
-                    <td>{{ danhmuc.id }}</td>
-                    <td>{{ danhmuc.tendanhmuc }}</td>
-                    <td>{{ danhmuc.muclucso }}</td>
-                    <td>{{ danhmuc.soluonghopso }}</td>
-                    <td>{{ danhmuc.ghichu }}</td>
+                <tr *ngFor="let danhmuc of danhmucs; index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{ danhmuc.tabOfContName }}</td>
+                    <td>{{ danhmuc.tabOfContCode }}</td>
+                    <td>{{ danhmuc.gearBoxCount }}</td>
+                    <td>{{ danhmuc.note }}</td>
 
                     <td style="width:137px">
-                        <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.id]"
+                        <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
                             routerLinkActive="router-link-active"></button>
                         <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                        <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.id)" replaceUrl="true"
+                        <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true"
                             queryParamsHandling="merge"></button>
                         <button class="btn btn-primary fa fa-trash"></button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+        <ngb-pagination *ngIf="phong" [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page,phong.fontID)"></ngb-pagination>
     </div>
 </div>

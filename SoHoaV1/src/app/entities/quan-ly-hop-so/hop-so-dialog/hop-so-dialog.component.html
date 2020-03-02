@@ -1,7 +1,7 @@
 <form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
-        <div *ngIf="hopso.id != null; else themMoi">
+        <div *ngIf="hopso.gearBoxID != null; else themMoi">
             <h4 class="modal-title">Chỉnh sửa hộp số</h4>
 
         </div>
@@ -21,25 +21,46 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
-        <div class="col-md-9">
-            <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
-          </select2> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+              <ng-select2
+                [data]="lstOrgan"
+                [placeholder]="'Chọn cơ quan...'"
+                [options]="options"
+                name="organID"
+                [(ngModel)]="organ.organID"
+              ></ng-select2>
+            </div>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="select1">Phông</label>
-        <div class="col-md-9">
-            <!-- <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong">
-                <option *ngFor="let phong of phongs" [value]="phong.maphong">{{ phong.maphong }}</option>
-            </select> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Phông</label>
+            <div class="col-md-9">
+              <ng-select2
+                [data]="lstFont"
+                [placeholder]="'Chọn Phông...'"
+                [options]="options"
+                name="fontID"
+                [(ngModel)]="phong.fontID"
+              ></ng-select2>
+            </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
-        <div class="col-md-9">
-            <!-- <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="hopso.madanhmuc"> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Danh mục</label>
+            <div class="col-md-9">
+              <ng-select2
+                [data]="lstDanhMuc"
+                [placeholder]="'Chọn Danh Mục...'"
+                [options]="options"
+                name="tabOfContID"
+                [(ngModel)]="hopso.tabOfContID"
+              ></ng-select2>
+            </div>
         </div>
     </div>
         <div class="form-group row">
@@ -52,7 +73,7 @@
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
             <div class="col-md-9">
                 <input type="text" id="text-input" name="tieudehopso" class="form-control"
-                    [(ngModel)]="hopso.tieudehopso">
+                    [(ngModel)]="hopso.gearBoxTitle">
             </div>
         </div>
       

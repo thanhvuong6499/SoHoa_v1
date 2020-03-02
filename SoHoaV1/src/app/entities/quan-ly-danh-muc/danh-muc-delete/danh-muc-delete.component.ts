@@ -16,12 +16,14 @@ export class DanhMucDeleteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.danhmuc = this.danhMucPopupService.getDanhMucById();
+    if(this.danhMucPopupService.result.item != undefined){
+      this.danhmuc = this.danhMucPopupService.result.item;
+    }
   }
   deleteDanhMuc(id : number) {
     if (id && id != undefined) {
       for (let i = 0; i < danhmucs.length; i ++) {
-        if (danhmucs[i].id == id) {
+        if (danhmucs[i].tabOfContID == id) {
           danhmucs.splice(i, 1);
           break;
         }

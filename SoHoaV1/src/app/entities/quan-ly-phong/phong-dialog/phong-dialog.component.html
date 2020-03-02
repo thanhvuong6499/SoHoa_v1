@@ -1,8 +1,8 @@
 
-<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
   <div class="modal-header bg-primary" aria-hidden="true">
-    <div *ngIf="phong.id != null; else themMoi">
+    <div *ngIf="phong.fontID != null; else themMoi">
       <h4 class="modal-title">Chỉnh sửa phông</h4>
 
     </div>
@@ -16,49 +16,40 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <div class="form-group">
-      <label class="form-control-label">Mã phông</label>
-      <input type="number" class="form-control" name="maphong" id="field_maphong"
-          [(ngModel)]="phong.maphong" required/>
-  </div> -->
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="maphong" class="form-control" [(ngModel)]="phong.maphong">
+        <input type="text" id="text-input" name="fontNumber" class="form-control" [(ngModel)]="phong.fontNumber">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
       <div class="col-md-9">
-        <select id="select1" name="select1" class="form-control" [(ngModel)]="phong.macoquan" >
-          <option *ngFor="let coquan of coquans" [value]="coquan.macoquan" >{{ coquan.tencoquan }}</option>
-        </select>
+        <ng-select2
+          [data]="lstOrgan"
+          [placeholder]="'Chọn cơ quan...'"
+          [options]="options"
+          name="organID"
+          [(ngModel)]="phong.organID"
+        ></ng-select2>
       </div>
     </div>
-    <!-- Chưa binding -->
-    <!-- <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
-      <div class="col-md-9">
-        <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
-        </select2>
-      </div>
-    </div> -->
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
       <div class="col-md-9">
-        <input type="text" id="text-input" name="tenphong" class="form-control" [(ngModel)]="phong.tenphong">
+        <input type="text" id="text-input" name="fontName" class="form-control" [(ngModel)]="phong.fontName">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Lịch sử phông</label>
       <div class="col-md-9">
-        <textarea  id="textarea-input" name="lichsuphong" rows="9" class="form-control" [(ngModel)]="phong.lichsuphong"></textarea>
+        <textarea  id="textarea-input" name="history" rows="9" class="form-control" [(ngModel)]="phong.history"></textarea>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
       <div class="col-md-9">
-        <textarea id="textarea-input" name="ghichu" rows="9" class="form-control" [(ngModel)]="phong.ghichu"></textarea>
+        <textarea id="textarea-input" name="note" rows="9" class="form-control" [(ngModel)]="phong.note"></textarea>
       </div>
     </div>
 
