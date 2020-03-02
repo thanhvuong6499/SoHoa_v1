@@ -2,7 +2,7 @@ import { Phong } from './phong.model';
 
 export class CoQuan  {
         public coQuanID?: number
-        public tenCoQuan?: string
+        public organName?: string
         public diaChiID?: string
         public loaiCoQuanID?: string
         public tinhID? : number
@@ -13,7 +13,6 @@ export class CoQuan  {
         public addressDetail? :string
         public addressID? :number
         public organType? : string
-
 }
 
 export const coquans = [
