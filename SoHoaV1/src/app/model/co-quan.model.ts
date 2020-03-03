@@ -15,7 +15,7 @@ export class CoQuan  {
         public organType? : string
 
 }
-export class organ {
+export class organ { 
   constructor(
     public organID?: number,
     public tenCoQuan?: string

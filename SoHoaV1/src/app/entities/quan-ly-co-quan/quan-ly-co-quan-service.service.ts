@@ -24,7 +24,7 @@ export class QuanLyCoQuanService {
   public getListPhongByCoQuanId (id: number) {
     var phong : Phong[] = [];
     for (let i = 0; i < phongs.length; i ++) {
-      if (phongs[i].coquanid == id) {
+      if (phongs[i].fontID == id) {
         phong.push(phongs[i]);
       }
     }
