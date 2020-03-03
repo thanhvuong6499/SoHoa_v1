@@ -11,6 +11,7 @@ import { QuanLyTaiLieuModule } from './quan-ly-tai-lieu/quan-ly-tai-lieu.module'
 import { QuanLyHoSoComponent } from './quan-ly-ho-so/quan-ly-ho-so.component';
 import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.component';
 import { MaterialModule } from '../material.module';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MaterialModule } from '../material.module';
     QuanLyHoSoModule,
     QuanLyCoQuanModule,
     QuanLyTaiLieuModule,
-    MaterialModule
+    MaterialModule,
+    AutocompleteLibModule
   ],
 })
 export class EntitiesModule { }

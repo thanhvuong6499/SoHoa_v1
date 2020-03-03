@@ -9,7 +9,7 @@ import { HoSoDeleteComponent } from './ho-so-delete/ho-so-delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    QuanLyHoSoRoutingModule
+    QuanLyHoSoRoutingModule,
+    AutocompleteLibModule
   ],
   entryComponents:[
     HoSoDialogComponent,

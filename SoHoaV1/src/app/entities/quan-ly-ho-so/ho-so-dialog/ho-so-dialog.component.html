@@ -1,10 +1,10 @@
 <form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
-        <div *ngIf="hoso.id != null; else themMoi">
+        <!-- <div *ngIf="hoso.id != null; else themMoi">
             <h4 class="modal-title">Chỉnh sửa hồ sơ</h4>
 
-        </div>
+        </div> -->
 
         <ng-template #themMoi>
             <h4 class="modal-title">Thêm mới hồ sơ</h4>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp số</label>
             <div class="col-md-9">
                 <!-- <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso"> -->
             </div>
@@ -51,19 +51,19 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
+                <input type="text" id="text-input" name="" class="form-control" >
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehoso" class="form-control" [(ngModel)]="hoso.tieude">
+                <input type="text" id="title" name="" class="form-control" >
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="hososo" class="form-control" [(ngModel)]="hoso.hososo">
+                <input type="text" id="" name="" class="form-control" >
             </div>
         </div>
         <div class="form-group row">
@@ -80,79 +80,79 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="thoihanbaoquan" class="form-control">
+                <input type="text" id="" name="" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="chedosudung" class="form-control">
+                <input type="text" id="" name="" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="ngonngu" class="form-control">
+                <input type="text" id="" name="language" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngaybatdau" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Thời gian kết thúc</label>
+            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngayketthuc" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tongsovanban" class="form-control">
+                <input type="number" id="" name="" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Chú thích</label>
             <div class="col-md-9">
-                <textarea id="textarea-input" name="chuthich" rows="9" class="form-control"></textarea>
+                <textarea id="note" name="chuthich" rows="9" class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="kyhieuthongtin" class="form-control">
+                <input type="text" id="" name="kyhieuthongtin" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tukhoa" class="form-control">
+                <input type="text" id="keyword" name="tukhoa" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="soluongto" class="form-control">
+                <input type="number" id="sheet-number" name="soluongto" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng trang</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="soluongtrang" class="form-control">
+                <input type="number" id="page-number" name="soluongtrang" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tình trạng vật lý</label>
+            <label class="col-md-3 col-form-label" >Tình trạng vật lý</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tinhtrangvatly" class="form-control">
+                <input type="text" id="format" name="format" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
             <div class="col-md-9">
-                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple="multiple">
             </div>
         </div>
     </div>

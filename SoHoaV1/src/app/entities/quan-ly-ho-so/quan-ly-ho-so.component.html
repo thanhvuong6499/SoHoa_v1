@@ -42,21 +42,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let hoso of hosos">
-              <td>{{ hoso.id }}</td>
-              <td>{{ hoso.mahopso }}</td>
-              <td>{{ hoso.hososo }}</td>
-              <td>{{ hoso.tieude }}</td>
-              <td>{{ hoso.loaihoso }}</td>
-              <td>{{ hoso.ghichu }}</td>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
 
               <td style="width:137px">
-                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.id]"
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo','1']"
                   routerLinkActive="router-link-active"></button>
                 
-                <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.id)" replaceUrl="true"
+                <button class="btn btn-primary fa fa-edit" (click)="openDialog()" replaceUrl="true"
                   queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hoso.id)"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog()"></button>
               </td>
             </tr>
             </tbody>

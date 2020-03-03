@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HoSo, hosos } from '../../../model/ho-so.model';
+import { HoSo } from '../../../model/ho-so.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from '../quan-ly-ho-so-popup.service';
 import { ToastrService } from 'ngx-toastr';
@@ -18,38 +18,18 @@ export class HoSoDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.hoso = this.hoSoPopupService.getHoSoById()
+  //  this.hoso = this.hoSoPopupService.getHoSoById()
   }
   clear() {
     this.activeModal.dismiss('cancel');
   
   }
   save(){
-    if (this.hoso.id && this.hoso.id != undefined) {
-      for(let i = 0; i < hosos.length; i++) {
-        if (hosos[i].id == this.hoso.id) {
-          hosos[i] = this.hoso;
-          break;
-        }
-      }
-    }
-    else {
-      let id = hosos.length;
-      this.hoso.id = id + 1;
-      hosos.push(this.hoso);
-      this.success();
-    }
-    this.clear();
+    
     
   }
-
   success(){
-      
     this.toastr.success('Thêm mới thành công');
-
-    
   }
-
- 
 
 }

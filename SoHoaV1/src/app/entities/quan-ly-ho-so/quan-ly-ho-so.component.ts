@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HoSo } from '../../model/ho-so.model';
-import { hosos } from '../../model/ho-so.model';
 import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
 import { HoSoDialogComponent } from './ho-so-dialog/ho-so-dialog.component';
 import { HoSoDeleteComponent } from './ho-so-delete/ho-so-delete.component';
@@ -21,7 +20,7 @@ export class QuanLyHoSoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.hosos = hosos;
+    
   }
   openDialog(id?: number) {
 
@@ -43,18 +42,6 @@ export class QuanLyHoSoComponent implements OnInit {
       console.log(id);
   }
   loadPages(page : number) {
-    // switch (page) {
-    //   case 1:
-    //     this.coquans = coquans;
-    //     break;
-    //   case 2:
-    //     this.coquans = coquans2;
-    //     break;
-    //   case 3:
-    //     this.coquans = coquans;
-    //     break;
-    //   default:
-    //     break;
-    // }
+    
   }
 }
