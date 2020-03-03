@@ -3,28 +3,42 @@
     <div class="card">
       <div class="card-header">
         <h3><i class="icon-note"></i> &nbsp;Quản lí phông</h3>
-        <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-
         <div class="form-group row">
-          <label class="col-md-1 col-form-label" for="text-input">Mã cơ quan</label>
-          <div class="col-md-2">
-            <input type="text" id="text-input" name="macoquan" class="form-control">
+          <div class="col-md-4 row col-lg-4">
+            <label class="col-md-4 col-form-label" for="select1">Cơ quan</label>
+            <div style="margin-top:5px;" class="col-md-8">
+              <!-- <ng-select2
+                [data]="lstOrgan"
+                [placeholder]="'Chọn cơ quan...'"
+                [options]="options"
+                [(ngModel)]="arrayOrgan"
+                (valueChanged)="getFilterOptions($event)"
+              ></ng-select2> -->
+            </div>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Mã phông</label>
-          <div class="col-md-2">
-            <input type="text" id="text-input" name="maphong" class="form-control">
+          <div class="row col-md-4 col-lg-4">
+            <label class="col-md-4 col-form-label" for="text-input">Tìm kiếm</label>
+            <div class="col-md-8">
+              <input type="text" id="text-input" name="searchText" class="form-control">
+            </div>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Tên phông</label>
-          <div class="col-md-3">
-            <input type="text" id="text-input" name="tenphong" class="form-control">
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-primary " style="float: right;" (click)="openDialog()">
-              <span class="fa fa-plus"></span>
-              <span>
-                Thêm mới phông
-              </span>
-            </button>
+          <div style="margin-left:0px;" class="row col-md-4 col-lg-4">
+            <div style=" padding-right: 10px;">
+              <button class="btn btn-primary btn-sm" (click)="Search()">
+                <span class="fa fa-plus"></span>
+                <span>
+                  Tìm kiếm
+                </span>
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-sm"(click)="openDialog()">
+                <span class="fa fa-plus"></span>
+                <span>
+                  Thêm mới phông
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -34,29 +48,29 @@
             <tr>
               <th>STT</th>
               <th>Mã cơ quan</th>
+              <th>Tên cơ quan</th>
               <th>Mã phông</th>
               <th>Tên phông</th>
-
               <th>Ghi chú</th>
               <th>Thao tác</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let phong of phongs">
-              <td>{{ phong.id }}</td>
-              <td>{{ phong.macoquan }}</td>
-              <td>{{ phong.maphong }}</td>
-              <td>{{ phong.tenphong }}</td>
-              <td>{{ phong.ghichu }}</td>
-
+            <tr *ngFor="let phong of phongs; index as i">
+              <td>{{i+1}}</td>
+              <td>{{ phong.organCode }}</td>
+              <td>{{ phong.organName }}</td>
+              <td>{{ phong.fontNumber }}</td>
+              <td>{{ phong.fontName }}</td>
+              <td>{{ phong.note }}</td>
               <td style="width:137px">
-                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.id]"></button>
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.fontID]"></button>
                 <!-- target blank -->
-                <!-- <a target="_blank" [routerLink]="['/QuanLyPhong/phong']"><button class="btn btn-primary fa fa-edit" ng-attr-target="_blank'" type="submit" (click)="openDialog(phong.id)" replaceUrl="true" queryParamsHandling="merge">
-                </button></a> -->
-                <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)"
-                  replaceUrl="true" queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(phong.id)"></button>
+                <a target="_blank" [routerLink]="['/QuanLyPhong/phong']"><button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.fontID)" replaceUrl="true" queryParamsHandling="merge">
+                </button></a>
+                <!-- <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)"
+                  replaceUrl="true" queryParamsHandling="merge"></button> -->
+                <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(phong.fontID)"></button> -->
               </td>
             </tr>
             </tbody>

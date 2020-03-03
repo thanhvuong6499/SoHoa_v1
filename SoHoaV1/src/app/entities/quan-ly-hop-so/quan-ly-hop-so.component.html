@@ -6,25 +6,41 @@
         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
 
         <div class="form-group row">
-          <label class="col-md-1.5 col-form-label" style="margin-left: 20px;" for="text-input">Mã danh mục</label>
-          <div class="col-md-2">
-            <input type="text" id="text-input" name="madanhmuc" class="form-control">
+          <div class="col-md-4 row col-lg-4">
+            <label class="col-md-4 col-form-label" for="select1">Danh mục</label>
+            <div style="margin-top:5px;" class="col-md-8">
+              <ng-select2
+                [data]="lstDanhMuc"
+                [placeholder]="'Chọn danh mục...'"
+                [options]="options"
+                name="tabOfContID"
+                [(ngModel)]="danhmuc.tabOfContID"
+              ></ng-select2>
+            </div>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Mã hộp số</label>
-          <div class="col-md-2">
-            <input type="text" id="text-input" name="mahopso" class="form-control">
+          <div class="row col-md-4 col-lg-4">
+            <label class="col-md-4 col-form-label" for="text-input">Tìm kiếm</label>
+            <div class="col-md-8">
+              <input type="text" id="text-input" name="searchText" class="form-control">
+            </div>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Tên hộp số</label>
-          <div class="col-md-2">
-            <input type="text" id="text-input" name="tenhopso" class="form-control">
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-primary " style="float: right" (click)="openDialog()">
-              <span class="fa fa-plus"></span>
-              <span>
-                Thêm mới hộp số
-              </span>
-            </button>
+          <div style="margin-left:0px;" class="row col-md-4 col-lg-4">
+            <div style=" padding-right: 10px;">
+              <button class="btn btn-primary btn-sm" (click)="Search()">
+                <span class="fa fa-plus"></span>
+                <span>
+                  Tìm kiếm
+                </span>
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-primary btn-sm"(click)="openDialog()">
+                <span class="fa fa-plus"></span>
+                <span>
+                  Thêm mới phông
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -44,22 +60,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let hopso of hopsos">
-              <td>{{ hopso.id }}</td>
-              <td>{{ hopso.madanhmuc }}</td>
-              <td>{{ hopso.mahopso }}</td>
-              <td>{{ hopso.tieudehopso }}</td>
-              <td>{{ hopso.soluonghoso }}</td>
-              <td>{{ hopso.soluongvanban }}</td>
-              <td>{{ hopso.ghichu }}</td>
+            <tr *ngFor="let hopso of hopsos; index as i">
+              <td>{{i+1}}</td>
+              <td>{{ hopso.tabOfContID }}</td>
+              <td>{{ hopso.gearBoxID }}</td>
+              <td>{{ hopso.gearBoxTitle }}</td>
+              <td>{{ hopso.profileCount }}</td>
+              <td>{{ hopso.numDoc }}</td>
+              <td>{{ hopso.note }}</td>
 
               <td style="width:137px">
-                <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.id]"
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]"
                   routerLinkActive="router-link-active"></button>
                 <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.id)" replaceUrl="true"
+                <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true"
                   queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.id)"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
               </td>
             </tr>
             </tbody>

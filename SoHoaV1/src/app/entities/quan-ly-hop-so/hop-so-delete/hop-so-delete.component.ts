@@ -22,7 +22,7 @@ export class HopSoDeleteComponent implements OnInit {
   deleteHopSo(id : number) {
     if (id && id != undefined) {
       for (let i = 0; i < hopsos.length; i ++) {
-        if (hopsos[i].id == id) {
+        if (hopsos[i].gearBoxID == id) {
           hopsos.splice(i, 1);
           break;
         }

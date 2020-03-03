@@ -10,6 +10,9 @@ import { QuanLyHopSoPopupService } from './quan-ly-hop-so-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HoSoDeleteComponent } from '../quan-ly-ho-so/ho-so-delete/ho-so-delete.component';
+import { NgSelect2Module } from 'ng-select2';
+import { HttpClientModule } from '@angular/common/http';
+import { Select2Module } from 'ng-select2-component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { HoSoDeleteComponent } from '../quan-ly-ho-so/ho-so-delete/ho-so-delete.
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
-    QuanLyHopSoRoutingModule
+    QuanLyHopSoRoutingModule,
+    Select2Module,
+    HttpClientModule,
+    NgSelect2Module
   ],
   entryComponents:[
     HopSoDialogComponent,

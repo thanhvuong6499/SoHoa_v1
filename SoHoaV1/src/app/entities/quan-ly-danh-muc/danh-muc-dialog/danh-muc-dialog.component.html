@@ -1,7 +1,7 @@
 <form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header bg-primary " aria-hidden="true" >
-        <div *ngIf="danhmuc.id != null; else themMoi" style="text-align: center;">
+        <div *ngIf="danhmuc.tabOfContID != null; else themMoi" style="text-align: center;">
             <h4 class="modal-title">Chỉnh sửa danh mục</h4>
 
         </div>
@@ -23,42 +23,47 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="danhmuc.madanhmuc">
+                <input hidden type="text" id="text-input" name="storageID" class="form-control" [(ngModel)]="danhmuc.storageID">
+                <input type="text" id="text-input" name="tabOfContCode" class="form-control" [(ngModel)]="danhmuc.tabOfContCode">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tên danh mục</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tendanhmuc" class="form-control"
-                    [(ngModel)]="danhmuc.tendanhmuc">
+                <input type="text" id="text-input" name="tabOfContName" class="form-control"
+                    [(ngModel)]="danhmuc.tabOfContName">
             </div>
         </div>
-        <div class="form-group row">
+          <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Phông</label>
             <div class="col-md-9">
-              <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong" >
-                <option *ngFor="let phong of phongs" [value]="phong.maphong" >{{ phong.maphong }}</option>
-              </select>
+              <ng-select2
+                [data]="lstFont"
+                [placeholder]="'Chọn phông...'"
+                [options]="options"
+                name="fontID"
+                [(ngModel)]="danhmuc.fontID"
+              ></ng-select2>
             </div>
           </div>
-          <div class="form-group row">
+          <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
             <div class="col-md-9">
-              <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
-              </select2> -->
+              <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
+              </select2>
             </div>
-          </div>
+          </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mục lục số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="muclucso" class="form-control" [(ngModel)]="danhmuc.muclucso">
+                <input type="text" id="text-input" name="tabOfContNumber" class="form-control" [(ngModel)]="danhmuc.tabOfContNumber">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
             <div class="col-md-9">
-                <textarea id="textarea-input" name="ghichu" rows="9" class="form-control"
-                    [(ngModel)]="danhmuc.ghichu"></textarea>
+                <textarea id="textarea-input" name="note" rows="9" class="form-control"
+                    [(ngModel)]="danhmuc.note"></textarea>
             </div>
         </div>
 

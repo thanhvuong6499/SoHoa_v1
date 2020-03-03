@@ -1,7 +1,7 @@
-<div class="card">
+<div *ngIf="hopso" class="card">
 
     <div class="card-header" aria-hidden="true">
-        <div *ngIf="hopso.id">
+        <div>
             <h4 class="modal-title">Chi tiết hộp số</h4>
 
         </div>
@@ -9,44 +9,54 @@
         
     </div>
     <div class="card-body">
-        <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hopso.mahopso">
+                <span>{{hopso.gearBoxCode}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+            <div class="col-md-9">
+                <span>{{hopso.organName}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
+            <div class="col-md-9">
+                <span>{{hopso.fontName}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehopso" class="form-control"
-                    [(ngModel)]="hopso.tieudehopso">
+                <span>{{hopso.gearBoxTitle}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="madanhmuc" class="form-control"
-                    [(ngModel)]="hopso.madanhmuc">
+                <span>{{hopso.tabOfContCode}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngaybatdau" placeholder="date">
+                <span>{{hopso.startDate}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngayketthuc" placeholder="date">
+                <span>{{hopso.endDate}}</span>
             </div>
         </div>
-
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
+            <div class="col-md-9">
+                <span>{{hopso.note}}</span>
+            </div>
+        </div>
     </div>
     <div class="card-footer">
         <table class="table table-bordered table-striped table-sm">
