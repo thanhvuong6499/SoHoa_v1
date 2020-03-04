@@ -173,6 +173,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   }
 
   getFilterOptions (types: string[], name : string[], address: string[]) {
+    console.log(name);
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
