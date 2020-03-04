@@ -62,7 +62,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadFilterOptionsOrgan();
     this.loadAll();
-
+    
     
   }
   openDialog(id?: number) {
