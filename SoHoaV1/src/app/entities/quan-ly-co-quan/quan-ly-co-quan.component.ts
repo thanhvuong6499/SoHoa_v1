@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CoQuan } from '../../model/co-quan.model';
-import { coquans, coquans2 } from '../../model/co-quan.model';
+import { coquans } from '../../model/co-quan.model';
 import { ActivatedRoute } from '@angular/router';
 import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { CoQuanDialogComponent } from './co-quan-dialog/co-quan-dialog.component';
