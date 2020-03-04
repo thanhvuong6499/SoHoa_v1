@@ -48,7 +48,7 @@ export class QuanLyHoSoPopupService {
   }
 
  public hoSoModalRef(component: Component, hopso: HoSo): NgbModalRef {
-      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static', windowClass:'animated slideInUp'});
       //// Go back to home page after the modal is closed
       // modalRef.result.then((result) => {
       //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
