@@ -1,25 +1,40 @@
-<div class="row">
+<div class="row" style="margin-top: 10px;">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <h3><i class="fa fa-folder"></i> &nbsp;Quản lí Hồ sơ</h3>
+        <h4><i class="fa fa-folder"></i> &nbsp;Quản lí Hồ sơ</h4>
         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-
+        <hr/>
         <div class="form-group row">
-          <label class="col-md-1 col-form-label"  for="text-input">Mã hộp số</label>
+          <label class="col-md-1 col-form-label"  for="text-input">Mã hộp số: </label>
           <div class="col-md-2">
-            <input type="text" id="text-input" name="mahopso" class="form-control">
+            <ng-select2
+            [data]="gearBoxIdFilter"
+            [placeholder]="'Chọn mã hộp số...'"
+            [options]="options"
+            (valueChanged)="getFilterOptions(arrayTypeValue, arrayNameValue, $event)"
+        ></ng-select2>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Mã hồ sơ</label>
+          <label class="col-md-1 col-form-label" for="text-input">Mã hồ sơ: </label>
           <div class="col-md-2">
-            <input type="text" id="text-input" name="mahoso" class="form-control">
+            <ng-select2
+            [data]="profileIdFilter"
+            [placeholder]="'Chọn mã hồ sơ...'"
+            [options]="options"
+            (valueChanged)="getFilterOptions(arrayTypeValue, arrayNameValue, $event)"
+        ></ng-select2>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Tên hồ sơ</label>
+          <label class="col-md-1 col-form-label" for="text-input">Tên hồ sơ: </label>
           <div class="col-md-3">
-            <input type="text" id="text-input" name="tenhoso" class="form-control">
+            <ng-select2
+            [data]="profileNameFilter"
+            [placeholder]="'Chọn tên hồ sơ...'"
+            [options]="options"
+            (valueChanged)="getFilterOptions(arrayTypeValue, arrayNameValue, $event)"
+        ></ng-select2>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary " style="float: right" (click)="openDialog()">
+            <button class="btn btn-sm btn-primary " style="float: right; margin-top: 4px;" (click)="openDialog()">
               <span class="fa fa-plus"></span>
               <span>
                 Thêm mới hồ sơ
@@ -43,22 +58,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let hoso of hosos">
-              <td>{{ hoso.id }}</td>
-              <td>{{ hoso.mahopso }}</td>
-              <td>{{ hoso.hososo }}</td>
-              <td>{{ hoso.tieude }}</td>
-              <td>{{ hoso.loaihoso }}</td>
+            <tr>
               <td></td>
-              <td>{{ hoso.ghichu }}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
 
               <td style="width:137px">
-                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.id]"
+                <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',1]"
                   routerLinkActive="router-link-active"></button>
                 
-                <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.id)" replaceUrl="true"
+                <button class="btn btn-primary fa fa-edit" (click)="openDialog()" replaceUrl="true"
                   queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hoso.id)"></button>
+                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog()"></button>
               </td>
             </tr>
             </tbody>

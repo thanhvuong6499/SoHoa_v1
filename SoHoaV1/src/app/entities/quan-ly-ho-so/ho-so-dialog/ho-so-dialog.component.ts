@@ -3,6 +3,7 @@ import { HoSo, hosos } from '../../../model/ho-so.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from '../quan-ly-ho-so-popup.service';
 import { ToastrService } from 'ngx-toastr';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -11,7 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HoSoDialogComponent implements OnInit {
   hoso: HoSo;
-  constructor(
+  public uploader : FileUploader = new FileUploader({
+    isHTML5: true
+  });
+
+  constructor (
    private activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
    private toastr: ToastrService
@@ -20,36 +25,38 @@ export class HoSoDialogComponent implements OnInit {
   ngOnInit() {
     this.hoso = this.hoSoPopupService.getHoSoById()
   }
-  clear() {
-    this.activeModal.dismiss('cancel');
-  
-  }
-  save(){
-    if (this.hoso.id && this.hoso.id != undefined) {
-      for(let i = 0; i < hosos.length; i++) {
-        if (hosos[i].id == this.hoso.id) {
-          hosos[i] = this.hoso;
-          break;
-        }
+
+  uploadSubmit () {
+    for (var i = 0; i < this.uploader.queue.length; i++) {
+      let fileItem = this.uploader.queue[i]._file;
+      if(fileItem.size > 10000000) {
+        alert("File nên có kích thước nhỏ hơn 10Mb.");
+        return;
       }
     }
-    else {
-      let id = hosos.length;
-      this.hoso.id = id + 1;
-      hosos.push(this.hoso);
-      this.success();
+    var data = new FormData();
+    for (var j = 0; j < this.uploader.queue.length; j++) {
+      let fileItem = this.uploader.queue[j]._file;
+      data.append('file', fileItem);
+      data.append('fileSeq', 'seq'+j);
+      data.append('dataType', fileItem.type.split('/')[1]);
+    //  this.uploadFile(data).subscribe(data => alert(data.message));
     }
-    this.clear();
+    console.log(JSON.stringify(data));
+    console.log(data.getAll('file'));
+    this.uploader.clearQueue();
+
+}
+
+  clear() {
+    this.activeModal.dismiss('cancel');
+  }
+  save() {
     
   }
 
   success(){
-      
     this.toastr.success('Thêm mới thành công');
-
-    
   }
-
- 
 
 }
