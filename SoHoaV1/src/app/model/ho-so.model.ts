@@ -5,7 +5,8 @@ export class HoSo  {
   public organId? : string;
   public gearBoxId? : string;
   public fileCatalog? : number;
-  public  fileNotation? : string;
+  public fileNotation? : string;
+  public profileTypeId? : number; 
 
   public title? : string;
 

@@ -1,10 +1,9 @@
-<form (ngSubmit)="uploadSubmit()" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
-        <!-- <div *ngIf="hoso.id != null; else themMoi">
-            <h4 class="modal-title">Chỉnh sửa hồ sơ</h4>
-
-        </div> -->
+        <div *ngIf="hoso.fileCode else themMoi">
+            <h4 class="">Chỉnh sửa hồ sơ</h4>
+        </div>
 
         <ng-template #themMoi>
             <h4 class="modal-title">Thêm mới hồ sơ</h4>
@@ -20,137 +19,160 @@
         <input type="number" class="form-control" name="maphong" id="field_maphong"
             [(ngModel)]="phong.maphong" required/>
     </div> -->
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
             <div class="col-md-9">
-                <!-- <select2 [data]="data1"  (update)="update1($event)" id="selec2-1">
-              </select2> -->
+                <ng-select2
+            [data]="organTypeList"
+            [placeholder]="'Chọn loại cơ quan...'"
+            [options]="options"
+            name="loaiCoQuanID"
+            [(ngModel)]="coQuan.loaiCoQuanID"
+          ></ng-select2>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Phông</label>
             <div class="col-md-9">
-                <!-- <select id="select1" name="select1" class="form-control" [(ngModel)]="danhmuc.maphong">
-                    <option *ngFor="let phong of phongs" [value]="phong.maphong">{{ phong.maphong }}</option>
-                </select> -->
+                <ng-select2
+            [data]="organTypeList"
+            [placeholder]="'Chọn loại cơ quan...'"
+            [options]="options"
+            name="loaiCoQuanID"
+            [(ngModel)]="coQuan.loaiCoQuanID"
+
+          ></ng-select2>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="madanhmuc" class="form-control" [(ngModel)]="hopso.madanhmuc"> -->
+                <ng-select2
+                    [data]="organTypeList"
+                    [placeholder]="'Chọn loại cơ quan...'"
+                    [options]="options"
+                    name="loaiCoQuanID"
+                    [(ngModel)]="coQuan.loaiCoQuanID"
+                ></ng-select2>
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hộp số</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso"> -->
+                <ng-select2
+                    [data]="gearBoxIdList"
+                    [placeholder]="'Chọn hộp số...'"
+                    [options]="options"
+                    name="gearBoxId"
+                    [(ngModel)]="hoso.gearBoxId"
+                ></ng-select2>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="" class="form-control" >
+                <input type="text" id="fileCode" placeholder="Nhập mã hồ sơ" name="fileCode" [(ngModel)]="hoso.fileCode" class="form-control" >
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ <span style="color: red;">(*)</span></label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ:<span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input type="text" id="title" name="" class="form-control" >
+                <input type="text" id="title" name="title" [(ngModel)]="hoso.title" class="form-control" placeholder="Nhập tiêu đề hồ sơ" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
+            <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ:</label>
             <div class="col-md-9">
-                <input type="text" id="" name="" class="form-control" >
+                <input type="text" id="fileNotation" placeholder="Nhập số hồ sơ" name="fileNotation" class="form-control" [(ngModel)]="hoso.fileNotation" required>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ:</label>
             <div class="col-md-9">
-                <select id="select1" name="select1" class="form-control">
-                    <option value="0">Chọn loại hồ sơ</option>
-                    <option value="1">Tư pháp</option>
-                    <option value="2">Tài chính</option>
-                    <option value="3">Kỉ luật</option>
-                </select>
+                <ng-select2
+                [data]="profileTypeList"
+                [placeholder]="'Chọn loại hồ sơ...'"
+                [options]="options"
+                name="profileTypeId"
+                [(ngModel)]="hoso.profileTypeId"
+              ></ng-select2>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
+            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản:</label>
             <div class="col-md-9">
-                <input type="text" id="" name="" class="form-control">
+                <input type="text" name="maintenance" [(ngModel)]="hoso.maintenance" placeholder="Nhập thời hạn bảo quản" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng</label>
+            <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng:</label>
             <div class="col-md-9">
-                <input type="text" id="" name="" class="form-control">
+                <input type="text" name="rights" [(ngModel)]="hoso.rights" placeholder="Chế độ sử dụng" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
             <div class="col-md-9">
-                <input type="text" id="" name="language" class="form-control">
+                <input type="text" name="language" [(ngModel)]="hoso.language" placeholder="Nhập ngôn ngữ" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu:</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="startDate" [(ngModel)]="hoso.startDate" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc</label>
+            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="endDate" [(ngModel)]="hoso.endDate" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
             <div class="col-md-9">
-                <input type="number" id="" name="" class="form-control">
+                <input type="number" name="totalDoc" [(ngModel)]="hoso.totalDoc" placeholder="Tổng số văn bản" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="textarea-input">Chú thích</label>
+            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
             <div class="col-md-9">
-                <textarea id="note" name="chuthich" rows="9" class="form-control"></textarea>
+                <textarea id="description" name="description" [(ngModel)]="hoso.description" rows="9" class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
             <div class="col-md-9">
-                <input type="text" id="" name="kyhieuthongtin" class="form-control">
+                <input type="text" name="inforSign" [(ngModel)]="hoso.infoSign" placeholder="Nhập ký hiệu thông tin" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
             <div class="col-md-9">
-                <input type="text" id="keyword" name="tukhoa" class="form-control">
+                <input type="text" id="keyword" name="keyword" [(ngModel)]="hoso.keyword" placeholder="Nhập từ khoá" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ:</label>
             <div class="col-md-9">
-                <input type="number" id="sheet-number" name="soluongto" class="form-control">
+                <input type="number" id="sheet-number" name="sheetNumber" [(ngModel)]="hoso.sheetNumber" placeholder="Số lượng tờ" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang</label>
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang:</label>
             <div class="col-md-9">
-                <input type="number" id="page-number" name="soluongtrang" class="form-control">
+                <input type="number" id="page-number" name="pageNumber" [(ngModel)]="pageNumber" placeholder="Số lượng trang" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" >Tình trạng vật lý</label>
+            <label class="col-md-3 col-form-label" >Tình trạng vật lý:</label>
             <div class="col-md-9">
-                <input type="text" id="format" name="format" class="form-control">
+                <input type="text" id="format" name="format" [(ngModel)]="hoso.format" placeholder="Tình trạng vật lý" class="form-control">
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
+            <label class="col-md-3 col-form-label" for="file-multiple-input">Tải lên file:</label>
             <div class="col-md-9">
                 <!-- <input type="file" id="file-multiple-input" accept=".pdf" name="file-multiple-input" multiple> -->
                 <mat-card-content>
@@ -162,7 +184,7 @@
                         <mat-option value="PAN">PAN</mat-option>
                       </mat-select>
                     </mat-form-field> -->
-                    <br>
+                    <!-- <br> -->
                     <input type="file" ng2FileSelect accept=".pdf" [uploader]="uploader" multiple/><br/>
                     <br>
                     <!-- <div class="drop-zone">
@@ -189,7 +211,7 @@
                           {{ item.file.name }} ({{ item.file.size/1000000 }} MB)
                         </th>
                         <th class="text-center" width="10%">
-                          <mat-icon (click)="item.remove()">delete</mat-icon>
+                          <mat-icon (click)="item.remove()" style="cursor: pointer;">delete</mat-icon>
                         </th>
                       </tr>
                       </tbody>
