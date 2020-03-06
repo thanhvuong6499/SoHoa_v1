@@ -35,4 +35,6 @@ export class HoSo  {
   public sheetNumber? : number;
   public ageNumber? : number;
   public format? : string;
+  public profileTypeName? : string;
+  public gearBoxTitle? : string;
 }

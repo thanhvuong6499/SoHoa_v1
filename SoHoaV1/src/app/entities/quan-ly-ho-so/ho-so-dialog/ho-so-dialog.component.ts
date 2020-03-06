@@ -8,6 +8,7 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
 import { FileUpload } from '../../../model/file.model';
+import { BaseCondition } from '../../../common';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -19,18 +20,25 @@ export class HoSoDialogComponent implements OnInit {
   public uploader : FileUploader = new FileUploader({
     isHTML5: true
   });
+  // lấy danh sách file sau khi đã tải file lên trước đó
+  public uploaderAfterChange : FileUploader = new FileUploader ({
+    isHTML5: true
+  })
   options: Options;
   profileTypeList: Array<Select2OptionData>;
   fileNotationList: Array<Select2OptionData>;
-  gearBoxIdList: Array<Select2OptionData>;
+  gearBoxTitleList: Array<Select2OptionData>;
 
   constructor (
    private activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
    private toastr: ToastrService,
    private service: QuanLyHoSoService
-  ) 
+  )
   {
+    this.profileTypeList = new Array<Select2OptionData>();
+    this.fileNotationList = new Array<Select2OptionData>();
+    this.gearBoxTitleList = new Array<Select2OptionData>();
     this.hoso = new HoSo();
     this.options = {
       theme: 'classic',
@@ -95,19 +103,24 @@ export class HoSoDialogComponent implements OnInit {
             files.append('overwrite', 'accept');
             this.service.insertSingleProfile(this.hoso, files)
               .subscribe((result) => {
-                console.log(result);
+                if (result.isSuccess) {
+                  this.activeModal.dismiss('overwrite successfully');
+                }
               },
               (error) => {
                 console.log(error);
               },
               () => {
-
+                this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
               });
           }
         }
         else {
           // toàn file mới
           this.activeModal.dismiss('success');
+          if (this.uploader.queue.length > 0) {
+            this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+          }
         }
       },
       (error) => {
@@ -119,6 +132,19 @@ export class HoSoDialogComponent implements OnInit {
   }
   success(message : string, title?: string){
     this.toastr.success(message, title);
+  }
+
+  // xóa những file đã được upload trước đó, không cho phép upload trùng lặp
+  fileInputChange(value : any) {
+    for (var i = 0; i < this.uploader.queue.length - 1; i ++) {
+      var fileItem1 = this.uploader.queue[i]._file;
+      for (var j = i + 1; j < this.uploader.queue.length; j ++) {
+        var fileItem2 = this.uploader.queue[j]._file;
+        if (fileItem1.name == fileItem2.name) {
+          this.uploader.queue[j].remove();
+        }
+      }
+    }
   }
 
 }

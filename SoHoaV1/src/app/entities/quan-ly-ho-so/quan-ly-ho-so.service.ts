@@ -24,12 +24,13 @@ export class QuanLyHoSoService {
     return listvanban;
   }
 
-  public getAllProfilesWithPaging(condi: BaseCondition<HoSo>, files: FormData) {
+  public getAllProfilesWithPaging(condi: BaseCondition<HoSo>) {
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex: condi.PageIndex,
-        PageSize: condi.PageSize
+        PageSize: condi.PageSize,
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
@@ -38,16 +39,21 @@ export class QuanLyHoSoService {
         PageSize: 5
       }
     }
-   // return this._httpClient.post<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", [JSON.stringify(condition), files]);
+    return this._httpClient.post<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/ProfilesGetSearchWithPaging", JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   public insertSingleProfile (data: HoSo, files?: FormData) {
     // upload file
     var formData = new FormData();
     var profile = JSON.stringify(data);
-    formData = files;
+    if (files != undefined) {
+      formData = files;
+    }
     formData.append('profile', profile);
     return this._httpClient.post<ReturnResult<any>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", formData);
   }
 
+  public getAllProfiles () {
+    return this._httpClient.get<any>(ApiUrl.apiUrl + "Profile/GetAllProfiles");
+  }
 }

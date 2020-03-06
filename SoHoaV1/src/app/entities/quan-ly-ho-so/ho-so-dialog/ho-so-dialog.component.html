@@ -58,14 +58,14 @@
             </div>
         </div> -->
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp số</label>
+            <label class="col-md-3 col-form-label" for="text-input">Hộp số</label>
             <div class="col-md-9">
                 <ng-select2
-                    [data]="gearBoxIdList"
+                    [data]="gearBoxTitleList"
                     [placeholder]="'Chọn hộp số...'"
                     [options]="options"
-                    name="gearBoxId"
-                    [(ngModel)]="hoso.gearBoxId"
+                    name="gearBoxTitle"
+                    [(ngModel)]="hoso.gearBoxTitle"
                 ></ng-select2>
             </div>
         </div>
@@ -120,13 +120,13 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu:</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="startDate" [(ngModel)]="hoso.startDate" placeholder="date">
+                <input class="form-control" id="date-input-start" type="date" name="startDate" [(ngModel)]="hoso.startDate" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="endDate" [(ngModel)]="hoso.endDate" placeholder="date">
+                <input class="form-control" id="date-input-end" type="date" name="endDate" [(ngModel)]="hoso.endDate" placeholder="date">
             </div>
         </div>
         <div class="form-group row">
@@ -185,7 +185,7 @@
                       </mat-select>
                     </mat-form-field> -->
                     <!-- <br> -->
-                    <input type="file" ng2FileSelect accept=".pdf" [uploader]="uploader" multiple/><br/>
+                    <input type="file" ng2FileSelect accept=".pdf" [uploader]="uploader" (change)="fileInputChange(uploaderAfterChange.queue)" multiple/><br/>
                     <br>
                     <!-- <div class="drop-zone">
                     <div ng2FileDrop [uploader]="uploader" class="drop-zone">
