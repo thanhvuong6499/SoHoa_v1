@@ -7,6 +7,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
+import { FileUpload } from '../../../model/file.model';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -38,7 +39,6 @@ export class HoSoDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-
   //  this.hoso = this.hoSoPopupService.getHoSoById()
   }
 
@@ -78,16 +78,47 @@ export class HoSoDialogComponent implements OnInit {
     this.service.insertSingleProfile(this.hoso, files)
       .subscribe((result) => {
         console.log(result);
+        if (!result.isSuccess && result.errorCode == "-1") {
+          var lstFilesAlreadyExists : string[] = new Array<string>();
+          lstFilesAlreadyExists = JSON.parse(result.returnValue);
+          var arrFileName: string[] = new Array<string>();
+          for (const file of lstFilesAlreadyExists) {
+            let fileNameArr = file.split('\\');
+            let fileName = fileNameArr[fileNameArr.length -1];
+            arrFileName.push(fileName);
+          }
+          if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+          \nDanh sách file đã tồn tại:\n${
+            arrFileName.toString().split(',').join('\n')
+          }`)) {
+            files = this.uploadSubmit();
+            files.append('overwrite', 'accept');
+            this.service.insertSingleProfile(this.hoso, files)
+              .subscribe((result) => {
+                console.log(result);
+              },
+              (error) => {
+                console.log(error);
+              },
+              () => {
+
+              });
+          }
+        }
+        else {
+          // toàn file mới
+          this.activeModal.dismiss('success');
+        }
       },
       (error) => {
         console.log(error);
       },
       () => {
-
+        this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
       });
   }
-  success(){
-    this.toastr.success('Thêm mới thành công');
+  success(message : string, title?: string){
+    this.toastr.success(message, title);
   }
 
 }

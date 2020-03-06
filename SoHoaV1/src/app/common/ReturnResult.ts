@@ -7,4 +7,5 @@ export class ReturnResult<T>{
     hasData: boolean;
     hasError: boolean;
     totalRows?: number;
+    returnValue?: string;
   }

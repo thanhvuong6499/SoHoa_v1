@@ -10,7 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
 import { MaterialModule } from '../../material.module';
-import {FileDropDirective, FileSelectDirective} from "ng2-file-upload";
+import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({

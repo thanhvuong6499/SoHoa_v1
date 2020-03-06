@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HoSo } from '../../model/ho-so.model';
 import { VanBan, vanbans } from '../../model/van-ban.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions } from '../../common';
+import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions, HttpHeaderOptionsFormData } from '../../common';
 
 @Injectable({
   providedIn: 'root'
@@ -43,13 +43,11 @@ export class QuanLyHoSoService {
 
   public insertSingleProfile (data: HoSo, files?: FormData) {
     // upload file
-    if (files != undefined)
-    {
-      return this._httpClient.post<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", [JSON.stringify(data), files]);
-    }
-    else {
-      return this._httpClient.post<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", JSON.stringify(data), { headers: HttpHeadersOptions.headers });
-    }
+    var formData = new FormData();
+    var profile = JSON.stringify(data);
+    formData = files;
+    formData.append('profile', profile);
+    return this._httpClient.post<ReturnResult<any>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", formData);
   }
 
 }
