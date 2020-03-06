@@ -28,7 +28,6 @@ import { RegisterComponent } from './views/register/register.component';
 import { EntitiesModule } from './entities/entities.module';
 import { ModalModule } from "ngx-bootstrap";
 import { Observable } from 'rxjs';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 const APP_CONTAINERS = [
@@ -80,7 +79,6 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ModalModule.forRoot(),
     NgbModule,
     MaterialModule,
-    AutocompleteLibModule,
     ToastrModule.forRoot(),
     NgSelect2Module,
     PdfViewerModule
