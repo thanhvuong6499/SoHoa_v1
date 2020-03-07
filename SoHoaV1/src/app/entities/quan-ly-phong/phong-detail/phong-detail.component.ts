@@ -59,11 +59,10 @@ export class PhongDetailComponent implements OnInit {
   }
   loadPages(page : number,id: any) {
     var params = id;
-
     var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
     condi.PageIndex = page;
     condi.IN_WHERE= String(params);
-    this.quanLyPhongService.getListDanhMucByPhongId(params).subscribe((data : HttpResponse<DanhMuc[]>) => {
+    this.quanLyPhongService.getListDanhMucByPhongId(condi).subscribe((data : HttpResponse<DanhMuc[]>) => {
       this.danhmucs = data.body["itemList"];
       this.page = page;
       this.totalRecords = data.body["totalRows"];

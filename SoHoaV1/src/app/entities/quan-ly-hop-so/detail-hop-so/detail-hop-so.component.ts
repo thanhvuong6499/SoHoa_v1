@@ -4,6 +4,7 @@ import { QuanLyHopSoService } from '../quan-ly-hop-so.service';
 import { ActivatedRoute } from '@angular/router';
 import { HoSo, hosos } from '../../../model/ho-so.model';
 import { HopSo } from '../../../model/hop-so.model';
+import { DateFormatter } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-detail-hop-so',
@@ -31,7 +32,6 @@ export class DetailHopSoComponent implements OnInit {
     .subscribe((res=>{
         this.hopso = res.item;
     }));
-    // this.hosos= this.quanLyHopSoService.getListHoSoByHopSoId(id);
   }
   loadPages(page : number) {
     // switch (page) {

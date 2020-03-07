@@ -20,62 +20,64 @@
         <input type="number" class="form-control" name="maphong" id="field_maphong"
             [(ngModel)]="phong.maphong" required/>
     </div> -->
-    <div class="form-group row">
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
             <div class="col-md-9">
-              <ng-select2
+            <ng-select2
                 [data]="lstOrgan"
                 [placeholder]="'Chọn cơ quan...'"
                 [options]="options"
                 name="organID"
                 [(ngModel)]="organ.organID"
-              ></ng-select2>
+            ></ng-select2>
             </div>
         </div>
-    </div>
-    <div class="form-group row">
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Phông</label>
             <div class="col-md-9">
-              <ng-select2
+            <ng-select2
                 [data]="lstFont"
                 [placeholder]="'Chọn Phông...'"
                 [options]="options"
                 name="fontID"
                 [(ngModel)]="phong.fontID"
-              ></ng-select2>
+            ></ng-select2>
             </div>
         </div>
-    </div>
 
-    <div class="form-group row">
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Danh mục</label>
             <div class="col-md-9">
-              <ng-select2
+            <ng-select2
                 [data]="lstDanhMuc"
                 [placeholder]="'Chọn Danh Mục...'"
                 [options]="options"
                 name="tabOfContID"
                 [(ngModel)]="hopso.tabOfContID"
-              ></ng-select2>
+            ></ng-select2>
             </div>
         </div>
-    </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hopso.mahopso">
+                <input type="text" id="text-input" name="gearBoxCode" class="form-control" [(ngModel)]="hopso.gearBoxCode">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehopso" class="form-control"
+                <input type="text" id="text-input" name="gearBoxTitle" class="form-control"
                     [(ngModel)]="hopso.gearBoxTitle">
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
+            <div class="col-md-9">
+                <input type="text" id="text-input" name="note" class="form-control"
+                    [(ngModel)]="hopso.note">
+            </div>
+        </div>
+      
       
         <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>

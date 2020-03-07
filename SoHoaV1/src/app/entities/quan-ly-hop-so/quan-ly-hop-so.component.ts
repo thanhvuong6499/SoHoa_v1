@@ -19,7 +19,7 @@ import {QuanLyDanhMucService} from '../quan-ly-danh-muc/quan-ly-danh-muc.service
 export class QuanLyHopSoComponent implements OnInit {
   danhmuc: DanhMuc;
   hopsos: HopSo[];
-  page = 0;
+  page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
@@ -59,10 +59,8 @@ export class QuanLyHopSoComponent implements OnInit {
 
   }
   openDeleteDialog(id?: number) {
-
       this.hopSoPopupService
         .open(HopSoDeleteComponent as Component, id);
-      console.log(id);
   }
   loadPages(page : number) {
     var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
@@ -98,10 +96,10 @@ export class QuanLyHopSoComponent implements OnInit {
   }
 
   loadAll(){
-    this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : HttpResponse<HopSo[]>) => {
+    this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : any) => {
       this.hopsos = data.body["itemList"];
       this.pageSize = 5;
-      this.page = 0;
+      this.page = 1;
       this.totalRecords = data.body["totalRows"];
     }, (error) => {
       console.log(error);

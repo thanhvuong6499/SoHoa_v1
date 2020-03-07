@@ -9,24 +9,24 @@
           <label class="col-md-4 col-sm-6 col-form-label" for="select1">Cơ quan</label>
           <div style="margin-top:5px;" class="col-md-8 col-sm-6">
             <ng-select2
-              [data]="lstOrgan"
-              [placeholder]="'Chọn cơ quan...'"
+              [data]="organArr"
+              [placeholder]="'Chọn tên cơ quan...'"
               [options]="options"
-              name="organID"
-              [(ngModel)]="phong.organID"
-            ></ng-select2>
+              [(ngModel)]="arrayTypeValue"
+              (valueChanged)="getFilterOptions($event, arrayNameValue)"
+          ></ng-select2>
           </div>
         </div>
         <div class="col-md-4 row col-lg-4">
           <label class="col-md-4 col-sm-6 col-form-label" for="select1">Phông</label>
           <div style="margin-top:5px;" class="col-md-8 col-sm-6">
             <ng-select2
-              [data]="lstFont"
-              [placeholder]="'Chọn phông...'"
-              [options]="optionsFont"
-              name="fontID"
-              [(ngModel)]="phong.fontID"
-            ></ng-select2>
+              [data]="fontArr"
+              [placeholder]="'Chọn tên phông...'"
+              [options]="options"
+              [(ngModel)]="arrayNameValue"
+              (valueChanged)="getFilterOptions(arrayTypeValue,$event)"
+          ></ng-select2>
           </div>
         </div>
         <div class="row col-md-4 col-lg-4">
@@ -74,7 +74,7 @@
               <td>{{i+1}}</td>
               <td>{{ danhmuc.tabOfContName }}</td>
               <td>{{ danhmuc.tabOfContNumber }}</td>
-              <td>{{ danhmuc.gearBoxCount }}</td>
+              <td>{{ danhmuc.gearBoxCount}}</td>
               <td>{{ danhmuc.note }}</td>
 
               <td style="width:137px">
@@ -90,7 +90,7 @@
         </table>
         <nav>
           <ul class="pagination">
-            <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
           </ul>
         </nav>
       </div>
