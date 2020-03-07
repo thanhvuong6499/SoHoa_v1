@@ -93,6 +93,10 @@ export const routes: Routes = [
       {
         path: 'QuanLyTaiLieu',
         loadChildren: () => import('./entities/quan-ly-tai-lieu/quan-ly-tai-lieu.module').then(m => m.QuanLyTaiLieuModule)
+      },
+      {
+        path: 'ThongKe',
+        loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule)
       }
       // {
       //   path: 'quanLyHopSo',

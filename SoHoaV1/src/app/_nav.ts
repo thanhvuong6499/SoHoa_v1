@@ -70,12 +70,12 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/',
+    url: '/ThongKe/thongKe',
     icon: 'icon-chart'
   },
   {
     name: 'Nhật kí',
-    url: '/',
+    url: '/ThongKe/nhatKy',
     icon: 'fa fa-address-book-o'
   },
   {
