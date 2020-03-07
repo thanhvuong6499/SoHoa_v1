@@ -37,4 +37,6 @@ export class HoSo  {
   public format? : string;
   public profileTypeName? : string;
   public gearBoxTitle? : string;
+  public createdBy? : string;
+  public updatedBy? : string;
 }
