@@ -7,37 +7,29 @@
 
         <div class="form-group row">
           <div class="col-md-4 row col-lg-4">
-            <label class="col-md-4 col-form-label" for="select1">Danh mục</label>
-            <div style="margin-top:5px;" class="col-md-8">
+            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Danh mục</label>
+            <div style="margin-top:5px;" class="col-md-8 col-sm-6">
               <ng-select2
-                [data]="lstDanhMuc"
-                [placeholder]="'Chọn danh mục...'"
+                [data]="tableOfContArr"
+                [placeholder]="'Chọn tên danh mục...'"
                 [options]="options"
-                name="tabOfContID"
-                [(ngModel)]="danhmuc.tabOfContID"
-              ></ng-select2>
+                [(ngModel)]="arrayTableOfContValue"
+                (valueChanged)="getFilterOptions($event)"
+            ></ng-select2>
             </div>
           </div>
           <div class="row col-md-4 col-lg-4">
-            <label class="col-md-4 col-form-label" for="text-input">Tìm kiếm</label>
-            <div class="col-md-8">
-              <input type="text" id="text-input" name="searchText" class="form-control">
+            <label class="col-md-4 col-sm-6 col-form-label" for="text-input">Tìm kiếm</label>
+            <div class="col-md-8 col-sm-6">
+              <input type="text" id="text-input" (ngModelChange)="onChange($event)" ngModel="" name="searchText" class="form-control">
             </div>
           </div>
           <div style="margin-left:0px;" class="row col-md-4 col-lg-4">
-            <div style=" padding-right: 10px;">
-              <button class="btn btn-primary btn-sm" (click)="Search()">
-                <span class="fa fa-plus"></span>
-                <span>
-                  Tìm kiếm
-                </span>
-              </button>
-            </div>
             <div>
               <button class="btn btn-primary btn-sm"(click)="openDialog()">
                 <span class="fa fa-plus"></span>
                 <span>
-                  Thêm mới phông
+                  Thêm mới hộp số
                 </span>
               </button>
             </div>

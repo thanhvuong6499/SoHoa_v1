@@ -43,7 +43,6 @@ export class PhongDetailComponent implements OnInit {
     (this.quanLyPhongService.getPhongById(params))
       .subscribe((result) => {
         this.phong = result.item;
-        console.log(this.phong);
       });
     var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
     condi.PageIndex =this.page;
@@ -54,7 +53,6 @@ export class PhongDetailComponent implements OnInit {
         this.pageSize = 5;
         this.page = 1;
         this.totalRecords = res.body["totalRows"];
-        console.log(this.danhmucs);
       })
   }
   loadPages(page : number,id: any) {
@@ -67,7 +65,6 @@ export class PhongDetailComponent implements OnInit {
       this.page = page;
       this.totalRecords = data.body["totalRows"];
     }, (error) => {
-      console.log(error);
       this.pageSize = 5;
     }, () => {
       console.log("Lấy dữ liệu thành công");

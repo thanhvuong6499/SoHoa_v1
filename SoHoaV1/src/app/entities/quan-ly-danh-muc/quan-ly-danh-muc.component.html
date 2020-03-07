@@ -4,7 +4,7 @@
       <div class="card-header">
         <h3><i class="fa fa-align-justify"></i> &nbsp;Quản lí Danh mục</h3>
       </div>
-      <div style="margin-left: 6px;margin-right: 0px;" class="row">
+      <div style="margin-left: 6px;margin-right: 0px;margin-bottom: 10px;" class="row">
         <div class="col-md-4 row col-lg-4">
           <label class="col-md-4 col-sm-6 col-form-label" for="select1">Cơ quan</label>
           <div style="margin-top:5px;" class="col-md-8 col-sm-6">
@@ -32,20 +32,12 @@
         <div class="row col-md-4 col-lg-4">
           <label class="col-md-4 col-sm-6 col-form-label" for="text-input">Tìm kiếm</label>
           <div class="col-md-8 col-sm-6">
-            <input type="text" id="text-input" name="searchText" class="form-control">
+            <input type="text" id="text-input" (ngModelChange)="onChange($event)" ngModel="" name="searchText" class="form-control">
           </div>
         </div>
       </div>
       <div class="row" style="margin-left: 5px;margin-right: 0px;margin-top: 5px;">
-        <div style="margin-left:0px;" class="row col-md-4 col-lg-4">
-          <div style="display:flex; padding-right: 10px;">
-            <button class="btn btn-primary " style="float: right;" (click)="Search()">
-              <span class="fa fa-plus"></span>
-              <span>
-                Tìm kiếm
-              </span>
-            </button>
-          </div>
+        <div style="margin-left:0px;" class="row col-md-12 col-lg-12">
           <div style="display:flex">
             <button class="btn btn-primary btn-sm " style="float: right;" (click)="openDialog()">
               <span class="fa fa-plus"></span>
@@ -90,7 +82,7 @@
         </table>
         <nav>
           <ul class="pagination">
-            <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
           </ul>
         </nav>
       </div>

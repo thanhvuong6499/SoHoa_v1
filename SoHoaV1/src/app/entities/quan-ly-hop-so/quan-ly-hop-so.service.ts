@@ -23,27 +23,22 @@ export class QuanLyHopSoService {
   }
 
   public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {
-    console.log(condi);
     var condition = {};
+    console.log(condi);
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+    return this.httpClient.post<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   insertNewHopSo (hopso: HopSo) {
@@ -60,7 +55,6 @@ export class QuanLyHopSoService {
   }
 
   getListHopSoByDanhMucId (condi? : BaseCondition<HopSo>){
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -78,7 +72,6 @@ export class QuanLyHopSoService {
     }
    //  var reqOptions = HttpUtilities.convert(condi);
    var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
     const options = HttpUtilities.createRequestOption(reqOptions);
     return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
   }
@@ -90,7 +83,6 @@ export class QuanLyHopSoService {
       id: id
     }
     var params = JSON.stringify(body);
-    console.log(params)
     return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/DeleteGearBox?id=" + id, { headers :HttpHeadersOptions.headers });
   }
   

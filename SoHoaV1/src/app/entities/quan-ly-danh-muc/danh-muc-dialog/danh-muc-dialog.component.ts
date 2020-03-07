@@ -58,7 +58,6 @@ export class DanhMucDialogComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
       if(this.danhMucPopupService.result.item != undefined){
@@ -73,10 +72,8 @@ export class DanhMucDialogComponent implements OnInit {
     if (this.isEdit) {
       this.service.updateDanhMuc(this.danhmuc)
         .subscribe((result) => {
-          console.log(result);
         },
         (error)=> {
-          console.log(error);
           
           // this.onSaveError();
         },
@@ -92,10 +89,8 @@ export class DanhMucDialogComponent implements OnInit {
     else {
         this.service.insertNewDanhMuc(this.danhmuc)
         .subscribe((result) => {
-          console.log(result);
         },
         (error) => {
-          console.log(error);
         }, () => {
           this.onSaveSuccess("Thêm mới thành công");
           this.activeModal.dismiss("Create new successfully");

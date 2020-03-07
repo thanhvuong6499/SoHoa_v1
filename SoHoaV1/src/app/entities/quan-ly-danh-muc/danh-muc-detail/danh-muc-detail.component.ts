@@ -34,7 +34,6 @@ export class DanhMucDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log();
     this.route.snapshot.paramMap.get('id');
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
@@ -55,7 +54,6 @@ export class DanhMucDetailComponent implements OnInit {
           this.pageSize = 5;
           this.page = 0;
           this.totalRecords = res.body["totalRows"];
-          console.log(this.danhmucs);
         })
     
   }
@@ -69,7 +67,6 @@ export class DanhMucDetailComponent implements OnInit {
       this.page = page;
       this.totalRecords = data.body["totalRows"];
     }, (error) => {
-      console.log(error);
       this.pageSize = 5;
     }, () => {
       console.log("Lấy dữ liệu thành công");

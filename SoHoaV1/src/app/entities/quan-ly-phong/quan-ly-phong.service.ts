@@ -30,7 +30,6 @@ export class QuanLyPhongService {
   }
   
   public getAllPhongWithPaging(condi? : BaseCondition<Phong>) {
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -66,7 +65,6 @@ export class QuanLyPhongService {
     return this.httpClient.get<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/GetFontByID/" + id);
   }
   getListDanhMucByPhongId (condi? : BaseCondition<Phong>){
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -83,7 +81,6 @@ export class QuanLyPhongService {
       }
     }
     var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
     const options = HttpUtilities.createRequestOption(reqOptions);
     return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
   }
@@ -91,11 +88,6 @@ export class QuanLyPhongService {
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");
   }
   deletePhong (id: number) {
-    // var body = {
-    //   id: id
-    // }
-    // var params = JSON.stringify(body);
-    // console.log(params)
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/DeleteFont?id=" + id, { headers :HttpHeadersOptions.headers });
   }
 }

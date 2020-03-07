@@ -15,6 +15,7 @@ import { Options } from 'select2';
 import { CoQuan } from '../../model/co-quan.model';
 import { OrganFilter } from '../../model/organ-filter.model';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
+import { QuanLyDanhMucService } from '../quan-ly-danh-muc/quan-ly-danh-muc.service';
 
 @Component({
   selector: 'app-quan-ly-phong',
@@ -38,24 +39,23 @@ export class QuanLyPhongComponent implements OnInit {
   organFilterData: OrganFilter;
   condition: BaseCondition<Phong>;
   organArr : Array<Select2OptionData>;
-  organNameArr: Array<Select2OptionData>;
-  organAddressArr: Array<Select2OptionData>;
+  fontArr: Array<Select2OptionData>;
   valueOrganTypes: Array<string>;
   arrayTypeValue: string[];
-  arrayNameValue: string[];
+  arrayFontValue: string[];
   arrayAddressValue: string[];
 
   constructor(
     private route: ActivatedRoute,
     public phongPopupService: QuanLyPhongPopupService,
     public phongService: QuanLyPhongService,
+    private danhMucService: QuanLyDanhMucService,
     private coQuanService: QuanLyCoQuanService
   ) {
     this.phong = new Phong();
-    this.condition = new BaseCondition<CoQuan>();
+    this.condition = new BaseCondition<Phong>();
     this.organArr = new Array<Select2OptionData>();
-    this.organNameArr = new Array<Select2OptionData>();
-    this.organAddressArr = new Array<Select2OptionData>();
+    this.fontArr = new Array<Select2OptionData>();
     this.organFilterData = new OrganFilter();
     this.options = {
       width: "100%",
@@ -91,23 +91,25 @@ export class QuanLyPhongComponent implements OnInit {
   }
 
   loadPages(page : string) {
+    try{
       var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
-      // if (this.condition.FilterRuleList != undefined) {
-      //   condi.FilterRuleList = this.condition.FilterRuleList;
-      // }
+      if (this.condition.FilterRuleList != undefined) {
+        condi.FilterRuleList = this.condition.FilterRuleList;
+      }
       condi.PageIndex = parseInt(page);
       this.phongService.getAllPhongWithPaging(condi).subscribe((data : any) => {
-        console.log(data);
         this.phongs = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows;
       }, (error) => {
-        console.log(error);
         this.pageSize = 5;
       }, () => {
         console.log("Lấy dữ liệu thành công");
       });
+    }catch (e) {
+      alert(JSON.stringify(e))
+    }
   }
   getAllCoQuan() {
     this.phongService.getAllCoQuan()
@@ -122,7 +124,6 @@ export class QuanLyPhongComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
   }
@@ -135,7 +136,6 @@ export class QuanLyPhongComponent implements OnInit {
       this.page = 1;
       this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
     }, () => {
       console.log('Lấy dữ liệu thành công.');
     });
@@ -153,18 +153,27 @@ export class QuanLyPhongComponent implements OnInit {
         this.organArr = arrTypes;
       }, 
       (error => {
-        console.log(error)
       }),
       () => {
-        // do something
-        // this.arrayTypeValue = [this.organTypesArr[0].id, this.organTypesArr[1].id];
-        // this.arrayNameValue = [this.organNameArr[0].id, this.organNameArr[1].id];
-        // this.arrayAddressValue = [this.organAddressArr[0].id, this.organAddressArr[1].id];
-
       })
+
+      this.danhMucService.getAllPhong()
+      .subscribe((result) => {
+        if (result != undefined) {
+          var phongs = [];
+          for (var item of result.itemList) {
+            var temp = { id: item.fontID, text: item.fontName };
+            phongs.push(temp);
+          }
+          this.fontArr = phongs;
+        }
+      },
+      (error) => {
+      }, () => {
+      });
   }
 
-  getFilterOptions (types: string[]) {
+  getFilterOptions (types: string[],fonts : string[]) {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
@@ -172,8 +181,15 @@ export class QuanLyPhongComponent implements OnInit {
         op: "",
         value: ""
       },
+      {
+        field: "sp.PhongID",
+        op: "",
+        value: ""
+      },
     ]
     this.arrayTypeValue = types;
+    
+    this.arrayFontValue = fonts;
     if (this.arrayTypeValue != undefined) {
       this.condition.FilterRuleList[0].value = types.toString();
       if (types.length == 1) {
@@ -183,16 +199,25 @@ export class QuanLyPhongComponent implements OnInit {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
+
+    if (this.arrayFontValue != undefined) {
+      this.condition.FilterRuleList[1].value = fonts.toString();
+      if (fonts.length == 1) {
+        this.condition.FilterRuleList[1].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[1].op = "and_in_strings";
+      }
+    }
     
-    if (types != undefined) {
+    if (types != undefined || fonts != undefined) {
       this.phongService.getAllPhongWithPaging(this.condition)
-      .subscribe((data) => {
-        this.phongs = data["itemList"];
+      .subscribe((data: any) => {
+        this.phongs = data.itemList;
         this.pageSize = 5;
         this.page = 1;
-        this.totalRecords = data["totalRows"];
+        this.totalRecords = data.totalRows;
       }, (error) => {
-        console.log(error);
       }, () => {
         
       })

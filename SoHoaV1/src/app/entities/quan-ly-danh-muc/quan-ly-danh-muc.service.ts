@@ -25,7 +25,6 @@ export class QuanLyDanhMucService {
   }
 
   public getAllDanhMucWithPaging(condi? : BaseCondition<DanhMuc>) {
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -73,7 +72,6 @@ export class QuanLyDanhMucService {
       id: id
     }
     var params = JSON.stringify(body);
-    console.log(params)
     return this.httpClient.post<ReturnResult<DanhMuc>>(ApiUrl.apiUrl + "TableOfContents/DeleteTableOfContents?id=" + id, { headers :HttpHeadersOptions.headers });
   }
   getAllDanhMuc() {

@@ -72,13 +72,10 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   }
   save() {
     if (this.isEdit) {
-      console.log(this.phong);
       this.service.updatePhong(this.phong)
         .subscribe((result) => {
-          console.log(result);
         },
         (error)=> {
-          console.log(error);
           this.activeModal.dismiss("Update failure.");
           this.onSaveError("Chỉnh sửa thất bại");
         },
@@ -92,10 +89,8 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     else {
         this.service.insertNewPhong(this.phong)
         .subscribe((result) => {
-          console.log(result);
         },
         (error) => {
-          console.log(error);
           this.onSaveError("Thêm mới thất bại");
           this.activeModal.dismiss("Create new failure");
         }, () => {
