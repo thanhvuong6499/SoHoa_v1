@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HopSo, hopsos } from '../../../model/hop-so.model';
 import { QuanLyHopSoPopupService } from '../quan-ly-hop-so-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { QuanLyHopSoService } from '../quan-ly-hop-so.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-hop-so-delete',
@@ -13,22 +15,32 @@ export class HopSoDeleteComponent implements OnInit {
   hopso: HopSo;
   constructor(
     private hopSoPopupService: QuanLyHopSoPopupService,
-    private activeModal: NgbActiveModal
-  ) { }
+    private activeModal: NgbActiveModal,
+    private hopSoService: QuanLyHopSoService,
+    private toasts: ToastrService
+  ) {
+    this.hopso = new HopSo();
+   }
 
   ngOnInit() {
-    this.hopso = this.hopSoPopupService.getHopSoById();
-  }
-  deleteHopSo(id : number) {
-    if (id && id != undefined) {
-      for (let i = 0; i < hopsos.length; i ++) {
-        if (hopsos[i].gearBoxID == id) {
-          hopsos.splice(i, 1);
-          break;
-        }
-      }
-      this.activeModal.dismiss('cancel');
+    if(this.hopSoPopupService.result.item != undefined){
+      this.hopso = this.hopSoPopupService.result.item;
     }
+  }
+  deleteHopSo(id : any) {
+    this.hopSoService.deleteHopSo(id)
+      .subscribe((result) => {
+        
+      },
+      (error) => {
+        alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
+      }, () => {
+        this.activeModal.dismiss("deleted");
+        this.onDeleteSuccess();
+      });
+  }
+  onDeleteSuccess(){
+    this.toasts.success("delete success")
   }
 
 }

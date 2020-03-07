@@ -82,7 +82,7 @@
           </table>
           <nav>
             <ul class="pagination">
-              <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
             </ul>
           </nav>
         </div>

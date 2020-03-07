@@ -7,13 +7,13 @@
           <div class="col-md-4 row col-lg-4">
             <label class="col-md-4 col-form-label" for="select1">Cơ quan</label>
             <div style="margin-top:5px;" class="col-md-8">
-              <!-- <ng-select2
-                [data]="lstOrgan"
-                [placeholder]="'Chọn cơ quan...'"
-                [options]="options"
-                [(ngModel)]="arrayOrgan"
-                (valueChanged)="getFilterOptions($event)"
-              ></ng-select2> -->
+              <ng-select2
+              [data]="organArr"
+              [placeholder]="'Chọn cơ quan...'"
+              [options]="options"
+              [(ngModel)]="arrayTypeValue"
+              (valueChanged)="getFilterOptions($event)"
+          ></ng-select2>
             </div>
           </div>
           <div class="row col-md-4 col-lg-4">
@@ -58,7 +58,7 @@
           <tbody>
             <tr *ngFor="let phong of phongs; index as i">
               <td>{{i+1}}</td>
-              <td>{{ phong.organCode }}</td>
+              <td>{{ phong.organID }}</td>
               <td>{{ phong.organName }}</td>
               <td>{{ phong.fontNumber }}</td>
               <td>{{ phong.fontName }}</td>
@@ -77,7 +77,7 @@
           </table>
           <nav>
             <ul class="pagination">
-              <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
             </ul>
           </nav>
         </div>
