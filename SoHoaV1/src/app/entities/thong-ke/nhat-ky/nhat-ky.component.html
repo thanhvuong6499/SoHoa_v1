@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fa fa-file"></i> &nbsp;Nhật ký </h3>
+          <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+          
+          <div class="form-group row">
+            <label class="col-md-1 col-form-label" for="text-input">User</label>
+            <div class="col-md-2">
+              <input type="text" id="text-input" name="user" class="form-control">
+            </div>
+            <label class="col-md-1 col-form-label" for="text-input">Ngày bắt đầu</label>
+            <div class="col-md-2">
+              <input type="date" id="text-input" name="ngaybatdau" class="form-control">
+            </div>
+            <label class="col-md-1 col-form-label" for="text-input">Ngày kết thúc</label>
+            <div class="col-md-2">
+              <input type="date" id="text-input" name="ngayketthuc" class="form-control">
+            </div>
+           
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>STT </th>
+                <th>User</th>
+                <th>Thao tác</th>
+                <th>Nội dung</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let vanban of vanbans">
+                <td>{{ vanban.id }}</td>
+                <td>{{ vanban.hososo }}</td>
+                <td>{{ vanban.vanbanso }}</td>
+                <td>{{ vanban.stttronghs }}</td>
+                <td>{{ vanban.loaivanban }}</td>
+                <td>{{ vanban.noidung }}</td>
+                <td>{{ vanban.soto }}</td>
+                <td>{{ vanban.mucdotincay }}</td>
+                <td>{{ vanban.tinhtrang }}</td>
+                <td>{{ vanban.ghichu }}</td>
+                <td style="width:137px">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', vanban.id]"
+                    routerLinkActive="router-link-active"></button>
+                  <span *ngIf="roles == 'edit' || roles == 'admin'"><button class="btn btn-primary fa fa-edit"
+                      (click)="openDialog(vanban.id)" replaceUrl="true" queryParamsHandling="merge"></button></span>
+                  <span *ngIf="roles == 'admin'"><button class="btn btn-primary fa fa-trash"
+                      (click)="openDeleteDialog(vanban.id)"></button></span>
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+          <ng-template #example>
+  
+            </ng-template>
+            <!-- <nav>
+              <ul class="pagination">
+                <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              </ul>
+            </nav> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->

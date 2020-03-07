@@ -28,6 +28,7 @@ export class QuanLyPhongService {
     }
     return phong;
   }
+  
   public getAllPhongWithPaging(condi? : BaseCondition<Phong>) {
     console.log(condi);
     var condition = {};
@@ -35,21 +36,17 @@ export class QuanLyPhongService {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
+
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<Phong[]>(ApiUrl.apiUrl + 'Font/GetFontWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<Phong[]>(ApiUrl.apiUrl + 'Font/GetFontWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   insertNewPhong (phong: Phong) {

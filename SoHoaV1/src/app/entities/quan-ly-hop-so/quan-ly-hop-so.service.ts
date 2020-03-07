@@ -15,6 +15,7 @@ export class QuanLyHopSoService {
   public getListHoSoByHopSoId (id: number) {
 
   }
+
   public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {
     console.log(condi);
     var condition = {};
@@ -49,7 +50,7 @@ export class QuanLyHopSoService {
   }
 
   updateHopSo (hopso: HopSo) {
-    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/UpdateCoQuan", JSON.stringify(hopso), { headers: HttpHeadersOptions.headers });
+    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/UpdateGearBox", JSON.stringify(hopso), { headers: HttpHeadersOptions.headers });
   }
 
   getListHopSoByDanhMucId (condi? : BaseCondition<HopSo>){
@@ -84,7 +85,7 @@ export class QuanLyHopSoService {
     }
     var params = JSON.stringify(body);
     console.log(params)
-    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "CoQuan/DeleteCoQuan?id=" + id, { headers :HttpHeadersOptions.headers });
+    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/DeleteGearBox?id=" + id, { headers :HttpHeadersOptions.headers });
   }
   
 }
