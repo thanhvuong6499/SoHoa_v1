@@ -62,8 +62,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadFilterOptionsOrgan();
     this.loadAll();
-
-    
   }
   openDialog(id?: number) {
     if (id) {
@@ -99,7 +97,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       });
     }
     catch (e) {
-      alert(JSON.stringify(e))
+      alert(JSON.stringify(e));
     }
   }
   loadAll(){
@@ -236,7 +234,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         
       })
     }
-    
   }
 
   ngOnDestroy(): void {

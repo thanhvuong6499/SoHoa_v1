@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { QuanLyHopSoService } from '../quan-ly-hop-so.service';
 import { ActivatedRoute } from '@angular/router';
-import { HoSo, hosos } from '../../../model/ho-so.model';
+import { HoSo } from '../../../model/ho-so.model';
 import { HopSo } from '../../../model/hop-so.model';
 import { DateFormatter } from 'ngx-bootstrap';
 
@@ -34,18 +34,6 @@ export class DetailHopSoComponent implements OnInit {
     }));
   }
   loadPages(page : number) {
-    // switch (page) {
-    //   case 1:
-    //     this.coquans = coquans;
-    //     break;
-    //   case 2:
-    //     this.coquans = coquans2;
-    //     break;
-    //   case 3:
-    //     this.coquans = coquans;
-    //     break;
-    //   default:
-    //     break;
-    // }
+    
   }
 }

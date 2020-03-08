@@ -27,6 +27,6 @@ import { ThongKeModule } from './thong-ke/thong-ke.module';
     QuanLyTaiLieuModule,
     ThongKeModule,
     MaterialModule
-  ],
+  ]
 })
 export class EntitiesModule { }

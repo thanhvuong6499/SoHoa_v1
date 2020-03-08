@@ -27,7 +27,7 @@ export class HoSoDetailComponent implements OnInit {
     });
   }
   load(id){
-    this.hoso= this.quanLyHoSoService.getHoSoById(id);
+  //  this.hoso= this.quanLyHoSoService.getHoSoById(id);
     this.vanbans= this.quanLyHoSoService.getListVanBanByHoSoId(id);
   }
   loadPages(page : number) {

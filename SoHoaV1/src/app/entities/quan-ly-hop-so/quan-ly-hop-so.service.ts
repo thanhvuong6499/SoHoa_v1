@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HopSo, hopsos } from '../../model/hop-so.model';
-import { HoSo, hosos } from '../../model/ho-so.model';
+import { HoSo } from '../../model/ho-so.model';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -13,13 +13,7 @@ export class QuanLyHopSoService {
   hopsos: HopSo[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
   public getListHoSoByHopSoId (id: number) {
-    var listhoso : HoSo[] = [];
-    for (let i = 0; i < hosos.length; i ++) {
-      if (hosos[i].hopsoid == id) {
-        listhoso.push(hosos[i]);
-      }
-    }
-    return listhoso;
+
   }
 
   public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {

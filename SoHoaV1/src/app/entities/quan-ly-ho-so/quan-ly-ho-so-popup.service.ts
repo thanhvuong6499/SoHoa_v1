@@ -1,7 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { HoSo, hosos } from '../../model/ho-so.model';
+import { HoSo } from '../../model/ho-so.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class QuanLyHoSoPopupService {
   ) {
       this.ngbModalRef = null;
   }
-  private hosos : HoSo[];
   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
       return new Promise<NgbModalRef>((resolve, reject) => {
           const isOpen = this.ngbModalRef !== null;
@@ -33,9 +32,9 @@ export class QuanLyHoSoPopupService {
               //     });
               this.id = id;
               
-              this.ngbModalRef = this.hoSoModalRef(component, this.getHoSoById());
+              this.ngbModalRef = this.hoSoModalRef(component, new HoSo());
               resolve(this.ngbModalRef);
-              console.log(this.getHoSoById());
+              
               
           } else {
               this.id = null;
@@ -44,23 +43,12 @@ export class QuanLyHoSoPopupService {
                   this.ngbModalRef = this.hoSoModalRef(component, new HoSo());
                   resolve(this.ngbModalRef);
               }, 0);
-              console.log("aloalo");
           }
       });
   }
-  public getHoSoById(){
-      this.hosos = hosos;
-              var hoso = new HoSo();
-              for (let i = 0; i < hosos.length; i ++) {
-                  if (this.id == hosos[i].id){
-                      hoso = hosos[i];
-                  }
-                  
-              }
-              return hoso;
-  };
+
  public hoSoModalRef(component: Component, hopso: HoSo): NgbModalRef {
-      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static', windowClass:'animated slideInUp'});
       //// Go back to home page after the modal is closed
       // modalRef.result.then((result) => {
       //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
