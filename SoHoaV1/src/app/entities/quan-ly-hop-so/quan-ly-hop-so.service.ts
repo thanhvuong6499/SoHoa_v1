@@ -5,6 +5,7 @@ import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { DanhMuc } from '../../model/danh-muc.model';
+import { Phong } from '../../model/phong.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,28 @@ import { DanhMuc } from '../../model/danh-muc.model';
 export class QuanLyHopSoService {
   hopsos: HopSo[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
-  public getListHoSoByHopSoId (id: number) {
+  
+  public getListHoSoByHopSoId (condi? : BaseCondition<HoSo>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
 
+    }
+  return this.httpClient.post<HoSo[]>(ApiUrl.apiUrl + 'GearBox/GetProfileByGearBoxID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {
     var condition = {};
-    console.log(condi);
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
@@ -79,5 +95,18 @@ export class QuanLyHopSoService {
     var params = JSON.stringify(body);
     return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/DeleteGearBox?id=" + id, { headers :HttpHeadersOptions.headers });
   }
-  
+
+  getFontByOrganId (id: string) {
+    var params = {
+      organID: id
+    }
+    return this.httpClient.get<Phong[]>(ApiUrl.apiUrl + "GearBox/GetFontsByOrganID", { params: params });
+  }
+
+  getTabByFontId (id: string) {
+    var params = {
+      fontID: id
+    }
+    return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + "GearBox/GetTableOfContentsByFontID", { params: params });
+  }
 }

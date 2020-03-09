@@ -10,6 +10,8 @@ export class HopSo  {
         public numDoc?: number,
         public startDate?: Date,
         public endDate?: Date,
+        public stDate?: string,
+        public eDate?: string,
         public note?: string,
         public organID?: number,
         public fontID?:  number,

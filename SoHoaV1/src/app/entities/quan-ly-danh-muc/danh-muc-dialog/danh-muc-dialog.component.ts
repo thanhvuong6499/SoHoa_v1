@@ -69,32 +69,32 @@ export class DanhMucDialogComponent implements OnInit {
     this.activeModal.dismiss('cancel');
   }
   save() {
-    if (this.isEdit) {
-      this.service.updateDanhMuc(this.danhmuc)
-        .subscribe((result) => {
-        },
-        (error)=> {
-          
-          // this.onSaveError();
-        },
-        () => {
-          // do something
-          
-
-          this.activeModal.dismiss("Update successfully.");
-          this.onSaveSuccess("Chỉnh sửa thành công");
-
-        });
-    }
-    else {
-        this.service.insertNewDanhMuc(this.danhmuc)
-        .subscribe((result) => {
-        },
-        (error) => {
-        }, () => {
-          this.onSaveSuccess("Thêm mới thành công");
-          this.activeModal.dismiss("Create new successfully");
-        });
+    if(this.danhmuc.fontID == undefined || this.danhmuc.fontID == null || this.danhmuc.fontID==0){
+      this.onSaveError("Chọn phông lữu trữ!!!");
+    }else{
+      if (this.isEdit) {
+        this.service.updateDanhMuc(this.danhmuc)
+          .subscribe((result) => {
+          },
+          (error)=> {
+            this.onSaveError("Cập nhật thất bại");
+          },
+          () => {
+            this.activeModal.dismiss("Update successfully.");
+            this.onSaveSuccess("Chỉnh sửa thành công");
+  
+          });
+      }
+      else {
+          this.service.insertNewDanhMuc(this.danhmuc)
+          .subscribe((result) => {
+          },
+          (error) => {
+          }, () => {
+            this.onSaveSuccess("Thêm mới thành công");
+            this.activeModal.dismiss("Create new successfully");
+          });
+      }
     }
   }
   onSaveSuccess(message: string){
@@ -104,7 +104,6 @@ export class DanhMucDialogComponent implements OnInit {
     this.toastr.success(message);
   }
   deleteFont(event) {
-    console.log(event);
   }
   ngOnDestroy(): void {
   }

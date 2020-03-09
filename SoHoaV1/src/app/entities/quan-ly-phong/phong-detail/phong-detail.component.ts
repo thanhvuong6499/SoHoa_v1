@@ -6,7 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
 import { BaseCondition } from '../../../common/BaseCondition';
 import { HttpResponse } from '@angular/common/http';
-import { stringify } from 'querystring';  
+import { stringify } from 'querystring'; 
+import { QuanLyDanhMucPopupService } from '../../quan-ly-danh-muc/quan-ly-danh-muc-popup.service';
+import { DanhMucDialogComponent } from '../../quan-ly-danh-muc/danh-muc-dialog/danh-muc-dialog.component';
+
 
 @Component({
   selector: 'app-phong-detail',
@@ -20,20 +23,24 @@ export class PhongDetailComponent implements OnInit {
   previousPage : number;
   pageSize : number;
   totalRecords : number;
+  fontID: number = 0;
   isEdit = false;
   value1 = 'Default';
   defaultValue : string;
   data: any;
-//  organTypeList: Select2Data;
+  condition: BaseCondition<DanhMuc>;
+
   private subscription: Subscription;
   private eventSubscriber: Subscription;
   constructor(
     private quanLyPhongService: QuanLyPhongService, 
+    private danhMucPopupService: QuanLyDanhMucPopupService,
     private route: ActivatedRoute
-  ) { }
+  ) { 
+    this.condition = new BaseCondition<DanhMuc>();
+  }
 
   ngOnInit() {
-    this.load(this.route.snapshot.paramMap.get('id'));
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
     });
@@ -44,32 +51,70 @@ export class PhongDetailComponent implements OnInit {
       .subscribe((result) => {
         this.phong = result.item;
       });
-    var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
-    condi.PageIndex =this.page;
-    condi.IN_WHERE =params;
-    (this.quanLyPhongService.getListDanhMucByPhongId(condi))
-      .subscribe((res) => {
-        this.danhmucs = res.body["itemList"];
+    if(params != undefined){
+      this.getDanhMucByFontID(params);
+    }
+  }
+
+  getDanhMucByFontID(params : any){
+    var condition : BaseCondition<DanhMuc> = new BaseCondition<DanhMuc>();
+    this.condition.PageIndex = 1;
+    this.condition.FilterRuleList = [
+      {
+        field: "sp.PhongID",
+        op: "",
+        value: ""
+      }
+    ]
+    this.fontID = parseInt(params);
+    if (this.fontID != undefined) {
+      this.condition.FilterRuleList[0].value = this.fontID.toString();
+        this.condition.FilterRuleList[0].op = "and_contains";
+    }
+    this.quanLyPhongService.getListDanhMucByPhongId(this.condition)
+      .subscribe((res: any) => {
+        this.danhmucs = res.itemList;
         this.pageSize = 5;
         this.page = 1;
-        this.totalRecords = res.body["totalRows"];
+        this.totalRecords = res.totalRows;
       })
   }
-  loadPages(page : number,id: any) {
-    var params = id;
-    var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
-    condi.PageIndex = page;
-    condi.IN_WHERE= String(params);
-    this.quanLyPhongService.getListDanhMucByPhongId(condi).subscribe((data : HttpResponse<DanhMuc[]>) => {
-      this.danhmucs = data.body["itemList"];
-      this.page = page;
-      this.totalRecords = data.body["totalRows"];
-    }, (error) => {
-      this.pageSize = 5;
-    }, () => {
-      console.log("Lấy dữ liệu thành công");
-    });
+  
+  loadPages(page : string) {
+    try{
+      var condi : BaseCondition<DanhMuc> = new BaseCondition<DanhMuc>();
+      if (this.condition.FilterRuleList != undefined) {
+        condi.FilterRuleList = this.condition.FilterRuleList;
+      }
+      condi.PageIndex = parseInt(page);
+      this.quanLyPhongService.getListDanhMucByPhongId(condi).subscribe((data : any) => {
+        this.danhmucs = data.itemList;
+        this.pageSize = 5;
+        this.page = parseInt(page);
+        this.totalRecords = data.totalRows;
+      }, (error) => {
+        this.pageSize = 5;
+      }, () => {
+        console.log("Lấy dữ liệu thành công");
+      });
+    }catch (e) {
+      alert(JSON.stringify(e))
+    }
   }
+
+  openDialog(id?: number) {
+
+    if (id) {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component, id);
+
+    } else {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component);
+    }
+
+  }
+
   ngOnDestroy(): void {
     // if(this.subscription){
     //   this.subscription.unsubscribe();

@@ -22,7 +22,7 @@ import { QuanLyDanhMucService } from '../quan-ly-danh-muc/quan-ly-danh-muc.servi
   templateUrl: './quan-ly-phong.component.html',
   styleUrls: ['./quan-ly-phong.component.css']
 })
-export class QuanLyPhongComponent implements OnInit {
+export class QuanLyPhongComponent implements OnInit, OnDestroy {
   // @ViewChild("modalPhong") public modalPhong: ModalDirective;
   phongs: Phong[];
   phong: Phong;

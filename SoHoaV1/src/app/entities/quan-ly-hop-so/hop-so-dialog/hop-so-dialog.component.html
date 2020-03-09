@@ -28,7 +28,8 @@
                 [placeholder]="'Chọn cơ quan...'"
                 [options]="options"
                 name="organID"
-                [(ngModel)]="organ.organID"
+                (valueChanged)="onOrganChange($event)"
+                [(ngModel)]="hopso.organID"
             ></ng-select2>
             </div>
         </div>
@@ -40,7 +41,8 @@
                 [placeholder]="'Chọn Phông...'"
                 [options]="options"
                 name="fontID"
-                [(ngModel)]="phong.fontID"
+                (valueChanged)="onFontChange($event)"
+                [(ngModel)]="hopso.fontID"
             ></ng-select2>
             </div>
         </div>
@@ -49,6 +51,7 @@
             <label class="col-md-3 col-form-label" for="select1">Danh mục</label>
             <div class="col-md-9">
             <ng-select2
+                required
                 [data]="lstDanhMuc"
                 [placeholder]="'Chọn Danh Mục...'"
                 [options]="options"
@@ -60,13 +63,13 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="gearBoxCode" class="form-control" [(ngModel)]="hopso.gearBoxCode">
+                <input required type="text" id="text-input" name="gearBoxCode" class="form-control" [(ngModel)]="hopso.gearBoxCode">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="gearBoxTitle" class="form-control"
+                <input required type="text" id="text-input" name="gearBoxTitle" class="form-control"
                     [(ngModel)]="hopso.gearBoxTitle">
             </div>
         </div>
@@ -79,18 +82,18 @@
         </div>
       
       
-        <!-- <div class="form-group row">
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngaybatdau" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="startDate" placeholder="date" [(ngModel)]="hopso.stDate">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc</label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="ngayketthuc" placeholder="date">
+                <input class="form-control" id="date-input" type="date" name="endDate" placeholder="date" [(ngModel)]="hopso.eDate">
             </div>
-        </div> -->
+        </div>
 
     </div>
     <div class="modal-footer">

@@ -27,7 +27,6 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
     }
   ngOnInit() {
      this.subscription = this.route.params.subscribe((params) => {
-       console.log(params['id']);
        this.load(params['id']);
      });
   }
@@ -36,7 +35,6 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
     this.quanLyCoQuanService.getCoQuanById(id)
       .subscribe((result) => {
         this.coQuan = result.item;
-        console.log(this.coQuan);
       });
   }
   loadPages(page : number) {

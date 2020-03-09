@@ -64,25 +64,23 @@ export class QuanLyPhongService {
   getPhongById (id: number) {
     return this.httpClient.get<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/GetFontByID/" + id);
   }
-  getListDanhMucByPhongId (condi? : BaseCondition<Phong>){
+  getListDanhMucByPhongId (condi? : BaseCondition<DanhMuc>){
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: condi.IN_WHERE
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
+
     }
-    var reqOptions = JSON.stringify(condi);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
   getAllCoQuan (){
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");

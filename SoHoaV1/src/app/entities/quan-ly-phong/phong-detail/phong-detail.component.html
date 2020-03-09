@@ -83,13 +83,13 @@
                         <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
                             routerLinkActive="router-link-active"></button>
                         <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                        <button class="btn btn-primary fa fa-edit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true"
-                            queryParamsHandling="merge"></button>
-                        <button class="btn btn-primary fa fa-trash"></button>
+                            <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true" queryParamsHandling="merge">
+                            </button>
+                        <!-- <button class="btn btn-primary fa fa-trash"></button> -->
                     </td>
                 </tr>
             </tbody>
         </table>
-        <ngb-pagination *ngIf="phong" [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page,phong.fontID)"></ngb-pagination>
+        <ngb-pagination *ngIf="phong" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,phong.fontID)"></ngb-pagination>
     </div>
 </div>

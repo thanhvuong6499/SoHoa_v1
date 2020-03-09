@@ -77,14 +77,12 @@ export class NguoiDungDialogComponent implements OnInit {
   }
   save(event){
     // do something
-    console.log(this.user);
     this.userService.createNewUser(this.user)
       .subscribe((result) => {
         this.clear();
         this.toast.success("Thêm mới thành công.", "Thông báo");
       },
       (error) => {
-        console.log(error);
       })
   }
 

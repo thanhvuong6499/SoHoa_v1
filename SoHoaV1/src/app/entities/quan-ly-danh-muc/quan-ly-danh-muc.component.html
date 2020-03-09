@@ -31,7 +31,7 @@
         </div>
         <div class="row col-md-4 col-lg-4">
           <label class="col-md-4 col-sm-6 col-form-label" for="text-input">Tìm kiếm</label>
-          <div class="col-md-8 col-sm-6">
+          <div class="col-md-8 col-sm-6" style="margin-top: 5px;">
             <input type="text" id="text-input" (ngModelChange)="onChange($event)" ngModel="" name="searchText" class="form-control">
           </div>
         </div>
@@ -54,6 +54,7 @@
           <thead>
             <tr>
               <th>STT</th>
+              <th>Mã mục lục</th>
               <th>Tên mục lục hồ sơ</th>
               <th>Mục lục số</th>
               <th>Số lượng hộp số</th>
@@ -64,6 +65,7 @@
           <tbody>
             <tr *ngFor="let danhmuc of danhmucs; index as i">
               <td>{{i+1}}</td>
+              <td>{{ danhmuc.tabOfContCode }}</td>
               <td>{{ danhmuc.tabOfContName }}</td>
               <td>{{ danhmuc.tabOfContNumber }}</td>
               <td>{{ danhmuc.gearBoxCount}}</td>

@@ -91,7 +91,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
       }, (error) => {
-        console.log(error);
       }, () => {
 
       });
@@ -107,7 +106,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       this.page = 1;
       this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
     }, () => {
       
     });
@@ -144,20 +142,14 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         
       }, 
       (error => {
-        console.log(error)
       }),
       () => {
-        // do something
-        // this.arrayTypeValue = [this.organTypesArr[0].id, this.organTypesArr[1].id];
-        // this.arrayNameValue = [this.organNameArr[0].id, this.organNameArr[1].id];
-        // this.arrayAddressValue = [this.organAddressArr[0].id, this.organAddressArr[1].id];
 
       })
   }
 
   getFilterTypes(value : string[]) {
     if (value != undefined) {
-      console.log(value.toString());
     }
     
   }
@@ -171,7 +163,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   }
 
   getFilterOptions (types: string[], name : string[], address: string[]) {
-    console.log(name);
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
@@ -229,7 +220,6 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         this.page = 1;
         this.totalRecords = data["totalRows"];
       }, (error) => {
-        console.log(error);
       }, () => {
         
       })

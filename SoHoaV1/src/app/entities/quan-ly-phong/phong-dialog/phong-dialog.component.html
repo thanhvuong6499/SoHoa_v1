@@ -4,12 +4,9 @@
   <div class="modal-header bg-primary" aria-hidden="true">
     <div *ngIf="phong.fontID != null; else themMoi">
       <h4 class="modal-title">Chỉnh sửa phông</h4>
-
     </div>
-
     <ng-template #themMoi>
       <h4 class="modal-title">Thêm mới phông</h4>
-
     </ng-template>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>

@@ -76,12 +76,12 @@
                 <td style="width:137px">
                   <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]" routerLinkActive="router-link-active" ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
+                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
               </td>
             </tr>
             </tbody>
           </table>
-          <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+          <ngb-pagination *ngIf="danhmuc" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,danhmuc.tableOfContID)"></ngb-pagination>
     </div>
 </div>

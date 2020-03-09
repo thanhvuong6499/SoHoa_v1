@@ -59,7 +59,6 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
       if(this.phongPopupService.result.item != undefined){
@@ -71,32 +70,37 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     this.activeModal.dismiss('cancel');
   }
   save() {
-    if (this.isEdit) {
-      this.service.updatePhong(this.phong)
-        .subscribe((result) => {
-        },
-        (error)=> {
-          this.activeModal.dismiss("Update failure.");
-          this.onSaveError("Chỉnh sửa thất bại");
-        },
-        () => {
-          // do something
-          this.activeModal.dismiss("Update successfully.");
-          this.onSaveSuccess("Chỉnh sửa thành công");
-
-        });
+    if(this.phong.organID == undefined || this.phong.organID == null || this.phong.organID==0){
+      this.onSaveError("Chọn cơ quan lữu trữ!!!");
     }
-    else {
-        this.service.insertNewPhong(this.phong)
-        .subscribe((result) => {
-        },
-        (error) => {
-          this.onSaveError("Thêm mới thất bại");
-          this.activeModal.dismiss("Create new failure");
-        }, () => {
-          this.onSaveSuccess("Thêm mới thành công");
-          this.activeModal.dismiss("Create new successfully");
-        });
+    else{
+      if (this.isEdit) {
+        this.service.updatePhong(this.phong)
+          .subscribe((result) => {
+          },
+          (error)=> {
+            this.activeModal.dismiss("Update failure.");
+            this.onSaveError("Chỉnh sửa thất bại");
+          },
+          () => {
+            // do something
+            this.activeModal.dismiss("Update successfully.");
+            this.onSaveSuccess("Chỉnh sửa thành công");
+  
+          });
+      }
+      else {
+          this.service.insertNewPhong(this.phong)
+          .subscribe((result) => {
+          },
+          (error) => {
+            this.onSaveError("Thêm mới thất bại");
+            this.activeModal.dismiss("Create new failure");
+          }, () => {
+            this.onSaveSuccess("Thêm mới thành công");
+            this.activeModal.dismiss("Create new successfully");
+          });
+      }
     }
   }
   onSaveSuccess(message: string){
@@ -106,7 +110,6 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     this.toastr.success(message);
   }
   deleteFont(event) {
-    console.log(event);
   }
   ngOnDestroy(): void {
   }

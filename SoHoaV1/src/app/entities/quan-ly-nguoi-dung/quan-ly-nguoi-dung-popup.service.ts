@@ -42,15 +42,6 @@ export class QuanLyNguoiDungPopupService {
 
  public UserModalRef(component: Component, user: User): NgbModalRef {
       const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-      //// Go back to home page after the modal is closed
-      // modalRef.result.then((result) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // }, (reason) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // });
-      // console.log(modalRef)
       return modalRef;
   }
 }

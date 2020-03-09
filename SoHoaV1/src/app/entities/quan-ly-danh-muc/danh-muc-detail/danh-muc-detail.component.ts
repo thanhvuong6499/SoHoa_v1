@@ -7,6 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { BaseCondition } from '../../../common';
 import {QuanLyHopSoService} from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { HttpResponse } from '@angular/common/http';
+import { QuanLyHopSoPopupService } from '../../quan-ly-hop-so/quan-ly-hop-so-popup.service';
+import { HopSoDialogComponent } from '../../quan-ly-hop-so/hop-so-dialog/hop-so-dialog.component';
+import { HopSoDeleteComponent } from '../../quan-ly-hop-so/hop-so-delete/hop-so-delete.component';
 
 @Component({
   selector: 'app-danh-muc-detail',
@@ -14,10 +17,11 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./danh-muc-detail.component.css']
 })
 export class DanhMucDetailComponent implements OnInit {
+  danhMucID: number = 0;
   danhmuc: DanhMuc;
   danhmucs: DanhMuc[];
-  page = 0;
   hopsos: HopSo[];
+  page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
@@ -25,13 +29,18 @@ export class DanhMucDetailComponent implements OnInit {
   value1 = 'Default';
   defaultValue : string;
   data: any;
+  condition: BaseCondition<HopSo>;
+
   private subscription: Subscription;
   private eventSubscriber: Subscription;
   constructor(
     private quanLyDanhMucService: QuanLyDanhMucService,
     private route: ActivatedRoute,
-    private quanLyHopSoService: QuanLyHopSoService
-  ) { }
+    private quanLyHopSoService: QuanLyHopSoService,
+    private hopSoPopupService: QuanLyHopSoPopupService,
+  ) { 
+    this.condition = new BaseCondition<HopSo>();
+  }
 
   ngOnInit() {
     this.route.snapshot.paramMap.get('id');
@@ -45,32 +54,78 @@ export class DanhMucDetailComponent implements OnInit {
       .subscribe((result) => {
         this.danhmuc = result.item;
       });
-      var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
-      condi.PageIndex =this.page;
-      condi.IN_WHERE =params;
-      (this.quanLyHopSoService.getListHopSoByDanhMucId(condi))
-        .subscribe((res) => {
-          this.danhmucs = res.body["itemList"];
-          this.pageSize = 5;
-          this.page = 0;
-          this.totalRecords = res.body["totalRows"];
-        })
+    if(params != undefined){
+      this.getHopSoByDanhMucID(params);
+    }
     
   }
-  loadPages(page : number,id: any) {
-    var params = id;
-    var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
-    condi.PageIndex = page;
-    condi.IN_WHERE=params;
-    this.quanLyHopSoService.getListHopSoByDanhMucId(params).subscribe((data : HttpResponse<DanhMuc[]>) => {
-      this.danhmucs = data.body["itemList"];
-      this.page = page;
-      this.totalRecords = data.body["totalRows"];
-    }, (error) => {
-      this.pageSize = 5;
-    }, () => {
-      console.log("Lấy dữ liệu thành công");
-    });
+
+  loadPages(page : string) {
+    try{
+      var condi : BaseCondition<DanhMuc> = new BaseCondition<DanhMuc>();
+      if (this.condition.FilterRuleList != undefined) {
+        condi.FilterRuleList = this.condition.FilterRuleList;
+      }
+      condi.PageIndex = parseInt(page);
+      this.quanLyDanhMucService.getListHopSoByDanhMucId(condi).subscribe((data : any) => {
+        this.hopsos = data.itemList;
+        this.pageSize = 5;
+        this.page = parseInt(page);
+        this.totalRecords = data.totalRows;
+      }, (error) => {
+        this.pageSize = 5;
+      }, () => {
+        console.log("Lấy dữ liệu thành công");
+      });
+    }catch (e) {
+      alert(JSON.stringify(e))
+    }
+  }
+  getHopSoByDanhMucID(params : any){
+    var condition : BaseCondition<HopSo> = new BaseCondition<HopSo>();
+    this.condition.PageIndex = 1;
+    this.condition.FilterRuleList = [
+      {
+        field: "sh.MucLucHoSoID",
+        op: "",
+        value: ""
+      }
+    ]
+    this.danhMucID = parseInt(params);
+    if (this.danhMucID != undefined) {
+      this.condition.FilterRuleList[0].value = this.danhMucID.toString();
+        this.condition.FilterRuleList[0].op = "and_contains";
+    }
+    this.quanLyDanhMucService.getListHopSoByDanhMucId(this.condition)
+      .subscribe((res: any) => {
+        this.hopsos = res.itemList;
+        this.pageSize = 5;
+        this.page = 1;
+        this.totalRecords = res.totalRows;
+      })
+  }
+
+  openDialog(id?: number) {
+
+    if (id) {
+      this.hopSoPopupService
+        .open(HopSoDialogComponent as Component, id);
+
+    } else {
+      this.hopSoPopupService
+        .open(HopSoDialogComponent as Component);
+    }
+
+  }
+  openDeleteDialog(id?: number) {
+    if (id != undefined) {
+      this.hopSoPopupService
+      .open(HopSoDeleteComponent as Component, id);
+        
+    } else {
+      this.hopSoPopupService
+      .open(HopSoDeleteComponent as Component);
+    }
   }
   ngOnDestroy(): void {
     // if(this.subscription){

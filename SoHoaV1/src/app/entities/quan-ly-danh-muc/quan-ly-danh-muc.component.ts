@@ -116,7 +116,6 @@ export class QuanLyDanhMucComponent implements OnInit {
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
       }, (error) => {
-        console.log(error);
       }, () => {
 
       });

@@ -30,7 +30,7 @@ export class HopSoDeleteComponent implements OnInit {
   deleteHopSo(id : any) {
     this.hopSoService.deleteHopSo(id)
       .subscribe((result) => {
-        
+          
       },
       (error) => {
         alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));

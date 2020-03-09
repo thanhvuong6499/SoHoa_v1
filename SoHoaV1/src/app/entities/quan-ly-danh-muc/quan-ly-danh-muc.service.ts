@@ -14,15 +14,25 @@ import { organ } from '../../model/co-quan.model';
 export class QuanLyDanhMucService {
   danhmucs: DanhMuc[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
-  public getListHopSoByDanhMucId (id: number) {
-    var listhopso : HopSo[] = [];
-    for (let i = 0; i < hopsos.length; i ++) {
-      if (hopsos[i].tabOfContID == id) {
-        listhopso.push(hopsos[i]);
+  getListHopSoByDanhMucId (condi? : BaseCondition<HopSo>){
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
       }
     }
-    return listhopso;
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  return this.httpClient.post<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetGearBoxByTabOfContID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+  
 
   public getAllDanhMucWithPaging(condi? : BaseCondition<DanhMuc>) {
     var condition = {};

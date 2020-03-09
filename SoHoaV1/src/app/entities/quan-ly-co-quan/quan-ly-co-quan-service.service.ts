@@ -31,7 +31,6 @@ export class QuanLyCoQuanService {
     return phong;
   }
   public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -105,7 +104,6 @@ export class QuanLyCoQuanService {
       id: id
     }
     var params = JSON.stringify(body);
-    console.log(params)
     return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/DeleteCoQuan?id=" + id, { headers :HttpHeadersOptions.headers });
   }
 

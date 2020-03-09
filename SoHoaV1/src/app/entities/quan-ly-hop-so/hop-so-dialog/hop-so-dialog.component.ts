@@ -53,7 +53,70 @@ export class HopSoDialogComponent implements OnInit {
     this.isEdit = false;
     this.loadData();
   }
+
+  onOrganChange(organID : any){
+    var params = organID;
+    if(params != undefined && params !=null){
+      this.hopsoService.getFontByOrganId(params)
+      .subscribe((data) => {
+        if (data != undefined && data.length != 0) {
+            var phongs = [];
+            for (const item of data) {
+              var temp = { id: item.fontID, text: item.fontName }
+              phongs.push(temp);
+            }
+            this.lstFont = phongs;
+            var count =0;
+            this.lstDanhMuc = [];
+            this.lstOrgan.forEach(x=>{
+              if(parseInt(x.id) == this.hopso.fontID){
+                this.onFontChange(this.hopso.fontID);
+                count++;
+              }
+            })
+        }
+        else{
+          this.lstFont = [];
+          this.lstDanhMuc = [];
+        }
+      },
+      (error) => {
+        this.lstFont = [];
+        this.lstDanhMuc = [];
+        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+      });
+    }
+  }
+  onFontChange(fontID : any){
+    var params = fontID;
+    if(params != undefined && params !=null){
+      this.hopsoService.getTabByFontId(params)
+      .subscribe((data) => {
+        if (data != undefined && data.length !=0) {
+          var danhmucs = [];
+          for (const item of data) {
+            var temp = { id: item.tabOfContID, text: item.tabOfContName }
+            danhmucs.push(temp);
+          }
+          this.lstDanhMuc = danhmucs;
+        }
+        else{
+          this.lstDanhMuc = [];
+        }
+      },
+      (error) => {
+        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+      });
+    }
+  }
   loadData() {
+    this.lstDanhMuc =[];
+    this.lstFont= [];
+    this.lstOrgan= [];
     this.danhmucService.getAllCoQuan()
     .subscribe((result) => {
       if (result != undefined) {
@@ -66,41 +129,46 @@ export class HopSoDialogComponent implements OnInit {
       }
     },
     (error) => {
-      console.log(error);
     }, () => {
     });
-    this.danhmucService.getAllPhong()
-      .subscribe((result) => {
-        if (result != undefined) {
-          var phongs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.fontID, text: item.fontName };
-            phongs.push(temp);
-          }
-          this.lstFont = phongs;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }, () => {
-    });
-    this.danhmucService.getAllDanhMuc()
-    .subscribe((result) => {
-      if (result != undefined) {
-        var danhmucs = [];
-        for (var item of result.itemList) {
-          var temp = { id: item.tabOfContID, text: item.tabOfContName };
-          danhmucs.push(temp);
-        }
-        this.lstDanhMuc = danhmucs;
-      }
-    },
-    (error) => {
-      console.log(error);
-    }, () => {
-    });
+    // this.danhmucService.getAllPhong()
+    //   .subscribe((result) => {
+    //     if (result != undefined) {
+    //       var phongs = [];
+    //       for (var item of result.itemList) {
+    //         var temp = { id: item.fontID, text: item.fontName };
+    //         phongs.push(temp);
+    //       }
+    //       this.lstFont = phongs;
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }, () => {
+    // });
+    // this.danhmucService.getAllDanhMuc()
+    // .subscribe((result) => {
+    //   if (result != undefined) {
+    //     var danhmucs = [];
+    //     for (var item of result.itemList) {
+    //       var temp = { id: item.tabOfContID, text: item.tabOfContName };
+    //       danhmucs.push(temp);
+    //     }
+    //     this.lstDanhMuc = danhmucs;
+    //   }
+    // },
+    // (error) => {
+    //   console.log(error);
+    // }, () => {
+    // });
     if(this.hopSoPopupService.result.item != undefined){
       this.hopso = this.hopSoPopupService.result.item;
+      if(this.hopso.startDate != undefined && this.hopso.startDate !=null){
+        this.hopso.stDate = this.hopso.startDate.toString().split('T')[0];
+      }
+      if(this.hopso.endDate != undefined && this.hopso.endDate !=null){
+        this.hopso.eDate = this.hopso.endDate.toString().split('T')[0];
+      }
       this.isEdit = true;
     }
   }
@@ -109,36 +177,46 @@ export class HopSoDialogComponent implements OnInit {
   
   }
   save() {
-    if (this.isEdit) {
-      this.hopsoService.updateHopSo(this.hopso)
-        .subscribe((result) => {
-          console.log(result);
-          this.loadData();
-        },
-        (error)=> {
-          console.log(error);
-          
-          // this.onSaveError();
-        },
-        () => {
-          // do something
-          
-
-          this.activeModal.dismiss("Update successfully.");
-          this.onSaveSuccess("Chỉnh sửa thành công");
-
-        });
+    if(this.hopso.stDate == "" || this.hopso.eDate == "" 
+    || this.hopso.stDate == undefined || this.hopso.eDate == undefined 
+    || this.hopso.tabOfContID == 0 || this.hopso.tabOfContID == undefined){
+      this.onSaveError("Nhập đầy đủ thông tin!!!");
     }
-    else {
-        this.hopsoService.insertNewHopSo(this.hopso)
-        .subscribe((result) => {
-          this.loadData();
-        },
-        (error) => {
-        }, () => {
-          this.onSaveSuccess("Thêm mới thành công");
-          this.activeModal.dismiss("Create new successfully");
-        });
+    else{
+      if(new Date(this.hopso.stDate) > new Date(this.hopso.eDate)){
+        this.onSaveError("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!!!");
+      }
+      else{
+        if (this.isEdit) {
+          this.hopsoService.updateHopSo(this.hopso)
+            .subscribe((result) => {
+              this.loadData();
+            },
+            (error)=> {
+              this.onSaveError("Cập nhật thất bại!!!");
+            },
+            () => {
+              // do something
+              
+    
+              this.activeModal.dismiss("Update successfully.");
+              this.onSaveSuccess("Chỉnh sửa thành công!!!");
+    
+            });
+        }
+        else {
+            this.hopsoService.insertNewHopSo(this.hopso)
+            .subscribe((result) => {
+              this.loadData();
+            },
+            (error) => {
+              this.onSaveError("Thêm mới thất bại!!!");
+            }, () => {
+              this.onSaveSuccess("Thêm mới thành công!!!");
+              this.activeModal.dismiss("Create new successfully");
+            });
+        }
+      }
     }
   }
   onSaveSuccess(message: string){
@@ -148,7 +226,6 @@ export class HopSoDialogComponent implements OnInit {
     this.toastr.success(message);
   }
   deleteFont(event) {
-    console.log(event);
   }
   ngOnDestroy(): void {
   }
