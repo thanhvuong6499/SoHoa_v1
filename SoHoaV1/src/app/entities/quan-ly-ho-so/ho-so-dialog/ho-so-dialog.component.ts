@@ -9,6 +9,7 @@ import { Options } from 'select2';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
 import { FileUpload } from '../../../model/file.model';
 import { BaseCondition } from '../../../common';
+import { HtmlParser } from '@angular/compiler';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -29,6 +30,12 @@ export class HoSoDialogComponent implements OnInit {
   fileNotationList: Array<Select2OptionData>;
   gearBoxTitleList: Array<Select2OptionData>;
 
+  allGearBox: Array<Select2OptionData>;
+  allProfileType: Array<Select2OptionData>;
+
+  isOverwrite: boolean = false;
+  profile: HoSo = new HoSo();
+
   constructor (
    private activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
@@ -39,6 +46,8 @@ export class HoSoDialogComponent implements OnInit {
     this.profileTypeList = new Array<Select2OptionData>();
     this.fileNotationList = new Array<Select2OptionData>();
     this.gearBoxTitleList = new Array<Select2OptionData>();
+    this.allGearBox = new Array<Select2OptionData>();
+    this.allProfileType = Array<Select2OptionData>();
     this.hoso = new HoSo();
     this.options = {
       theme: 'classic',
@@ -48,6 +57,12 @@ export class HoSoDialogComponent implements OnInit {
 
   ngOnInit() {
   //  this.hoso = this.hoSoPopupService.getHoSoById()
+  //  this.hoso = this.hoSoPopupService.profile;
+    this.getAddNew();
+    if (this.hoSoPopupService.profile != undefined) {
+      this.hoso = this.hoSoPopupService.profile;
+      
+    }
   }
 
   uploadSubmit () {
@@ -66,7 +81,6 @@ export class HoSoDialogComponent implements OnInit {
       data.append('dataType', fileItem.type.split('/')[1]);
     //  this.uploadFile(data).subscribe(data => alert(data.message));
     }
-    console.log(data.getAll('files'));
     //  this.uploader.clearQueue();
     return data;
   }
@@ -85,16 +99,18 @@ export class HoSoDialogComponent implements OnInit {
     }
     this.service.insertSingleProfile(this.hoso, files)
       .subscribe((result) => {
-        console.log(result);
-        if (!result.isSuccess && result.errorCode == "-1") {
+        if (!result.isSuccess && result.errorCode == "-2") {
           var lstFilesAlreadyExists : string[] = new Array<string>();
-          lstFilesAlreadyExists = JSON.parse(result.returnValue);
           var arrFileName: string[] = new Array<string>();
-          for (const file of lstFilesAlreadyExists) {
-            let fileNameArr = file.split('\\');
-            let fileName = fileNameArr[fileNameArr.length -1];
-            arrFileName.push(fileName);
+          if (result.returnValue && result.returnValue != undefined) {
+            lstFilesAlreadyExists = JSON.parse(result.returnValue);
+            for (const file of lstFilesAlreadyExists) {
+              let fileNameArr = file.split('\\');
+              let fileName = fileNameArr[fileNameArr.length -1];
+              arrFileName.push(fileName);
+            }
           }
+
           if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
           \nDanh sách file đã tồn tại:\n${
             arrFileName.toString().split(',').join('\n')
@@ -104,30 +120,46 @@ export class HoSoDialogComponent implements OnInit {
             this.service.insertSingleProfile(this.hoso, files)
               .subscribe((result) => {
                 if (result.isSuccess) {
-                  this.activeModal.dismiss('overwrite successfully');
+                  this.isOverwrite = true;
+                }
+                else {
+                  this.toastr.error("Thêm mới thất bại", "Thông báo");
                 }
               },
               (error) => {
                 console.log(error);
               },
               () => {
-                this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+                if (this.isOverwrite) {
+                  this.activeModal.dismiss('success');
+                  this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+                  this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+                  this.uploader.clearQueue();
+                }
               });
           }
         }
+        else if (!result.isSuccess) {
+          this.toastr.error("Thêm mới thất bại", "Thông báo");
+        }
         else {
           // toàn file mới
-          this.activeModal.dismiss('success');
           if (this.uploader.queue.length > 0) {
             this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
           }
+          this.uploader.clearQueue();
+          this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
         }
       },
       (error) => {
         console.log(error);
       },
       () => {
-        this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
+        this.activeModal.dismiss('success');
+        // if (!this.isOverwrite) 
+        // {
+        //   this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
+        // }
       });
   }
   success(message : string, title?: string){
@@ -145,6 +177,30 @@ export class HoSoDialogComponent implements OnInit {
         }
       }
     }
+  }
+
+  getAddNew () {
+    this.service.getAllGearBoxAndProfileType()
+      .subscribe((result) => {
+        console.log(result);
+        var arrGearBox = [];
+        for (const item of result.lstGearBox) {
+          var temp = { id: item.gearBoxID, text: item.gearBoxTitle }
+          arrGearBox.push(temp);
+        }
+        this.allGearBox = arrGearBox;
+        arrGearBox = [];
+        for (const item of result.lstProfileTypes) {
+          var temp = { id: item.profileTypeId, text: item.profileTypeName }
+          arrGearBox.push(temp);
+        }
+        this.allProfileType = arrGearBox;
+      }, (error) => {
+        console.log(error);
+      },
+      () => {
+
+      });
   }
 
 }

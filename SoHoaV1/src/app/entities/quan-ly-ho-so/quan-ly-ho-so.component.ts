@@ -56,13 +56,10 @@ export class QuanLyHoSoComponent implements OnInit {
     if (id) {
       this.hoSoPopupService
         .open(HoSoDialogComponent as Component, id);
-      console.log(id);
-
     } else {
       this.hoSoPopupService
         .open(HoSoDialogComponent as Component);
     }
-
   }
   openDeleteDialog(id?: number) {
 

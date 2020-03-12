@@ -61,11 +61,11 @@
             <label class="col-md-3 col-form-label" for="text-input">Hộp số</label>
             <div class="col-md-9">
                 <ng-select2
-                    [data]="gearBoxTitleList"
+                    [data]="allGearBox"
                     [placeholder]="'Chọn hộp số...'"
                     [options]="options"
-                    name="gearBoxTitle"
-                    [(ngModel)]="hoso.gearBoxTitle"
+                    name="gearBoxID"
+                    [(ngModel)]="hoso.gearBoxID"
                 ></ng-select2>
             </div>
         </div>
@@ -91,7 +91,7 @@
             <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ:</label>
             <div class="col-md-9">
                 <ng-select2
-                [data]="profileTypeList"
+                [data]="allProfileType"
                 [placeholder]="'Chọn loại hồ sơ...'"
                 [options]="options"
                 name="profileTypeId"

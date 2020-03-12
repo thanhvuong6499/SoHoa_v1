@@ -3,13 +3,14 @@ import { HoSo } from '../../model/ho-so.model';
 import { VanBan, vanbans } from '../../model/van-ban.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions, HttpHeaderOptionsFormData } from '../../common';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuanLyHoSoService {
   hosos: HoSo[];
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient, private authenticationService: AuthenticationService) { }
 
   public getHoSoById(id) {
     
@@ -44,6 +45,7 @@ export class QuanLyHoSoService {
 
   public insertSingleProfile (data: HoSo, files?: FormData) {
     // upload file
+    data.createdBy = this.authenticationService.getUserName;
     var formData = new FormData();
     var profile = JSON.stringify(data);
     if (files != undefined) {
@@ -55,5 +57,13 @@ export class QuanLyHoSoService {
 
   public getAllProfiles () {
     return this._httpClient.get<any>(ApiUrl.apiUrl + "Profile/GetAllProfiles");
+  }
+
+  public getAllGearBoxAndProfileType () {
+    return this._httpClient.get<any>(ApiUrl.apiUrl + "Profile/GetAllProfileTypeAndGearBox");
+  }
+
+  public getProfilesById (id : any) {
+    return this._httpClient.get<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/GetProfilesById?profileId=" + id);
   }
 }
