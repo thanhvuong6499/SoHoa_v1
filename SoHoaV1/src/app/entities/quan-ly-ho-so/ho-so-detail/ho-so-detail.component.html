@@ -1,116 +1,131 @@
-<div class="card">
 
+<div class="card top">
     <div class="card-header" aria-hidden="true">
-        <div *ngIf="hoso">
+        <div>
             <h4 class="modal-title">Chi tiết hồ sơ</h4>
-
         </div>
-
     </div>
     <div class="card-body">
-        <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+        <!-- <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Hộp số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
+                <ng-select2
+                    [data]="allGearBox"
+                    [placeholder]="'Chọn hộp số...'"
+                    [options]="options"
+                    name="gearBoxId"
+                    [(ngModel)]="hoso.gearBoxId"
+                ></ng-select2>
+            </div>
+        </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.fileCode }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso">
+                <!-- <input  id="title" name="title" [(ngModel)]="hoso.title" class="form-control" placeholder="Nhập tiêu đề hồ sơ" required> -->
+                <label> {{ hoso.title }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehoso" class="form-control"
-                    [(ngModel)]="hoso.tieude">
+                <label> {{ hoso.gearBoxTitle }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
+            <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo">
+                <label> {{ hoso.fileNotation }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Loại hồ sơ:</label>
             <div class="col-md-9">
-              <select id="select1" name="select1" class="form-control">
-                <option value="0">Chọn loại hồ sơ</option>
-                <option value="1">Tư pháp</option>
-                <option value="2">Tài chính</option>
-                <option value="3">Kỉ luật</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
-            <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.profileTypeName }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời gian bắt đầu</label>
+            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.maintenance }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời gian kết thúc</label>
+            <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.rights }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.language }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.startDate.split('T')[0] | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.endDate.split('T')[0] | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.totalDoc }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang</label>
+            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.description }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Chú thích</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.inforSign }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.keyWord }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.sheetNumber }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.pageNumber }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" >Tình trạng vật lý:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.format }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" >Số lượng tệp đã tải lên:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.totalFiles }} tệp </label>
+                <span>&nbsp;<button class="btn-link">Xem chi tiết...</button></span>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@ export class HoSo  {
     public identifier? : string;
     public organId? : string;
     public gearBoxCode? : string;
-    public gearBoxID? : number;
+    public gearBoxId? : number;
     public fileCatalog? : number;
     public fileNotation? : string;
     public profileTypeId? : number; 
@@ -40,7 +40,8 @@ export class HoSo  {
     public gearBoxTitle? : string;
     public createdBy? : string;
     public updatedBy? : string;
-    public profileID?: number;
+    public profileId?: number;
+    public totalFiles? : number;
 }
 
 export const hosos : HoSo[] = [

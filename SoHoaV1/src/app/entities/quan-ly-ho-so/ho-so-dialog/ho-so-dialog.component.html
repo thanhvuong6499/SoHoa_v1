@@ -1,7 +1,7 @@
 <form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
-        <div *ngIf="hoso.fileCode else themMoi">
+        <div *ngIf="hoso.fileCode != null else themMoi">
             <h4 class="">Chỉnh sửa hồ sơ</h4>
         </div>
 
@@ -64,8 +64,8 @@
                     [data]="allGearBox"
                     [placeholder]="'Chọn hộp số...'"
                     [options]="options"
-                    name="gearBoxID"
-                    [(ngModel)]="hoso.gearBoxID"
+                    name="gearBoxId"
+                    [(ngModel)]="hoso.gearBoxId"
                 ></ng-select2>
             </div>
         </div>
@@ -144,13 +144,13 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
             <div class="col-md-9">
-                <input type="text" name="inforSign" [(ngModel)]="hoso.infoSign" placeholder="Nhập ký hiệu thông tin" class="form-control">
+                <input type="text" name="inforSign" [(ngModel)]="hoso.inforSign" placeholder="Nhập ký hiệu thông tin" class="form-control">
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
             <div class="col-md-9">
-                <input type="text" id="keyword" name="keyword" [(ngModel)]="hoso.keyword" placeholder="Nhập từ khoá" class="form-control">
+                <input type="text" id="keyword" name="keyWord" [(ngModel)]="hoso.keyWord" placeholder="Nhập từ khoá" class="form-control">
             </div>
         </div>
         <div class="form-group row">

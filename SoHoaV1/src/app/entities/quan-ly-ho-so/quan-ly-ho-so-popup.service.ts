@@ -3,6 +3,7 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HoSo } from '../../model/ho-so.model';
 import { QuanLyHoSoService } from './quan-ly-ho-so.service';
+import { ReturnResult } from '../../common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { QuanLyHoSoService } from './quan-ly-ho-so.service';
 export class QuanLyHoSoPopupService {
   private ngbModalRef: NgbModalRef;
   private id : number;
-  public profile: HoSo;
+  public profile: ReturnResult<HoSo>;
   constructor(
       private modalService: NgbModal,
       private router: Router,
@@ -28,9 +29,10 @@ export class QuanLyHoSoPopupService {
           if (id) {
                 this.service.getProfilesById(id)
                 .subscribe((result) => {
+                    console.log(result);
                     if (result.isSuccess)
                     {
-                        this.profile = result.item;
+                        this.profile = result;
                     }
                 }, (error) => {
 
@@ -39,7 +41,7 @@ export class QuanLyHoSoPopupService {
                     resolve(this.ngbModalRef);
                 }); 
           } else {
-              this.id = null;
+              this.profile = undefined;
               // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
               setTimeout(() => {
                   this.ngbModalRef = this.hoSoModalRef(component, new HoSo());

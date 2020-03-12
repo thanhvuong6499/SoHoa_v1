@@ -55,6 +55,18 @@ export class QuanLyHoSoService {
     return this._httpClient.post<ReturnResult<any>>(ApiUrl.apiUrl + "Profile/ProfilesAddNewAndUploadFile", formData);
   }
 
+  public updateSingleProfile (data: HoSo, files?: FormData) {
+    // upload file
+    data.createdBy = this.authenticationService.getUserName;
+    var formData = new FormData();
+    var profile = JSON.stringify(data);
+    if (files != undefined) {
+      formData = files;
+    }
+    formData.append('profile', profile);
+    return this._httpClient.post<ReturnResult<any>>(ApiUrl.apiUrl + "Profile/ProfileUpdate", formData);
+  }
+
   public getAllProfiles () {
     return this._httpClient.get<any>(ApiUrl.apiUrl + "Profile/GetAllProfiles");
   }

@@ -17,19 +17,34 @@ export class HoSoDetailComponent implements OnInit {
   private subscription: Subscription;
   private eventSubscriber: Subscription;
   constructor(
-    private quanLyHoSoService: QuanLyHoSoService,
+    private service: QuanLyHoSoService,
     private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params) => {
-      this.load(params['id']);
+      let id = params['id'];
+      this.getProfileById(id);
     });
   }
   load(id){
   //  this.hoso= this.quanLyHoSoService.getHoSoById(id);
-    this.vanbans= this.quanLyHoSoService.getListVanBanByHoSoId(id);
+  //  this.vanbans= this.quanLyHoSoService.getListVanBanByHoSoId(id);
   }
+
+  getProfileById (id: any) {
+    this.service.getProfilesById(id)
+      .subscribe((result) => {
+        this.hoso = result.item;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+
+      });
+  }
+
   loadPages(page : number) {
     // switch (page) {
     //   case 1:
