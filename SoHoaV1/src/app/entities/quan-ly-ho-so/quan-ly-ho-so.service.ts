@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HoSo, hosos } from '../../model/ho-so.model';
-import { VanBan, vanbans } from '../../model/van-ban.model';
+import { Document } from '../../model/document.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +19,13 @@ export class QuanLyHoSoService {
     }
     return hoso;
   };
-  public getListVanBanByHoSoId (id: number) {
-    var listvanban : VanBan[] = [];
-    for (let i = 0; i < vanbans.length; i ++) {
-      if (vanbans[i].hosoid == id) {
-        listvanban.push(vanbans[i]);
-      }
-    }
-    return listvanban;
-  }
+  // public getListVanBanByHoSoId (id: number) {
+  //   var listvanban : VanBan[] = [];
+  //   for (let i = 0; i < vanbans.length; i ++) {
+  //     if (vanbans[i].hosoid == id) {
+  //       listvanban.push(vanbans[i]);
+  //     }
+  //   }
+  //   return listvanban;
+  // }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VanBan, vanbans } from '../../../model/van-ban.model';
+ import { Document } from '../../../model/document.model';
 import { HoSo } from '../../../model/ho-so.model';
 import { Subscription } from 'rxjs';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HoSoDetailComponent implements OnInit {
   hoso: HoSo;
-  vanbans: VanBan[];
+  documents: Document[];
   page = 1;
   private subscription: Subscription;
   private eventSubscriber: Subscription;
@@ -28,7 +28,7 @@ export class HoSoDetailComponent implements OnInit {
   }
   load(id){
     this.hoso= this.quanLyHoSoService.getHoSoById(id);
-    this.vanbans= this.quanLyHoSoService.getListVanBanByHoSoId(id);
+    // this.documents= this.quanLyHoSoService.getListVanBanByHoSoId(id);
   }
   loadPages(page : number) {
     // switch (page) {

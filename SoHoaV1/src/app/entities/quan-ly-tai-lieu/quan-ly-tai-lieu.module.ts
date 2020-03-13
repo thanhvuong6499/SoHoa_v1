@@ -12,7 +12,7 @@ import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
 import { VanBanPdfComponent } from './van-ban-pdf/van-ban-pdf.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     NgbModule,
     PdfViewerModule,
     QuanLyTaiLieuRoutingModule,
-    MatSidenavModule
+    MatSidenavModule,
+    NgSelect2Module,
   ],
   entryComponents:[
     TaiLieuDialogComponent,
