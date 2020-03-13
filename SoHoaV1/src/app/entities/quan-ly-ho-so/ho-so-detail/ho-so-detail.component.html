@@ -125,11 +125,16 @@
             <label class="col-md-3 col-form-label" >Số lượng tệp đã tải lên:</label>
             <div class="col-md-9">
                 <label> {{ hoso.totalFiles }} tệp </label>
-                <span>&nbsp;<button class="btn-link">Xem chi tiết...</button></span>
+                <span>&nbsp;<button class="btn-link" (click)="openFileDetailDialog()">Xem chi tiết...</button></span>
             </div>
         </div>
+
+        <button class="btn-link" (click)="openFileDetailDialog()">Xem chi tiết...</button>
     </div>
     <div class="card-footer">
+        <div><h5>Danh sách văn bản có trong hồ sơ số </h5></div>
+        <hr/>
+        <br>
         <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>

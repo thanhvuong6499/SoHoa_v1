@@ -4,6 +4,8 @@ import { HoSo } from '../../../model/ho-so.model';
 import { Subscription } from 'rxjs';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
 import { ActivatedRoute } from '@angular/router';
+import { FilePopupService } from '../file-details/file-popup-service.service';
+import { FileDetailsComponent } from '../file-details/file-details.component';
 
 @Component({
   selector: 'app-ho-so-detail',
@@ -19,6 +21,7 @@ export class HoSoDetailComponent implements OnInit {
   constructor(
     private service: QuanLyHoSoService,
     private route: ActivatedRoute,
+    private dialog: FilePopupService
   ) { }
 
   ngOnInit() {
@@ -59,5 +62,14 @@ export class HoSoDetailComponent implements OnInit {
     //   default:
     //     break;
     // }
+  }
+
+  openFileDetailDialog(id? : any) {
+    if (id != undefined) {
+      this.dialog.open(FileDetailsComponent as Component,  id);
+    }
+    else {
+      this.dialog.open(FileDetailsComponent as Component);
+    }
   }
 }

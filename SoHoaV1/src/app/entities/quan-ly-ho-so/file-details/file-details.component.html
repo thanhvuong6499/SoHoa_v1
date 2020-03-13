@@ -1,1 +1,42 @@
-<p>file-details works!</p>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4><i class="fa fa-folder"></i> &nbsp;Danh sách file đã tải lên với hồ sơ có mã hồ sơ: </h4>
+          <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
+          <hr/>
+        <div class="card-body">
+          <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <!-- <th>Thao tác</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                
+              </tr>
+              </tbody>
+            </table>
+            <nav>
+              <ul class="pagination">
+                <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  

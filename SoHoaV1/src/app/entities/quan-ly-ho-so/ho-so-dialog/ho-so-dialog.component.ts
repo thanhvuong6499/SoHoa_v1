@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { HoSo } from '../../../model/ho-so.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from '../quan-ly-ho-so-popup.service';
@@ -10,14 +10,17 @@ import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
 import { FileUpload } from '../../../model/file.model';
 import { BaseCondition } from '../../../common';
 import { HtmlParser } from '@angular/compiler';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-ho-so-dialog',
   templateUrl: './ho-so-dialog.component.html',
   styleUrls: ['./ho-so-dialog.component.css']
 })
-export class HoSoDialogComponent implements OnInit {
+export class HoSoDialogComponent implements OnInit, AfterContentInit {
+
   hoso: HoSo;
+  date: Date;
   public uploader : FileUploader = new FileUploader({
     isHTML5: true
   });
@@ -37,28 +40,53 @@ export class HoSoDialogComponent implements OnInit {
   profile: HoSo = new HoSo();
   isUpdate: boolean = false;
 
+  form : FormGroup;
+  submitted = false;
+  loading = false;
+
   constructor (
    private activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
    private toastr: ToastrService,
-   private service: QuanLyHoSoService
+   private service: QuanLyHoSoService,
+   private formBuilder: FormBuilder
   )
   {
     this.profileTypeList = new Array<Select2OptionData>();
     this.fileNotationList = new Array<Select2OptionData>();
     this.gearBoxTitleList = new Array<Select2OptionData>();
     this.allGearBox = new Array<Select2OptionData>();
-    this.allProfileType = Array<Select2OptionData>();
+    this.allProfileType = new Array<Select2OptionData>();
     this.hoso = new HoSo();
     this.options = {
       theme: 'classic',
       width: '100%'
     }
+    
   }
 
   ngOnInit() {
   //  this.hoso = this.hoSoPopupService.getHoSoById()
   //  this.hoso = this.hoSoPopupService.profile;
+    this.form = this.formBuilder.group({
+      gearBoxId: ['', Validators.required],
+      fileCode: ['', Validators.required],
+      title: ['', Validators.required],
+      fileNotation: ['', Validators.required],
+      profileTypeId: ['', Validators.required],
+      maintenance: ['', Validators.required],
+      rights: [''],
+      language: [''],
+      startDate: [''],
+      endDate: [''],
+      totalDoc: ['', Validators.required],
+      description: [''],
+      inforSign: [''],
+      keyWord: [''],
+      pageNumber: [''],
+      sheetNumber: ['', Validators.required],
+      format: ['']
+    })
     this.getAddNew();
     if (this.hoSoPopupService.profile != undefined) {
       this.isUpdate = true;
@@ -66,6 +94,11 @@ export class HoSoDialogComponent implements OnInit {
       this.hoso.gearBoxId = this.hoSoPopupService.profile.item.gearBoxId;
       this.hoso.profileTypeId = this.hoSoPopupService.profile.item.profileTypeId;
     }
+    
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   uploadSubmit () {
@@ -91,8 +124,15 @@ export class HoSoDialogComponent implements OnInit {
   clear() {
     this.activeModal.dismiss('cancel');
   }
-  save() {
+  save(value) {
     console.log(this.hoso);
+
+    this.submitted = true;
+    if (this.form.invalid) return;
+
+    this.loading = true;
+
+
     var files = new FormData();
     if (this.uploader.queue.length > 0) {
       files = this.uploadSubmit();
@@ -293,6 +333,32 @@ export class HoSoDialogComponent implements OnInit {
       () => {
 
       });
+  }
+  ngAfterContentInit(): void {
+    function getDate () {
+      let str : string = '';
+      let today : Date = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+      let yyyy = today.getFullYear();
+    //  this.date = new Date(yyyy + '-' + mm + '-' + dd);
+      str = yyyy + '-' + mm + '-' + dd;
+      return str;
+    }
+    $(document).ready(function () {
+      $(document).find('#date-input-start').val(getDate());
+      $(document).find('#date-input-end').val(getDate());
+      var $fileNotation = $(document).find('#fileNotation');
+      // $fileNotation.on("keydown", function keyCode(event) {
+      //   if(event.shiftKey)
+      //    return false;
+      //   var keyCode = event.which;
+      //   if(!((keyCode > 47 && keyCode < 58) ||  (keyCode > 95 && keyCode < 106) ||  keyCode == 08)){
+      //       event.preventDefault();
+      //   }
+      // });
+    
+    });
   }
 
 }
