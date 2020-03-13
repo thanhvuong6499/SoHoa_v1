@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HoSo } from '../../model/ho-so.model';
-import { VanBan, vanbans } from '../../model/van-ban.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions, HttpHeaderOptionsFormData } from '../../common';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -16,13 +15,7 @@ export class QuanLyHoSoService {
     
   };
   public getListVanBanByHoSoId (id: number) {
-    var listvanban : VanBan[] = [];
-    for (let i = 0; i < vanbans.length; i ++) {
-      if (vanbans[i].hosoid == id) {
-        listvanban.push(vanbans[i]);
-      }
-    }
-    return listvanban;
+    
   }
 
   public getAllProfilesWithPaging(condi: BaseCondition<HoSo>) {

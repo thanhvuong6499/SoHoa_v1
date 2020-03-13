@@ -12,7 +12,6 @@ import { Phong, phongs } from '../../../model/phong.model';
   styleUrls: ['./co-quan-detail.component.css']
 })
 export class CoQuanDetailComponent implements OnInit, OnDestroy {
-
   coQuan: CoQuan;
   phongs: Phong[];
   page = 1;

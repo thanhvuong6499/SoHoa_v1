@@ -22,13 +22,7 @@ export class QuanLyCoQuanService {
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
 
   public getListPhongByCoQuanId (id: number) {
-    var phong : Phong[] = [];
-    for (let i = 0; i < phongs.length; i ++) {
-      if (phongs[i].organID == id) {
-        phong.push(phongs[i]);
-      }
-    }
-    return phong;
+    
   }
   public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
     var condition = {};

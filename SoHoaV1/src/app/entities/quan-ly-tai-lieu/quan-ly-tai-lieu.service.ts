@@ -1,21 +1,79 @@
 import { Injectable } from '@angular/core';
-import { VanBan, vanbans } from '../../model/van-ban.model';
+import { Document } from '../../model/document.model';
+import { BaseCondition } from '../../common/BaseCondition';
+import { HttpHeadersOptions, ApiUrl } from '../../common/Enviroment';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ReturnResult } from '../../common/ReturnResult';
+import { DocumentType } from '../../model/document-type.model';
+import { HoSo } from '../../model/ho-so.model';
+import { Language } from '../../model/language.model';
+import { Format } from '../../model/format.model';
+import { ConfidenceLevel } from '../../model/confidence-level.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuanLyTaiLieuService {
-  vanbans: VanBan[];
-  constructor() { }
-  public getVanBanById(id) {
-    this.vanbans = vanbans;
-    var vanban = new VanBan();
-    for (let i = 0; i < vanbans.length; i++) {
-      if (id == vanbans[i].id) {
-        vanban = vanbans[i];
+  documents: Document[];
+  constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
+  public getDocumentById(id) {
+    return this.httpClient.get<ReturnResult<Document>>(ApiUrl.apiUrl + 'Document/GetDocumentById/' + id);
+  };
+
+  public getAllTaiLieuWithPaging(condi? : BaseCondition<Document>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
       }
 
     }
-    return vanban;
-  };
+    return this.httpClient.post<Document[]>(ApiUrl.apiUrl + 'Document/GetPagingWithSearchResults', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  public getDocumentTypeList(){
+    return this.httpClient.get<ReturnResult<DocumentType>>(ApiUrl.apiUrl + "DocumentType/GetAllDocumentType");
+  }
+
+  public getLanguageList(){
+    return this.httpClient.get<ReturnResult<Language>>(ApiUrl.apiUrl + "Language/GetAllLanguage");
+  }
+  public getFormatList(){
+    return this.httpClient.get<ReturnResult<Format>>(ApiUrl.apiUrl + "Format/GetAllFormat");
+  }
+  public getConfidenceLevelList(){
+    return this.httpClient.get<ReturnResult<ConfidenceLevel>>(ApiUrl.apiUrl + "ConfidenceLevel/GetAllConfidenceLevel");
+  }
+  public updateDocument(document : Document){
+    return this.httpClient.post<Document>(ApiUrl.apiUrl + "Document/UpdateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+  }
+
+  public createDocument(document: Document){
+    document.createdBy = this.authenticationService.getUserName;
+    document.createdDate = new Date();
+    document.computerFileId = 1;
+    document.fileId = 1;
+    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/CreateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+  }
+  public deleteDocument(id : number){
+    var document ={
+      documentId: id
+    }
+    return this.httpClient.post<Document>(ApiUrl.apiUrl + "Document/CreateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+  }
+
+  
+  public getProfileList(){
+    // viet api di
+    return this.httpClient.get<HoSo[]>(ApiUrl.apiUrl + "Profile/GetAllProfile");
+  }
 }

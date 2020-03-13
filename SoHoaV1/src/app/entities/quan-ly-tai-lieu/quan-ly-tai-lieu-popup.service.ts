@@ -1,7 +1,9 @@
 import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { VanBan, vanbans } from '../../model/van-ban.model';
+import { Document } from '../../model/document.model';
+import { QuanLyTaiLieuService } from './quan-ly-tai-lieu.service';
+import { ReturnResult } from '../../common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +12,16 @@ export class QuanLyTaiLieuPopupService {
 
   private ngbModalRef: NgbModalRef;
   private id : number;
+  public result : ReturnResult<Document>;
   constructor(
       private modalService: NgbModal,
       private router: Router,
-
+      private taiLieuService: QuanLyTaiLieuService
   ) {
       this.ngbModalRef = null;
+      this.result = new ReturnResult<Document>();
   }
-  private vanbans : VanBan[];
+  private documents : Document[];
   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
       return new Promise<NgbModalRef>((resolve, reject) => {
           const isOpen = this.ngbModalRef !== null;
@@ -25,52 +29,28 @@ export class QuanLyTaiLieuPopupService {
               resolve(this.ngbModalRef);
           }
 
-          if (id) {
-              // this.batHoService.find(id)
-              //     .subscribe((batHoResponse: HttpResponse<BatHo>) => {
-              //         const batHo: BatHo = batHoResponse.body;
-              //         this.ngbModalRef = this.batHoModalRef(component, batHo);
-              //         resolve(this.ngbModalRef);
-              //     });
+          if (id != null) {
               this.id = id;
-              
-              this.ngbModalRef = this.vanBanModalRef(component, this.getVanBanById());
-              resolve(this.ngbModalRef);
-              console.log(this.getVanBanById());
-              
+              this.taiLieuService.getDocumentById(id)
+                .subscribe((result) => {
+                    console.log(result);
+                    this.result = result;
+                    const document : Document = result.item;
+                    this.ngbModalRef = this.documentModalRef(component, document);
+                    resolve(this.ngbModalRef);
+                });
+                
           } else {
-              this.id = null;
-              // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
+              this.result.item = undefined;
               setTimeout(() => {
-                  this.ngbModalRef = this.vanBanModalRef(component, new VanBan());
+                  this.ngbModalRef = this.documentModalRef(component, new Document());
                   resolve(this.ngbModalRef);
               }, 0);
-              console.log("aloalo");
           }
       });
   }
-  public getVanBanById(){
-      this.vanbans = vanbans;
-              var vanban = new VanBan();
-              for (let i = 0; i < vanbans.length; i ++) {
-                  if (this.id == vanbans[i].id){
-                      vanban = vanbans[i];
-                  }
-                  
-              }
-              return vanban;
-  };
- public vanBanModalRef(component: Component, vanban: VanBan): NgbModalRef {
-      const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-      //// Go back to home page after the modal is closed
-      // modalRef.result.then((result) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // }, (reason) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // });
-      // console.log(modalRef)
-      return modalRef;
+ public documentModalRef(component: Component, document: Document): NgbModalRef {
+    const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+    return modalRef;
   }
 }

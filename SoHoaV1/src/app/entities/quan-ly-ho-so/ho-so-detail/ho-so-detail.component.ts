@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VanBan, vanbans } from '../../../model/van-ban.model';
+ import { Document } from '../../../model/document.model';
 import { HoSo } from '../../../model/ho-so.model';
 import { Subscription } from 'rxjs';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
@@ -14,7 +14,7 @@ import { FileDetailsComponent } from '../file-details/file-details.component';
 })
 export class HoSoDetailComponent implements OnInit {
   hoso: HoSo;
-  vanbans: VanBan[];
+  documents: Document[];
   page = 1;
   private subscription: Subscription;
   private eventSubscriber: Subscription;
