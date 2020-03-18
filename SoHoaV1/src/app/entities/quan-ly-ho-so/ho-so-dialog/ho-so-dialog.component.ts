@@ -11,6 +11,8 @@ import { FileUpload } from '../../../model/file.model';
 import { BaseCondition } from '../../../common';
 import { HtmlParser } from '@angular/compiler';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BaseCdkCell } from '@angular/cdk/table';
+import { Alert } from '../../../containers/_alert';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -58,6 +60,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     this.allGearBox = new Array<Select2OptionData>();
     this.allProfileType = new Array<Select2OptionData>();
     this.hoso = new HoSo();
+    this.hoso.profileId = undefined;
     this.options = {
       theme: 'classic',
       width: '100%'
@@ -77,8 +80,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       maintenance: ['', Validators.required],
       rights: [''],
       language: [''],
-      startDate: [''],
-      endDate: [''],
+      startDate: [undefined, Validators.required],
+      endDate: [undefined, Validators.required],
       totalDoc: ['', Validators.required],
       description: [''],
       inforSign: [''],
@@ -124,14 +127,12 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   clear() {
     this.activeModal.dismiss('cancel');
   }
-  save(value) {
-    console.log(this.hoso);
-
+  
+  save() {
     this.submitted = true;
     if (this.form.invalid) return;
 
     this.loading = true;
-
 
     var files = new FormData();
     if (this.uploader.queue.length > 0) {
@@ -143,52 +144,117 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     if (this.hoso.profileId == undefined) {
       this.service.insertSingleProfile(this.hoso, files)
       .subscribe((result) => {
-        if (!result.isSuccess && result.errorCode == "-2") {
-          var lstFilesAlreadyExists : string[] = new Array<string>();
-          var arrFileName: string[] = new Array<string>();
-          if (result.returnValue && result.returnValue != undefined) {
-            lstFilesAlreadyExists = JSON.parse(result.returnValue);
-            for (const file of lstFilesAlreadyExists) {
-              let fileNameArr = file.split('\\');
-              let fileName = fileNameArr[fileNameArr.length -1];
-              arrFileName.push(fileName);
+        if (!result.isSuccess)
+        {
+          switch (result.errorCode) {
+            case "-1": { // EXCEPTION
+              this.toastr.error("Thêm mới thất bại, lỗi: " + result.errorMessage + ", vui lòng thử lại hoặc bấm Cancel để hủy bỏ.");
+              break;
             }
-          }
+            case "-2": { // OVERWRITE
+                var lstFilesAlreadyExists : string[] = new Array<string>();
+                var arrFileName: string[] = new Array<string>();
+                if (result.returnValue && result.returnValue != undefined) {
+                  lstFilesAlreadyExists = JSON.parse(result.returnValue);
+                  for (const file of lstFilesAlreadyExists) {
+                    let fileNameArr = file.split('\\');
+                    let fileName = fileNameArr[fileNameArr.length -1];
+                    arrFileName.push(fileName);
+                  }
+                }
 
-          if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
-          \nDanh sách file đã tồn tại:\n${
-            arrFileName.toString().split(',').join('\n')
-          }`)) {
-            files = this.uploadSubmit();
-            files.append('overwrite', 'accept');
-            this.service.insertSingleProfile(this.hoso, files)
-              .subscribe((result) => {
-                if (result.isSuccess) {
-                  this.isOverwrite = true;
+                if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+                \nDanh sách file đã tồn tại:\n${
+                  arrFileName.toString().split(',').join('\n')
+                }`)) {
+                  files = this.uploadSubmit();
+                  files.append('overwrite', 'accept');
+                  this.service.insertSingleProfile(this.hoso, files)
+                    .subscribe((result) => {
+                      if (result.isSuccess) {
+                        
+                        this.isOverwrite = true;
+                      }
+                      else {
+                        console.log(result);
+                        this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+                      }
+                    },
+                    (error) => {
+                      console.log(error);
+                    },
+                    () => {
+                      if (this.isOverwrite) {
+                        this.activeModal.dismiss('success');
+                        this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+                        this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+                        this.uploader.clearQueue();
+                      }
+                    });
                 }
                 else {
                   this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
                 }
-              },
-              (error) => {
-                console.log(error);
-              },
-              () => {
-                if (this.isOverwrite) {
-                  this.activeModal.dismiss('success');
-                  this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
-                  this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
-                  this.uploader.clearQueue();
-                }
-              });
-          }
-          else {
-            this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+              break;
+            }
+            case "-3": { // EXISTS
+              this.toastr.warning("Đã tồn tại hồ sơ có mã hồ sơ: " + this.hoso.fileCode + " trên hệ thống, vui lòng thử lại hoặc bấm Cancel để hủy bỏ.");
+              break;
+            }
+            default: {
+              this.toastr.error("Thêm mới thất bại, lỗi: " + result.errorMessage + ", vui lòng thử lại hoặc bấm Cancel để hủy bỏ.")
+              break;
+            }
           }
         }
-        else if (!result.isSuccess) {
-          this.toastr.error("Thêm mới thất bại", "Thông báo");
-        }
+
+        // if (!result.isSuccess && result.errorCode == "-2") {
+        //   var lstFilesAlreadyExists : string[] = new Array<string>();
+        //   var arrFileName: string[] = new Array<string>();
+        //   if (result.returnValue && result.returnValue != undefined) {
+        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
+        //     for (const file of lstFilesAlreadyExists) {
+        //       let fileNameArr = file.split('\\');
+        //       let fileName = fileNameArr[fileNameArr.length -1];
+        //       arrFileName.push(fileName);
+        //     }
+        //   }
+
+        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+        //   \nDanh sách file đã tồn tại:\n${
+        //     arrFileName.toString().split(',').join('\n')
+        //   }`)) {
+        //     files = this.uploadSubmit();
+        //     files.append('overwrite', 'accept');
+        //     this.service.insertSingleProfile(this.hoso, files)
+        //       .subscribe((result) => {
+        //         if (result.isSuccess) {
+        //           this.isOverwrite = true;
+        //         }
+        //         else {
+        //           console.log(result.errorCode);
+        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //         }
+        //       },
+        //       (error) => {
+        //         console.log(error);
+        //       },
+        //       () => {
+        //         if (this.isOverwrite) {
+        //           this.activeModal.dismiss('success');
+        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+        //           this.uploader.clearQueue();
+        //         }
+        //       });
+        //   }
+        //   else {
+        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //   }
+        // }
+        // else if (!result.isSuccess) {
+        //   this.toastr.error("Thêm mới thất bại", "Thông báo");
+        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -213,57 +279,115 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       });
     }
     else {
-      console.log(this.hoso);  
       this.service.updateSingleProfile(this.hoso, files)
       .subscribe((result) => {
-        if (!result.isSuccess && result.errorCode == "-2") {
-          var lstFilesAlreadyExists : string[] = new Array<string>();
-          var arrFileName: string[] = new Array<string>();
-          if (result.returnValue && result.returnValue != undefined) {
-            lstFilesAlreadyExists = JSON.parse(result.returnValue);
-            for (const file of lstFilesAlreadyExists) {
-              let fileNameArr = file.split('\\');
-              let fileName = fileNameArr[fileNameArr.length -1];
-              arrFileName.push(fileName);
-            }
-          }
 
-          if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
-          \nDanh sách file đã tồn tại:\n${
-            arrFileName.toString().split(',').join('\n')
-          }`)) {
-            files = this.uploadSubmit();
-            files.append('overwrite', 'accept');
-            this.service.updateSingleProfile(this.hoso, files)
-              .subscribe((result) => {
-                if (result.isSuccess) {
-                  
-                  this.isOverwrite = true;
+        if (!result.isSuccess) {
+          switch (result.errorCode) {
+            case "-1": {
+              this.toastr.error("Cập nhật thất bại, lỗi: " + result.errorMessage + ", vui lòng thử lại hoặc bấm Cancel để hủy bỏ.");
+              break;
+            }
+            case "-2": {
+                var lstFilesAlreadyExists : string[] = new Array<string>();
+                var arrFileName: string[] = new Array<string>();
+                if (result.returnValue && result.returnValue != undefined) {
+                  lstFilesAlreadyExists = JSON.parse(result.returnValue);
+                  for (const file of lstFilesAlreadyExists) {
+                    let fileNameArr = file.split('\\');
+                    let fileName = fileNameArr[fileNameArr.length -1];
+                    arrFileName.push(fileName);
+                  }
+                }
+                if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+                \nDanh sách file đã tồn tại:\n${
+                  arrFileName.toString().split(',').join('\n')
+                }`)) {
+                  files = this.uploadSubmit();
+                  files.append('overwrite', 'accept');
+                  this.service.updateSingleProfile(this.hoso, files)
+                    .subscribe((result) => {
+                      if (result.isSuccess) {
+                        
+                        this.isOverwrite = true;
+                      }
+                      else {
+                      //  console.log(result);
+                        this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+                      }
+                    },
+                    (error) => {
+                      console.log(error);
+                    },
+                    () => {
+                      if (this.isOverwrite) {
+                        this.activeModal.dismiss('success');
+                        this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+                        this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+                        this.uploader.clearQueue();
+                      }
+                    });
                 }
                 else {
-                  console.log(result);
                   this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
                 }
-              },
-              (error) => {
-                console.log(error);
-              },
-              () => {
-                if (this.isOverwrite) {
-                  this.activeModal.dismiss('success');
-                  this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
-                  this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
-                  this.uploader.clearQueue();
-                }
-              });
-          }
-          else {
-            this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+              break;
+            }
+            default:
+            {
+              this.toastr.error("Cập nhật thất bại, lỗi: " + result.errorMessage + ", vui lòng thử lại hoặc bấm Cancel để hủy bỏ.");
+              break;
+            }
           }
         }
-        else if (!result.isSuccess) {
-          this.toastr.error("Cập nhật thông tin hồ sơ thất bại, vui lòng thử lại", "Thông báo");
-        }
+
+        // if (!result.isSuccess && result.errorCode == "-2") {
+        //   var lstFilesAlreadyExists : string[] = new Array<string>();
+        //   var arrFileName: string[] = new Array<string>();
+        //   if (result.returnValue && result.returnValue != undefined) {
+        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
+        //     for (const file of lstFilesAlreadyExists) {
+        //       let fileNameArr = file.split('\\');
+        //       let fileName = fileNameArr[fileNameArr.length -1];
+        //       arrFileName.push(fileName);
+        //     }
+        //   }
+        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+        //   \nDanh sách file đã tồn tại:\n${
+        //     arrFileName.toString().split(',').join('\n')
+        //   }`)) {
+        //     files = this.uploadSubmit();
+        //     files.append('overwrite', 'accept');
+        //     this.service.updateSingleProfile(this.hoso, files)
+        //       .subscribe((result) => {
+        //         if (result.isSuccess) {
+                  
+        //           this.isOverwrite = true;
+        //         }
+        //         else {
+        //           console.log(result);
+        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //         }
+        //       },
+        //       (error) => {
+        //         console.log(error);
+        //       },
+        //       () => {
+        //         if (this.isOverwrite) {
+        //           this.activeModal.dismiss('success');
+        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+        //           this.uploader.clearQueue();
+        //         }
+        //       });
+        //   }
+        //   else {
+        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //   }
+        // }
+        // else if (!result.isSuccess) {
+        //   this.toastr.error("Cập nhật thông tin hồ sơ thất bại, vui lòng thử lại", "Thông báo");
+        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -314,7 +438,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   getAddNew () {
     this.service.getAllGearBoxAndProfileType()
       .subscribe((result) => {
-        console.log(result);
         var arrGearBox = [];
         for (const item of result.lstGearBox) {
           var temp = { id: item.gearBoxID, text: item.gearBoxTitle }
@@ -335,29 +458,29 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       });
   }
   ngAfterContentInit(): void {
+    if (this.isUpdate) {
+      var startDate = this.hoso.startDate.toString().split('T')[0];
+      var endDate = this.hoso.endDate.toString().split('T')[0];
+    }
+    
+    function getDateValue (startDate : string, endDate : string) {
+      if (startDate != undefined && endDate != undefined) {
+        $(document).find('#date-input-start').val(startDate);
+        $(document).find('#date-input-end').val(endDate);
+      }
+    }
     function getDate () {
       let str : string = '';
       let today : Date = new Date();
       let dd = String(today.getDate()).padStart(2, '0');
       let mm = String(today.getMonth() + 1).padStart(2, '0'); 
       let yyyy = today.getFullYear();
-    //  this.date = new Date(yyyy + '-' + mm + '-' + dd);
+      //  this.date = new Date(yyyy + '-' + mm + '-' + dd);
       str = yyyy + '-' + mm + '-' + dd;
       return str;
     }
     $(document).ready(function () {
-      $(document).find('#date-input-start').val(getDate());
-      $(document).find('#date-input-end').val(getDate());
-      var $fileNotation = $(document).find('#fileNotation');
-      // $fileNotation.on("keydown", function keyCode(event) {
-      //   if(event.shiftKey)
-      //    return false;
-      //   var keyCode = event.which;
-      //   if(!((keyCode > 47 && keyCode < 58) ||  (keyCode > 95 && keyCode < 106) ||  keyCode == 08)){
-      //       event.preventDefault();
-      //   }
-      // });
-    
+      getDateValue(startDate, endDate);
     });
   }
 

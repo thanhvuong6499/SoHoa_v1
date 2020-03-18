@@ -1,61 +1,58 @@
 
 export class Document  {
-    constructor(
-      public documentId?: number,
+      public documentId?: number
       // Mã định danh văn bản
-      public documentCode?: string,
+      public documentCode?: string
       /// Số thứ tự văn bản
-      public docOrdinal?: number,
-      public docTypeId?: number,
+      public docOrdinal?: number
+      public docTypeId?: number
       // Loại văn bản
-      public typeName?: string,
+      public typeName?: string
       // Mã id hồ sơ trong db
-      public fileId?: number,
+      public fileId?: number
       // Mã định danh hồ sơ
-      public fileCode?: number,
+      public fileCode?: number
       // Văn bản số
-      public codeNumber?: string,
-      public organName?:string,
+      public codeNumber?: string
+      public organName?:string
       // Ký hiệu của văn bản
-      public codeNotation?: string,
+      public codeNotation?: string
       /// Ngày, tháng, năm văn bản
-      public issuedDate?: Date,
+      public issuedDate?: Date
       // Nội dung
-      public subject?: string,
+      public subject?: string
       // Ngôn ngữ
-      public language?: string,
-      // Ghi chú
-      public description?: string,
+      public language?: string
+      // Ghi ch
+      public description?: string
       // Số tờ
-      public pageAmount?: number,
+      public pageAmount?: number
       // Ký hiệu thông tin
-      public inforSign?: string,
+      public inforSign?: string
       // Từ khóa
-      public keyword?: string,
+      public keyword?: string
       // Chế độ sử dụng
-      public mode?: string,
-      public fileUrl?: string,
+      public mode?: string
+      public fileUrl?: string
       // Tình trạng
-      public formatName?: string,
+      public formatName?: string
       // Tình trạng Id
-      public formatId?:number,
+      public formatId?:number
       // Mức độ tin cậy
-      public confidenceLevel?: string,
+      public confidenceLevel?: string
       // Bút tích
-      public autograph?: string,
+      public autograph?: string
       // Tên tệp lưu trữ
-      public computerFileName?:string,
-      public computerFileId?:number,
-      public languageId?:number,
-      public confidenceLevelId?: number,
-      public isDeleted?: string,
-      public updatedBy?: string,
-      public createdBy?: string,
-      public updatedDate?: Date,
+      public computerFileName?:string
+      public computerFileId?:number
+      public languageId?:number
+      public confidenceLevelId?: number
+      public isDeleted?: string
+      public updatedBy?: string
+      public createdBy?: string
+      public updatedDate?: Date
       public createdDate?: Date
-    ) {
     }
-}
 
 // export const documents : Document[] = [
 //     {

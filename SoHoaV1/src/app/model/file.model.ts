@@ -1,7 +1,10 @@
 export class FileUpload {
     fileName?: string;
     url?: string;
-    createBy?: string;
-    createDate?: Date = new Date();
+    createdBy?: string;
+    createdDate?: Date = new Date();
     fileCode?: string;
+    size? : string;
+    pageNumber?: number;
+    profileId? : number;
 }

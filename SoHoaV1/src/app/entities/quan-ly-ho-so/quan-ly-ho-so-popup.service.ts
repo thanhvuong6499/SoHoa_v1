@@ -51,7 +51,7 @@ export class QuanLyHoSoPopupService {
       });
   }
 
- public hoSoModalRef(component: Component, hopso: HoSo): NgbModalRef {
+ public hoSoModalRef(component: Component, hoso: HoSo): NgbModalRef {
       const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static', windowClass:'animated slideInUp'});
       return modalRef;
   }

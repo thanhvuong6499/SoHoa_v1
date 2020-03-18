@@ -1,5 +1,5 @@
 export class ReturnResult<T>{
-    isSuccess: boolean;
+    isSuccess: boolean = true;
     errorMessage: string;
     errorCode: string;
     item: T;

@@ -13,6 +13,7 @@ import { MaterialModule } from '../../material.module';
 import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 import { NgSelect2Module } from 'ng-select2';
 import { FileDetailsComponent } from './file-details/file-details.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -31,11 +32,13 @@ import { FileDetailsComponent } from './file-details/file-details.component';
     NgbModule,
     QuanLyHoSoRoutingModule,
     MaterialModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSpinnerModule
   ],
   entryComponents:[
     HoSoDialogComponent,
-    HoSoDeleteComponent
+    HoSoDeleteComponent,
+    FileDetailsComponent
   ],
   providers:[
     QuanLyHoSoPopupService

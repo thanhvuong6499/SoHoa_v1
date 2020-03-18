@@ -36,7 +36,10 @@ export class QuanLyTaiLieuPopupService {
                     console.log(result);
                     this.result = result;
                     const document : Document = result.item;
-                    this.ngbModalRef = this.documentModalRef(component, document);
+                }, (error) => {
+
+                }, () => {
+                    this.ngbModalRef = this.documentModalRef(component, new Document());
                     resolve(this.ngbModalRef);
                 });
                 

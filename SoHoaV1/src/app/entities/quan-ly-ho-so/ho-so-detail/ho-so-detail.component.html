@@ -70,13 +70,13 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu:</label>
             <div class="col-md-9">
-                <label> {{ hoso.startDate.split('T')[0] | date: 'dd/MM/yyyy' }} </label>
+                <label> {{ hoso.startDate | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
-                <label> {{ hoso.endDate.split('T')[0] | date: 'dd/MM/yyyy' }} </label>
+                <label> {{ hoso.endDate | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
@@ -125,23 +125,21 @@
             <label class="col-md-3 col-form-label" >Số lượng tệp đã tải lên:</label>
             <div class="col-md-9">
                 <label> {{ hoso.totalFiles }} tệp </label>
-                <span>&nbsp;<button class="btn-link" (click)="openFileDetailDialog()">Xem chi tiết...</button></span>
+                <span>&nbsp;<button class="btn-link" (click)="openFileDetailDialog(profileId)">Xem chi tiết...</button></span>
             </div>
         </div>
 
-        <button class="btn-link" (click)="openFileDetailDialog()">Xem chi tiết...</button>
     </div>
     <div class="card-footer">
-        <div><h5>Danh sách văn bản có trong hồ sơ số </h5></div>
+        <div><h5>Danh sách văn bản có trong hồ sơ số {{ hoso.fileCode }} </h5></div>
         <hr/>
         <br>
+        <div *ngIf="totalRecords > 0 else nondata">
         <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <th>STT</th>
                 <th>Hồ sơ số</th>
                 <th>Văn bản số</th>
-                <th>Stt trong hồ sơ</th>
                 <th>Tên loại văn bản</th>
                 <th>Nội dung</th>
                 <th>Số tờ</th>
@@ -152,27 +150,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let vanban of vanbans">
-                <td>{{ vanban.id }}</td>
-                <td>{{ vanban.hososo }}</td>
-                <td>{{ vanban.vanbanso }}</td>
-                <td>{{ vanban.stttronghs }}</td>
-                <td>{{ vanban.loaivanban }}</td>
-                <td>{{ vanban.noidung }}</td>
-                <td>{{ vanban.soto }}</td>
-                <td>{{ vanban.mucdotincay }}</td>
-                <td>{{ vanban.tinhtrang }}</td>
-                <td>{{ vanban.ghichu }}</td>
+              <tr *ngFor="let vanban of lstDocuments">
+                <td>{{ vanban.fileCode }}</td>
+                <td>{{ vanban.codeNumber }}</td>
+                <td>{{ vanban.typeName }}</td>
+                <td>{{ vanban.subject }}</td>
+                <td>{{ vanban.pageAmount }}</td>
+                <td>{{ vanban.confidenceLevel }}</td>
+                <td>{{ vanban.formatName }}</td>
+                <td>{{ vanban.description }}</td>
                
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu',vanban.id]" routerLinkActive="router-link-active"  ></button>
+                <td style="width:137px" class="center">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', vanban.documentId]" routerLinkActive="router-link-active"  ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.id)"  replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
+                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.documentId)"  replaceUrl="true" queryParamsHandling="merge"></button>
               </td>
             </tr>
             </tbody>
           </table>
-          <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+          <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+        </div>
+        <ng-template #nondata>
+            <div>Không có dữ liệu phù hợp.</div>
+        </ng-template>
     </div>
 </div>

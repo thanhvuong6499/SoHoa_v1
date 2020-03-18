@@ -1,5 +1,6 @@
 
 export class HoSo  {
+    
     public fileCode? : string;
     public identifier? : string;
     public organId? : string;
