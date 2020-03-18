@@ -10,6 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { QuanLyDanhMucComponent } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.component';
 import { QuanLyNguoiDungComponent } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
+import { QuanLyNhomNguoiDungComponent } from './entities/quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ComponentsGuard } from './guards/components.guard';
 
@@ -97,6 +98,11 @@ export const routes: Routes = [
       {
         path: 'ThongKe',
         loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule)
+      },
+      {
+        path: 'QuanLyNhomNguoiDung',
+        loadChildren: () => import('./entities/quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.module').then(m => m.QuanLyNhomNguoiDungModule),
+        canActivate: [ComponentsGuard]
       }
       // {
       //   path: 'quanLyHopSo',

@@ -61,7 +61,7 @@
               <td>{{ phong.fontNumber }}</td>
               <td>{{ phong.fontName }}</td>
               <td>{{ phong.note }}</td>
-              <td style="width:137px">
+              <td style="width:137px;text-align: center;">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.fontID]"></button>
                 <!-- target blank -->
                 <a target="_blank" [routerLink]="['/QuanLyPhong/phong']"><button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.fontID)" replaceUrl="true" queryParamsHandling="merge">

@@ -13,7 +13,7 @@ export const navItems: INavData[] = [
   {
     name: 'Quản lý cơ quan',
     url: '/QuanLyCoQuan/coQuan',
-    icon: 'fa fa-institution'
+    icon: 'fa fa-institution',
   },
   {
     name: 'Quản lý Phông',
@@ -49,7 +49,7 @@ export const navItems: INavData[] = [
   //   icon: 'icon-home'
   // },
   {
-    name: 'Quản lý danh mục',
+    name: 'Quản lý mục lục',
     url: '/QuanLyDanhMuc/danhMuc',
     icon: 'icon-list'
   },
@@ -80,10 +80,63 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Quản lý người dùng',
-    url: '/QuanLyNguoiDung/nguoiDung',
-    icon: 'icon-user'
+    url: '',
+    icon: 'icon-user',
+    children:[
+      {
+        name: 'Quản lý người dùng',
+        url: '/QuanLyNguoiDung/nguoiDung',
+        icon: 'icon-user-follow'
+      },
+      {
+        name: 'Quản lý nhóm người dùng',
+        url: '/QuanLyNhomNguoiDung/nhomNguoiDung',
+        icon: 'icon-people'
+      },
+    ]
   },
-  
+  {
+    name: 'Quản lý danh mục ',
+    url: '',
+    icon: 'icon-folder',
+    children: [
+      {
+        name: 'Loại văn bản',
+        url: '',
+        icon: 'icon-folder-alt'
+      },
+      {
+        name: 'Loại hồ sơ',
+        url: '',
+        icon: 'icon-book-open'
+      },
+      {
+        name: 'Loại cơ quan',
+        url: '',
+        icon: 'icon-home'
+      },
+      {
+        name: 'Ngôn ngữ',
+        url: '',
+        icon: 'icon-map'
+      },
+      {
+        name: 'Công cụ tra cứu',
+        url: '',
+        icon: 'icon-briefcase'
+      },
+      {
+        name: 'Tình trạng vật lý',
+        url: '',
+        icon: 'icon-info'
+      },
+      {
+        name: 'Mức độ tin cậy',
+        url: '',
+        icon: 'icon-lock-open'
+      }
+    ]
+  },
 //   {
 //     name: 'Dashboard',
 //     url: '/dashboard',

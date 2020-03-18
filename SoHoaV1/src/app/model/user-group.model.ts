@@ -1,5 +1,5 @@
 export class UserGroup  {
-        public roleID?: number
+        public roleId?: number
         public roleName?: string
 }
 
