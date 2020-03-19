@@ -51,7 +51,44 @@ export const navItems: INavData[] = [
   {
     name: 'Quản lý danh mục',
     url: '/QuanLyDanhMuc/danhMuc',
-    icon: 'icon-list'
+    icon: 'icon-list',
+    children: [
+      {
+        name: 'Loại văn bản',
+        url: '/QuanLyLoaiVanBan/loaiVanBan/',
+        icon: 'icon-folder-alt'
+      },
+      {
+        name: 'Loại hồ sơ',
+        url: '/QuanLyLoaiHoSo/loaiHoSo/',
+        icon: 'icon-book-open'
+      },
+      {
+        name: 'Loại cơ quan',
+        url: '/QuanLyOrganType/organType/',
+        icon: 'icon-home'
+      },
+      {
+        name: 'Ngôn ngữ',
+        url: '/QuanLyNgonNgu/ngonNgu/',
+        icon: 'icon-map'
+      },
+      {
+        name: 'Công cụ tra cứu',
+        url: '',
+        icon: 'icon-briefcase'
+      },
+      {
+        name: 'Tình trạng vật lý',
+        url: '/QuanLyTinhTrangVatLy/tinhTrangVatLy/',
+        icon: 'icon-info'
+      },
+      {
+        name: 'Mức độ tin cậy',
+        url: '/QuanLyMucDoTinCay/mucDoTinCay/',
+        icon: 'icon-lock-open'
+      }
+    ]
   },
   {
     name: 'Quản lý hộp số',

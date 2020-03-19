@@ -14,6 +14,13 @@ import { MaterialModule } from '../material.module';
 import { ThongKeModule } from './thong-ke/thong-ke.module';
 import { QuanLyChuKySoModule } from './quan-ly-chu-ky-so/quan-ly-chu-ky-so.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { QuanLyNhomNguoiDungModule } from './quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.module';
+import { QuanLyOrganTypeModule } from './quan-ly-loai-co-quan/quan-ly-loai-co-quan.module';
+import { QuanLyLoaiHoSoModule } from './quan-ly-loai-ho-so/quan-ly-loai-ho-so.module';
+import { QuanLyLoaiVanBanModule } from './quan-ly-loai-van-ban/quan-ly-loai-van-ban.module';
+import { QuanLyNgonNguModule } from './quan-ly-ngon-ngu/quan-ly-ngon-ngu.module';
+import { QuanLyTinhTrangVatLyModule } from './quan-ly-tinh-trang-vat-ly/quan-ly-tt-vat-ly.module';
+import { QuanLyMucDoTinCayModule } from './quan-ly-muc-do-tin-cay/muc-do-tin-cay.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ThongKeModule,
     QuanLyChuKySoModule,
     MaterialModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    QuanLyNhomNguoiDungModule,
+    QuanLyOrganTypeModule,
+    QuanLyLoaiHoSoModule,
+    QuanLyLoaiVanBanModule,
+    QuanLyNgonNguModule,
+    QuanLyTinhTrangVatLyModule,
+    QuanLyMucDoTinCayModule
   ]
 })
 export class EntitiesModule { }
