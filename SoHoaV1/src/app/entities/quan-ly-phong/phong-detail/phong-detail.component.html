@@ -35,19 +35,43 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tổng số tài liệu giấy</label>
             <div class="col-md-9">
-                <span>{{phong.soLuongTaiLieu}}</span>
+                <span>{{phong.paperTotal}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng tài liệu giấy đã số hóa</label>
             <div class="col-md-9">
-                <span>{{phong.soLuongTaiLieuDaSoHoa}}</span>
+                <span>{{phong.paperDigital}}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng trang tài liệu đã được sao bảo hiểm</label>
             <div class="col-md-9">
-                <span>?????</span>
+                <span>{{phong.copyNumber}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Công cụ tra cứu</label>
+            <div class="col-md-9">
+                <span>{{phong.lookupTools}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Thời gian tài liệu</label>
+            <div class="col-md-9">
+                <span>{{phong.archivesTime}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Các nhóm tài liệu khác</label>
+            <div class="col-md-9">
+                <span>{{phong.keyGroups}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Các loại hình tài liệu chủ yếu</label>
+            <div class="col-md-9">
+                <span>{{phong.ortherTypes}}</span>
             </div>
         </div>
         <div class="form-group row">
@@ -79,7 +103,7 @@
                     <td>{{ danhmuc.gearBoxCount }}</td>
                     <td>{{ danhmuc.note }}</td>
 
-                    <td style="width:137px">
+                    <td style="width:137px;text-align: center;">
                         <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
                             routerLinkActive="router-link-active"></button>
                         <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->

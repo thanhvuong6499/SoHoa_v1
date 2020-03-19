@@ -9,8 +9,13 @@ export class Phong  {
         public history?: string
         public lang?: string
         public note?: string
-        public soLuongTaiLieu?: number
-        public soLuongTaiLieuDaSoHoa?: number
+        public lookupTools?: string
+        public keyGroups ?: string
+        public ortherTypes ?: string
+        public paperDigital ?: number
+        public copyNumber ?: number
+        public archivesTime ?: string
+        public paperTotal?: number
 }
 
 export const phongs : Phong[] = [
