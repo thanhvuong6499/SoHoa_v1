@@ -1,26 +1,25 @@
 import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { UserGroup } from '../../model/user-group.model';
-import { UserGroupService } from './user-group.service';
 import { ReturnResult } from '../../common';
-import { QuanLyNhomNguoiDungComponent } from './quan-ly-nhom-nguoi-dung.component';
+import { MucDoTinCay } from '../../model/muc-do-tin-cay';
+import { MucDoTinCayService } from './muc-do-tin-cay.service';
 @Injectable({
   providedIn: 'root'
 })
-export class QuanLyNhomNguoiDungPopupService {
+export class QuanLyMucDoTinCayPopupService {
     private ngbModalRef: NgbModalRef;
-    private roleId : number;
-    private userGroup: UserGroup;
-    public result : ReturnResult<UserGroup>;
+    private mucDoTinCayID : number;
+    private mucDoTinCay: MucDoTinCay;
+    public result : ReturnResult<MucDoTinCay>;
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private nhomNguoiDungService: UserGroupService,
+        private service: MucDoTinCayService,
     ) {
         this.ngbModalRef = null;
-        this.userGroup = new UserGroup();
-        this.result = new ReturnResult<UserGroup>();
+        this.mucDoTinCay = new MucDoTinCay();
+        this.result = new ReturnResult<MucDoTinCay>();
     }
 
     public open(component: Component, id?: number | any): Promise<NgbModalRef> {
@@ -30,21 +29,21 @@ export class QuanLyNhomNguoiDungPopupService {
                 resolve(this.ngbModalRef);
             }
             if (id) {
-                this.roleId = id;
-                this.nhomNguoiDungService.getUserGroupById(id)
+                this.mucDoTinCayID = id;
+                this.service.getMucDoTinCayById(id)
                     .subscribe((result) => {
                         this.result = result;
-                        const userGroup : UserGroup = result.item;
-                        this.ngbModalRef = this.UserModalRef(component, userGroup);
+                        const mucDoTinCay : MucDoTinCay = result.item;
+                        this.ngbModalRef = this.MucDoTinCayModalRef(component, mucDoTinCay);
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.UserModalRef(component, this.userGroup);
+                this.ngbModalRef = this.MucDoTinCayModalRef(component, this.mucDoTinCay);
                 resolve(this.ngbModalRef);
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.UserModalRef(component, new UserGroup());
+                    this.ngbModalRef = this.MucDoTinCayModalRef(component, new MucDoTinCay());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
@@ -52,7 +51,7 @@ export class QuanLyNhomNguoiDungPopupService {
     }
 
 
-    public UserModalRef(component: Component, user: UserGroup): NgbModalRef {
+    public MucDoTinCayModalRef(component: Component, MucDoTinCay: MucDoTinCay): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         return modalRef;
     }

@@ -8,9 +8,6 @@ import { Observable } from 'rxjs';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Tinh } from '../../model/tinh.model';
-import { Huyen } from '../../model/huyen.model';
-import { Xa } from '../../model/xa.model';
 import { async } from 'rxjs/internal/scheduler/async';
 
 @Injectable({

@@ -1,26 +1,25 @@
 import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { UserGroup } from '../../model/user-group.model';
-import { UserGroupService } from './user-group.service';
 import { ReturnResult } from '../../common';
-import { QuanLyNhomNguoiDungComponent } from './quan-ly-nhom-nguoi-dung.component';
+import { LoaiVanBan } from '../../model/loai-van-ban';
+import { LoaiVanBanService } from './loai-van-ban.service';
 @Injectable({
   providedIn: 'root'
 })
-export class QuanLyNhomNguoiDungPopupService {
+export class QuanLyLoaiVanBanPopupService {
     private ngbModalRef: NgbModalRef;
-    private roleId : number;
-    private userGroup: UserGroup;
-    public result : ReturnResult<UserGroup>;
+    private loaiVanBanID : number;
+    private loaiVanBan: LoaiVanBan;
+    public result : ReturnResult<LoaiVanBan>;
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private nhomNguoiDungService: UserGroupService,
+        private service: LoaiVanBanService,
     ) {
         this.ngbModalRef = null;
-        this.userGroup = new UserGroup();
-        this.result = new ReturnResult<UserGroup>();
+        this.loaiVanBan = new LoaiVanBan();
+        this.result = new ReturnResult<LoaiVanBan>();
     }
 
     public open(component: Component, id?: number | any): Promise<NgbModalRef> {
@@ -30,21 +29,21 @@ export class QuanLyNhomNguoiDungPopupService {
                 resolve(this.ngbModalRef);
             }
             if (id) {
-                this.roleId = id;
-                this.nhomNguoiDungService.getUserGroupById(id)
+                this.loaiVanBanID = id;
+                this.service.getLoaiVanBanById(id)
                     .subscribe((result) => {
                         this.result = result;
-                        const userGroup : UserGroup = result.item;
-                        this.ngbModalRef = this.UserModalRef(component, userGroup);
+                        const loaiVanBan : LoaiVanBan = result.item;
+                        this.ngbModalRef = this.OrganTypeModalRef(component, loaiVanBan);
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.UserModalRef(component, this.userGroup);
+                this.ngbModalRef = this.OrganTypeModalRef(component, this.loaiVanBan);
                 resolve(this.ngbModalRef);
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
-                    this.ngbModalRef = this.UserModalRef(component, new UserGroup());
+                    this.ngbModalRef = this.OrganTypeModalRef(component, new LoaiVanBan());
                     resolve(this.ngbModalRef);
                 }, 0);
             }
@@ -52,7 +51,7 @@ export class QuanLyNhomNguoiDungPopupService {
     }
 
 
-    public UserModalRef(component: Component, user: UserGroup): NgbModalRef {
+    public OrganTypeModalRef(component: Component, loaiVanBan: LoaiVanBan): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         return modalRef;
     }

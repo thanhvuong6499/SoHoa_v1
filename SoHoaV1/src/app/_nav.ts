@@ -102,22 +102,22 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Loại văn bản',
-        url: '',
+        url: '/QuanLyLoaiVanBan/loaiVanBan/',
         icon: 'icon-folder-alt'
       },
       {
         name: 'Loại hồ sơ',
-        url: '',
+        url: '/QuanLyLoaiHoSo/loaiHoSo/',
         icon: 'icon-book-open'
       },
       {
         name: 'Loại cơ quan',
-        url: '',
+        url: '/QuanLyOrganType/organType/',
         icon: 'icon-home'
       },
       {
         name: 'Ngôn ngữ',
-        url: '',
+        url: '/QuanLyNgonNgu/ngonNgu/',
         icon: 'icon-map'
       },
       {
@@ -127,12 +127,12 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Tình trạng vật lý',
-        url: '',
+        url: '/QuanLyTinhTrangVatLy/tinhTrangVatLy/',
         icon: 'icon-info'
       },
       {
         name: 'Mức độ tin cậy',
-        url: '',
+        url: '/QuanLyMucDoTinCay/mucDoTinCay/',
         icon: 'icon-lock-open'
       }
     ]

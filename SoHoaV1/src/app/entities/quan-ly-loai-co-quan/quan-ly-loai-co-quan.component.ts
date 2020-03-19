@@ -1,78 +1,74 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan/quan-ly-co-quan-popup.service';
-import { NhomNguoiDungDialogComponent } from './nhom-nguoi-dung-dialog/nhom-nguoi-dung-dialog.component';
-import { QuanLyNhomNguoiDungPopupService } from './quan-ly-nhom-nguoi-dung-popup.service';
-import { UserGroupService } from './user-group.service';
+import { OrganTypeService } from './loai-co-quan.service';
 import { BaseCondition } from '../../common';
-import { UserGroup } from '../../model/user-group.model';
 import { ToastrService } from 'ngx-toastr';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
-import { NhomNguoiDungDeleteComponent } from './nhom-nguoi-dung-delete/nhom-nguoi-dung-delete.component';
+import { OrganType } from '../../model/organ-type.model';
+import { QuanLyOrganTypePopupService } from './quan-ly-loai-co-quan-popup.service';
+import { OrganTypeDialogComponent } from './loai-co-quan-dialog/loai-co-quan-dialog.component';
+import { OrganTypeDeleteComponent } from './loai-co-quan-delete/loai-co-quan-delete.component';
 
 @Component({
-  selector: 'app-quan-ly-nguoi-dung',
-  templateUrl: './quan-ly-nhom-nguoi-dung.component.html',
-  styleUrls: ['./quan-ly-nhom-nguoi-dung.component.css']
+  selector: 'app-quan-ly-loai-co-quan',
+  templateUrl: './quan-ly-loai-co-quan.component.html',
+  styleUrls: ['./quan-ly-loai-co-quan.component.css']
 })
-export class QuanLyNhomNguoiDungComponent implements OnInit {
+export class QuanLyOrganTypeComponent implements OnInit {
   page = 1;
-  condition: BaseCondition<UserGroup> = new BaseCondition<UserGroup>();
+  condition: BaseCondition<OrganType> = new BaseCondition<OrganType>();
   pageSize: number;
   totalRecords: number;
-  userGroups: UserGroup[];
+  organTypes: OrganType[];
   options: Options;
-  userGroup: UserGroup;
-  lstFont: Array<Select2OptionData>;
-  userGroupArr : Array<Select2OptionData>;
+  organType: OrganType;
   searchText: string = "";
 
 
-  constructor(private quanLyNhomNguoiDungService: QuanLyNhomNguoiDungPopupService,
-              private userGroupService : UserGroupService,
+  constructor(private quanLyOrganTypePopupService: QuanLyOrganTypePopupService,
+              private organTypeService : OrganTypeService,
               private toastService: ToastrService
   ) { 
-    this.userGroupService.listen().subscribe((m: any) =>{
+    this.organTypeService.listen().subscribe((m: any) =>{
       this.loadAll();
     })
     this.searchText = "";
-    this.condition = new BaseCondition<UserGroup>();
-    this.userGroupArr = new Array<Select2OptionData>();
+    this.condition = new BaseCondition<OrganType>();
     this.options = {
       width: "100%",
       closeOnSelect: true,
       multiple: true,
       tags: true
     }
-    this.userGroup = new UserGroup();
+    this.organType = new OrganType();
   }
 
   ngOnInit() {
-    this.loadFilterOptionsOrgan();
     this.loadAll();
   }
 
   openDialog(id?: number) {
     if (id) {
-      this.quanLyNhomNguoiDungService
-        .open(NhomNguoiDungDialogComponent as Component, id);
+      this.quanLyOrganTypePopupService
+        .open(OrganTypeDialogComponent as Component, id);
 
     } else {
-      this.quanLyNhomNguoiDungService
-        .open(NhomNguoiDungDialogComponent as Component);
+      this.quanLyOrganTypePopupService
+        .open(OrganTypeDialogComponent as Component);
     }
 
   }
   openDeleteDialog(id?: number) {
 
-    this.quanLyNhomNguoiDungService
-      .open(NhomNguoiDungDeleteComponent as Component, id);
+    this.quanLyOrganTypePopupService
+      .open(OrganTypeDeleteComponent as Component, id);
   }
 
 
   loadAll(){
-    this.userGroupService.userGroupGetSearchWithPaging().subscribe((data : any) => {
-      this.userGroups = data.itemList;
+    this.organTypeService.organTypeGetSearchWithPaging().subscribe((data : any) => {
+      this.organTypes = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
@@ -84,13 +80,13 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
 
   loadPages(page : string) {
     try {
-      var condi : BaseCondition<UserGroup> = new BaseCondition<UserGroup>();
+      var condi : BaseCondition<OrganType> = new BaseCondition<OrganType>();
       if (this.condition.FilterRuleList != undefined) {
         condi.FilterRuleList = this.condition.FilterRuleList;
       }
       condi.PageIndex = parseInt(page);
-      this.userGroupService.userGroupGetSearchWithPaging(condi).subscribe((data : any) => {
-        this.userGroups = data.itemList;
+      this.organTypeService.organTypeGetSearchWithPaging(condi).subscribe((data : any) => {
+        this.organTypes = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
@@ -109,22 +105,6 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
     
   }
 
-  loadFilterOptionsOrgan () {
-    this.userGroupService.getAllRole()
-      .subscribe((result) => {
-        var arrTypes = [];
-        for (const item of result.itemList) {
-          let value = { id: item.roleId, text: item.roleName }
-          arrTypes.push(value);
-        }
-        this.userGroupArr = arrTypes;
-      }, 
-      (error => {
-      }),
-      () => {
-      })
-  }
-
   onChange(searchText: string){
     this.searchText = searchText;
     this.getFilterOptions();
@@ -134,7 +114,7 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "r.RoleName",
+        field: "lcq.TenLoaiCoQuan",
         op: "",
         value: ""
       }
@@ -151,9 +131,9 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
       this.condition.FilterRuleList[0].op = "";
     }
     if (this.searchText !=undefined) {
-      this.userGroupService.userGroupGetSearchWithPaging(this.condition)
+      this.organTypeService.organTypeGetSearchWithPaging(this.condition)
       .subscribe((data: any) => {
-        this.userGroups = data.itemList;
+        this.organTypes = data.itemList;
         this.pageSize = 5;
         this.page = 1;
         this.totalRecords = data.totalRows;
