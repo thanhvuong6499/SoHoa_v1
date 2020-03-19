@@ -33,16 +33,20 @@ export class LoaiHoSoDeleteComponent implements OnInit {
     this.service.deleteLoaiHoSo(id)
       .subscribe((result) => {
         console.log(result.isSuccess);
-        if(result.isSuccess)
+        if(result.isSuccess) {
+          this.onClose();
           this.onDeleteSuccess('Xóa thành công!!!');
-        else  
+        }
+        else {
           this.onDeleteError('Xóa thất bại, loại hồ sơ đang được áp dụng!!!');
+        }
       },
       (error) => {
         alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
       }, () => {
+        
       });
-      this.onClose();
+      
   }
 
   onClose(){
@@ -52,11 +56,11 @@ export class LoaiHoSoDeleteComponent implements OnInit {
 
   
   onDeleteError(message){
-    this.toasts.success(message);
+    this.toasts.info(message);
   }
 
   onDeleteSuccess(message){
-    this.toasts.success(message)
+    this.toasts.info(message)
   }
 
 }

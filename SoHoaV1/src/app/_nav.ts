@@ -124,7 +124,7 @@ export const navItems: INavData[] = [
     name: 'Quản lý chữ ký số',
     url: '/QuanLyChuKySo/chuKySo',
     icon: 'fa fa-address-book-o'
-  },
+  }
   
 //   {
 //     name: 'Dashboard',

@@ -57,7 +57,6 @@ export class QuanLyLoaiHoSoComponent implements OnInit {
 
   }
   openDeleteDialog(id?: number) {
-
     this.quanLyLoaiHoSoPopupService
       .open(LoaiHoSoDeleteComponent as Component, id);
   }

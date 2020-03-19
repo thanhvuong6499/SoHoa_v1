@@ -34,11 +34,15 @@ export class QuanLyLoaiHoSoPopupService {
                     .subscribe((result) => {
                         this.result = result;
                         const LoaiHoSo : LoaiHoSo = result.item;
-                        this.ngbModalRef = this.LoaiHoSoModalRef(component, LoaiHoSo);
+                        
+                    }, (error) => {
+
+                    }, () => {
+                        this.ngbModalRef = this.LoaiHoSoModalRef(component, new LoaiHoSo());
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.LoaiHoSoModalRef(component, this.loaiHoSo);
-                resolve(this.ngbModalRef);
+                // this.ngbModalRef = this.LoaiHoSoModalRef(component, this.loaiHoSo);
+                // resolve(this.ngbModalRef);
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError

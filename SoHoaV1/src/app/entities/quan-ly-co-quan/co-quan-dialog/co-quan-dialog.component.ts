@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan-popup.service';
@@ -13,6 +13,7 @@ import { OrganType } from '../../../model/organ-type.model';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-co-quan-dialog',
@@ -44,6 +45,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
   submitted = false;
   loading = false;
+  url : string = window.location.href;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -52,7 +54,8 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    @Inject(DOCUMENT) private _document: Document
   ) {
     //  this.organTypeList = new Array<OrganType>();
     this.options = {
@@ -170,6 +173,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         .subscribe((result) => {
           if(result.isSuccess) {
             this.onSaveSuccess("Thêm mới thành công");
+            
           }
           else {
             this.toastr.error("Thêm mới thất bại, vui lòng kiểm tra lại", "Lỗi");
@@ -284,5 +288,9 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     
+  }
+
+  refreshPage() {
+    this._document.defaultView.location.reload();
   }
 }
