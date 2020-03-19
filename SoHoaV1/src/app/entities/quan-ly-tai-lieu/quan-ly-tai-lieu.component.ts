@@ -22,13 +22,24 @@ export class QuanLyTaiLieuComponent implements OnInit {
   totalRecords : number;
   condition: BaseCondition<Document>;
   options: Options;
-  arrayTypeValue: string[];
-  arrayNameValue: string[];
-  arrayAddressValue: string[];
+  documentCodeArr: string[];
+  fileCodeArr: string[];
+  documentCodeList: Array<Select2OptionData>;
+  documentNameList: Array<Select2OptionData>;
   constructor(
     private taiLieuPopupService: QuanLyTaiLieuPopupService,
     private taiLieuService: QuanLyTaiLieuService
-  ) { }
+  ) { 
+    this.condition = new BaseCondition<Document>();
+    this.documentCodeList = new Array<Select2OptionData>();
+    this.documentNameList = new Array<Select2OptionData>();
+    this.options = {
+    multiple: true,
+    closeOnSelect: true,
+    tags: true,
+    width: "100%"
+    }
+  }
 
   ngOnInit() {
     this.userRole = localStorage.getItem('role');
@@ -40,6 +51,27 @@ export class QuanLyTaiLieuComponent implements OnInit {
       this.roles = 'admin';
     }
     this.loadAll();
+    this.taiLieuService.getAllDocument()
+      .subscribe((result) => {
+        var documentCodeList = [];
+        console.log(result);
+        for (const item of result.itemList) {
+          
+          var temp = { id: item.documentCode, text: item.documentCode };
+          documentCodeList.push(temp);
+        }
+        
+        this.documentCodeList = documentCodeList;
+      },
+      (error) => {
+        console.log(error);
+        setTimeout(() => {
+          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+        }, 1000);
+      },
+      () => {
+        
+      });
   }
   openDialog(id?: number) {
     if (id) {
@@ -56,14 +88,15 @@ export class QuanLyTaiLieuComponent implements OnInit {
         .open(TaiLieuDeleteComponent as Component, id);
   }
   loadPages(page : string) {
-    console.log("da duoc click");
+    debugger;
     try {
       var condi : BaseCondition<Document> = new BaseCondition<Document>();
-      if (this.condition.FilterRuleList != undefined) {
+      if (this.condition.FilterRuleList.length != undefined) {
         condi.FilterRuleList = this.condition.FilterRuleList;
       }
       condi.PageIndex = parseInt(page);
       this.taiLieuService.getAllTaiLieuWithPaging(condi).subscribe((data : any) => {
+        console.log(data);
         this.documents = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
@@ -138,57 +171,44 @@ export class QuanLyTaiLieuComponent implements OnInit {
 
   }
 
-  getFilterOptions (types: string[], name : string[], address: string[]) {
+  getFilterOptions (documentCodeArr: string[], fileCodeArr : string[]) {
+    console.log(documentCodeArr);
     this.condition.PageIndex = 1;
+    debugger;
     this.condition.FilterRuleList = [
       {
-        field: "lcq.TenLoaiCoQuan",
+        field: "S_VanBan.MaDinhDanh",
         op: "",
         value: ""
       },
       {
-        field: "cq.TenCoQuan",
+        field: "S_VanBan.MaHoSo",
         op: "",
         value: ""
       },
-      {
-        field: "dc.DiaChiChiTiet",
-        op: "",
-        value: ""
-      }
     ]
-    this.arrayTypeValue = types;
-    this.arrayNameValue = name;
-    this.arrayAddressValue = address;
-    if (this.arrayTypeValue != undefined) {
-      this.condition.FilterRuleList[0].value = types.toString();
-      if (types.length == 1) {
+    this.documentCodeArr = documentCodeArr;
+    this.fileCodeArr = fileCodeArr;
+    if (this.documentCodeArr != undefined) {
+      this.condition.FilterRuleList[0].value = documentCodeArr.toString();
+      if (documentCodeArr.length == 1) {
         this.condition.FilterRuleList[0].op = "and_contains";
       }
       else {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
-    if (this.arrayNameValue != undefined) {
-      this.condition.FilterRuleList[1].value = name.toString();
-      if (name.length == 1) {
+    if (this.fileCodeArr != undefined) {
+      this.condition.FilterRuleList[1].value = fileCodeArr.toString();
+      if (fileCodeArr.length == 1) {
         this.condition.FilterRuleList[1].op = "and_contains";
       }
       else {
         this.condition.FilterRuleList[1].op = "and_in_strings";
       }
     }
-    if (this.arrayAddressValue != undefined) {
-      this.condition.FilterRuleList[2].value = address.toString();
-      if (address.length == 1) {
-        this.condition.FilterRuleList[2].op = "and_contains";
-      }
-      else {
-        this.condition.FilterRuleList[2].op = "and_in_strings";
-      }
-    }
     
-    if (types != undefined || name != undefined || address != undefined) {
+    if (fileCodeArr != undefined || documentCodeArr != undefined) {
       this.taiLieuService.getAllTaiLieuWithPaging(this.condition)
       .subscribe((data) => {
         this.documents = data["itemList"];
