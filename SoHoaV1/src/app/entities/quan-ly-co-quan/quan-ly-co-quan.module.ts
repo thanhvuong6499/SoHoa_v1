@@ -9,8 +9,8 @@ import { CoQuanDeleteComponent } from './co-quan-delete/co-quan-delete.component
 import { QuanLyCoQuanPopupService } from './quan-ly-co-quan-popup.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { MatFormFieldModule,MatInputModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { Select2Module } from "ng-select2-component";
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelect2Module } from 'ng-select2';

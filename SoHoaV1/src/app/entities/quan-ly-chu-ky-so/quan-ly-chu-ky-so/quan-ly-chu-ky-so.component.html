@@ -1,24 +1,37 @@
-<div class="row">
+<div class="row" style="margin-top: 10px;">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header" style="background-color: white;">
-                <h3><i class="fa fa-file"></i> &nbsp;Chữ Ký Số </h3>
-                <div class="form-grouw row">
+                <form [formGroup]="form" (onSubmit)="onSubmit($event)">
+                <h4><i class="fa fa-file"></i> &nbsp;Chữ Ký Số </h4>
+                <div class="form-group row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+                            <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan: <span style="color:red">(*)</span></label>
                             <div class="col-md-9">
-                                <input type="text" id="text-input" name="coquan" class="form-control">
+                                <ng-select2
+                                    formControlName="organName"
+                                    [data]="organNameArr"
+                                    [placeholder]="'Chọn tên cơ quan...'"
+                                    [options]="options"
+                                    [(ngModel)]="arrayNameValue"
+                                ></ng-select2>
+                                <div *ngIf="submitted && f.organName.status == 'INVALID'">
+                                    <div class="error">Vui lòng chọn tên cơ quan.</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for="text-input">Chữ kí số</label>
+                            <label class="col-md-3 col-form-label" for="text-input">Chữ kí số: <span style="color:red">(*)</span></label>
                             <div class="col-md-6">
-                                <input type="file" (change)="onFileSelected()" id="file" />
+                                <input type="file" formControlName="file" name="file" (change)="onFileSelected()" id="file" accept=".png"/>
+                                <div *ngIf="submitted && f.file.status == 'INVALID'">
+                                    <div class="error">Vui lòng chọn file chữ ký số muốn tải lên.</div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <button class="btn btn-primary btn-md" style="margin-left: 15px;">
+                            <button type="submit" (click)="onSubmit($event)" class="btn btn-primary btn-md" style="margin-left: 15px;">
                                 <span class="fa fa-plus"></span>
                                 <span>
                                     Save
@@ -27,33 +40,44 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group row" style="align-items: center;">
+                        <div class="form-group row "  id="image-upload" style="align-items: center;">
                             <img [src]="imgSrc" alt=""
                                 style="border: 1; border-color: black; border-style: dotted; margin-left: 30px;"
                                 width="200px" height="200px">
+                            <div class="error" style="margin: 10px 0px 0px 30px;"> {{ errorMessageFileUpload }} </div>
                         </div>
                     </div>
                 </div>
+            </form>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>Cơ quan </th>
+                            <th>Chữ ký số</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                    </tbody>
+                </table>
+
+                <nav>
+                    <ul class="pagination">
+                      <ngb-pagination [collectionSize]="10" [(page)]="page" [maxSize]="5" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                    </ul>
+                  </nav>
+                <ng-template #example>
+    
+                </ng-template>
+    
+            </div>
+            <div class="card-footer">
 
             </div>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>Cơ quan </th>
-                        <th>Chữ ký số</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-            <ng-template #example>
-
-            </ng-template>
-
-        </div>
+       
     </div>
 </div>

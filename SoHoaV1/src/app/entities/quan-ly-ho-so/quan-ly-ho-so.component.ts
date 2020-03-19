@@ -122,6 +122,7 @@ export class QuanLyHoSoComponent implements OnInit {
   }
 
   loadFilterOptions () {
+    this.showSpinner("filterOptions","timer", "0.8");
     this.service.getAllProfiles()
       .subscribe((result) => {
           var arrTypes = [];
