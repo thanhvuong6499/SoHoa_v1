@@ -10,6 +10,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { QuanLyDanhMucComponent } from './entities/quan-ly-danh-muc/quan-ly-danh-muc.component';
 import { QuanLyNguoiDungComponent } from './entities/quan-ly-nguoi-dung/quan-ly-nguoi-dung.component';
+import { QuanLyNhomNguoiDungComponent } from './entities/quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ComponentsGuard } from './guards/components.guard';
 
@@ -97,11 +98,42 @@ export const routes: Routes = [
       {
         path: 'ThongKe',
         loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule)
+      },
+      {
+        path: 'QuanLyNhomNguoiDung',
+        loadChildren: () => import('./entities/quan-ly-nhom-nguoi-dung/quan-ly-nhom-nguoi-dung.module').then(m => m.QuanLyNhomNguoiDungModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyOrganType',
+        loadChildren: () => import('./entities/quan-ly-loai-co-quan/quan-ly-loai-co-quan.module').then(m => m.QuanLyOrganTypeModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyLoaiHoSo',
+        loadChildren: () => import('./entities/quan-ly-loai-ho-so/quan-ly-loai-ho-so.module').then(m => m.QuanLyLoaiHoSoModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyLoaiVanBan',
+        loadChildren: () => import('./entities/quan-ly-loai-van-ban/quan-ly-loai-van-ban.module').then(m => m.QuanLyLoaiVanBanModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyNgonNgu',
+        loadChildren: () => import('./entities/quan-ly-ngon-ngu/quan-ly-ngon-ngu.module').then(m => m.QuanLyNgonNguModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyTinhTrangVatLy',
+        loadChildren: () => import('./entities/quan-ly-tinh-trang-vat-ly/quan-ly-tt-vat-ly.module').then(m => m.QuanLyTinhTrangVatLyModule),
+        canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'QuanLyMucDoTinCay',
+        loadChildren: () => import('./entities/quan-ly-muc-do-tin-cay/muc-do-tin-cay.module').then(m => m.QuanLyMucDoTinCayModule),
+        canActivate: [ComponentsGuard]
       }
-      // {
-      //   path: 'quanLyHopSo',
-      //   component: QuanLyHopSoComponent,
-      // },
     ]
   },
   { path: '**', component: P404Component }
