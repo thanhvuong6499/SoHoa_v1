@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="card-header">
+
+        <div *ngIf="coQuan">
+            <h4 class="modal-title">Chi tiết cơ quan</h4>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <!-- <div class="form-group">
+          <label class="form-control-label">Mã phông</label>
+          <input type="number" class="form-control" name="maphong" id="field_maphong"
+              [(ngModel)]="phong.maphong" required/>
+      </div> -->
+        <div class="form-group row">
+
+            <label class="col-md-3 col-form-label" for="text-input">Mã cơ quan</label>
+            <div class="col-md-9">
+                <span>{{ coQuan.coQuanID }}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên cơ quan</label>
+            <div class="col-md-9">
+                <span>{{ coQuan.tenCoQuan }}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại cơ quan</label>
+            <div class="col-md-9">
+                <span>{{ coQuan.organType }}</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Địa chỉ</label>
+            <div class="col-md-9">
+                <span>{{ coQuan.addressDetail }}</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="card-footer">
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Mã cơ quan</th>
+                <th>Mã phông</th>
+                <th>Tên phông</th>
+                
+                <th>Ghi chú</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let phong of phongs ; index as i">
+                <td>{{ i+1 }}</td>
+                <td>{{ phong.organCode }}</td>
+                <td>{{ phong.fontNumber }}</td>
+                <td>{{ phong.fontName }}</td>
+                <td>{{ phong.note }}</td>
+               
+                <td style="width:137px;text-align: center;">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong', phong.fontID]"></button>
+                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.fontID)" replaceUrl="true" queryParamsHandling="merge"></button>
+                  <!-- <button class="btn btn-primary fa fa-trash"></button> -->
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <ngb-pagination *ngIf="coQuan" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,coQuan.coQuanID)"></ngb-pagination>
+    </div>
+</div>
