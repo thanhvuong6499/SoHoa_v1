@@ -64,6 +64,7 @@ export class QuanLyPhongService {
   getPhongById (id: number) {
     return this.httpClient.get<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/GetFontByID/" + id);
   }
+  
   getListDanhMucByPhongId (condi? : BaseCondition<DanhMuc>){
     var condition = {};
     if (condi != undefined) {

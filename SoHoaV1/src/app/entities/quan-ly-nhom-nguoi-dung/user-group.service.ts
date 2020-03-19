@@ -68,6 +68,15 @@ export class UserGroupService implements OnInit, OnDestroy {
     return this.httpClient.post<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/UpdateRole", JSON.stringify(userGroup), { headers: HttpHeadersOptions.headers });
   }
 
+   // xóa cơ quan
+   deleteUserGroup (id: number) {
+    var body = {
+      id: id
+    }
+    var params = JSON.stringify(body);
+    return this.httpClient.post<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/DeleteRole?id=" + id, { headers :HttpHeadersOptions.headers });
+  }
+
   private _listners = new Subject();
 
   listen(): Observable<any>{

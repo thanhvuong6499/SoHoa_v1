@@ -1,16 +1,27 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 
 import { QuanLyPhongService } from './quan-ly-phong.service';
+import { QuanLyPhongComponent } from './quan-ly-phong.component';
 
 describe('QuanLyPhongService', () => {
   let service: QuanLyPhongService;
+  let component: QuanLyPhongComponent;
+  let fixture: ComponentFixture<QuanLyPhongComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ QuanLyPhongComponent ]
+    })
+    .compileComponents();
+  }));
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(QuanLyPhongService);
+    fixture = TestBed.createComponent(QuanLyPhongComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

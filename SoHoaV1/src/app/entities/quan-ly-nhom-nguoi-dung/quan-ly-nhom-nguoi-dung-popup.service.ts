@@ -53,6 +53,7 @@ export class QuanLyNhomNguoiDungPopupService {
         });
     }
 
+
     public UserModalRef(component: Component, user: UserGroup): NgbModalRef {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         return modalRef;

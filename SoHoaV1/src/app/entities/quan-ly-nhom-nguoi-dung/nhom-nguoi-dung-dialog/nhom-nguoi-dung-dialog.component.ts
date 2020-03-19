@@ -44,7 +44,7 @@ export class NhomNguoiDungDialogComponent  implements OnInit, OnDestroy{
    }
 
   ngOnInit() {
-    this.edit = false;
+      this.edit = false;
       if(this.userGroupPopupService.result.item != undefined){
         this.userGroup = this.userGroupPopupService.result.item;
         this.edit = true;

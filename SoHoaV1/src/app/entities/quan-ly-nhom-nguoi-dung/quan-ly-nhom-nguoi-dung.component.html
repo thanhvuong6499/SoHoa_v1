@@ -42,12 +42,12 @@
               <tr *ngFor="let userGroup of userGroups ; index as i">
                 <td>{{i+1}}</td>
                 <td><b>&nbsp;{{userGroup.roleName}}</b></td>
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyNhomNguoiDung/nhomNguoiDung',userGroup.roleId]" routerLinkActive="router-link-active"  ></button>
+                <td style="width:137px;text-align: center;">
+                  <!-- <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyNhomNguoiDung/nhomNguoiDung',userGroup.roleId]" routerLinkActive="router-link-active"  ></button> -->
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
                   <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(userGroup.roleId)"  replaceUrl="true" queryParamsHandling="merge"></button>
                   <!-- <button class="btn btn-primary fa fa-trash" type="submit" (click)="openDeleteDialog(coquan.coQuanID)"></button> -->
-                    <button class="btn btn-primary fa fa-trash"></button>
+                  <button class="btn btn-primary fa fa-trash" type="submit" (click)="openDeleteDialog(userGroup.roleId)"></button>
                 </td>
               </tr>
             </tbody>
@@ -75,4 +75,3 @@
     </ng-template>
     <!--/.col-->
   </div>
-  <app-nhom-nguoi-dung-dialog hidden="true"></app-nhom-nguoi-dung-dialog>

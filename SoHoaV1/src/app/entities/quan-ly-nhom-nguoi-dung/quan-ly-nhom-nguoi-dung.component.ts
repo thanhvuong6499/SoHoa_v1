@@ -8,6 +8,7 @@ import { UserGroup } from '../../model/user-group.model';
 import { ToastrService } from 'ngx-toastr';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
+import { NhomNguoiDungDeleteComponent } from './nhom-nguoi-dung-delete/nhom-nguoi-dung-delete.component';
 
 @Component({
   selector: 'app-quan-ly-nguoi-dung',
@@ -64,9 +65,10 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
   }
   openDeleteDialog(id?: number) {
 
-      this.quanLyNhomNguoiDungService
-        .open(NhomNguoiDungDialogComponent as Component, id);
+    this.quanLyNhomNguoiDungService
+      .open(NhomNguoiDungDeleteComponent as Component, id);
   }
+
 
   loadAll(){
     this.userGroupService.userGroupGetSearchWithPaging().subscribe((data : any) => {
