@@ -97,6 +97,10 @@ export const routes: Routes = [
       {
         path: 'ThongKe',
         loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule)
+      },
+      {
+        path: 'QuanLyChuKySo',
+        loadChildren: () => import('./entities/quan-ly-chu-ky-so/quan-ly-chu-ky-so.module').then(m => m.QuanLyChuKySoModule)
       }
       // {
       //   path: 'quanLyHopSo',
