@@ -127,7 +127,7 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       }, () => {
       });
   }
-  loadAll(){
+  public loadAll(){
     if(this.phong.organID != undefined){
     }
     this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
