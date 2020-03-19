@@ -38,9 +38,33 @@
       </div>
     </div>
     <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Ngôn ngữ</label>
+      <div class="col-md-9">
+        <!-- <ng-select2
+          [data]="lstLang"
+          [placeholder]="'Chọn ngôn ngữ...'"
+          [options]="options"
+          name="organID"
+          [(ngModel)]="phong.organID"
+        ></ng-select2> -->
+      </div>
+    </div>
+    <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Lịch sử phông</label>
       <div class="col-md-9">
         <textarea  id="textarea-input" name="history" rows="9" class="form-control" [(ngModel)]="phong.history"></textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="select1">Công cụ tra cứu</label>
+      <div class="col-md-9">
+        <!-- <ng-select2
+          [data]="lstTool"
+          [placeholder]="'Công cụ tra cứu...'"
+          [options]="options"
+          name="organID"
+          [(ngModel)]="phong.organID"
+        ></ng-select2> -->
       </div>
     </div>
     <div class="form-group row">

@@ -2,13 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuanLyPhongPopupService } from '../quan-ly-phong-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { phongPopupRoute } from '../quan-ly-phong-routing.module';
 import { Phong, phongs } from '../../../model/phong.model';
-import { isDaylightSavingTime } from 'ngx-bootstrap/chronos/units/offset';
-import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { QuanLyPhongService } from '../quan-ly-phong.service';
-import { Subscription } from 'rxjs';
-import { Select2Data } from 'ng-select2-component';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
@@ -26,8 +21,6 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   lstOrgan: Array<Select2OptionData>;
   options: Options;
 
-  private subscription: Subscription;
-  private eventSubscriber: Subscription;
   constructor(
     public activeModal: NgbActiveModal,
     public phongPopupService: QuanLyPhongPopupService,

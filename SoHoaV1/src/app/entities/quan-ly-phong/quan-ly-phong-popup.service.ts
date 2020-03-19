@@ -21,7 +21,6 @@ export class QuanLyPhongPopupService {
         private phongService: QuanLyPhongService
     ) {
         this.ngbModalRef = null;
-        this.ngbModalRef = null;
         this.result = new ReturnResult<Phong>();
     }
     private phongs : Phong[];

@@ -3,9 +3,31 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Danh sách tài khoản
-          <button class="btn btn-primary btn-sm pull-right" (click)="openDialog()">
-            <span><i class="fa fa-plus"></i> Thêm mới tài khoản</span>
-          </button>
+          <div style="margin-left: 6px;margin-right: 0px;margin-bottom: 10px;" class="row">
+            <div class="col-md-4 row col-lg-4">
+              <label class="col-md-4 col-sm-6 col-form-label" for="select1">Nhóm quyền</label>
+              <div style="margin-top:5px;" class="col-md-8 col-sm-6">
+                <ng-select2
+                  [data]="userGroupArr"
+                  [placeholder]="'Chọn nhóm quyền...'"
+                  [options]="options"
+                  [(ngModel)]="arrayTypeValue"
+                  (valueChanged)="getFilterOptions($event)"
+              ></ng-select2>
+              </div>
+            </div>
+            <div class="row col-md-4 col-lg-4">
+              <label class="col-md-4 col-sm-6 col-form-label" for="text-input">Tìm kiếm</label>
+              <div class="col-md-8 col-sm-6" style="margin-top: 5px;">
+                <input type="text" id="text-input" (ngModelChange)="onChange($event)" ngModel="" name="searchText" class="form-control">
+              </div>
+            </div>
+            <div class="row col-md-4 col-lg-4" style="margin-top:5px;">
+              <button style="height: 34px;" class="btn btn-primary btn-sm pull-right" (click)="openDialog()">
+                <span><i class="fa fa-plus"></i> Thêm mới tài khoản</span>
+              </button>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <table class="table table-bordered table-striped table-sm">
@@ -18,7 +40,7 @@
                 <th>Trạng thái</th>
                 <th>Nhóm quyền</th>
                 <th>Quyền</th>
-                <th>Action</th>
+                <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -44,7 +66,7 @@
           </table>
           <nav>
             <ul class="pagination">
-              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
             </ul>
           </nav>
         </div>

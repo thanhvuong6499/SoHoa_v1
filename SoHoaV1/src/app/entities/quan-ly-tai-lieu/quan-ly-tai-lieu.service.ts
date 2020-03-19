@@ -44,6 +44,10 @@ export class QuanLyTaiLieuService {
     return this.httpClient.get<ReturnResult<DocumentType>>(ApiUrl.apiUrl + "DocumentType/GetAllDocumentType");
   }
 
+  public getAllDocument(){
+    return this.httpClient.get<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/GetAllDocument");
+  }
+
   public getLanguageList(){
     return this.httpClient.get<ReturnResult<Language>>(ApiUrl.apiUrl + "Language/GetAllLanguage");
   }
