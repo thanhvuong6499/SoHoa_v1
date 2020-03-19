@@ -14,38 +14,47 @@ import { organ } from '../../model/co-quan.model';
 export class QuanLyDanhMucService {
   danhmucs: DanhMuc[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
-  public getListHopSoByDanhMucId (id: number) {
-    var listhopso : HopSo[] = [];
-    for (let i = 0; i < hopsos.length; i ++) {
-      if (hopsos[i].tabOfContID == id) {
-        listhopso.push(hopsos[i]);
-      }
-    }
-    return listhopso;
-  }
-  public getAllDanhMucWithPaging(condi? : BaseCondition<DanhMuc>) {
-    console.log(condi);
+  getListHopSoByDanhMucId (condi? : BaseCondition<HopSo>){
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  return this.httpClient.post<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetGearBoxByTabOfContID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+  
+
+  public getAllDanhMucWithPaging(condi? : BaseCondition<DanhMuc>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetPagingWithSearchResults', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  //  var body = JSON.stringify(condi);
+  //  return this.httpClient.get<CoQuan[]>(ApiUrl.apiUrl + 'CoQuan/GetCoQuanWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetPagingWithSearchResults', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+
   insertNewDanhMuc (danhmuc: DanhMuc) {
     var body = JSON.stringify(danhmuc);
     return this.httpClient.post<ReturnResult<DanhMuc>>(ApiUrl.apiUrl + "TableOfContents/InsertTableOfContents", body, { headers: HttpHeadersOptions.headers });
@@ -73,7 +82,6 @@ export class QuanLyDanhMucService {
       id: id
     }
     var params = JSON.stringify(body);
-    console.log(params)
     return this.httpClient.post<ReturnResult<DanhMuc>>(ApiUrl.apiUrl + "TableOfContents/DeleteTableOfContents?id=" + id, { headers :HttpHeadersOptions.headers });
   }
   getAllDanhMuc() {

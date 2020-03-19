@@ -35,13 +35,11 @@ export class QuanLyNguoiDungComponent implements OnInit {
         this.totalRecords = result.totalRows;
         this.users = result.itemList;
       }, (error) => {
-        console.log(error);
       });
   }
 
   openDialog(id?: number) {
     if (id) {
-      console.log(id);
       this.quanLyNguoiDungService
         .open(NguoiDungDialogComponent as Component, id);
 
@@ -55,7 +53,6 @@ export class QuanLyNguoiDungComponent implements OnInit {
 
       this.quanLyNguoiDungService
         .open(NguoiDungDialogComponent as Component, id);
-      console.log(id);
   }
 
   loadPages(page : number) {
@@ -66,7 +63,6 @@ export class QuanLyNguoiDungComponent implements OnInit {
         // this.totalRecords = result.totalRows;
         this.users = result.itemList;
       }, (error) => {
-        console.log(error);
       });
   }
 }

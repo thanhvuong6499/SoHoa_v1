@@ -9,7 +9,11 @@ import { HoSoDeleteComponent } from './ho-so-delete/ho-so-delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
-
+import { MaterialModule } from '../../material.module';
+import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
+import { NgSelect2Module } from 'ng-select2';
+import { FileDetailsComponent } from './file-details/file-details.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -17,17 +21,24 @@ import { QuanLyHoSoPopupService } from './quan-ly-ho-so-popup.service';
     HoSoDialogComponent,
     HoSoDetailComponent,
     HoSoDeleteComponent,
+    FileDropDirective,
+    FileSelectDirective,
+    FileDetailsComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    QuanLyHoSoRoutingModule
+    QuanLyHoSoRoutingModule,
+    MaterialModule,
+    NgSelect2Module,
+    NgxSpinnerModule
   ],
   entryComponents:[
     HoSoDialogComponent,
-    HoSoDeleteComponent
+    HoSoDeleteComponent,
+    FileDetailsComponent
   ],
   providers:[
     QuanLyHoSoPopupService

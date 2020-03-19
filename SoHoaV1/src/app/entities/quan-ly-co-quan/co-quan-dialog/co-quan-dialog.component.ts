@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CoQuan, coquans } from '../../../model/co-quan.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyCoQuanPopupService } from '../quan-ly-co-quan-popup.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan-service.service';
 import { Select2Data } from 'ng-select2-component';
 import { QuanLyCoQuanComponent } from '../quan-ly-co-quan.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrganType } from '../../../model/organ-type.model';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
@@ -29,6 +29,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   data: any;
   provinceId: number;
   districtId: number;
+  wardId: number;
 //  organTypeList: Select2Data;
 
   organTypeList: Array<Select2OptionData>;
@@ -40,7 +41,9 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
 
   enaWard: boolean = true;
   wardList: Array<Select2OptionData>;
-
+  form: FormGroup;
+  submitted = false;
+  loading = false;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -48,6 +51,8 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
     public service: QuanLyCoQuanService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {
     //  this.organTypeList = new Array<OrganType>();
     this.options = {
@@ -59,7 +64,20 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-    
+    // init form component
+    this.form = this.formBuilder.group({
+      organCode: ['', Validators.required],
+      tenCoQuan: ['', Validators.required],
+      loaiCoQuanID: ['', Validators.required],
+      tinhID: ['', Validators.required],
+      huyenID: ['', Validators.required],
+      xaPhuongID: [''],
+      description: [''],
+      notes: [''],
+      addressDetail: ['']
+    });
+
+    console.log(this.f)
     this.isEdit = false;
     this.service.getListOrganType()
       .subscribe((result) => {
@@ -73,7 +91,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
     
@@ -87,7 +104,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         this.provinceList = lstProvinces;
       },
       (error) => {
-        console.log(error);
         setTimeout(() => {
           alert("Lấy dữ liệu về tỉnh/thành phố thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
@@ -101,12 +117,18 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
       this.coQuan = this.coQuanPopupService.result.item;
       this.provinceId = this.coQuan.tinhID;
       this.districtId = this.coQuan.huyenID;
+      this.wardId = this.coQuan.wardId;
       this.isEdit = true
       this.enaDistrict = false;
       this.enaWard = false;
     }
 
   }
+
+  get f() {
+    return this.form.controls;
+  }
+
   update1(value: string) {
 
   }
@@ -115,40 +137,59 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    console.log(this.coQuan);
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+
+    this.loading = true;
+
     if (this.isEdit) {
-      console.log(this.coQuan);
       this.service.updateCoQuan(this.coQuan)
         .subscribe((result) => {
-          console.log(result);
+          if (result.isSuccess)
+          {
+            this.onSaveSuccess("Chỉnh sửa thành công");
+          }
+          else {
+          //  this.toastr.error("Chỉnh sửa thất bại, vui lòng kiểm tra lại. Lỗi: " + result.errorMessage, "Lỗi");
+          if (result.errorCode == "-1") {
+              this.toastr.warning("Chỉnh sửa thành công");
+            }
+          }
         },
         (error)=> {
-          console.log(error);
-          
-          // this.onSaveError();
+         this.toastr.error("Chỉnh sửa thất bại, vui lòng kiểm tra lại", "Lỗi");
         },
         () => {
           // do something
           this.activeModal.dismiss("Update successfully.");
-          this.onSaveSuccess("Chỉnh sửa thành công");
-
         });
     }
     else {
         this.service.insertNewCoQuan(this.coQuan)
         .subscribe((result) => {
-          console.log(result);
+          if(result.isSuccess) {
+            this.onSaveSuccess("Thêm mới thành công");
+          }
+          else {
+            this.toastr.error("Thêm mới thất bại, vui lòng kiểm tra lại", "Lỗi");
+          }
         },
         (error) => {
-          console.log(error);
+          this.toastr.error("Thêm mới thất bại, vui lòng kiểm tra lại", "Lỗi");
         }, () => {
-          this.onSaveSuccess("Thêm mới thành công");
+          
           this.activeModal.dismiss("Create new successfully");
         });
     }
   }
 
   getDistrictByProvinceId(value : any) {
-    if (value != null) {
+    if (value != "" && value != undefined) {
+      if (value != this.provinceId)
+      {
+        this.coQuan.huyenID = undefined;
+      }
       this.service.getDistrictByProvinceId(value)
       .subscribe((districs) => {
         if (districs != undefined) {
@@ -162,12 +203,16 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
         }
       },
       (error) => {
+        console.log(error);
         alert("Lấy dữ liệu danh sách huyện thất bại. Lỗi: " + JSON.stringify(error));
       },
       () => {
         this.enaDistrict = false;
       });
       
+    }
+    else {
+      return;
     }
   }
 

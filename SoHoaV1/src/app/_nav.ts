@@ -70,18 +70,23 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/',
+    url: '/ThongKe/thongKe',
     icon: 'icon-chart'
   },
   {
     name: 'Nhật kí',
-    url: '/',
+    url: '/ThongKe/nhatKy',
     icon: 'fa fa-address-book-o'
   },
   {
     name: 'Quản lý người dùng',
     url: '/QuanLyNguoiDung/nguoiDung',
     icon: 'icon-user'
+  },
+  {
+    name: 'Quản lý chữ ký số',
+    url: '/QuanLyChuKySo/chuKySo',
+    icon: 'fa fa-address-book-o'
   },
   
 //   {

@@ -17,31 +17,41 @@ import {QuanLyDanhMucService} from '../quan-ly-danh-muc/quan-ly-danh-muc.service
   styleUrls: ['./quan-ly-hop-so.component.css']
 })
 export class QuanLyHopSoComponent implements OnInit {
+  searchText: string = "";
   danhmuc: DanhMuc;
   hopsos: HopSo[];
-  page = 0;
+  page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
   lstDanhMuc: Array<Select2OptionData>;
   options: Options;
-
+  color: string = "primary";
+  mode: string = "indeterminate";
+  value: number = 30;
+  condition: BaseCondition<HopSo>;
+  tableOfContArr: Array<Select2OptionData>;
+  arrayTableOfContValue: string[];
   
   constructor(
     private hopSoPopupService: QuanLyHopSoPopupService, 
     private danhMucService: QuanLyDanhMucService,
     private quanLyHopSoService: QuanLyHopSoService,
   ) { 
+      this.searchText = "";
+      this.condition = new BaseCondition<HopSo>();
+      this.tableOfContArr = new Array<Select2OptionData>();
+      this.options = {
+        width: "100%",
+        closeOnSelect: true,
+        multiple: true,
+        tags: true
+      }
       this.danhmuc = new DanhMuc();
-        this.options = {
-          multiple: false,
-          theme: 'classic',
-          closeOnSelect: true,
-          width: "100%"
-        }
     }
 
   ngOnInit() {
+    this.loadFilterOptionsDanhMuc();
     this.getAllDanhMuc();
     this.loadAll();
   }
@@ -50,7 +60,6 @@ export class QuanLyHopSoComponent implements OnInit {
     if (id) {
       this.hopSoPopupService
         .open(HopSoDialogComponent as Component, id);
-      console.log(id);
 
     } else {
       this.hopSoPopupService
@@ -59,20 +68,17 @@ export class QuanLyHopSoComponent implements OnInit {
 
   }
   openDeleteDialog(id?: number) {
-
       this.hopSoPopupService
         .open(HopSoDeleteComponent as Component, id);
-      console.log(id);
   }
   loadPages(page : number) {
     var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
     condi.PageIndex = page;
-    this.quanLyHopSoService.getAllHopSoWithPaging(condi).subscribe((data : HttpResponse<HopSo[]>) => {
-      this.hopsos = data.body["itemList"];
+    this.quanLyHopSoService.getAllHopSoWithPaging(condi).subscribe((data : any) => {
+      this.hopsos = data.itemList;
       this.page = page;
-      this.totalRecords = data.body["totalRows"];
+      this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
       this.pageSize = 5;
     }, () => {
       console.log("Lấy dữ liệu thành công");
@@ -92,21 +98,123 @@ export class QuanLyHopSoComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
   }
 
   loadAll(){
-    this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : HttpResponse<HopSo[]>) => {
-      this.hopsos = data.body["itemList"];
+    this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : any) => {
+      this.hopsos = data.itemList;
       this.pageSize = 5;
-      this.page = 0;
-      this.totalRecords = data.body["totalRows"];
+      this.page = 1;
+      this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
     }, () => {
       console.log('Lấy dữ liệu thành công.');
     });
+  }
+
+  loadFilterOptionsDanhMuc () {
+      this.danhMucService.getAllDanhMuc()
+      .subscribe((result) => {
+      //  this.organFilterData = result;
+        var arrTypes = [];
+        for (const item of result.itemList) {
+          let value = { id: item.tabOfContID, text: item.tabOfContName }
+          arrTypes.push(value);
+        }
+        this.tableOfContArr = arrTypes;
+      }, 
+      (error => {
+      }),
+      () => {
+      })
+  }
+
+  getFilterTypes(value : string[]) {
+    if (value != undefined) {
+    }
+    
+  }
+
+  getFilterName(value : string[]) {
+
+  }
+
+  getFilterOrganAddress(value: string[]) {
+
+  }
+  onChange(searchText: string){
+    this.searchText = searchText;
+    this.getFilterOptions(this.arrayTableOfContValue);
+  }
+
+  getFilterOptions (types: string[]) {
+    this.condition.PageIndex = 1;
+    this.condition.FilterRuleList = [
+      {
+        field: "sh.MucLucHoSoID",
+        op: "",
+        value: ""
+      },
+      {
+        field: "sh.TieuDeHopSo ",
+        op: "",
+        value: ""
+      },
+      {
+        field: "sh.MaHopSo",
+        op: "",
+        value: ""
+      },
+      {
+        field: "sh.GhiChu",
+        op: "",
+        value: ""
+      }
+    ]
+    this.arrayTableOfContValue = types;
+    if (this.arrayTableOfContValue != undefined) {
+      this.condition.FilterRuleList[0].value = types.toString();
+      if (types.length == 1) {
+        this.condition.FilterRuleList[0].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[0].op = "and_in_strings";
+      }
+    }
+
+    if (this.searchText != "") {
+      this.condition.FilterRuleList[1].value = this.searchText;
+      this.condition.FilterRuleList[1].op = "start_and_or_contains";
+      this.condition.FilterRuleList[2].value = this.searchText;
+      this.condition.FilterRuleList[2].op = "or_contains";
+      this.condition.FilterRuleList[3].value = this.searchText;
+      this.condition.FilterRuleList[3].op = "end_and_or_contains";
+    }
+
+    if (this.searchText == "") {
+      this.condition.FilterRuleList[1].value = this.searchText;
+      this.condition.FilterRuleList[1].op = "";
+      this.condition.FilterRuleList[2].value = this.searchText;
+      this.condition.FilterRuleList[2].op = "";
+      this.condition.FilterRuleList[3].value = this.searchText;
+      this.condition.FilterRuleList[3].op = "";
+    }
+    if (types != undefined || this.searchText !=undefined) {
+      this.quanLyHopSoService.getAllHopSoWithPaging(this.condition)
+      .subscribe((data: any) => {
+        this.hopsos = data.itemList;
+        this.pageSize = 5;
+        this.page = 1;
+        this.totalRecords = data.totalRows;
+      }, (error) => {
+      }, () => {
+        
+      })
+    }
+  }
+  ngOnDestroy(): void {
+  
   }
 }

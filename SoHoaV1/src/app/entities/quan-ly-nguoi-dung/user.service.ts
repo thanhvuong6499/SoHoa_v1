@@ -35,7 +35,6 @@ export class UserService implements OnInit, OnDestroy {
     var user = JSON.stringify(u);
     return this.httpClient.post<User>(ApiUrl.apiUrl + "User/Create", user, httpOptions)
       .pipe(map((result) => {
-        console.log(result);
         return result;
       }));
   }

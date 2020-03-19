@@ -28,7 +28,6 @@ export class PhongDeleteComponent implements OnInit {
   deleteFont(id : number) {
     this.phongService.deletePhong(id)
       .subscribe((result) => {
-        console.log(result)
         
       },
       (error) => {

@@ -13,18 +13,21 @@ import { BaseCondition } from '../../common/BaseCondition';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { CoQuan } from '../../model/co-quan.model';
+import { OrganFilter } from '../../model/organ-filter.model';
+import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
+import { QuanLyDanhMucService } from '../quan-ly-danh-muc/quan-ly-danh-muc.service';
 
 @Component({
   selector: 'app-quan-ly-phong',
   templateUrl: './quan-ly-phong.component.html',
   styleUrls: ['./quan-ly-phong.component.css']
 })
-export class QuanLyPhongComponent implements OnInit {
+export class QuanLyPhongComponent implements OnInit, OnDestroy {
   // @ViewChild("modalPhong") public modalPhong: ModalDirective;
   phongs: Phong[];
   phong: Phong;
   searchText: string = "";
-  page = 0;
+  page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
@@ -33,25 +36,37 @@ export class QuanLyPhongComponent implements OnInit {
   color: string = "primary";
   mode: string = "indeterminate";
   value: number = 30;
+  organFilterData: OrganFilter;
   condition: BaseCondition<Phong>;
-  arrayOrgan: string[];
+  organArr : Array<Select2OptionData>;
+  fontArr: Array<Select2OptionData>;
+  valueOrganTypes: Array<string>;
+  arrayTypeValue: string[];
+  arrayFontValue: string[];
+  arrayAddressValue: string[];
 
   constructor(
     private route: ActivatedRoute,
     public phongPopupService: QuanLyPhongPopupService,
-    public phongService: QuanLyPhongService
+    public phongService: QuanLyPhongService,
+    private danhMucService: QuanLyDanhMucService,
+    private coQuanService: QuanLyCoQuanService
   ) {
     this.phong = new Phong();
+    this.condition = new BaseCondition<Phong>();
+    this.organArr = new Array<Select2OptionData>();
+    this.fontArr = new Array<Select2OptionData>();
+    this.organFilterData = new OrganFilter();
     this.options = {
-      multiple: false,
-      theme: 'classic',
+      width: "100%",
       closeOnSelect: true,
-      width: "100%"
+      multiple: true,
+      tags: true
     }
    }
 
   ngOnInit() {
-    this.getAllCoQuan();
+    this.loadFilterOptionsOrgan();
     this.loadAll();
   }
 
@@ -63,11 +78,9 @@ export class QuanLyPhongComponent implements OnInit {
       this.phongPopupService
         .open(PhongDialogComponent as Component);
     }
-
   }
+  
   openDeleteDialog(id?: number) {
-    console.log(id);
-    debugger;
     if (id) {
       this.phongPopupService
         .open(PhongDeleteComponent as Component, id);
@@ -77,22 +90,26 @@ export class QuanLyPhongComponent implements OnInit {
     }
   }
 
-  loadPages(page : number) {
+  loadPages(page : string) {
+    try{
       var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
-      // if (this.condition.FilterRuleList != undefined) {
-      //   condi.FilterRuleList = this.condition.FilterRuleList;
-      // }
-      condi.PageIndex = page;
-      this.phongService.getAllPhongWithPaging(condi).subscribe((data : HttpResponse<Phong[]>) => {
-        this.phongs = data.body["itemList"];
-        this.page = page;
-        this.totalRecords = data.body["totalRows"];
+      if (this.condition.FilterRuleList != undefined) {
+        condi.FilterRuleList = this.condition.FilterRuleList;
+      }
+      condi.PageIndex = parseInt(page);
+      this.phongService.getAllPhongWithPaging(condi).subscribe((data : any) => {
+        this.phongs = data.itemList;
+        this.pageSize = 5;
+        this.page = parseInt(page);
+        this.totalRecords = data.totalRows;
       }, (error) => {
-        console.log(error);
         this.pageSize = 5;
       }, () => {
         console.log("Lấy dữ liệu thành công");
       });
+    }catch (e) {
+      alert(JSON.stringify(e))
+    }
   }
   getAllCoQuan() {
     this.phongService.getAllCoQuan()
@@ -107,56 +124,105 @@ export class QuanLyPhongComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
       }, () => {
       });
   }
   loadAll(){
     if(this.phong.organID != undefined){
     }
-    this.phongService.getAllPhongWithPaging().subscribe((data : HttpResponse<Phong[]>) => {
-      this.phongs = data.body["itemList"];
+    this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
+      this.phongs = data.itemList;
       this.pageSize = 5;
-      this.page = 0;
-      this.totalRecords = data.body["totalRows"];
+      this.page = 1;
+      this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
     }, () => {
       console.log('Lấy dữ liệu thành công.');
     });
   }
-  getFilterOptions (organ: string[]) {
+
+  loadFilterOptionsOrgan () {
+    this.coQuanService.getAllOrgan()
+      .subscribe((result) => {
+      //  this.organFilterData = result;
+        var arrTypes = [];
+        for (const item of result.organName) {
+          let value = { id: item, text: item }
+          arrTypes.push(value);
+        }
+        this.organArr = arrTypes;
+      }, 
+      (error => {
+      }),
+      () => {
+      })
+
+      this.danhMucService.getAllPhong()
+      .subscribe((result) => {
+        if (result != undefined) {
+          var phongs = [];
+          for (var item of result.itemList) {
+            var temp = { id: item.fontID, text: item.fontName };
+            phongs.push(temp);
+          }
+          this.fontArr = phongs;
+        }
+      },
+      (error) => {
+      }, () => {
+      });
+  }
+
+  getFilterOptions (types: string[],fonts : string[]) {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "",
+        field: "scq.TenCoQuan",
         op: "",
         value: ""
-      }
+      },
+      {
+        field: "sp.PhongID",
+        op: "",
+        value: ""
+      },
     ]
-    this.arrayOrgan = organ;
-    if (this.arrayOrgan != undefined) {
-      this.condition.FilterRuleList[0].value = organ.toString();
-      if (organ.length == 1) {
+    this.arrayTypeValue = types;
+    
+    this.arrayFontValue = fonts;
+    if (this.arrayTypeValue != undefined) {
+      this.condition.FilterRuleList[0].value = types.toString();
+      if (types.length == 1) {
         this.condition.FilterRuleList[0].op = "and_contains";
       }
       else {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
-    if (organ != undefined || name != undefined || organ != undefined) {
+
+    if (this.arrayFontValue != undefined) {
+      this.condition.FilterRuleList[1].value = fonts.toString();
+      if (fonts.length == 1) {
+        this.condition.FilterRuleList[1].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[1].op = "and_in_strings";
+      }
+    }
+    
+    if (types != undefined || fonts != undefined) {
       this.phongService.getAllPhongWithPaging(this.condition)
-      .subscribe((data) => {
-        this.phongs = data["itemList"];
+      .subscribe((data: any) => {
+        this.phongs = data.itemList;
         this.pageSize = 5;
         this.page = 1;
-        this.totalRecords = data["totalRows"];
+        this.totalRecords = data.totalRows;
       }, (error) => {
-        console.log(error);
       }, () => {
         
       })
     }
+    
   }
   ngOnDestroy(): void {
     

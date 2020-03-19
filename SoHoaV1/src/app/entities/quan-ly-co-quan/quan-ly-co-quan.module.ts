@@ -14,6 +14,7 @@ import { MatFormFieldModule,MatInputModule } from '@angular/material';
 import { Select2Module } from "ng-select2-component";
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelect2Module } from 'ng-select2';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgSelect2Module } from 'ng-select2';
     MatAutocompleteModule,
     HttpClientModule,
     QuanLyCoQuanRoutingModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSpinnerModule
   ],
   providers:[
     QuanLyCoQuanPopupService,

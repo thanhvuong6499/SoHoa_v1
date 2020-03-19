@@ -11,6 +11,7 @@ import { BaseCondition } from '../../common/BaseCondition';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
 import { OrganFilter } from '../../model/organ-filter.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-quan-ly-co-quan',
@@ -43,7 +44,8 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private coQuanPopupService: QuanLyCoQuanPopupService,
-    private coQuanService: QuanLyCoQuanService
+    private coQuanService: QuanLyCoQuanService,
+    private spinner: NgxSpinnerService
   ) { 
     this.condition = new BaseCondition<CoQuan>();
     this.organTypesArr = new Array<Select2OptionData>();
@@ -79,6 +81,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   }
 
   loadPages(page : string) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try {
       var condi : BaseCondition<CoQuan> = new BaseCondition<CoQuan>();
       if (this.condition.FilterRuleList != undefined) {
@@ -91,25 +94,33 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
       }, (error) => {
-        console.log(error);
+          setTimeout(() => {
+            alert("Lỗi: " + JSON.stringify(error));
+            this.hideSpinner("paging");
+          }, 5000);
       }, () => {
-
+        this.hideSpinner("paging");
       });
     }
     catch (e) {
-      alert(JSON.stringify(e))
+      alert(JSON.stringify(e));
     }
   }
   loadAll(){
+    this.showSpinner("dataTable", "timer", "0.8");
     this.coQuanService.getAllCoQuanWithPaging().subscribe((data : any) => {
       this.coquans = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
     }, (error) => {
-      console.log(error);
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      
+      this.hideSpinner("dataTable");
+      this.showSpinner("filterOptions","timer", "0.8");
     });
   }
 
@@ -120,6 +131,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
   //   }
   // }
   loadFilterOptionsOrgan () {
+    
     this.coQuanService.getAllOrgan()
       .subscribe((result) => {
       //  this.organFilterData = result;
@@ -144,20 +156,18 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         
       }, 
       (error => {
-        console.log(error)
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
-        // do something
-        // this.arrayTypeValue = [this.organTypesArr[0].id, this.organTypesArr[1].id];
-        // this.arrayNameValue = [this.organNameArr[0].id, this.organNameArr[1].id];
-        // this.arrayAddressValue = [this.organAddressArr[0].id, this.organAddressArr[1].id];
-
+        this.hideSpinner("filterOptions");
       })
   }
 
   getFilterTypes(value : string[]) {
     if (value != undefined) {
-      console.log(value.toString());
     }
     
   }
@@ -221,6 +231,7 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
     }
     
     if (types != undefined || name != undefined || address != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.coQuanService.getAllCoQuanWithPaging(this.condition)
       .subscribe((data) => {
         this.coquans = data["itemList"];
@@ -228,12 +239,33 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
         this.page = 1;
         this.totalRecords = data["totalRows"];
       }, (error) => {
-        console.log(error);
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
-    
+  }
+
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
   }
 
   ngOnDestroy(): void {

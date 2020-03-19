@@ -69,7 +69,7 @@ export class TaiLieuDialogComponent implements OnInit {
       .subscribe((result) => {
         var profileList = [];
         for (const item of result) {
-          var temp = { id: item.id, text: item.hososo }
+          var temp = { id: item.profileId, text: item.fileNotation }
           profileList.push(temp);
         }
         console.log(profileList);

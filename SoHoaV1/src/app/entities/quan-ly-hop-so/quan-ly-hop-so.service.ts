@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HopSo, hopsos } from '../../model/hop-so.model';
-import { HoSo, hosos } from '../../model/ho-so.model';
+import { HoSo } from '../../model/ho-so.model';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { DanhMuc } from '../../model/danh-muc.model';
+import { Phong } from '../../model/phong.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,37 +13,42 @@ import { DanhMuc } from '../../model/danh-muc.model';
 export class QuanLyHopSoService {
   hopsos: HopSo[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
-  public getListHoSoByHopSoId (id: number) {
-    var listhoso : HoSo[] = [];
-    for (let i = 0; i < hosos.length; i ++) {
-      if (hosos[i].hopsoid == id) {
-        listhoso.push(hosos[i]);
-      }
-    }
-    return listhoso;
-  }
-  public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {
-    console.log(condi);
+  
+  public getListHoSoByHopSoId (condi? : BaseCondition<HoSo>) {
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  return this.httpClient.post<HoSo[]>(ApiUrl.apiUrl + 'GearBox/GetProfileByGearBoxID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  public getAllHopSoWithPaging(condi? : BaseCondition<HopSo>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+    }
+    return this.httpClient.post<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   insertNewHopSo (hopso: HopSo) {
@@ -55,11 +61,10 @@ export class QuanLyHopSoService {
   }
 
   updateHopSo (hopso: HopSo) {
-    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/UpdateCoQuan", JSON.stringify(hopso), { headers: HttpHeadersOptions.headers });
+    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/UpdateGearBox", JSON.stringify(hopso), { headers: HttpHeadersOptions.headers });
   }
 
   getListHopSoByDanhMucId (condi? : BaseCondition<HopSo>){
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
@@ -77,7 +82,6 @@ export class QuanLyHopSoService {
     }
    //  var reqOptions = HttpUtilities.convert(condi);
    var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
     const options = HttpUtilities.createRequestOption(reqOptions);
     return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetPagingWithSearchResults', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
   }
@@ -89,8 +93,20 @@ export class QuanLyHopSoService {
       id: id
     }
     var params = JSON.stringify(body);
-    console.log(params)
-    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "CoQuan/DeleteCoQuan?id=" + id, { headers :HttpHeadersOptions.headers });
+    return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/DeleteGearBox?id=" + id, { headers :HttpHeadersOptions.headers });
   }
-  
+
+  getFontByOrganId (id: string) {
+    var params = {
+      organID: id
+    }
+    return this.httpClient.get<Phong[]>(ApiUrl.apiUrl + "GearBox/GetFontsByOrganID", { params: params });
+  }
+
+  getTabByFontId (id: string) {
+    var params = {
+      fontID: id
+    }
+    return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + "GearBox/GetTableOfContentsByFontID", { params: params });
+  }
 }

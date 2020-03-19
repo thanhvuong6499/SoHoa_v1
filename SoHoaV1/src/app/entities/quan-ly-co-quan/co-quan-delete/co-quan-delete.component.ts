@@ -26,7 +26,6 @@ export class CoQuanDeleteComponent implements OnInit {
   deleteCoQuan(id : any) {
     this.coQuanService.deleteCoQuan(id)
       .subscribe((result) => {
-        console.log(result)
         
       },
       (error) => {

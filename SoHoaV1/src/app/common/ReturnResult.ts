@@ -1,5 +1,5 @@
 export class ReturnResult<T>{
-    isSuccess: boolean;
+    isSuccess: boolean = true;
     errorMessage: string;
     errorCode: string;
     item: T;
@@ -7,4 +7,5 @@ export class ReturnResult<T>{
     hasData: boolean;
     hasError: boolean;
     totalRows?: number;
+    returnValue?: string;
   }

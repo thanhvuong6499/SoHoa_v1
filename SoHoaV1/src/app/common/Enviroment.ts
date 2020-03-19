@@ -10,3 +10,10 @@ export const HttpHeadersOptions = {
         'Content-Type': 'application/json'
     })
 }
+
+export const HttpHeaderOptionsFormData = {
+    headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data',
+        'Accept': '*/*'
+    })
+}

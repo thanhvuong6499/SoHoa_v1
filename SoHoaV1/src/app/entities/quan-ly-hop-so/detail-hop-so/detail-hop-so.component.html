@@ -3,10 +3,7 @@
     <div class="card-header" aria-hidden="true">
         <div>
             <h4 class="modal-title">Chi tiết hộp số</h4>
-
         </div>
-
-        
     </div>
     <div class="card-body">
         <div class="form-group row">
@@ -42,13 +39,13 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>
             <div class="col-md-9">
-                <span>{{hopso.startDate}}</span>
+                <span>{{ hopso.startDate.toString().split('T') | date: 'dd/MM/yyyy' }}</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc</label>
             <div class="col-md-9">
-                <span>{{hopso.endDate}}</span>
+                <span>{{ hopso.endDate.toString().split('T') | date: 'dd/MM/yyyy' }}</span>
             </div>
         </div>
         <div class="form-group row">
@@ -72,21 +69,21 @@
             </thead>
             <tbody>
               <tr *ngFor="let hoso of hosos">
-                <td>{{ hoso.id }}</td>
-                <td>{{ hoso.hososo }}</td>
-                <td>{{ hoso.tieude }}</td>
-                <td>{{ hoso.loaihoso }}</td>
-                <td>{{ hoso.ghichu }}</td>
+                <td>{{ hoso.profileID }}</td>
+                <td>{{ hoso.gearBoxId }}</td>
+                <td>{{ hoso.title }}</td>
+                <td>{{ hoso.profileTypeName }}</td>
+                <td>{{ hoso.note }}</td>
                
                 <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.id]" routerLinkActive="router-link-active"  ></button>
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.profileID]" routerLinkActive="router-link-active"  ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.id)"  replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
+                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.profileID)"  replaceUrl="true" queryParamsHandling="merge"></button>
+                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hoso.profileID)"></button>
               </td>
             </tr>
             </tbody>
           </table>
-          <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+          <ngb-pagination *ngIf="hopso" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,hopso.gearBoxID)"></ngb-pagination>
     </div>
 </div>

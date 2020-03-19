@@ -11,6 +11,9 @@ import { QuanLyTaiLieuModule } from './quan-ly-tai-lieu/quan-ly-tai-lieu.module'
 import { QuanLyHoSoComponent } from './quan-ly-ho-so/quan-ly-ho-so.component';
 import { QuanLyTaiLieuComponent } from './quan-ly-tai-lieu/quan-ly-tai-lieu.component';
 import { MaterialModule } from '../material.module';
+import { ThongKeModule } from './thong-ke/thong-ke.module';
+import { QuanLyChuKySoModule } from './quan-ly-chu-ky-so/quan-ly-chu-ky-so.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { MaterialModule } from '../material.module';
     QuanLyHoSoModule,
     QuanLyCoQuanModule,
     QuanLyTaiLieuModule,
-    MaterialModule
-  ],
+    ThongKeModule,
+    QuanLyChuKySoModule,
+    MaterialModule,
+    NgxSpinnerModule
+  ]
 })
 export class EntitiesModule { }

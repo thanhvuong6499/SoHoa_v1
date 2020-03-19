@@ -28,28 +28,24 @@ export class QuanLyPhongService {
     }
     return phong;
   }
+  
   public getAllPhongWithPaging(condi? : BaseCondition<Phong>) {
-    console.log(condi);
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: ""
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
+
     }
-   //  var reqOptions = HttpUtilities.convert(condi);
-   var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<Phong[]>(ApiUrl.apiUrl + 'Font/GetFontWithPaging', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<Phong[]>(ApiUrl.apiUrl + 'Font/GetFontWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   insertNewPhong (phong: Phong) {
@@ -68,37 +64,28 @@ export class QuanLyPhongService {
   getPhongById (id: number) {
     return this.httpClient.get<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/GetFontByID/" + id);
   }
-  getListDanhMucByPhongId (condi? : BaseCondition<Phong>){
-    console.log(condi);
+  getListDanhMucByPhongId (condi? : BaseCondition<DanhMuc>){
     var condition = {};
     if (condi != undefined) {
       condition = {
         PageIndex : condi.PageIndex,
         PageSize: 5,
-        IN_WHERE: condi.IN_WHERE
+        FilterRuleList: condi.FilterRuleList
       }
     }
     else {
       condition = {
         PageIndex : 1,
-        PageSize: 5,
-        IN_WHERE: ""
+        PageSize: 5
       }
+
     }
-    var reqOptions = JSON.stringify(condi);
-    console.log(reqOptions);
-    const options = HttpUtilities.createRequestOption(reqOptions);
-    return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', { headers: { 'Access-Control-Allow-Origin': '*' }, params: condition, observe: 'response' });
+  return this.httpClient.post<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
   getAllCoQuan (){
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");
   }
   deletePhong (id: number) {
-    // var body = {
-    //   id: id
-    // }
-    // var params = JSON.stringify(body);
-    // console.log(params)
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/DeleteFont?id=" + id, { headers :HttpHeadersOptions.headers });
   }
 }
