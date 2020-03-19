@@ -14,6 +14,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { Select2Module } from 'ng-select2-component';
+import { NgSelect2Module } from 'ng-select2';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSliderModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    Select2Module,
+    NgSelect2Module
   ],
   providers:[
     QuanLyNguoiDungPopupService,

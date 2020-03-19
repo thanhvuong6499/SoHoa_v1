@@ -67,13 +67,13 @@
             <tbody>
               <tr *ngFor="let hopso of hopsos; index as i">
                 <td>{{ i+1 }}</td>
-                <td>{{ hopso.mahopso }}</td>
+                <td>{{ hopso.gearBoxCode }}</td>
                 <td>{{ hopso.gearBoxTitle }}</td>
                 <td>{{ hopso.profileCount }}</td>
                 <td>{{ hopso.numDoc }}</td>
                 <td>{{ hopso.note }}</td>
                
-                <td style="width:137px">
+                <td style="width:137px;text-align: center;">
                   <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]" routerLinkActive="router-link-active" ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
                   <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
