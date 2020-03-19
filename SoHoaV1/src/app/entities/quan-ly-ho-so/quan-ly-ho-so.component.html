@@ -2,6 +2,13 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
+        <ngx-spinner name="dataTable">
+          <br>
+          <p class="loading" style="color: blue;">Đang tải dữ liệu, vui lòng chờ...</p>
+      </ngx-spinner>
+      <ngx-spinner name="filterOptions">
+        <br>
+      </ngx-spinner>
         <h4><i class="fa fa-folder"></i> &nbsp;Quản lí Hồ sơ</h4>
         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
         <hr/>
@@ -48,6 +55,10 @@
       </div>
       <div class="card-body">
         <table class="table table-bordered table-striped table-sm">
+          <ngx-spinner name="paging">
+            <br>
+            <p class="loading" style="color: blue;"></p>
+          </ngx-spinner>
           <thead>
             <tr>
               <th>Hộp số</th>
@@ -67,7 +78,7 @@
               <td> {{ item.profileTypeName }}</td>
               <td> {{ item.maintenance }}</td>
               <td> {{ item.description }}</td>
-              <td style="width:137px">
+              <td style="width:137px" class="center">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo', item.profileId]"
                   routerLinkActive="router-link-active"></button>
                 
@@ -80,7 +91,12 @@
           </table>
           <nav>
             <ul class="pagination">
-              <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              <div *ngIf="totalRecords > 0 else nondata">
+                <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+              </div>
+              <ng-template #nondata>
+                <div>Không có dữ liệu phù hợp.</div>
+              </ng-template>
             </ul>
           </nav>
         </div>

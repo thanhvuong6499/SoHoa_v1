@@ -2,6 +2,8 @@ import { Injectable, Component } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { HoSo } from '../../model/ho-so.model';
+import { QuanLyHoSoService } from './quan-ly-ho-so.service';
+import { ReturnResult } from '../../common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,13 @@ import { HoSo } from '../../model/ho-so.model';
 export class QuanLyHoSoPopupService {
   private ngbModalRef: NgbModalRef;
   private id : number;
+  public profile: ReturnResult<HoSo>;
   constructor(
       private modalService: NgbModal,
       private router: Router,
-
-  ) {
+      private service: QuanLyHoSoService
+  ) 
+  {
       this.ngbModalRef = null;
   }
   public open(component: Component, id?: number | any): Promise<NgbModalRef> {
@@ -22,22 +26,22 @@ export class QuanLyHoSoPopupService {
           if (isOpen) {
               resolve(this.ngbModalRef);
           }
-
           if (id) {
-              // this.batHoService.find(id)
-              //     .subscribe((batHoResponse: HttpResponse<BatHo>) => {
-              //         const batHo: BatHo = batHoResponse.body;
-              //         this.ngbModalRef = this.batHoModalRef(component, batHo);
-              //         resolve(this.ngbModalRef);
-              //     });
-              this.id = id;
-              
-              this.ngbModalRef = this.hoSoModalRef(component, new HoSo());
-              resolve(this.ngbModalRef);
-              
-              
+                this.service.getProfilesById(id)
+                .subscribe((result) => {
+                    console.log(result);
+                    if (result.isSuccess)
+                    {
+                        this.profile = result;
+                    }
+                }, (error) => {
+
+                }, () => {
+                    this.ngbModalRef = this.hoSoModalRef(component, new HoSo());
+                    resolve(this.ngbModalRef);
+                }); 
           } else {
-              this.id = null;
+              this.profile = undefined;
               // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
               setTimeout(() => {
                   this.ngbModalRef = this.hoSoModalRef(component, new HoSo());
@@ -47,17 +51,12 @@ export class QuanLyHoSoPopupService {
       });
   }
 
- public hoSoModalRef(component: Component, hopso: HoSo): NgbModalRef {
+ public hoSoModalRef(component: Component, hoso: HoSo): NgbModalRef {
       const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static', windowClass:'animated slideInUp'});
-      //// Go back to home page after the modal is closed
-      // modalRef.result.then((result) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // }, (reason) => {
-      //     this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
-      //     this.ngbModalRef = null;
-      // });
-      // console.log(modalRef)
       return modalRef;
+  }
+
+  public getProfiles(id : number) {
+    
   }
 }

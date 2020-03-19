@@ -1,127 +1,145 @@
-<div class="card">
 
+<div class="card top">
     <div class="card-header" aria-hidden="true">
-        <div *ngIf="hoso">
+        <div>
             <h4 class="modal-title">Chi tiết hồ sơ</h4>
-
         </div>
-
     </div>
     <div class="card-body">
-        <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+        <!-- <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Hộp số</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahoso" class="form-control" [(ngModel)]="hoso.mahoso">
+                <ng-select2
+                    [data]="allGearBox"
+                    [placeholder]="'Chọn hộp số...'"
+                    [options]="options"
+                    name="gearBoxId"
+                    [(ngModel)]="hoso.gearBoxId"
+                ></ng-select2>
+            </div>
+        </div> -->
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.fileCode }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="mahopso" class="form-control" [(ngModel)]="hoso.mahopso">
+                <!-- <input  id="title" name="title" [(ngModel)]="hoso.title" class="form-control" placeholder="Nhập tiêu đề hồ sơ" required> -->
+                <label> {{ hoso.title }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="tieudehoso" class="form-control"
-                    [(ngModel)]="hoso.tieude">
+                <label> {{ hoso.gearBoxTitle }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số</label>
+            <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ:</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo">
+                <label> {{ hoso.fileNotation }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Loại hồ sơ:</label>
             <div class="col-md-9">
-              <select id="select1" name="select1" class="form-control">
-                <option value="0">Chọn loại hồ sơ</option>
-                <option value="1">Tư pháp</option>
-                <option value="2">Tài chính</option>
-                <option value="3">Kỉ luật</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
-            <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.profileTypeName }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời gian bắt đầu</label>
+            <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.maintenance }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Thời gian kết thúc</label>
+            <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.rights }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.language }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.startDate | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.endDate | date: 'dd/MM/yyyy' }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.totalDoc }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang</label>
+            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.description }} </label>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Chú thích</label>
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
             <div class="col-md-9">
-                <!-- <input type="text" id="text-input" name="hososo" class="form-control"
-                    [(ngModel)]="hoso.hososo"> -->
+                <label> {{ hoso.inforSign }} </label>
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.keyWord }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.sheetNumber }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.pageNumber }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" >Tình trạng vật lý:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.format }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" >Số lượng tệp đã tải lên:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.totalFiles }} tệp </label>
+                <span>&nbsp;<button class="btn-link" (click)="openFileDetailDialog(profileId)">Xem chi tiết...</button></span>
+            </div>
+        </div>
+
     </div>
     <div class="card-footer">
+        <div><h5>Danh sách văn bản có trong hồ sơ số {{ hoso.fileCode }} </h5></div>
+        <hr/>
+        <br>
+        <div *ngIf="totalRecords > 0 else nondata">
         <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <th>STT</th>
                 <th>Hồ sơ số</th>
                 <th>Văn bản số</th>
-                <th>Stt trong hồ sơ</th>
                 <th>Tên loại văn bản</th>
                 <th>Nội dung</th>
                 <th>Số tờ</th>
@@ -132,27 +150,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let vanban of vanbans">
-                <td>{{ vanban.id }}</td>
-                <td>{{ vanban.hososo }}</td>
-                <td>{{ vanban.vanbanso }}</td>
-                <td>{{ vanban.stttronghs }}</td>
-                <td>{{ vanban.loaivanban }}</td>
-                <td>{{ vanban.noidung }}</td>
-                <td>{{ vanban.soto }}</td>
-                <td>{{ vanban.mucdotincay }}</td>
-                <td>{{ vanban.tinhtrang }}</td>
-                <td>{{ vanban.ghichu }}</td>
+              <tr *ngFor="let vanban of lstDocuments">
+                <td>{{ vanban.fileCode }}</td>
+                <td>{{ vanban.codeNumber }}</td>
+                <td>{{ vanban.typeName }}</td>
+                <td>{{ vanban.subject }}</td>
+                <td>{{ vanban.pageAmount }}</td>
+                <td>{{ vanban.confidenceLevel }}</td>
+                <td>{{ vanban.formatName }}</td>
+                <td>{{ vanban.description }}</td>
                
-                <td style="width:137px">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu',vanban.id]" routerLinkActive="router-link-active"  ></button>
+                <td style="width:137px" class="center">
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', vanban.documentId]" routerLinkActive="router-link-active"  ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.id)"  replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash"></button>
+                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.documentId)"  replaceUrl="true" queryParamsHandling="merge"></button>
               </td>
             </tr>
             </tbody>
           </table>
-          <ngb-pagination [collectionSize]="10" [(page)]="page" [pageSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+          <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page)"></ngb-pagination>
+        </div>
+        <ng-template #nondata>
+            <div>Không có dữ liệu phù hợp.</div>
+        </ng-template>
     </div>
 </div>

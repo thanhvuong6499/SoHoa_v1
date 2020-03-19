@@ -8,6 +8,7 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { BaseCondition } from '../../common';
 import { QuanLyHoSoService } from './quan-ly-ho-so.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-quan-ly-ho-so',
@@ -34,7 +35,8 @@ export class QuanLyHoSoComponent implements OnInit {
   constructor(
     private hoSoPopupService: QuanLyHoSoPopupService,
     private activeModal: NgbActiveModal,
-    private service: QuanLyHoSoService
+    private service: QuanLyHoSoService,
+    private spinner: NgxSpinnerService
   ) {
     this.gearBoxIdFilter = new Array<Select2OptionData>();
     this.profileIdFilter = new Array<Select2OptionData>();
@@ -52,26 +54,29 @@ export class QuanLyHoSoComponent implements OnInit {
     this.loadData();
   }
   openDialog(id?: number) {
-
     if (id) {
       this.hoSoPopupService
         .open(HoSoDialogComponent as Component, id);
-      console.log(id);
-
     } else {
       this.hoSoPopupService
         .open(HoSoDialogComponent as Component);
     }
-
   }
-  openDeleteDialog(id?: number) {
+  // openDeleteDialog(id?: number) {
 
-      this.hoSoPopupService
-        .open(HoSoDeleteComponent as Component, id);
-      console.log(id);
-  }
+  //     this.hoSoPopupService
+  //       .open(HoSoDeleteComponent as Component, id);
+  //     console.log(id);
+  // }
 
   loadData (condi?: BaseCondition<HoSo>) {
+    if (condi != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
+    }
+    else {
+      this.showSpinner("dataTable", "timer", "0.8");
+    }
+  //  this.showSpinner("dataTable", "timer", "0.8");
     this.service.getAllProfilesWithPaging(condi)
       .subscribe((result) => {
         if (result.isSuccess) {
@@ -90,7 +95,20 @@ export class QuanLyHoSoComponent implements OnInit {
         else {
           alert("Lỗi: " + result.errorMessage);
         }
-      })
+      }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("dataTable");
+        }, 5000);
+      }, () => {
+        if (condi != undefined) {
+          this.hideSpinner("paging");
+        }
+        else {
+          this.hideSpinner("dataTable");
+          this.showSpinner("filterOptions","timer", "0.8");
+        }
+      });
   }
 
   loadPages(page : number, pageSize: number) {
@@ -126,10 +144,13 @@ export class QuanLyHoSoComponent implements OnInit {
           this.gearBoxIdFilter = arrTypes;
         }, 
       (error => {
-        console.log(error)
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
-
+        this.hideSpinner("filterOptions");
       });
   }
   getFilterOptions(id: string[], title: string [], gbx: string[]) {
@@ -183,6 +204,7 @@ export class QuanLyHoSoComponent implements OnInit {
     }
     
     if (id != undefined || title != undefined || gbx != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.service.getAllProfilesWithPaging(this.condition)
       .subscribe((data) => {
         this.lstHoSo = data.itemList;
@@ -190,10 +212,32 @@ export class QuanLyHoSoComponent implements OnInit {
         this.page = 1;
         this.totalRecords = data.totalRows;
       }, (error) => {
-        console.log(error);
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
+  }
+
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
   }
 }

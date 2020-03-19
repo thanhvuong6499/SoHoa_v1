@@ -12,6 +12,7 @@ import { Tinh } from '../../model/tinh.model';
 import { Huyen } from '../../model/huyen.model';
 import { Xa } from '../../model/xa.model';
 import { OrganFilter } from '../../model/organ-filter.model';
+import { HoSo } from '../../model/ho-so.model';
 // import { Select2OptionData } from 'ng-select2';
 
 @Injectable({
@@ -22,13 +23,7 @@ export class QuanLyCoQuanService {
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
 
   public getListPhongByCoQuanId (id: number) {
-    var phong : Phong[] = [];
-    for (let i = 0; i < phongs.length; i ++) {
-      if (phongs[i].organID == id) {
-        phong.push(phongs[i]);
-      }
-    }
-    return phong;
+    
   }
   public getAllCoQuanWithPaging(condi? : BaseCondition<CoQuan>) {
     var condition = {};
@@ -53,6 +48,8 @@ export class QuanLyCoQuanService {
 
    insertNewCoQuan (coquan: CoQuan) {
       coquan.createBy = this.authenticationService.getUserName;
+      if (coquan.huyenID == 0) { coquan.huyenID = undefined };
+      if (coquan.xaPhuongID == 0) { coquan.xaPhuongID = undefined };
       var body = JSON.stringify(coquan);
       return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/InsertCoQuan", body, { headers: HttpHeadersOptions.headers });
    }
@@ -63,6 +60,8 @@ export class QuanLyCoQuanService {
 
   updateCoQuan (coquan: CoQuan) {
     coquan.updatedBy = this.authenticationService.getUserName;
+    if (coquan.huyenID == 0) coquan.huyenID = undefined;
+    if (coquan.xaPhuongID == 0) coquan.xaPhuongID = undefined;
     return this.httpClient.post<ReturnResult<CoQuan>>(ApiUrl.apiUrl + "CoQuan/UpdateCoQuan", JSON.stringify(coquan), { headers: HttpHeadersOptions.headers });
   }
 
@@ -110,5 +109,23 @@ export class QuanLyCoQuanService {
   // filter
   getAllOrgan () {
     return this.httpClient.get<OrganFilter>(ApiUrl.apiUrl + "CoQuan/GetAllCoQuan");
+  }
+
+  getFontsByOrganId(condi?: BaseCondition<CoQuan>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex: condi.PageIndex,
+        PageSize: condi.PageSize,
+        Item: condi.Item
+      }
+    }
+    else {
+      condition = {
+        PageIndex: 1,
+        PageSize: 5
+      }
+    }
+    return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "CoQuan/GetFontsByOrganId", JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 }
