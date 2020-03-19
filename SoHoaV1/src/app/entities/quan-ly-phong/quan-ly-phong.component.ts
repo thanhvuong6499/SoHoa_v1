@@ -78,8 +78,8 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       this.phongPopupService
         .open(PhongDialogComponent as Component);
     }
-
   }
+  
   openDeleteDialog(id?: number) {
     if (id) {
       this.phongPopupService
@@ -127,7 +127,7 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       }, () => {
       });
   }
-  public loadAll(){
+  loadAll(){
     if(this.phong.organID != undefined){
     }
     this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
