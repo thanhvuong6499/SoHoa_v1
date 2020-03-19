@@ -6,30 +6,35 @@
         <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
         
         <div class="form-group row">
-          <label class="col-md-1 col-form-label" for="text-input">Mã tài liệu</label>
+          <label class="col-md-1 col-form-label" for="text-input">Mã văn bản:</label>
           <div class="col-md-2">
-            <input type="text" id="text-input" name="mahoso" class="form-control">
+            <ng-select2
+            [data]="documentCodeList"
+            [placeholder]="'Chọn mã văn bản...'"
+            [options]="options"
+            [(ngModel)]="documentCodeArr"
+            (valueChanged)="getFilterOptions($event, fileCodeArr)"
+        ></ng-select2>
           </div>
-          <label class="col-md-1 col-form-label" for="text-input">Mã hồ sơ</label>
+          <label class="col-md-1 col-form-label" for="text-input">Mã hồ sơ:</label>
           <div class="col-md-2">
-            <input type="text" id="text-input" name="mahopso" class="form-control">
-          </div>
-          <label class="col-md-1 col-form-label" for="text-input">Tên tài liệu</label>
-          <div class="col-md-3">
-            <input type="text" id="text-input" name="tenhoso" class="form-control">
+            <ng-select2
+            [data]="fileList"
+            [placeholder]="'Chọn mã hồ sơ...'"
+            [options]="options"
+            [(ngModel)]="fileId"
+            (valueChanged)="getFilterOptions(fileCodeArr, $event)"
+        ></ng-select2>
           </div>
           <div class="col-md-2">
-            <span *ngIf="roles == 'create' || roles == 'admin'">
-              <button class="btn btn-primary " style="float: right" (click)="openDialog()">
-                <span class="fa fa-plus"></span>
-                <span>
-                  Thêm mới Tài liệu
-                </span>
-              </button>
-            </span>
+            <button class="btn btn-primary btn-sm"style="float: right; margin-top: 4px;" (click)="openDialog()">
+              <span class="fa fa-plus"></span>
+              <span >
+                  Thêm mới cơ quan
+              </span>
+          </button>
           </div>
-        </div>
-      </div>
+         </div>
       <div class="card-body">
         <table class="table table-bordered table-striped table-sm">
           <thead>
