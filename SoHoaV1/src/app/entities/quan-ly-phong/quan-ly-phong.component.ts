@@ -16,6 +16,7 @@ import { CoQuan } from '../../model/co-quan.model';
 import { OrganFilter } from '../../model/organ-filter.model';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { QuanLyDanhMucService } from '../quan-ly-danh-muc/quan-ly-danh-muc.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-quan-ly-phong',
@@ -50,7 +51,8 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
     public phongPopupService: QuanLyPhongPopupService,
     public phongService: QuanLyPhongService,
     private danhMucService: QuanLyDanhMucService,
-    private coQuanService: QuanLyCoQuanService
+    private coQuanService: QuanLyCoQuanService,
+    private spinner: NgxSpinnerService
   ) {
     this.phong = new Phong();
     this.condition = new BaseCondition<Phong>();
@@ -63,6 +65,10 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       multiple: true,
       tags: true
     }
+    this.phongService.listen().subscribe((m:any)=>{
+      this.loadFilterOptionsOrgan();
+      this.loadAll();
+    })
    }
 
   ngOnInit() {
@@ -91,6 +97,7 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
   }
 
   loadPages(page : string) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try{
       var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
       if (this.condition.FilterRuleList != undefined) {
@@ -103,41 +110,49 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
         this.page = parseInt(page);
         this.totalRecords = data.totalRows;
       }, (error) => {
-        this.pageSize = 5;
+          setTimeout(() => {
+            alert("Lỗi: " + JSON.stringify(error));
+            this.hideSpinner("paging");
+          }, 5000);
       }, () => {
-        console.log("Lấy dữ liệu thành công");
+        this.hideSpinner("paging");
       });
-    }catch (e) {
-      alert(JSON.stringify(e))
+    }
+    catch (e) {
+      alert(JSON.stringify(e));
     }
   }
-  getAllCoQuan() {
-    this.phongService.getAllCoQuan()
-      .subscribe((result) => {
-        if (result != undefined) {
-          var organs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.organID, text: item.tenCoQuan };
-            organs.push(temp);
-          }
-          this.lstOrgan = organs;
-        }
-      },
-      (error) => {
-      }, () => {
-      });
-  }
+  // getAllCoQuan() {
+  //   this.phongService.getAllCoQuan()
+  //     .subscribe((result) => {
+  //       if (result != undefined) {
+  //         var organs = [];
+  //         for (var item of result.itemList) {
+  //           var temp = { id: item.organID, text: item.tenCoQuan };
+  //           organs.push(temp);
+  //         }
+  //         this.lstOrgan = organs;
+  //       }
+  //     },
+  //     (error) => {
+  //     }, () => {
+  //     });
+  // }
   loadAll(){
-    if(this.phong.organID != undefined){
-    }
+    this.showSpinner("dataTable", "timer", "0.8");
     this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
       this.phongs = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
-    }, (error) => {
+    },  (error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      this.hideSpinner("dataTable");
+      this.showSpinner("filterOptions","timer", "0.8");
     });
   }
 
@@ -153,8 +168,13 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
         this.organArr = arrTypes;
       }, 
       (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
+        this.hideSpinner("filterOptions");
       })
 
       this.danhMucService.getAllPhong()
@@ -168,9 +188,15 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
           this.fontArr = phongs;
         }
       },
-      (error) => {
-      }, () => {
-      });
+      (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
+      }),
+      () => {
+        this.hideSpinner("filterOptions");
+      })
   }
 
   getFilterOptions (types: string[],fonts : string[]) {
@@ -211,6 +237,7 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
     }
     
     if (types != undefined || fonts != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.phongService.getAllPhongWithPaging(this.condition)
       .subscribe((data: any) => {
         this.phongs = data.itemList;
@@ -218,12 +245,35 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
         this.page = 1;
         this.totalRecords = data.totalRows;
       }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
     
   }
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
+  }
+
   ngOnDestroy(): void {
     
   }

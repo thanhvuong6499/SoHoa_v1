@@ -34,11 +34,12 @@ export class QuanLyLoaiVanBanPopupService {
                     .subscribe((result) => {
                         this.result = result;
                         const loaiVanBan : LoaiVanBan = result.item;
-                        this.ngbModalRef = this.OrganTypeModalRef(component, loaiVanBan);
+                    }, (error) => {
+
+                    }, () => {
+                        this.ngbModalRef = this.OrganTypeModalRef(component, this.loaiVanBan);
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.OrganTypeModalRef(component, this.loaiVanBan);
-                resolve(this.ngbModalRef);
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError

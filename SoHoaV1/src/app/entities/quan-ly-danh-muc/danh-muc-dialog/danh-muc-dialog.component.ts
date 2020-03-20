@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Options } from 'select2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-danh-muc-dialog',
@@ -25,6 +26,10 @@ export class DanhMucDialogComponent implements OnInit {
   lstFont: Array<Select2OptionData>;
   options: Options;
   optionsOrgan :Options;
+  form: FormGroup;
+  submitted = false;
+  loading = false;
+  
   
   private subscription: Subscription;
   private eventSubscriber: Subscription;
@@ -33,7 +38,8 @@ export class DanhMucDialogComponent implements OnInit {
     public service: QuanLyDanhMucService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder)
     {
       this.danhmuc = new DanhMuc();
       this.options = {
@@ -45,6 +51,14 @@ export class DanhMucDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      tabOfContName: ['', Validators.required],
+      tabOfContNumber: ['', Validators.required],
+      tabOfContCode: ['', Validators.required],
+      fontID: ['', Validators.required],
+      note: ['']
+    });
+
     this.isEdit = false;
     this.service.getAllPhong()
       .subscribe((result) => {
@@ -65,43 +79,72 @@ export class DanhMucDialogComponent implements OnInit {
         this.isEdit = true;
       }
   }
+  
+  get f() {
+    return this.form.controls;
+  }
+
   clear() {
     this.activeModal.dismiss('cancel');
   }
+
   save() {
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+    this.loading = true;
+
     if(this.danhmuc.fontID == undefined || this.danhmuc.fontID == null || this.danhmuc.fontID==0){
       this.onSaveError("Chọn phông lữu trữ!!!");
     }else{
       if (this.isEdit) {
         this.service.updateDanhMuc(this.danhmuc)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else {
+              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+            }
           },
           (error)=> {
-            this.onSaveError("Cập nhật thất bại");
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
           },
           () => {
-            this.activeModal.dismiss("Update successfully.");
-            this.onSaveSuccess("Chỉnh sửa thành công");
-  
+            this.onClose();
           });
       }
       else {
           this.service.insertNewDanhMuc(this.danhmuc)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.toastr.success("Thêm mới thành công");
+              this.clear();
+              this.onClose();
+            }
+            else {
+              this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+            }
           },
           (error) => {
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
           }, () => {
-            this.onSaveSuccess("Thêm mới thành công");
-            this.activeModal.dismiss("Create new successfully");
+            // this.activeModal.dismiss("Create new successfully");
           });
       }
     }
   }
-  onSaveSuccess(message: string){
+  onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
-  onSaveError(message){
-    this.toastr.success(message);
+
+  onSaveError(message: string){
+    this.toastr.error(message);
+  }
+
+  onClose(){
+    this.service.filter('Register click');
   }
   deleteFont(event) {
   }

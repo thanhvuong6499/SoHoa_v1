@@ -35,11 +35,13 @@ export class QuanLyNhomNguoiDungPopupService {
                     .subscribe((result) => {
                         this.result = result;
                         const userGroup : UserGroup = result.item;
-                        this.ngbModalRef = this.UserModalRef(component, userGroup);
+                    }, (error) => {
+
+                    }, () => {
+                        this.ngbModalRef = this.UserModalRef(component, this.userGroup);
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.UserModalRef(component, this.userGroup);
-                resolve(this.ngbModalRef);
+               
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError

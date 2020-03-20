@@ -4,7 +4,7 @@ import { DanhMuc, danhmucs } from '../../model/danh-muc.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CoQuan, coquans, organ } from '../../model/co-quan.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -85,6 +85,19 @@ export class QuanLyPhongService {
   }
   deletePhong (id: number) {
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/DeleteFont?id=" + id, { headers :HttpHeadersOptions.headers });
+  }
+
+  private _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+
+  onDistroy(): void{
   }
 }
 

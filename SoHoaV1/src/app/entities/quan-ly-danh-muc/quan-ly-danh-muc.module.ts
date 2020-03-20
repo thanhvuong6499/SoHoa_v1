@@ -14,6 +14,7 @@ import { NgSelect2Module } from 'ng-select2';
 import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap';
 import { QuanLyDanhMucRoutingModule } from './quan-ly-danh-muc-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const ENTITY_STATES = [
   ...danhMucPopupRoute,
@@ -43,7 +44,8 @@ const ENTITY_STATES = [
     NgbModule,
     Select2Module,
     HttpClientModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSpinnerModule
     
   ],
   entryComponents:[

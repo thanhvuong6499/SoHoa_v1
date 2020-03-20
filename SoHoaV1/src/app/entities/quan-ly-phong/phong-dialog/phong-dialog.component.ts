@@ -7,6 +7,7 @@ import { QuanLyPhongService } from '../quan-ly-phong.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-phong-dialog',
@@ -20,6 +21,10 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   data: any;
   lstOrgan: Array<Select2OptionData>;
   options: Options;
+  form: FormGroup;
+  submitted = false;
+  loading = false;
+  
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -27,7 +32,8 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     public service: QuanLyPhongService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder)
     {
       this.phong = new Phong();
       this.options = {
@@ -39,6 +45,15 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
+
+    this.form = this.formBuilder.group({
+      fontNumber: ['', Validators.required],
+      fontName: ['', Validators.required],
+      organID: ['', Validators.required],
+      history: [''],
+      note: ['']
+    });
+    
     this.isEdit = false;
     this.service.getAllCoQuan()
       .subscribe((result) => {
@@ -59,10 +74,18 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
         this.isEdit = true;
       }
   }
+
+  get f() {
+    return this.form.controls;
+  }
+
   clear() {
     this.activeModal.dismiss('cancel');
   }
   save() {
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+    this.loading = true;
     if(this.phong.organID == undefined || this.phong.organID == null || this.phong.organID==0){
       this.onSaveError("Chọn cơ quan lữu trữ!!!");
     }
@@ -70,37 +93,53 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
       if (this.isEdit) {
         this.service.updatePhong(this.phong)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else {
+              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+            }
           },
           (error)=> {
-            this.activeModal.dismiss("Update failure.");
-            this.onSaveError("Chỉnh sửa thất bại");
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
           },
           () => {
-            // do something
-            this.activeModal.dismiss("Update successfully.");
-            this.onSaveSuccess("Chỉnh sửa thành công");
-  
+            this.onClose();
           });
       }
       else {
           this.service.insertNewPhong(this.phong)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.toastr.success("Thêm mới thành công");
+              this.clear();
+              this.onClose();
+            }
+            else {
+              this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+            }
           },
           (error) => {
-            this.onSaveError("Thêm mới thất bại");
-            this.activeModal.dismiss("Create new failure");
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
           }, () => {
-            this.onSaveSuccess("Thêm mới thành công");
-            this.activeModal.dismiss("Create new successfully");
+            // this.activeModal.dismiss("Create new successfully");
           });
       }
     }
+    this.onClose();
   }
-  onSaveSuccess(message: string){
+  onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
-  onSaveError(message){
-    this.toastr.success(message);
+
+  onSaveError(message: string){
+    this.toastr.error(message);
+  }
+
+  onClose(){
+    this.service.filter('Register click');
   }
   deleteFont(event) {
   }

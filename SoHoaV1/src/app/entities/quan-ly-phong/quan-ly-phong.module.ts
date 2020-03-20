@@ -16,6 +16,7 @@ import { Select2Module } from 'ng-select2-component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelect2Module } from 'ng-select2';
 import { MatFormFieldModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
+import { NgxSpinnerModule } from 'ngx-spinner';
 // import { QuanLyPhongRoutingModule } from './quan-ly-phong-routing.module';
 const ENTITY_STATES = [
   ...quanLyPhongRoutes,
@@ -39,7 +40,8 @@ const ENTITY_STATES = [
     MatAutocompleteModule,
     HttpClientModule,
     QuanLyPhongRoutingModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSpinnerModule
     
   ],
   entryComponents: [

@@ -27,7 +27,7 @@
         ></ng-select2>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary btn-sm"style="float: right; margin-top: 4px;" (click)="openDialog()">
+            <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']" routerLinkActive="router-link-active">
               <span class="fa fa-plus"></span>
               <span >
                   Thêm mới cơ quan
@@ -68,7 +68,7 @@
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', document.documentId]"
                   routerLinkActive="router-link-active"></button>
                 <span *ngIf="roles == 'edit' || roles == 'admin'"><button class="btn btn-primary fa fa-edit"
-                    (click)="openDialog(document.documentId)" replaceUrl="true" queryParamsHandling="merge"></button></span>
+                  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf', document.documentId]"     replaceUrl="true" queryParamsHandling="merge"></button></span>
                 <span *ngIf="roles == 'admin'"><button class="btn btn-primary fa fa-trash"
                     (click)="openDeleteDialog(document.documentId)"></button></span>
               </td>
@@ -85,5 +85,5 @@
     </div>
   </div>
   <!--/.col-->
-  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']"
-  routerLinkActive="router-link-active"></button>
+  <!-- <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']"
+  routerLinkActive="router-link-active"></button> -->

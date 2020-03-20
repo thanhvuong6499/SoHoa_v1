@@ -41,10 +41,12 @@ export class QuanLyHopSoPopupService {
                     .subscribe((result) => {
                         this.result = result;
                         const hopso : HopSo = result.item;
-                        this.ngbModalRef = this.hopSoModalRef(component, hopso);
+                    }, (error) => {
+
+                    }, () => {
+                        this.ngbModalRef = this.hopSoModalRef(component, this.hopso);
                         resolve(this.ngbModalRef);
                     });
-                    this.ngbModalRef = this.hopSoModalRef(component, this.hopso);
                 } else {
                     this.result.item = undefined;
                     setTimeout(() => {

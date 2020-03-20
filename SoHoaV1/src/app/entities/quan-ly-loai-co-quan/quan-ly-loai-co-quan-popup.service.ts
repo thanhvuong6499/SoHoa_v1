@@ -35,11 +35,12 @@ export class QuanLyOrganTypePopupService {
                     .subscribe((result) => {
                         this.result = result;
                         const organType : OrganType = result.item;
-                        this.ngbModalRef = this.OrganTypeModalRef(component, organType);
+                    }, (error) => {
+
+                    }, () => {
+                        this.ngbModalRef = this.OrganTypeModalRef(component, this.organType);
                         resolve(this.ngbModalRef);
                     });
-                this.ngbModalRef = this.OrganTypeModalRef(component, this.organType);
-                resolve(this.ngbModalRef);
             } else {
                 this.result.item = undefined;
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
