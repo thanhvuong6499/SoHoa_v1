@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { DanhMuc } from '../../model/danh-muc.model';
 import { Phong } from '../../model/phong.model';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -108,5 +109,19 @@ export class QuanLyHopSoService {
       fontID: id
     }
     return this.httpClient.get<DanhMuc[]>(ApiUrl.apiUrl + "GearBox/GetTableOfContentsByFontID", { params: params });
+  }
+
+  public _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+
+  onDistroy(): void{
+    
   }
 }

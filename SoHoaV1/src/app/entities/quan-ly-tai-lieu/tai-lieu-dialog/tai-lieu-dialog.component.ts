@@ -195,7 +195,7 @@ export class TaiLieuDialogComponent implements OnInit {
     this.toastr.success(message);
   }
   onSaveError(message){
-    this.toastr.success(message);
+    this.toastr.error(message);
   }
   ngOnDestroy(): void {
     

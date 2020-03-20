@@ -37,14 +37,12 @@ export class QuanLyPhongPopupService {
                 .subscribe((result) => {
                     this.result = result;
                     const phong : Phong = result.item;
-                    
                 }, (error) => {
 
                 }, () => {
                     this.ngbModalRef = this.phongModalRef(component, new Phong());
                     resolve(this.ngbModalRef);
                 });
-            //    this.ngbModalRef = this.phongModalRef(component, this.phong);
             } else {
                 this.result.item = undefined;
                 setTimeout(() => {

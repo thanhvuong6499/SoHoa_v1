@@ -69,17 +69,17 @@
             </thead>
             <tbody>
               <tr *ngFor="let hoso of hosos">
-                <td>{{ hoso.profileID }}</td>
+                <td>{{ hoso.profileNumber }}</td>
                 <td>{{ hoso.gearBoxId }}</td>
                 <td>{{ hoso.title }}</td>
                 <td>{{ hoso.profileTypeName }}</td>
                 <td>{{ hoso.note }}</td>
                
                 <td style="width:137px;text-align: center;">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.profileID]" routerLinkActive="router-link-active"  ></button>
+                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo',hoso.profileId]" routerLinkActive="router-link-active"  ></button>
                   <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.profileID)"  replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hoso.profileID)"></button>
+                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(hoso.profileId)"  replaceUrl="true" queryParamsHandling="merge"></button>
+                  <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hoso.profileId)"></button> -->
               </td>
             </tr>
             </tbody>

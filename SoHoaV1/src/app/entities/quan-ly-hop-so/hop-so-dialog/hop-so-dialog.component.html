@@ -1,4 +1,4 @@
-<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
+<form [formGroup]="form" (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
         <div *ngIf="hopso.gearBoxID != null; else themMoi">
@@ -21,77 +21,100 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-            <ng-select2
-                [data]="lstOrgan"
-                [placeholder]="'Chọn cơ quan...'"
-                [options]="options"
-                name="organID"
-                (valueChanged)="onOrganChange($event)"
-                [(ngModel)]="hopso.organID"
-            ></ng-select2>
+                <ng-select2
+                    formControlName="organID"
+                    [data]="lstOrgan"
+                    [placeholder]="'Chọn cơ quan...'"
+                    [options]="options"
+                    name="organID"
+                    (valueChanged)="onOrganChange($event)"
+                    [(ngModel)]="hopso.organID"
+                ></ng-select2>
+                <div *ngIf="submitted && f.organID.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn cơ quan.</span></div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Phông</label>
+            <label class="col-md-3 col-form-label" for="select1">Phông <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-            <ng-select2
-                [data]="lstFont"
-                [placeholder]="'Chọn Phông...'"
-                [options]="options"
-                name="fontID"
-                (valueChanged)="onFontChange($event)"
-                [(ngModel)]="hopso.fontID"
-            ></ng-select2>
+                <ng-select2
+                    formControlName="fontID"
+                    [data]="lstFont"
+                    [placeholder]="'Chọn Phông...'"
+                    [options]="options"
+                    name="fontID"
+                    (valueChanged)="onFontChange($event)"
+                    [(ngModel)]="hopso.fontID"
+                ></ng-select2>
+                <div *ngIf="submitted && f.fontID.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn phông.</span></div>
+                </div>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Danh mục</label>
+            <label class="col-md-3 col-form-label" for="select1">Danh mục <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-            <ng-select2
-                required
-                [data]="lstDanhMuc"
-                [placeholder]="'Chọn Danh Mục...'"
-                [options]="options"
-                name="tabOfContID"
-                [(ngModel)]="hopso.tabOfContID"
-            ></ng-select2>
+                <ng-select2
+                    formControlName="tabOfContID"
+                    required
+                    [data]="lstDanhMuc"
+                    [placeholder]="'Chọn Danh Mục...'"
+                    [options]="options"
+                    name="tabOfContID"
+                    [(ngModel)]="hopso.tabOfContID"
+                ></ng-select2>
+                <div *ngIf="submitted && f.tabOfContID.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn danh mục.</span></div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã hộp sô</label>
+            <label class="col-md-3 col-form-label" for="text-input">Mã hộp số <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input required type="text" id="text-input" name="gearBoxCode" class="form-control" [(ngModel)]="hopso.gearBoxCode">
+                <input type="text" formControlName="gearBoxCode" placeholder="Nhập mã hộp sơ" name="gearBoxCode" [(ngModel)]="hopso.gearBoxCode" class="form-control" [ngClass]="{'is-invalid': submitted && f.gearBoxCode.errors}" />
+                <div *ngIf="submitted && f.gearBoxCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.gearBoxCode.errors.required">Mã hộp sơ không được để trống.</div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
             <div class="col-md-9">
-                <input required type="text" id="text-input" name="gearBoxTitle" class="form-control"
-                    [(ngModel)]="hopso.gearBoxTitle">
+                <input type="text" formControlName="gearBoxTitle" placeholder="Nhập tiêu đề hộp số" name="gearBoxTitle" [(ngModel)]="hopso.gearBoxTitle" class="form-control" [ngClass]="{'is-invalid': submitted && f.gearBoxTitle.errors}" />
+                <div *ngIf="submitted && f.gearBoxTitle.errors" class="invalid-feedback">
+                    <div *ngIf="f.gearBoxTitle.errors.required">Tiêu đề hộp số không được để trống.</div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
             <div class="col-md-9">
-                <input type="text" id="text-input" name="note" class="form-control"
-                    [(ngModel)]="hopso.note">
+                <textarea formControlName="note"  id="textarea-input" name="note" rows="9" class="form-control"
+                [(ngModel)]="hopso.note"></textarea>
             </div>
         </div>
       
       
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu</label>
+            <label class="col-md-3 col-form-label" for="date-input">Ngày bắt đầu <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="startDate" placeholder="date" [(ngModel)]="hopso.stDate">
+                <input id="date-input" type="date" placeholder="date"  formControlName="stDate" placeholder="Nhập ngày bắt đầu" name="stDate" [(ngModel)]="hopso.stDate" class="form-control" [ngClass]="{'is-invalid': submitted && f.stDate.errors}" />
+                <div *ngIf="submitted && f.stDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.stDate.errors.required">Ngày bắt đầu không được để trống.</div>
+                </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc</label>
+            <label class="col-md-3 col-form-label" for="date-input">Ngày kết thúc <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="endDate" placeholder="date" [(ngModel)]="hopso.eDate">
+                <input id="date-input" type="date" placeholder="date"  formControlName="eDate" placeholder="Nhập ngày kết thúc" name="eDate" [(ngModel)]="hopso.eDate" class="form-control" [ngClass]="{'is-invalid': submitted && f.eDate.errors}" />
+                <div *ngIf="submitted && f.eDate.errors" class="invalid-feedback">
+                    <div *ngIf="f.endDate.errors.required">Ngày kết thúc không được để trống.</div>
+                </div>
             </div>
         </div>
 

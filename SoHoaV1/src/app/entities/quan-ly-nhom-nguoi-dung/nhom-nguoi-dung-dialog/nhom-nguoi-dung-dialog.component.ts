@@ -70,11 +70,8 @@ export class NhomNguoiDungDialogComponent  implements OnInit, OnDestroy{
         },
         (error)=> {
           
-          // this.onSaveError();
         },
         () => {
-          // do something
-          // this.activeModal.dismiss("Update successfully.");
           this.onSaveSuccess("Chỉnh sửa thành công");
 
         });
@@ -116,7 +113,7 @@ export class NhomNguoiDungDialogComponent  implements OnInit, OnDestroy{
   }
 
   onSaveError(message){
-    this.toast.success(message);
+    this.toast.error(message);
   }
 
   onClose(){
