@@ -11,6 +11,7 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { DanhMuc } from '../../model/danh-muc.model';
 import {QuanLyDanhMucService} from '../quan-ly-danh-muc/quan-ly-danh-muc.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-quan-ly-hop-so',
   templateUrl: './quan-ly-hop-so.component.html',
@@ -37,6 +38,7 @@ export class QuanLyHopSoComponent implements OnInit {
     private hopSoPopupService: QuanLyHopSoPopupService, 
     private danhMucService: QuanLyDanhMucService,
     private quanLyHopSoService: QuanLyHopSoService,
+    private spinner: NgxSpinnerService
   ) { 
       this.searchText = "";
       this.condition = new BaseCondition<HopSo>();
@@ -56,7 +58,6 @@ export class QuanLyHopSoComponent implements OnInit {
 
   ngOnInit() {
     this.loadFilterOptionsDanhMuc();
-    this.getAllDanhMuc();
     this.loadAll();
   }
   openDialog(id?: number) {
@@ -76,49 +77,42 @@ export class QuanLyHopSoComponent implements OnInit {
         .open(HopSoDeleteComponent as Component, id);
   }
   loadPages(page : number) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
     condi.PageIndex = page;
     this.quanLyHopSoService.getAllHopSoWithPaging(condi).subscribe((data : any) => {
       this.hopsos = data.itemList;
       this.page = page;
       this.totalRecords = data.totalRows;
-    }, (error) => {
-      this.pageSize = 5;
+      },(error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
     }, () => {
-      console.log("Lấy dữ liệu thành công");
+      this.hideSpinner("paging");
     });
   }
 
-  getAllDanhMuc() {
-    this.danhMucService.getAllDanhMuc()
-      .subscribe((result) => {
-        if (result != undefined) {
-          var danhmucs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.tabOfContID, text: item.tabOfContName };
-            danhmucs.push(temp);
-          }
-          this.lstDanhMuc = danhmucs;
-        }
-      },
-      (error) => {
-      }, () => {
-      });
-  }
-
   loadAll(){
+    this.showSpinner("dataTable", "timer", "0.8");
     this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : any) => {
       this.hopsos = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
     }, (error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      this.hideSpinner("dataTable");
     });
   }
 
   loadFilterOptionsDanhMuc () {
+      this.showSpinner("filterOptions","timer", "0.8");
       this.danhMucService.getAllDanhMuc()
       .subscribe((result) => {
       //  this.organFilterData = result;
@@ -130,9 +124,15 @@ export class QuanLyHopSoComponent implements OnInit {
         this.tableOfContArr = arrTypes;
       }, 
       (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
+        this.hideSpinner("filterOptions");
       })
+
   }
 
   getFilterTypes(value : string[]) {
@@ -206,6 +206,7 @@ export class QuanLyHopSoComponent implements OnInit {
       this.condition.FilterRuleList[3].op = "";
     }
     if (types != undefined || this.searchText !=undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.quanLyHopSoService.getAllHopSoWithPaging(this.condition)
       .subscribe((data: any) => {
         this.hopsos = data.itemList;
@@ -213,11 +214,35 @@ export class QuanLyHopSoComponent implements OnInit {
         this.page = 1;
         this.totalRecords = data.totalRows;
       }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
   }
+
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
+  }
+
   ngOnDestroy(): void {
   
   }

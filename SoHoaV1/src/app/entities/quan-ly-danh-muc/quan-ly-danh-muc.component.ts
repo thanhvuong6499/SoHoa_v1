@@ -18,6 +18,7 @@ import { Options } from 'select2';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { OrganFilter } from '../../model/organ-filter.model';
 import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-quan-ly-danh-muc',
@@ -56,7 +57,8 @@ export class QuanLyDanhMucComponent implements OnInit {
     private danhMucPopupService: QuanLyDanhMucPopupService,
     private danhMucService: QuanLyDanhMucService,
     private phongService: QuanLyPhongService,
-    private coQuanService: QuanLyCoQuanService
+    private coQuanService: QuanLyCoQuanService,
+    private spinner : NgxSpinnerService
     ) {
     this.searchText = "";
     this.condition = new BaseCondition<DanhMuc>();
@@ -106,6 +108,7 @@ export class QuanLyDanhMucComponent implements OnInit {
   }
   
   loadPages(page : string) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try {
       var condi : BaseCondition<DanhMuc> = new BaseCondition<DanhMuc>();
       if (this.condition.FilterRuleList != undefined) {
@@ -117,9 +120,13 @@ export class QuanLyDanhMucComponent implements OnInit {
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
-      }, (error) => {
+        }, (error) => {
+          setTimeout(() => {
+            alert("Lỗi: " + JSON.stringify(error));
+            this.hideSpinner("paging");
+          }, 5000);
       }, () => {
-
+        this.hideSpinner("paging");
       });
     }
     catch (e) {
@@ -127,48 +134,21 @@ export class QuanLyDanhMucComponent implements OnInit {
     }
   }
 
-  getAllCoQuan() {
-    this.phongService.getAllCoQuan()
-      .subscribe((result) => {
-        if (result != undefined) {
-          var organs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.organID, text: item.tenCoQuan };
-            organs.push(temp);
-          }
-          this.lstOrgan = organs;
-        }
-      },
-      (error) => {
-      }, () => {
-      });
-  }
-  
-  getAllPhong(){
-    this.danhMucService.getAllPhong()
-      .subscribe((result) => {
-        if (result != undefined) {
-          var phongs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.fontID, text: item.fontName };
-            phongs.push(temp);
-          }
-          this.lstFont = phongs;
-        }
-      },
-      (error) => {
-      }, () => {
-      });
-  }
   loadAll(){
+    this.showSpinner("dataTable", "timer", "0.8");
     this.danhMucService.getAllDanhMucWithPaging().subscribe((data : any) => {
       this.danhmucs = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
-    }, (error) => {
+    },  (error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      this.hideSpinner("dataTable");
+      this.showSpinner("filterOptions","timer", "0.8");
     });
   }
 
@@ -183,8 +163,13 @@ export class QuanLyDanhMucComponent implements OnInit {
         this.organArr = arrTypes;
       }, 
       (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
+        this.hideSpinner("filterOptions");
       })
 
       this.danhMucService.getAllPhong()
@@ -197,8 +182,13 @@ export class QuanLyDanhMucComponent implements OnInit {
         this.fontArr = arrTypes;
       }, 
       (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("filterOptions");
+        }, 5000);
       }),
       () => {
+        this.hideSpinner("filterOptions");
       })
   }
 
@@ -290,6 +280,7 @@ export class QuanLyDanhMucComponent implements OnInit {
       this.condition.FilterRuleList[4].op = "";
     }
     if (types != undefined || name != undefined || this.searchText !=undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.danhMucService.getAllDanhMucWithPaging(this.condition)
       .subscribe((data: any) => {
         this.danhmucs = data.itemList;
@@ -297,12 +288,37 @@ export class QuanLyDanhMucComponent implements OnInit {
         this.page = 1;
         this.totalRecords = data.totalRows;
       }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
     
   }
+
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
+  }
+  
+
   ngOnDestroy(): void {
     
   }

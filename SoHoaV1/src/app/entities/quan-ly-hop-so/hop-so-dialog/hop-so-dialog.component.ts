@@ -10,6 +10,7 @@ import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.se
 import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { CoQuan } from '../../../model/co-quan.model';
 import { Phong } from '../../../model/phong.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hop-so-dialog',
@@ -28,6 +29,12 @@ export class HopSoDialogComponent implements OnInit {
   hopso: HopSo;
   organ: CoQuan;
   phong: Phong;
+  form: FormGroup;
+  submitted = false;
+  loading = false;
+  organID: any;
+  fontID: any;
+  
    constructor(
     private activeModal: NgbActiveModal,
     private hopSoPopupService: QuanLyHopSoPopupService,
@@ -35,7 +42,8 @@ export class HopSoDialogComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private hopsoService: QuanLyHopSoService,
-    private danhmucService: QuanLyDanhMucService,)
+    private danhmucService: QuanLyDanhMucService,
+    private formBuilder: FormBuilder)
     {
       this.hopso = new HopSo();
       this.organ = new CoQuan();
@@ -49,14 +57,32 @@ export class HopSoDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      organID: ['', Validators.required],
+      fontID: ['', Validators.required],
+      tabOfContID: ['', Validators.required],
+      gearBoxCode: ['', Validators.required],
+      gearBoxTitle: ['', Validators.required],
+      stDate: ['',Validators.required],
+      eDate: ['',Validators.required],
+      note: ['']
+    })
+
     // this.hopso = this.hopSoPopupService.getHopSoById()
     this.isEdit = false;
+    
     this.loadData();
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   onOrganChange(organID : any){
     var params = organID;
-    if(params != undefined && params !=null){
+    if(params == undefined || params == null || params == "")
+      params  = this.organID;
+    else{
       this.hopsoService.getFontByOrganId(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -66,14 +92,11 @@ export class HopSoDialogComponent implements OnInit {
               phongs.push(temp);
             }
             this.lstFont = phongs;
-            var count =0;
-            this.lstDanhMuc = [];
-            this.lstOrgan.forEach(x=>{
-              if(parseInt(x.id) == this.hopso.fontID){
-                this.onFontChange(this.hopso.fontID);
-                count++;
-              }
-            })
+            if(this.lstFont != null){
+              this.fontID = this.lstFont[0].id;
+            }
+            else 
+              this.fontID = 0;
         }
         else{
           this.lstFont = [];
@@ -91,7 +114,9 @@ export class HopSoDialogComponent implements OnInit {
   }
   onFontChange(fontID : any){
     var params = fontID;
-    if(params != undefined && params !=null){
+    if(params == undefined || params == null || params == "")
+      params  = this.fontID;
+    else{
       this.hopsoService.getTabByFontId(params)
       .subscribe((data) => {
         if (data != undefined && data.length !=0) {
@@ -126,6 +151,11 @@ export class HopSoDialogComponent implements OnInit {
           coquans.push(temp);
         }
         this.lstOrgan = coquans;
+        if(this.lstOrgan != null){
+          this.organID = this.lstOrgan[0].id;
+        }
+        else 
+          this.organID = 0;
       }
     },
     (error) => {
@@ -176,7 +206,12 @@ export class HopSoDialogComponent implements OnInit {
     this.activeModal.dismiss('cancel');
   
   }
+
   save() {
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+    this.loading = true;
+
     if(this.hopso.stDate == "" || this.hopso.eDate == "" 
     || this.hopso.stDate == undefined || this.hopso.eDate == undefined 
     || this.hopso.tabOfContID == 0 || this.hopso.tabOfContID == undefined){

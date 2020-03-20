@@ -13,6 +13,7 @@ import { HoSoDeleteComponent } from '../quan-ly-ho-so/ho-so-delete/ho-so-delete.
 import { NgSelect2Module } from 'ng-select2';
 import { HttpClientModule } from '@angular/common/http';
 import { Select2Module } from 'ng-select2-component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { Select2Module } from 'ng-select2-component';
     QuanLyHopSoRoutingModule,
     Select2Module,
     HttpClientModule,
-    NgSelect2Module
+    NgSelect2Module,
+    NgxSpinnerModule,
   ],
   entryComponents:[
     HopSoDialogComponent,

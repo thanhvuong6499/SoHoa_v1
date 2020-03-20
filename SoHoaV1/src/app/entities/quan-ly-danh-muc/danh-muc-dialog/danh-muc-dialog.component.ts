@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Options } from 'select2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-danh-muc-dialog',
@@ -25,6 +26,10 @@ export class DanhMucDialogComponent implements OnInit {
   lstFont: Array<Select2OptionData>;
   options: Options;
   optionsOrgan :Options;
+  form: FormGroup;
+  submitted = false;
+  loading = false;
+  
   
   private subscription: Subscription;
   private eventSubscriber: Subscription;
@@ -33,7 +38,8 @@ export class DanhMucDialogComponent implements OnInit {
     public service: QuanLyDanhMucService,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute)
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder)
     {
       this.danhmuc = new DanhMuc();
       this.options = {
@@ -45,6 +51,14 @@ export class DanhMucDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+      tabOfContName: ['', Validators.required],
+      tabOfContNumber: ['', Validators.required],
+      tabOfContCode: ['', Validators.required],
+      fontID: ['', Validators.required],
+      note: ['']
+    });
+
     this.isEdit = false;
     this.service.getAllPhong()
       .subscribe((result) => {
@@ -65,10 +79,20 @@ export class DanhMucDialogComponent implements OnInit {
         this.isEdit = true;
       }
   }
+  
+  get f() {
+    return this.form.controls;
+  }
+
   clear() {
     this.activeModal.dismiss('cancel');
   }
+
   save() {
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+    this.loading = true;
+
     if(this.danhmuc.fontID == undefined || this.danhmuc.fontID == null || this.danhmuc.fontID==0){
       this.onSaveError("Chọn phông lữu trữ!!!");
     }else{
