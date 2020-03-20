@@ -77,7 +77,7 @@ export class UserGroupService implements OnInit, OnDestroy {
     return this.httpClient.post<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/DeleteRole?id=" + id, { headers :HttpHeadersOptions.headers });
   }
 
-  private _listners = new Subject();
+  public _listners = new Subject();
 
   listen(): Observable<any>{
     return this._listners.asObservable();

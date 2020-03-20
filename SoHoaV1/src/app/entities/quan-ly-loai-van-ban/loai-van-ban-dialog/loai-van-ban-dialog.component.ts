@@ -66,29 +66,40 @@ export class LoaiVanBanDialogComponent  implements OnInit, OnDestroy{
     if (this.edit) {
       this.service.updateLoaiVanBan(this.loaiVanBan)
         .subscribe((result) => {
+          if (result.isSuccess) {
+            this.clear();
+            this.onSaveSuccess("Chỉnh sửa thành công");
+          }
+          else {
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+          }
         },
         (error)=> {
-          
           // this.onSaveError();
+          this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
         },
         () => {
-          // do something
-          // this.activeModal.dismiss("Update successfully.");
-          this.onSaveSuccess("Chỉnh sửa thành công");
-
+          this.onClose();
         });
     }
     else {
         this.service.insertNewLoaiVanBan(this.loaiVanBan)
         .subscribe((result) => {
+          if (result.isSuccess) {
+            this.toast.success("Thêm mới thành công");
+            this.clear();
+            this.onClose();
+          }
+          else {
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+          }
         },
         (error) => {
+          this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
         }, () => {
-          this.onSaveSuccess("Thêm mới thành công");
           // this.activeModal.dismiss("Create new successfully");
         });
     }
-    this.onClose();
   }
 
   onChangeCreateRole(value: boolean) {
@@ -114,14 +125,14 @@ export class LoaiVanBanDialogComponent  implements OnInit, OnDestroy{
     this.toast.success(message);
   }
 
-  onSaveError(message){
-    this.toast.success(message);
+  onSaveError(message: string){
+    this.toast.error(message);
   }
 
   onClose(){
     this.service.filter('Register click');
-    this.activeModal.close();
   }
+  
   ngOnDestroy(): void {
   }
 }

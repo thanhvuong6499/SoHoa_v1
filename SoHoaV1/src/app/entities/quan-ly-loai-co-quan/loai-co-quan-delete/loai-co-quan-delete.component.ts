@@ -31,9 +31,11 @@ export class OrganTypeDeleteComponent implements OnInit {
   deleteOrganType(id : any) {
     this.organTypeService.deleteOrganType(id)
       .subscribe((result) => {
-        console.log(result.isSuccess);
-        if(result.isSuccess)
-          this.onDeleteSuccess('Xóa thành công!!!');
+        if(result.isSuccess){
+          this.toasts.success("Xóa thành công!!!");
+          this.clear();
+          this.onClose();
+        }
         else  
           this.onDeleteError('Xóa thất bại, loại cơ quan đang được áp dụng!!!');
       },
@@ -41,21 +43,24 @@ export class OrganTypeDeleteComponent implements OnInit {
         alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
       }, () => {
       });
-      this.onClose();
+  }
+
+  
+  clear() {
+    this.activeModal.dismiss('cancel');
   }
 
   onClose(){
     this.organTypeService.filter('Register click');
-    this.activeModal.close();
   }
 
   
   onDeleteError(message){
-    this.toasts.success(message);
+    this.toasts.error(message);
   }
 
   onDeleteSuccess(message){
-    this.toasts.success(message)
+    this.toasts.info(message)
   }
 
 }

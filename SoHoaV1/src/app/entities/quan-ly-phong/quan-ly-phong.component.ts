@@ -63,6 +63,10 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       multiple: true,
       tags: true
     }
+    this.phongService.listen().subscribe((m:any)=>{
+      this.loadFilterOptionsOrgan();
+      this.loadAll();
+    })
    }
 
   ngOnInit() {
@@ -128,8 +132,8 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       });
   }
   loadAll(){
-    if(this.phong.organID != undefined){
-    }
+    // if(this.phong.organID != undefined){
+    // }
     this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
       this.phongs = data.itemList;
       this.pageSize = 5;

@@ -48,6 +48,10 @@ export class QuanLyHopSoComponent implements OnInit {
         tags: true
       }
       this.danhmuc = new DanhMuc();
+      this.quanLyHopSoService.listen().subscribe((m: any) =>{
+        this.loadFilterOptionsDanhMuc();
+        this.loadAll();
+      })
     }
 
   ngOnInit() {

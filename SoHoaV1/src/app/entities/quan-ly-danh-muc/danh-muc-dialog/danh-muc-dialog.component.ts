@@ -75,33 +75,52 @@ export class DanhMucDialogComponent implements OnInit {
       if (this.isEdit) {
         this.service.updateDanhMuc(this.danhmuc)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else {
+              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+            }
           },
           (error)=> {
-            this.onSaveError("Cập nhật thất bại");
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
           },
           () => {
-            this.activeModal.dismiss("Update successfully.");
-            this.onSaveSuccess("Chỉnh sửa thành công");
-  
+            this.onClose();
           });
       }
       else {
           this.service.insertNewDanhMuc(this.danhmuc)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.toastr.success("Thêm mới thành công");
+              this.clear();
+              this.onClose();
+            }
+            else {
+              this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+            }
           },
           (error) => {
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
           }, () => {
-            this.onSaveSuccess("Thêm mới thành công");
-            this.activeModal.dismiss("Create new successfully");
+            // this.activeModal.dismiss("Create new successfully");
           });
       }
     }
   }
-  onSaveSuccess(message: string){
+  onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
-  onSaveError(message){
-    this.toastr.success(message);
+
+  onSaveError(message: string){
+    this.toastr.error(message);
+  }
+
+  onClose(){
+    this.service.filter('Register click');
   }
   deleteFont(event) {
   }

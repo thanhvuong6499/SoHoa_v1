@@ -41,10 +41,12 @@ export class QuanLyDanhMucPopupService {
                 .subscribe((result) => {
                     this.result = result;
                     const danhmuc : DanhMuc = result.item;
-                    this.ngbModalRef = this.DanhMucModalRef(component, danhmuc);
+                }, (error) => {
+
+                }, () => {
+                    this.ngbModalRef = this.DanhMucModalRef(component, this.danhmuc);
                     resolve(this.ngbModalRef);
-                });
-                this.ngbModalRef = this.DanhMucModalRef(component, this.danhmuc);
+            });
             } else {
                 this.result.item = undefined;
                 setTimeout(() => {

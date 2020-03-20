@@ -64,8 +64,8 @@
               <td style="width:137px;text-align: center;">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyPhong/phong',phong.fontID]"></button>
                 <!-- target blank -->
-                <a target="_blank" [routerLink]="['/QuanLyPhong/phong']"><button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.fontID)" replaceUrl="true" queryParamsHandling="merge">
-                </button></a>
+                <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.fontID)" replaceUrl="true" queryParamsHandling="merge">
+                </button>
                 <!-- <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(phong.id)"
                   replaceUrl="true" queryParamsHandling="merge"></button> -->
                 <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(phong.fontID)"></button> -->

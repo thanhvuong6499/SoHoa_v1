@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Phong, phongs } from '../../model/phong.model';
 import { organ } from '../../model/co-quan.model';
+import {Subject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +87,19 @@ export class QuanLyDanhMucService {
   }
   getAllDanhMuc() {
     return this.httpClient.get<ReturnResult<DanhMuc>>(ApiUrl.apiUrl + "TableOfContents/GetAllTableOfContents");
+  }
+
+  private _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+  
+  onDestroy(): void{
+
   }
 }

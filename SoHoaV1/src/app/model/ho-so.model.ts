@@ -43,6 +43,7 @@ export class HoSo  {
     public updatedBy? : string;
     public profileId?: number;
     public totalFiles? : number;
+    public profileNumber?: number;
 }
 
 export const hosos : HoSo[] = [

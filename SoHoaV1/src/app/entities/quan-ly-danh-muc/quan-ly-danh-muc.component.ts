@@ -76,6 +76,10 @@ export class QuanLyDanhMucComponent implements OnInit {
       closeOnSelect: true,
       width: "100%"
     }
+    this.danhMucService.listen().subscribe((m: any) =>{
+      this.loadFilterOptionsOrgan();
+      this.loadAll();
+    })
   }
   openDialog(id?: number) {
 
@@ -98,8 +102,6 @@ export class QuanLyDanhMucComponent implements OnInit {
 
   ngOnInit() {
     this.loadFilterOptionsOrgan();
-    this.getAllCoQuan();
-    this.getAllPhong();
     this.loadAll();
   }
   

@@ -28,16 +28,34 @@ export class PhongDeleteComponent implements OnInit {
   deleteFont(id : number) {
     this.phongService.deletePhong(id)
       .subscribe((result) => {
-        
+        if(result.isSuccess){
+          this.toasts.success("Xóa thành công!!!");
+          this.clear();
+          this.onClose();
+        }
+        else  
+          this.onDeleteError('Xóa thất bại, phông đang được áp dụng!!!');
       },
       (error) => {
         alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));
       }, () => {
-        this.activeModal.dismiss("deleted");
-        this.onDeleteSuccess();
       });
+      this.onClose();
   }
-  onDeleteSuccess(){
-    this.toasts.success("delete success")
+  clear() {
+    this.activeModal.dismiss('cancel');
+  }
+
+  onClose(){
+    this.phongService.filter('Register click');
+  }
+
+  
+  onDeleteError(message){
+    this.toasts.error(message);
+  }
+
+  onDeleteSuccess(message){
+    this.toasts.info(message)
   }
 }

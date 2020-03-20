@@ -70,37 +70,53 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
       if (this.isEdit) {
         this.service.updatePhong(this.phong)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else {
+              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+            }
           },
           (error)=> {
-            this.activeModal.dismiss("Update failure.");
-            this.onSaveError("Chỉnh sửa thất bại");
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
           },
           () => {
-            // do something
-            this.activeModal.dismiss("Update successfully.");
-            this.onSaveSuccess("Chỉnh sửa thành công");
-  
+            this.onClose();
           });
       }
       else {
           this.service.insertNewPhong(this.phong)
           .subscribe((result) => {
+            if (result.isSuccess) {
+              this.toastr.success("Thêm mới thành công");
+              this.clear();
+              this.onClose();
+            }
+            else {
+              this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+            }
           },
           (error) => {
-            this.onSaveError("Thêm mới thất bại");
-            this.activeModal.dismiss("Create new failure");
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
           }, () => {
-            this.onSaveSuccess("Thêm mới thành công");
-            this.activeModal.dismiss("Create new successfully");
+            // this.activeModal.dismiss("Create new successfully");
           });
       }
     }
+    this.onClose();
   }
-  onSaveSuccess(message: string){
+  onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
-  onSaveError(message){
-    this.toastr.success(message);
+
+  onSaveError(message: string){
+    this.toastr.error(message);
+  }
+
+  onClose(){
+    this.service.filter('Register click');
   }
   deleteFont(event) {
   }
