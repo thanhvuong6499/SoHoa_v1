@@ -1,6 +1,217 @@
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
 
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened="true" style="width:50%;">
+        <div class="modal-header bg-primary" aria-hidden="true">
+            <div *ngIf="document.documentId != null; else themMoi">
+                <h4 class="modal-title">Chỉnh sửa tài liệu</h4>
+            </div>
+            <ng-template #themMoi>
+                <h4 class="modal-title">Thêm mới tài liệu</h4>
+            </ng-template>
+        </div>
+        <div class="modal-body">
+            <!-- <div class="form-group">
+            <label class="form-control-label">Mã phông</label>
+            <input type="number" class="form-control" name="maphong" id="field_maphong"
+                [(ngModel)]="phong.maphong" required/>
+        </div> -->
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Hồ sơ</label>
+                <div class="col-md-9">
+                  <ng-select2
+                    [data]="profileList"
+                    [placeholder]="'Chọn hồ sơ...'"
+                    [options]="options"
+                    name="id"
+                    [(ngModel)]="profile.hososo"
+                  ></ng-select2>
+                </div>
+            </div> -->
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Mã văn bản</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="documentCode" class="form-control" [(ngModel)]="document.documentCode">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="profileId" class="form-control" [(ngModel)]="document.profileId">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Văn bản số</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="codeNumber" class="form-control" [(ngModel)]="document.codeNumber">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="document-type">Loại văn bản</label>
+                <div class="col-md-9">
+                  <ng-select2
+                  [data]="documentTypeList"
+                  [placeholder]="'Chọn loại văn bản...'"
+                  [options]="options"
+                  name="docTypeId"
+                  [(ngModel)]="document.docTypeId"
+      
+                ></ng-select2>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Số thứ tự văn bản</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="docOrinal" class="form-control" [(ngModel)]="document.docOrdinal">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu văn bản</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="documentso" class="form-control" [(ngModel)]="document.codeNotation">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Số tờ</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="soto" class="form-control" [(ngModel)]="document.pageAmount">
+                </div>
+            </div>
+            
+            
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Nội dung</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.subject">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Ngôn ngữ</label>
+                <div class="col-md-9">
+                  <ng-select2
+                    [data]="languageList"
+                    [placeholder]="'Chọn ngôn ngữ...'"
+                    [options]="options"
+                    name="languageId"
+                    [(ngModel)]="document.languageId"
+                  ></ng-select2>
+                </div>
+            </div>
+           
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="date-input">Ngày tháng năm văn bản</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="date-input" type="date" name="issuedDate" placeholder="date" [ngModel] ="document.issuedDate | date:'yyyy-MM-dd'" (ngModelChange)="issuedDate = $event">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Tình trạng vật lý</label>
+                <div class="col-md-9">
+                  <ng-select2
+                    [data]="formatList"
+                    [placeholder]="'Chọn tình trạng vật lý...'"
+                    [options]="options"
+                    name="formatList"
+                    [(ngModel)]="document.formatId"
+                  ></ng-select2>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.description">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.inforSign">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.keyWord">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.mode">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Mức độ bảo mật</label>
+                <div class="col-md-9">
+                  <ng-select2
+                    [data]="confidenceLevelList"
+                    [placeholder]="'Chọn mức độ tin cậy...'"
+                    [options]="options"
+                    name="confidenceLevelName"
+                    [(ngModel)]="document.confidenceLevelId"
+                  ></ng-select2>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Bút tích</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="stttronghs" class="form-control"
+                        [(ngModel)]="document.autograph">
+                </div>
+            </div>
+            
+            
+            
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
+                <div class="col-md-9">
+                    <input class="form-control" id="date-input" type="date" name="thoigianbatdau" placeholder="date">
+                </div>
+            </div> -->
+            
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Thời hạn bảo quản</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="tinhtrang" class="form-control"
+                        [(ngModel)]="document.issuedDate">
+                </div>
+            </div> -->
+            
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Số lượng trang văn bản</label>
+                <div class="col-md-9">
+                    <input type="text" id="text-input" name="ngonngu" class="form-control">
+                </div>
+            </div> -->
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="inline-radios">Mức độ tin cậy</label>
+                <div class="col-md-9 col-form-label">
+                    <div class="form-check form-check-inline mr-1" id="inline-radios">
+                        <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Có</label>
+                    </div>
+                    <div class="form-check form-check-inline mr-1">
+                        <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Không</label>
+                    </div>
+                </div>
+            </div> -->
+    
+            <!-- <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
+                <div class="col-md-9">
+                    <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
+                </div>
+            </div> -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+                <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            </button>
+        </div>
         <input (change)="onFileSelected()" type="file" id="file">
     </mat-drawer>
         <mat-drawer-content style="height: 650px;" >
@@ -13,3 +224,4 @@
             ></pdf-viewer>
         </mat-drawer-content>
   </mat-drawer-container>
+  </form>

@@ -30,7 +30,14 @@ const routes: Routes = [
             path: 'taiLieuPdf',
             component: VanBanPdfComponent,
             data: {
-              title: "PDF PREVIEW"
+              title: "Thêm mới văn bản"
+            }
+          },
+          {
+            path: 'taiLieuPdf/:id',
+            component: VanBanPdfComponent,
+            data: {
+              title: "Chỉnh sửa văn bản"
             }
           }
           
