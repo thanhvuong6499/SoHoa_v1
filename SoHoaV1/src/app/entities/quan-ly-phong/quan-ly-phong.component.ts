@@ -66,7 +66,6 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       tags: true
     }
     this.phongService.listen().subscribe((m:any)=>{
-      this.loadFilterOptionsOrgan();
       this.loadAll();
     })
    }
@@ -139,7 +138,7 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
   //     });
   // }
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.8");
+    this.showSpinner("dataTable", "timer", "0.2");
     this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
       this.phongs = data.itemList;
       this.pageSize = 5;

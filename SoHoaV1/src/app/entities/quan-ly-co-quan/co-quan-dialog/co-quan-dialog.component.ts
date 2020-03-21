@@ -135,10 +135,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
   update1(value: string) {
 
   }
-  clear() {
-    this.activeModal.dismiss('cancel');
-  }
-
   save() {
     console.log(this.coQuan);
     this.submitted = true;
@@ -149,41 +145,38 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
     if (this.isEdit) {
       this.service.updateCoQuan(this.coQuan)
         .subscribe((result) => {
-          if (result.isSuccess)
-          {
+          if (result.isSuccess) {
+            this.clear();
             this.onSaveSuccess("Chỉnh sửa thành công");
           }
           else {
-          //  this.toastr.error("Chỉnh sửa thất bại, vui lòng kiểm tra lại. Lỗi: " + result.errorMessage, "Lỗi");
-          if (result.errorCode == "-1") {
-              this.toastr.warning("Chỉnh sửa thành công");
-            }
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
           }
         },
         (error)=> {
-         this.toastr.error("Chỉnh sửa thất bại, vui lòng kiểm tra lại", "Lỗi");
+          // this.onSaveError();
+          this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
         },
         () => {
-          // do something
-          this.activeModal.dismiss("Update successfully.");
+          this.onClose();
         });
     }
     else {
         this.service.insertNewCoQuan(this.coQuan)
         .subscribe((result) => {
-          if(result.isSuccess) {
-            this.onSaveSuccess("Thêm mới thành công");
-            
+          if (result.isSuccess) {
+            this.toastr.success("Thêm mới thành công");
+            this.clear();
+            this.onClose();
           }
           else {
-            this.toastr.error("Thêm mới thất bại, vui lòng kiểm tra lại", "Lỗi");
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
           }
         },
         (error) => {
-          this.toastr.error("Thêm mới thất bại, vui lòng kiểm tra lại", "Lỗi");
+          this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
         }, () => {
-          
-          this.activeModal.dismiss("Create new successfully");
+          // this.activeModal.dismiss("Create new successfully");
         });
     }
   }
@@ -279,12 +272,20 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
             });
   }
  
+  clear() {
+    this.activeModal.dismiss('cancel');
+  }
 
   onSaveSuccess(message: string) {
     this.toastr.success(message);
   }
+
   onSaveError(message){
-    this.toastr.success(message);
+    this.toastr.error(message);
+  }
+
+  onClose(){
+    this.service.filter('Register click');
   }
   ngOnDestroy(): void {
     

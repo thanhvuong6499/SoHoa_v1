@@ -262,8 +262,9 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
             this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
           }
           this.uploader.clearQueue();
+          this.clear();
           this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
-          this.activeModal.dismiss('success');
+
         }
       },
       (error) => {
@@ -271,6 +272,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
         this.toastr.error("Thêm mới thất bại", "Thông báo");
       },
       () => {
+        this.onClose();
       //  this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
       //  this.activeModal.dismiss('success');
         // if (!this.isOverwrite) 
@@ -396,7 +398,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
           }
           this.uploader.clearQueue();
           this.success("Cập nhật hồ sơ thành công", "Cập nhật hồ sơ");
-          this.activeModal.dismiss('success');
+          this.clear();
+          this.onClose();
         }
       },
       (error) => {
@@ -483,6 +486,10 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     $(document).ready(function () {
       getDateValue(startDate, endDate);
     });
+
+  }
+  onClose(){
+    this.service.filter('Register click');
   }
 
 }

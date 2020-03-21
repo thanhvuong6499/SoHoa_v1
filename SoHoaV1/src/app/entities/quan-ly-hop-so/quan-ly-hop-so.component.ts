@@ -51,7 +51,6 @@ export class QuanLyHopSoComponent implements OnInit {
       }
       this.danhmuc = new DanhMuc();
       this.quanLyHopSoService.listen().subscribe((m: any) =>{
-        this.loadFilterOptionsDanhMuc();
         this.loadAll();
       })
     }
@@ -95,7 +94,7 @@ export class QuanLyHopSoComponent implements OnInit {
   }
 
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.8");
+    this.showSpinner("dataTable", "timer", "0.2");
     this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : any) => {
       this.hopsos = data.itemList;
       this.pageSize = 5;

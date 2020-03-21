@@ -58,6 +58,9 @@ export class QuanLyCoQuanComponent implements OnInit, OnDestroy {
       multiple: true,
       tags: true
     }
+    this.coQuanService.listen().subscribe((m:any)=>{
+      this.loadAll();
+    })
     
   }
 

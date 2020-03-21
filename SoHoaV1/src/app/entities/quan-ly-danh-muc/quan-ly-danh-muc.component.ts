@@ -79,7 +79,6 @@ export class QuanLyDanhMucComponent implements OnInit {
       width: "100%"
     }
     this.danhMucService.listen().subscribe((m: any) =>{
-      this.loadFilterOptionsOrgan();
       this.loadAll();
     })
   }
@@ -135,7 +134,7 @@ export class QuanLyDanhMucComponent implements OnInit {
   }
 
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.8");
+    this.showSpinner("dataTable", "timer", "0.2");
     this.danhMucService.getAllDanhMucWithPaging().subscribe((data : any) => {
       this.danhmucs = data.itemList;
       this.pageSize = 5;

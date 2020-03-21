@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { CoQuan, coquans } from '../../model/co-quan.model';
 import { Phong, phongs } from '../../model/phong.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { map } from 'rxjs/operators';
@@ -128,4 +128,17 @@ export class QuanLyCoQuanService {
     }
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "CoQuan/GetFontsByOrganId", JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+
+  
+  private _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+  
+  
 }

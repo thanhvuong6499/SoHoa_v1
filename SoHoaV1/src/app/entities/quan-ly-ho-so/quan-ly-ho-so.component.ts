@@ -47,6 +47,9 @@ export class QuanLyHoSoComponent implements OnInit {
       multiple: true,
       tags: true,
     }
+    this.service.listen().subscribe((m:any)=>{
+      this.loadData();
+    })
    }
 
   ngOnInit() {

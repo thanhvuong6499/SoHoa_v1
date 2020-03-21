@@ -5,6 +5,7 @@ import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions, HttpHeaderOpti
 import { AuthenticationService } from '../../services/authentication.service';
 import { FileUpload } from '../../model/file.model';
 import { Document } from '../../model/document.model';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -109,5 +110,16 @@ export class QuanLyHoSoService {
     }
     return this._httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Profile/GetDocumentsByProfileId", JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+
+  private _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+  
 
 }
