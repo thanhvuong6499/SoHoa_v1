@@ -56,7 +56,9 @@ export class QuanLyHopSoService {
     var body = JSON.stringify(hopso);
     return this.httpClient.post<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/CreateGearBox", body, { headers: HttpHeadersOptions.headers });
   }
-
+  getGearBoxByTableOfContentId (gearBoxID: number) {
+    return this.httpClient.get<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/GetGearBoxByTabOfContID/" + gearBoxID);
+  }
   getHopSoById (gearBoxID: number) {
     return this.httpClient.get<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/GetGearBoxByID/" + gearBoxID);
   }

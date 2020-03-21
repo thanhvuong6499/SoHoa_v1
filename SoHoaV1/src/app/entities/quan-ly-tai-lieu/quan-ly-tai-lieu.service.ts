@@ -10,6 +10,7 @@ import { HoSo } from '../../model/ho-so.model';
 import { Language } from '../../model/language.model';
 import { Format } from '../../model/format.model';
 import { ConfidenceLevel } from '../../model/confidence-level.model';
+import { HopSo } from '../../model/hop-so.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,12 +61,13 @@ export class QuanLyTaiLieuService {
   public updateDocument(document : Document){
     return this.httpClient.post<Document>(ApiUrl.apiUrl + "Document/UpdateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
   }
+  public getGearBoxByTableOfContentId(id : string){
+    return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetGearBoxByTabOfContID/' + id);
+  }
+  
 
   public createDocument(document: Document){
     document.createdBy = this.authenticationService.getUserName;
-    document.createdDate = new Date();
-    document.computerFileId = 1;
-    document.fileId = 1;
     return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/CreateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
   }
   public deleteDocument(id : number){
