@@ -68,9 +68,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let hoso of hosos">
+              <tr *ngFor="let hoso of hosos;index as i">
+                <td>{{i+1}}</td>
                 <td>{{ hoso.profileNumber }}</td>
-                <td>{{ hoso.gearBoxId }}</td>
                 <td>{{ hoso.title }}</td>
                 <td>{{ hoso.profileTypeName }}</td>
                 <td>{{ hoso.note }}</td>
