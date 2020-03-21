@@ -1,53 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCondition } from '../../../common';
-import { Phong } from '../../../model/phong.model';
 import { ActivatedRoute } from '@angular/router';
-import { QuanLyPhongPopupService } from '../../quan-ly-phong/quan-ly-phong-popup.service';
-import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
-import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
-import { QuanLyCoQuanService } from '../../quan-ly-co-quan/quan-ly-co-quan-service.service';
+import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { ThongKeService } from '../thong-ke.service';
+import { HopSo } from '../../../model/hop-so.model';
+import { HoSo } from '../../../model/ho-so.model';
+import { QuanLyHoSoService } from '../../quan-ly-ho-so/quan-ly-ho-so.service';
 
 @Component({
-  selector: 'app-thong-ke',
-  templateUrl: './thong-ke.component.html',
-  styleUrls: ['./thong-ke.component.css']
+  selector: 'app-thong-ke-ho-so',
+  templateUrl: './thong-ke-ho-so.component.html',
+  styleUrls: ['./thong-ke-ho-so.component.css']
 })
-export class ThongKeComponent implements OnInit {
-  phongs: Phong[];
-  phong: Phong;
+export class ThongKeHoSoComponent implements OnInit {
+  hosos: HoSo[];
+  hoso: HoSo;
   searchText: string = "";
   page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
-  condition: BaseCondition<Phong>;
+  condition: BaseCondition<HoSo>;
   link: string = "";
 
   constructor( 
     private route: ActivatedRoute,
-    public phongService: QuanLyPhongService,
-    private danhMucService: QuanLyDanhMucService,
-    private coQuanService: QuanLyCoQuanService,
+    public service: QuanLyHoSoService,
     private thongKeService: ThongKeService
     ) { }
 
   ngOnInit() {
-    this.getLinkExportFont();
+    this.getLinkExportHoSo();
     this.loadAll();
   }
 
   loadPages(page : string) {
     try{
-      var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
+      var condi : BaseCondition<HoSo> = new BaseCondition<HoSo>();
       if(this.condition!=undefined){
         if (this.condition.FilterRuleList != undefined) {
           condi.FilterRuleList = this.condition.FilterRuleList;
         }
       }
       condi.PageIndex = parseInt(page);
-      this.phongService.getAllPhongWithPaging(condi).subscribe((data : any) => {
-        this.phongs = data.itemList;
+      this.service.getAllProfilesWithPaging(condi).subscribe((data : any) => {
+        this.hosos = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows;
@@ -62,8 +59,8 @@ export class ThongKeComponent implements OnInit {
   }
  
   loadAll(){
-    this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
-      this.phongs = data.itemList;
+    this.service.getAllProfilesWithPaging().subscribe((data: any) => {
+      this.hosos = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
@@ -73,7 +70,7 @@ export class ThongKeComponent implements OnInit {
     });
   }
 
-  getLinkExportFont(){
-    this.link =  this.thongKeService.getLinkExportFont();
+  getLinkExportHoSo(){
+    this.link =  this.thongKeService.getLinkExportHoSo();
   }
 }

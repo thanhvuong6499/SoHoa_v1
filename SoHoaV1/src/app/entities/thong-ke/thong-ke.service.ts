@@ -10,7 +10,13 @@ export class ThongKeService {
 
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
   
-  ExportFont (){
-    return this.httpClient.get(ApiUrl.apiUrl + "ExportFont/FontExport");
+  getLinkExportFont (){
+    return  (ApiUrl.apiUrl + "ExportFont/FontExport");
+  }
+  getLinkExportHopSo (){
+    return  (ApiUrl.apiUrl + "ExportGearBox/GearBoxExport");
+  }
+  getLinkExportHoSo() {
+    return  (ApiUrl.apiUrl + "ExportProfile/ExportProfile");
   }
 }

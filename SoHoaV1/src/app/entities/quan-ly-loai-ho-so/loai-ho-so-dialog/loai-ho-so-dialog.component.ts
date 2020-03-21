@@ -114,7 +114,7 @@ export class LoaiHoSoDialogComponent  implements OnInit, OnDestroy{
   }
 
   onSaveError(message){
-    this.toast.success(message);
+    this.toast.error(message);
   }
 
   onClose(){

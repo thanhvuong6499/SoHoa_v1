@@ -48,39 +48,46 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Ngôn ngữ</label>
-      <div class="col-md-9">
-        <!-- <ng-select2
+      <!-- <div class="col-md-9">
+        <ng-select2
           [data]="lstLang"
           [placeholder]="'Chọn ngôn ngữ...'"
           [options]="options"
           name="organID"
           [(ngModel)]="phong.organID"
-        ></ng-select2> -->
+        ></ng-select2>
+      </div> -->
+      <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ</label>
+      <div class="col-md-9">
+        <input placeholder="Nhập ngôn ngữ" formControlName="lang"  type="text" name="lang" class="form-control" [(ngModel)]="phong.lang">
       </div>
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Lịch sử phông</label>
       <div class="col-md-9">
-        <textarea formControlName="history"  id="textarea-input" name="history" rows="9" class="form-control" [(ngModel)]="phong.history"></textarea>
+        <textarea  placeholder="Nhập lịch sử phông" formControlName="history"  id="textarea-input" name="history" rows="9" class="form-control" [(ngModel)]="phong.history"></textarea>
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="select1">Công cụ tra cứu</label>
+      <label class="col-md-3 col-form-label" for="text-input">Công cụ tra cứu</label>
       <div class="col-md-9">
-        <!-- <ng-select2
+        <input placeholder="Nhập công cụ tra cứu" formControlName="lookupTools"  type="text" name="lookupTools" class="form-control" [(ngModel)]="phong.lookupTools">
+      </div>
+      <!-- <label class="col-md-3 col-form-label" for="select1">Công cụ tra cứu</label>
+      <div class="col-md-9">
+        <ng-select2
           [data]="lstTool"
           [placeholder]="'Công cụ tra cứu...'"
           [options]="options"
           name="organID"
           [(ngModel)]="phong.organID"
-        ></ng-select2> -->
-      </div>
+        ></ng-select2>
+      </div> -->
     </div>
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
       <div class="col-md-9">
-        <textarea formControlName="note" id="textarea-input" name="note" rows="9" class="form-control" [(ngModel)]="phong.note"></textarea>
+        <textarea placeholder="Ghi chú" formControlName="note" id="textarea-input" name="note" rows="9" class="form-control" [(ngModel)]="phong.note"></textarea>
       </div>
     </div>
 

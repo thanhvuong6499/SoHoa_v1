@@ -2,7 +2,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <h3><i class="fa fa-file"></i> &nbsp;Thống kê </h3>
+          <h3><i class="fa fa-file"></i> &nbsp;Thống kê hồ số</h3>
           
           <div class="form-group row">
             <label class="col-md-1 col-form-label" for="text-input">Ngày bắt đầu</label>
@@ -34,22 +34,26 @@
           <table class="table table-bordered table-striped table-sm">
             <thead>
               <tr>
-                <th>Tên cơ quan </th>
-                <th>Mã phông</th>
-                <th>Tên phông</th>
-                <th>Lịch sử</th>
-                <th>Ngôn ngữ</th>
+                <th>Mã Hồ số </th>
+                <th>Mã hộp số</th>
+                <th>Tiêu đề hồ sơ</th>
+                <!-- <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th> -->
+                <th>THBQ</th>
+                <th>Loại hồ sơ</th>
                 <th>Ghi chú</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let phong of phongs">
-                <td>{{ phong.organName }}</td>
-                <td>{{ phong.fontNumber }}</td>
-                <td>{{ phong.fontName }}</td>
-                <td>{{ phong.history }}</td>
-                <td>{{ phong.lang }}</td>
-                <td>{{ phong.note }}</td>
+              <tr *ngFor="let hoso of hosos">
+                <td>{{ hoso.profileId }}</td>
+                <td>{{ hoso.gearBoxId }}</td>
+                <td>{{ hoso.title }}</td>
+                <!-- <td>{{ hopso.startDate == undefined ? "" : hopso.startDate.toString().split('T') | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ hopso.endDate == undefined ? "" : hopso.endDate .toString().split('T') | date: 'dd/MM/yyyy' }}</td> -->
+                <td>{{ hoso.shelfLife }}</td>
+                <td>{{ hoso.profileTypeName }}</td>
+                <td>{{ hoso.note }}</td>
               </tr>
             </tbody>
           </table>

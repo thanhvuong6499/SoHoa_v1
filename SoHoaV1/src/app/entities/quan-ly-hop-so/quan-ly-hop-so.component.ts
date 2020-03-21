@@ -112,7 +112,7 @@ export class QuanLyHopSoComponent implements OnInit {
   }
 
   loadFilterOptionsDanhMuc () {
-      this.showSpinner("filterOptions","timer", "0.8");
+      // this.showSpinner("filterOptions","timer", "0.8");
       this.danhMucService.getAllDanhMuc()
       .subscribe((result) => {
       //  this.organFilterData = result;
@@ -126,11 +126,11 @@ export class QuanLyHopSoComponent implements OnInit {
       (error => {
         setTimeout(() => {
           alert("Lỗi: " + JSON.stringify(error));
-          this.hideSpinner("filterOptions");
+          // this.hideSpinner("filterOptions");
         }, 5000);
       }),
       () => {
-        this.hideSpinner("filterOptions");
+        // this.hideSpinner("filterOptions");
       })
 
   }

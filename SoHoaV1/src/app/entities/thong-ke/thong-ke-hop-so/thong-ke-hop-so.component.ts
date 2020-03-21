@@ -1,53 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCondition } from '../../../common';
-import { Phong } from '../../../model/phong.model';
 import { ActivatedRoute } from '@angular/router';
-import { QuanLyPhongPopupService } from '../../quan-ly-phong/quan-ly-phong-popup.service';
-import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
-import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
-import { QuanLyCoQuanService } from '../../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { ThongKeService } from '../thong-ke.service';
+import { HopSo } from '../../../model/hop-so.model';
+import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 
 @Component({
-  selector: 'app-thong-ke',
-  templateUrl: './thong-ke.component.html',
-  styleUrls: ['./thong-ke.component.css']
+  selector: 'app-thong-ke-hop-so',
+  templateUrl: './thong-ke-hop-so.component.html',
+  styleUrls: ['./thong-ke-hop-so.component.css']
 })
-export class ThongKeComponent implements OnInit {
-  phongs: Phong[];
-  phong: Phong;
+export class ThongKeHopSoComponent implements OnInit {
+  hopsos: HopSo[];
+  hopso: HopSo;
   searchText: string = "";
   page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
-  condition: BaseCondition<Phong>;
+  condition: BaseCondition<HopSo>;
   link: string = "";
 
   constructor( 
     private route: ActivatedRoute,
-    public phongService: QuanLyPhongService,
-    private danhMucService: QuanLyDanhMucService,
-    private coQuanService: QuanLyCoQuanService,
+    public service: QuanLyHopSoService,
     private thongKeService: ThongKeService
     ) { }
 
   ngOnInit() {
-    this.getLinkExportFont();
+    this.getLinkExportHopSo();
     this.loadAll();
   }
 
   loadPages(page : string) {
     try{
-      var condi : BaseCondition<Phong> = new BaseCondition<Phong>();
+      var condi : BaseCondition<HopSo> = new BaseCondition<HopSo>();
       if(this.condition!=undefined){
         if (this.condition.FilterRuleList != undefined) {
           condi.FilterRuleList = this.condition.FilterRuleList;
         }
       }
       condi.PageIndex = parseInt(page);
-      this.phongService.getAllPhongWithPaging(condi).subscribe((data : any) => {
-        this.phongs = data.itemList;
+      this.service.getAllHopSoWithPaging(condi).subscribe((data : any) => {
+        this.hopsos = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows;
@@ -62,8 +57,8 @@ export class ThongKeComponent implements OnInit {
   }
  
   loadAll(){
-    this.phongService.getAllPhongWithPaging().subscribe((data: any) => {
-      this.phongs = data.itemList;
+    this.service.getAllHopSoWithPaging().subscribe((data: any) => {
+      this.hopsos = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
@@ -73,7 +68,7 @@ export class ThongKeComponent implements OnInit {
     });
   }
 
-  getLinkExportFont(){
-    this.link =  this.thongKeService.getLinkExportFont();
+  getLinkExportHopSo(){
+    this.link =  this.thongKeService.getLinkExportHopSo();
   }
 }

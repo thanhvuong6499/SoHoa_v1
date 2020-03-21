@@ -7,11 +7,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import { ThongKeHopSoComponent } from './thong-ke-hop-so/thong-ke-hop-so.component';
+import { ThongKeHoSoComponent } from './thong-ke-ho-so/thong-ke-ho-so.component';
 
 
 
 @NgModule({
-  declarations: [ThongKeComponent, NhatKyComponent],
+  declarations: [ThongKeComponent, NhatKyComponent,ThongKeHopSoComponent,ThongKeHoSoComponent],
   imports: [
     CommonModule,
     ThongKeRoutingModule,

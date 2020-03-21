@@ -152,17 +152,18 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       }, 5000);
     }, () => {
       this.hideSpinner("dataTable");
-      this.showSpinner("filterOptions","timer", "0.8");
+      // this.showSpinner("filterOptions","timer", "0.8");
     });
   }
 
   loadFilterOptionsOrgan () {
-    this.coQuanService.getAllOrgan()
+    this.phongService.getAllCoQuan()
       .subscribe((result) => {
       //  this.organFilterData = result;
         var arrTypes = [];
-        for (const item of result.organName) {
-          let value = { id: item, text: item }
+        var rs = result.itemList;
+        for (const item of rs) {
+          let value = { id: item.tenCoQuan, text: item.tenCoQuan }
           arrTypes.push(value);
         }
         this.organArr = arrTypes;
@@ -170,11 +171,11 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       (error => {
         setTimeout(() => {
           alert("Lỗi: " + JSON.stringify(error));
-          this.hideSpinner("filterOptions");
+          // this.hideSpinner("filterOptions");
         }, 5000);
       }),
       () => {
-        this.hideSpinner("filterOptions");
+        // this.hideSpinner("filterOptions");
       })
 
       this.danhMucService.getAllPhong()
@@ -191,11 +192,11 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       (error => {
         setTimeout(() => {
           alert("Lỗi: " + JSON.stringify(error));
-          this.hideSpinner("filterOptions");
+          // this.hideSpinner("filterOptions");
         }, 5000);
       }),
       () => {
-        this.hideSpinner("filterOptions");
+        // this.hideSpinner("filterOptions");
       })
   }
 
