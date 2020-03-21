@@ -62,7 +62,7 @@ export class LoaiHoSoService implements OnInit, OnDestroy {
 
   private _listners = new Subject();
 
-  listen(): Observable<any>{
+  listen () : Observable<any>{
     return this._listners.asObservable();
   }
 

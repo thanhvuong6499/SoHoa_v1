@@ -14,6 +14,7 @@ import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 import { NgSelect2Module } from 'ng-select2';
 import { FileDetailsComponent } from './file-details/file-details.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HoSoDialogComponent,
     HoSoDetailComponent,
     HoSoDeleteComponent,
-    FileDropDirective,
-    FileSelectDirective,
-    FileDetailsComponent
+    // FileDropDirective,
+    // FileSelectDirective,
+     FileDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +34,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     QuanLyHoSoRoutingModule,
     MaterialModule,
     NgSelect2Module,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ],
   entryComponents:[
     HoSoDialogComponent,

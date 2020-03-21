@@ -80,6 +80,7 @@ export class QuanLyPhongService {
     }
   return this.httpClient.post<DanhMuc[]>(ApiUrl.apiUrl + 'TableOfContents/GetTableOfContentsByFontID', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+  
   getAllCoQuan (){
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");
   }
@@ -96,6 +97,7 @@ export class QuanLyPhongService {
   filter(filterBy: string){
     this._listners.next(filterBy);
   }
+  
 
   onDistroy(): void{
   }

@@ -5,6 +5,13 @@
                 <form [formGroup]="form" (onSubmit)="onSubmit($event)">
                 <h4><i class="fa fa-file"></i> &nbsp;Chữ Ký Số </h4>
                 <hr/>
+                <ngx-spinner name="dataTable">
+                    <br>
+                    <p class="loading" style="color: blue;">Đang tải dữ liệu, vui lòng chờ...</p>
+                </ngx-spinner>
+                <ngx-spinner name="paging">
+                    <br>
+                </ngx-spinner>
                 <div class="form-group row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -25,8 +32,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="text-input">Chữ kí số: <span style="color:red">(*)</span></label>
                             <div class="col-md-6">
-                                <input type="file" formControlName="file" name="file" (change)="onFileSelected()" id="file" accept=".png"/>
-                                <div *ngIf="submitted && f.file.status == 'INVALID'">
+                                <input type="file" ng2FileSelect [uploader]="uploader" formControlName="file" name="file" (change)="onFileSelected()" id="file" accept=".png"/>
+                                <div *ngIf="submitted && (f.file.status == 'INVALID' || error)">
                                     <div class="error">Vui lòng chọn file chữ ký số muốn tải lên.</div>
                                 </div>
                             </div>
@@ -35,7 +42,7 @@
                             <label class="col-md-3 col-form-label"></label>
                             <div class="col-md-6">
                                 <button type="submit" (click)="onSubmit($event)" class="btn btn-primary btn-md">
-                                    <span class="fa fa-plus"></span>
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                     <span>
                                         Save
                                     </span>
@@ -61,26 +68,32 @@
                         <tr>
                             <th>Tên file</th>
                             <th>Kích thước</th>
-                            <th>Ngày tải lên</th>
-                            <th>Người tải lên</th>
+                            <th>Ngày tải</th>
+                            <th>Người tải</th>
+                            <th>Image</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <!-- <td>
-
-                            </td> -->
+                        <tr *ngFor="let item of signature">
+                            <td> {{ item.fileName }} </td>
+                            <td> {{ item.size }} </td>
+                            <td> {{ item.createDate }} </td>
+                            <td> {{ item.createBy }}</td>
+                            <td>...</td>
+                            <td class="center"><button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(item.id)"></button></td>
                         </tr>
                     </tbody>
                 </table>
-
+                <div *ngIf="totalRecords > 0 else nondata">
                 <nav>
                     <ul class="pagination">
-                      <ngb-pagination [collectionSize]="10" [(page)]="page" [maxSize]="5" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                      <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
                     </ul>
                   </nav>
-                <ng-template #example>
-    
+                  </div>
+                <ng-template #nondata>
+                    <div>Không có dữ liệu phù hợp.</div>
                 </ng-template>
     
             </div>

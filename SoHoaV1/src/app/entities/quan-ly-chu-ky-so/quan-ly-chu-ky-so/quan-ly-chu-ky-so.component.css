@@ -4,3 +4,7 @@
     font-size: 80%;
     color: red;
 }
+.center {
+    text-align: center;
+    width: 80px;
+}

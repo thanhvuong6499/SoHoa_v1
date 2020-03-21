@@ -12,9 +12,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelect2Module } from 'ng-select2';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { QuanLyChuKySoService } from './quan-ly-chu-ky-so.service';
+import { ChuKySoDeletePopupComponent } from './chu-ky-so-delete-popup/chu-ky-so-delete-popup.component';
+import { ChuKySoPopupService } from './chu-ky-so-popup-service.service';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
-  declarations: [QuanLyChuKySoComponent],
+  declarations: [
+    QuanLyChuKySoComponent,
+    ChuKySoDeletePopupComponent
+  ],
+  entryComponents: [
+    ChuKySoDeletePopupComponent
+  ],
   imports: [
     CommonModule,
     QuanLyChuKySoRoutingModule,
@@ -27,10 +36,12 @@ import { QuanLyChuKySoService } from './quan-ly-chu-ky-so.service';
     MatAutocompleteModule,
     HttpClientModule,
     NgSelect2Module,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ],
   providers: [
-    QuanLyChuKySoService
+    QuanLyChuKySoService,
+    ChuKySoPopupService
   ]
 })
 export class QuanLyChuKySoModule { }

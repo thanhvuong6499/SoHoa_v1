@@ -23,6 +23,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
 
   hoso: HoSo;
   date: Date;
+  
   public uploader : FileUploader = new FileUploader({
     isHTML5: true
   });

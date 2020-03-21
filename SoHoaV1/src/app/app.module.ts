@@ -104,4 +104,5 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
   bootstrap: [ AppComponent ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class AppModule { }

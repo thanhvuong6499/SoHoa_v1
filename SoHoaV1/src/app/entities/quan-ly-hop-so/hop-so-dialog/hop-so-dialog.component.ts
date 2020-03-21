@@ -122,8 +122,7 @@ export class HopSoDialogComponent implements OnInit {
         if (data != undefined && data.length !=0) {
           var danhmucs = [];
           for (const item of data) {
-            var temp = { id: item.tabOfContID, text: item.tabOfContName }
-            danhmucs.push(temp);
+            danhmucs.push({ id: item.tabOfContID, text: item.tabOfContName });
           }
           this.lstDanhMuc = danhmucs;
         }
@@ -147,8 +146,7 @@ export class HopSoDialogComponent implements OnInit {
       if (result != undefined) {
         var coquans = [];
         for (var item of result.itemList) {
-          var temp = { id: item.organID, text: item.tenCoQuan };
-          coquans.push(temp);
+          coquans.push({ id: item.organID, text: item.tenCoQuan });
         }
         this.lstOrgan = coquans;
         if(this.lstOrgan != null){
@@ -161,36 +159,6 @@ export class HopSoDialogComponent implements OnInit {
     (error) => {
     }, () => {
     });
-    // this.danhmucService.getAllPhong()
-    //   .subscribe((result) => {
-    //     if (result != undefined) {
-    //       var phongs = [];
-    //       for (var item of result.itemList) {
-    //         var temp = { id: item.fontID, text: item.fontName };
-    //         phongs.push(temp);
-    //       }
-    //       this.lstFont = phongs;
-    //     }
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }, () => {
-    // });
-    // this.danhmucService.getAllDanhMuc()
-    // .subscribe((result) => {
-    //   if (result != undefined) {
-    //     var danhmucs = [];
-    //     for (var item of result.itemList) {
-    //       var temp = { id: item.tabOfContID, text: item.tabOfContName };
-    //       danhmucs.push(temp);
-    //     }
-    //     this.lstDanhMuc = danhmucs;
-    //   }
-    // },
-    // (error) => {
-    //   console.log(error);
-    // }, () => {
-    // });
     if(this.hopSoPopupService.result.item != undefined){
       this.hopso = this.hopSoPopupService.result.item;
       if(this.hopso.startDate != undefined && this.hopso.startDate !=null){

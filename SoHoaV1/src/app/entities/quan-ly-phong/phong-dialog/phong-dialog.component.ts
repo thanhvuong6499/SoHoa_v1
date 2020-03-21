@@ -50,6 +50,8 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
       fontNumber: ['', Validators.required],
       fontName: ['', Validators.required],
       organID: ['', Validators.required],
+      lang: [''],
+      lookupTools: [''],
       history: [''],
       note: ['']
     });

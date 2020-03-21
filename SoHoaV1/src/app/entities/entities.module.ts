@@ -21,9 +21,11 @@ import { QuanLyLoaiVanBanModule } from './quan-ly-loai-van-ban/quan-ly-loai-van-
 import { QuanLyNgonNguModule } from './quan-ly-ngon-ngu/quan-ly-ngon-ngu.module';
 import { QuanLyTinhTrangVatLyModule } from './quan-ly-tinh-trang-vat-ly/quan-ly-tt-vat-ly.module';
 import { QuanLyMucDoTinCayModule } from './quan-ly-muc-do-tin-cay/muc-do-tin-cay.module';
+import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 
 @NgModule({
   declarations: [
+
   ],
   imports: [
     CommonModule,
