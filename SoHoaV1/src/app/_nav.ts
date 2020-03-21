@@ -126,14 +126,6 @@ export const navItems: INavData[] = [
     icon: 'fa fa-address-book-o'
   }
   
-//   {
-//     name: 'Dashboard',
-//     url: '/dashboard',
-//     icon: 'icon-speedometer',
-//     badge: {
-//       variant: 'info',
-//       text: 'NEW'
-//     }
 //   },
 //   {
 //     title: true,
