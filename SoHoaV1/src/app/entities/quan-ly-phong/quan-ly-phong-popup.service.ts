@@ -36,11 +36,11 @@ export class QuanLyPhongPopupService {
                 this.phongService.getPhongById(id)
                 .subscribe((result) => {
                     this.result = result;
-                    const phong : Phong = result.item;
+                    this.phong = result.item;
                 }, (error) => {
 
                 }, () => {
-                    this.ngbModalRef = this.phongModalRef(component, new Phong());
+                    this.ngbModalRef = this.phongModalRef(component, this.phong);
                     resolve(this.ngbModalRef);
                 });
             } else {

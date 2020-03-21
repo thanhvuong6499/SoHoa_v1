@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
 import { UserGroup } from '../../model/user-group.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NguoiDungDeleteComponent } from './nguoi-dung-delete/nguoi-dung-delete.component';
 
 @Component({
   selector: 'app-quan-ly-nguoi-dung',
@@ -32,7 +34,8 @@ export class QuanLyNguoiDungComponent implements OnInit {
 
   constructor(private quanLyNguoiDungService: QuanLyNguoiDungPopupService,
               private userService : UserService,
-              private toastService: ToastrService
+              private toastService: ToastrService,
+              private spinner: NgxSpinnerService
   ) { 
     this.searchText = "";
     this.condition = new BaseCondition<User>();
@@ -44,10 +47,13 @@ export class QuanLyNguoiDungComponent implements OnInit {
       tags: true
     }
     this.user = new User();
+    this.userService.listen().subscribe((m: any) =>{
+      this.loadAll();
+    })
   }
 
   ngOnInit() {
-    this.loadFilterOptionsOrgan();
+    this.loadFilterOptionsUser();
     this.loadAll();
   }
 
@@ -62,25 +68,33 @@ export class QuanLyNguoiDungComponent implements OnInit {
     }
 
   }
-  openDeleteDialog(id?: number) {
 
-      this.quanLyNguoiDungService
-        .open(NguoiDungDialogComponent as Component, id);
+  openDeleteDialog(id?: number) {
+    this.quanLyNguoiDungService
+      .open(NguoiDungDeleteComponent as Component, id);
   }
 
   loadAll(){
+    this.showSpinner("dataTable", "timer", "0.2");
     this.userService.userGetSearchWithPaging().subscribe((data : any) => {
+      console.log(data);
       this.users = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
-    }, (error) => {
+    },(error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      this.hideSpinner("dataTable");
+      // this.showSpinner("filterOptions","timer", "0.8");
     });
   }
 
   loadPages(page : string) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try {
       var condi : BaseCondition<User> = new BaseCondition<User>();
       if (this.condition.FilterRuleList != undefined) {
@@ -92,10 +106,14 @@ export class QuanLyNguoiDungComponent implements OnInit {
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
-      }, (error) => {
-      }, () => {
-
-      });
+      },  (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
+        }, () => {
+          this.hideSpinner("paging");
+        });
     }
     catch (e) {
       alert(JSON.stringify(e))
@@ -107,13 +125,13 @@ export class QuanLyNguoiDungComponent implements OnInit {
     
   }
 
-  loadFilterOptionsOrgan () {
+  loadFilterOptionsUser () {
     this.userService.getAllRole()
       .subscribe((result) => {
         var arrTypes = [];
+        console.log(result);
         for (const item of result.itemList) {
-          let value = { id: item.roleId, text: item.roleName }
-          arrTypes.push(value);
+          arrTypes.push({ id: item.roleID, text: item.roleName });
         }
         this.userGroupArr = arrTypes;
       }, 
@@ -165,6 +183,7 @@ export class QuanLyNguoiDungComponent implements OnInit {
       this.condition.FilterRuleList[1].op = "";
     }
     if (types != undefined || name != undefined || this.searchText !=undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.userService.userGetSearchWithPaging(this.condition)
       .subscribe((data: any) => {
         this.users = data.itemList;
@@ -172,11 +191,35 @@ export class QuanLyNguoiDungComponent implements OnInit {
         this.page = 1;
         this.totalRecords = data.totalRows;
       }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
       }, () => {
-        
+        this.hideSpinner("paging");
       })
     }
   }
+
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
+  }
+
   ngOnDestroy(): void {
     
   }

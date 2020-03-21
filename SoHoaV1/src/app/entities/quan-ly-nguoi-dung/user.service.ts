@@ -4,13 +4,15 @@ import { User } from '../../model/user.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserGroup } from '../../model/user-group.model';
+import { Observable, Subject } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService implements OnInit, OnDestroy { 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     
@@ -37,22 +39,55 @@ export class UserService implements OnInit, OnDestroy {
   return this.httpClient.post<User[]>(ApiUrl.apiUrl + 'User/UserGetSearchWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
-  createNewUser(u: User) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    }
-    var user = JSON.stringify(u);
-    return this.httpClient.post<User>(ApiUrl.apiUrl + "User/Create", user, httpOptions)
-      .pipe(map((result) => {
-        return result;
-      }));
-  }
+  // createNewUser(u: User) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Content-Type':  'application/json'
+  //     })
+  //   }
+  //   var user = JSON.stringify(u);
+  //   return this.httpClient.post<User>(ApiUrl.apiUrl + "User/Create", user, httpOptions)
+  //     .pipe(map((result) => {
+  //       return result;
+  //     }));
+  // }
   getAllRole() {
     return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetAllRole");
   }
 
+  getUserByID (id: number) {
+    return this.httpClient.get<ReturnResult<User>>(ApiUrl.apiUrl + "User/GetUserByID/" + id);
+  }
+
+  insertNewUser (user: User) {
+    user.createBy = this.authenticationService.getUserName;
+    var body = JSON.stringify(user);
+    return this.httpClient.post<ReturnResult<User>>(ApiUrl.apiUrl + "User/CreateUser", body, { headers: HttpHeadersOptions.headers });
+  }
+
+  updateUser (user: User) {
+    user.updateBy = this.authenticationService.getUserName;
+    return this.httpClient.post<ReturnResult<User>>(ApiUrl.apiUrl + "User/UpdateUser", JSON.stringify(user), { headers: HttpHeadersOptions.headers });
+  }
+
+  deleteUser (id: string) {
+    var body = {
+      id: id
+    }
+    var params = JSON.stringify(body);
+    return this.httpClient.post<ReturnResult<User>>(ApiUrl.apiUrl + "User/DeleteUser?id=" + id, { headers :HttpHeadersOptions.headers });
+  }
+
+  public _listners = new Subject();
+
+  listen(): Observable<any>{
+    return this._listners.asObservable();
+  }
+
+  filter(filterBy: string){
+    this._listners.next(filterBy);
+  }
+  
   ngOnDestroy(): void {
     
   }

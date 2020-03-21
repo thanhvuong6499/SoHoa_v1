@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <p *ngIf="hopso">Bạn có muốn xóa hộp số {{hopso.gearBoxCode}}</p>
+    <p *ngIf="hopso">Bạn có muốn xóa hộp số <b>{{hopso.gearBoxCode}}</b></p>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="deleteHopSo(hopso.gearBoxID)" >Xóa</button>
