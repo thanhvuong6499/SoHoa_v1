@@ -88,7 +88,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
         .open(TaiLieuDeleteComponent as Component, id);
   }
   loadPages(page : string) {
-    debugger;
     try {
       var condi : BaseCondition<Document> = new BaseCondition<Document>();
       if (this.condition.FilterRuleList.length != undefined) {
@@ -174,7 +173,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
   getFilterOptions (documentCodeArr: string[], fileCodeArr : string[]) {
     console.log(documentCodeArr);
     this.condition.PageIndex = 1;
-    debugger;
     this.condition.FilterRuleList = [
       {
         field: "S_VanBan.MaDinhDanh",

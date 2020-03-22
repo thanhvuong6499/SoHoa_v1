@@ -111,7 +111,6 @@ export class VanBanPdfComponent implements OnInit {
       
       // addressDetail: ['']
     });
-    debugger;
     this.subscription = this.route.params.subscribe((params) => {
       this.documentId = params['id'];
     });
@@ -266,7 +265,6 @@ export class VanBanPdfComponent implements OnInit {
     return this.form.controls;
   }
   save() {
-    debugger;
     this.submitted = true;
     if (this.form.invalid) { return; }
 

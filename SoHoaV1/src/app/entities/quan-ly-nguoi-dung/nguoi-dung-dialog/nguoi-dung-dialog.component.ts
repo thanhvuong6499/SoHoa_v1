@@ -137,7 +137,6 @@ export class NguoiDungDialogComponent implements OnInit {
     else {
         this.userService.insertNewUser(this.user)
         .subscribe((result) => {
-          debugger;
           // this.loadData();
           if (result.errorCode == '0') {
             this.toast.success("Thêm mới thành công");

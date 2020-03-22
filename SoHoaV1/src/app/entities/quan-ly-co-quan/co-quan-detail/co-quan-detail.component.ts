@@ -82,7 +82,6 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
   }
 
   openDialog(id?: number) {
-    debugger;
       this.phongPopupService
         .open(PhongDialogComponent as Component, id);
   }
