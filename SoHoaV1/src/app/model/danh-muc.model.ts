@@ -14,5 +14,12 @@ export class DanhMuc  {
     ) {
     }
 }
+
+export class danhMucSelect2 { 
+    constructor(
+            public id?: string,
+            public text?: string
+    ){}
+}
 export const danhmucs : DanhMuc[] = [
 ]

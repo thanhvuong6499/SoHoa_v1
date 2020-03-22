@@ -3,7 +3,7 @@ import { Phong, phongs } from '../../model/phong.model';
 import { DanhMuc, danhmucs } from '../../model/danh-muc.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
-import { CoQuan, coquans, organ } from '../../model/co-quan.model';
+import { CoQuan, coquans, organ, organSelect2 } from '../../model/co-quan.model';
 import { Observable, Subject } from 'rxjs';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { map } from 'rxjs/operators';
@@ -84,6 +84,11 @@ export class QuanLyPhongService {
   getAllCoQuan (){
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");
   }
+
+  GetAllOrganSelect2 (){
+    return this.httpClient.get<organSelect2[]>(ApiUrl.apiUrl + "Organ/GetAllOrganSelect2");
+  }
+
   deletePhong (id: number) {
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/DeleteFont?id=" + id, { headers :HttpHeadersOptions.headers });
   }

@@ -158,7 +158,6 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
   loadFilterOptionsOrgan () {
     this.phongService.getAllCoQuan()
       .subscribe((result) => {
-      //  this.organFilterData = result;
         var arrTypes = [];
         var rs = result.itemList;
         for (const item of rs) {

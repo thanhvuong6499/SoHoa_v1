@@ -8,9 +8,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
 import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
-import { CoQuan } from '../../../model/co-quan.model';
-import { Phong } from '../../../model/phong.model';
+import { CoQuan, organSelect2 } from '../../../model/co-quan.model';
+import { Phong, fontSelect2 } from '../../../model/phong.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { danhMucSelect2 } from '../../../model/danh-muc.model';
 
 @Component({
   selector: 'app-hop-so-dialog',
@@ -21,9 +22,9 @@ export class HopSoDialogComponent implements OnInit {
   isEdit: boolean = false;
   defaultValue : string;
   data: any;
-  lstOrgan: Array<Select2OptionData>;
-  lstFont: Array<Select2OptionData>;
-  lstDanhMuc: Array<Select2OptionData>;
+  lstOrgan: organSelect2[];
+  lstFont: fontSelect2[];
+  lstDanhMuc: danhMucSelect2[];
   options: Options;
   optionsOrgan :Options;
   hopso: HopSo;
@@ -83,15 +84,10 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.organID;
     else{
-      this.hopsoService.getFontByOrganId(params)
+      this.hopsoService.getFontsByOrganIDSelect2(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
-            var phongs = [];
-            for (const item of data) {
-              var temp = { id: item.fontID, text: item.fontName }
-              phongs.push(temp);
-            }
-            this.lstFont = phongs;
+            this.lstFont = data;
             if(this.lstFont != null){
               this.fontID = this.lstFont[0].id;
             }
@@ -117,14 +113,10 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
     else{
-      this.hopsoService.getTabByFontId(params)
+      this.hopsoService.getTabByFontIDSelect2(params)
       .subscribe((data) => {
         if (data != undefined && data.length !=0) {
-          var danhmucs = [];
-          for (const item of data) {
-            danhmucs.push({ id: item.tabOfContID, text: item.tabOfContName });
-          }
-          this.lstDanhMuc = danhmucs;
+          this.lstDanhMuc = data;
         }
         else{
           this.lstDanhMuc = [];
@@ -141,14 +133,10 @@ export class HopSoDialogComponent implements OnInit {
     this.lstDanhMuc =[];
     this.lstFont= [];
     this.lstOrgan= [];
-    this.danhmucService.getAllCoQuan()
+    this.danhmucService.GetAllOrganSelect2()
     .subscribe((result) => {
       if (result != undefined) {
-        var coquans = [];
-        for (var item of result.itemList) {
-          coquans.push({ id: item.organID, text: item.tenCoQuan });
-        }
-        this.lstOrgan = coquans;
+        this.lstOrgan = result;
         if(this.lstOrgan != null){
           this.organID = this.lstOrgan[0].id;
         }

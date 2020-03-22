@@ -5,7 +5,7 @@ import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Phong, phongs } from '../../model/phong.model';
-import { organ } from '../../model/co-quan.model';
+import { organ, organSelect2 } from '../../model/co-quan.model';
 import {Subject, Observable} from 'rxjs';
 
 @Injectable({
@@ -78,6 +78,11 @@ export class QuanLyDanhMucService {
   getAllCoQuan (){
     return this.httpClient.get<ReturnResult<organ>>(ApiUrl.apiUrl + "Organ/GetAllOrgan");
   }
+
+  GetAllOrganSelect2 (){
+    return this.httpClient.get<organSelect2[]>(ApiUrl.apiUrl + "Organ/GetAllOrganSelect2");
+  }
+  
   deleteDanhMuc (id: string) {
     var body = {
       id: id

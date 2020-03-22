@@ -27,8 +27,16 @@ export class organ {
     public organID?: number,
     public tenCoQuan?: string
   ){}
+  
 }
 
+export class organSelect2 { 
+  constructor(
+    public id?: string,
+    public text?: string
+  ){}
+  
+}
 export const coquans = [
     {}
 ]

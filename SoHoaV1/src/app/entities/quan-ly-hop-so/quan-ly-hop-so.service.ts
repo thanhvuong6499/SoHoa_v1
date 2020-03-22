@@ -4,8 +4,8 @@ import { HoSo } from '../../model/ho-so.model';
 import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions } from '../../common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
-import { DanhMuc } from '../../model/danh-muc.model';
-import { Phong } from '../../model/phong.model';
+import { DanhMuc, danhMucSelect2 } from '../../model/danh-muc.model';
+import { Phong, fontSelect2 } from '../../model/phong.model';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -104,6 +104,20 @@ export class QuanLyHopSoService {
       organID: id
     }
     return this.httpClient.get<Phong[]>(ApiUrl.apiUrl + "GearBox/GetFontsByOrganID", { params: params });
+  }
+
+  getFontsByOrganIDSelect2 (id: string) {
+    var params = {
+      organID: id
+    }
+    return this.httpClient.get<fontSelect2[]>(ApiUrl.apiUrl + "GearBox/GetFontsByOrganIDSelect2", { params: params });
+  }
+
+  getTabByFontIDSelect2 (id: string) {
+    var params = {
+      fontID: id
+    }
+    return this.httpClient.get<danhMucSelect2[]>(ApiUrl.apiUrl + "GearBox/GetTableOfContentsByFontIDSelect2", { params: params });
   }
 
   getTabByFontId (id: string) {

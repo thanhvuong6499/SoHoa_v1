@@ -8,6 +8,7 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { organSelect2 } from '../../../model/co-quan.model';
 
 @Component({
   selector: 'app-phong-dialog',
@@ -19,7 +20,7 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
   defaultValue : string;
   data: any;
-  lstOrgan: Array<Select2OptionData>;
+  lstOrgan: organSelect2[];
   options: Options;
   form: FormGroup;
   submitted = false;
@@ -57,15 +58,10 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     });
     
     this.isEdit = false;
-    this.service.getAllCoQuan()
+    this.service.GetAllOrganSelect2()
       .subscribe((result) => {
         if (result != undefined) {
-          var organs = [];
-          for (var item of result.itemList) {
-            var temp = { id: item.organID, text: item.tenCoQuan };
-            organs.push(temp);
-          }
-          this.lstOrgan = organs;
+          this.lstOrgan = result;
         }
       },
       (error) => {
