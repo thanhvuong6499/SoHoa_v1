@@ -111,7 +111,7 @@ export const navItems: INavData[] = [
     icon: 'icon-chart'
   },
   {
-    name: 'Nhật kí',
+    name: 'Nhật ký',
     url: '/ThongKe/nhatKy',
     icon: 'fa fa-address-book-o'
   },

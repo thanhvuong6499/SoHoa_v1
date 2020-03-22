@@ -78,9 +78,9 @@
                         <tr *ngFor="let item of signature">
                             <td> {{ item.fileName }} </td>
                             <td> {{ item.size }} </td>
-                            <td> {{ item.createDate }} </td>
+                            <td> {{ item.createDate.toString().split('T')[0] | date: 'dd/MM/yyyy' }} </td>
                             <td> {{ item.createBy }}</td>
-                            <td>...</td>
+                            <td class="center"><img src="{{ item.base64String }}" alt="item.fileName" class="size"/></td>
                             <td class="center"><button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(item.id)"></button></td>
                         </tr>
                     </tbody>

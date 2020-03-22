@@ -51,7 +51,7 @@ export class QuanLyHopSoComponent implements OnInit {
       }
       this.danhmuc = new DanhMuc();
       this.quanLyHopSoService.listen().subscribe((m: any) =>{
-        this.loadAll();
+        this.loadPages(this.page);
       })
     }
 

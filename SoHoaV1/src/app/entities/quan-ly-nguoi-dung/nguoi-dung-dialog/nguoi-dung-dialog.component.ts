@@ -81,8 +81,11 @@ export class NguoiDungDialogComponent implements OnInit {
       .subscribe((result) => {
         this.clear();
         this.toast.success("Thêm mới thành công.", "Thông báo");
+        this.onClose();
       },
       (error) => {
+      }, () => {
+
       })
   }
 
@@ -104,5 +107,9 @@ export class NguoiDungDialogComponent implements OnInit {
     else {
       this.create = false;
     }
+  }
+
+  onClose() {
+    this.userService.filter('Register click');
   }
 }

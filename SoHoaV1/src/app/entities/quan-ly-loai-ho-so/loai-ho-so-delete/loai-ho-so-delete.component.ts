@@ -32,7 +32,6 @@ export class LoaiHoSoDeleteComponent implements OnInit {
   deleteLoaiHoSo(id : any) {
     this.service.deleteLoaiHoSo(id)
       .subscribe((result) => {
-        console.log(result.isSuccess);
         if(result.isSuccess) {
           this.onClose();
           this.onDeleteSuccess('Xóa thành công!!!');

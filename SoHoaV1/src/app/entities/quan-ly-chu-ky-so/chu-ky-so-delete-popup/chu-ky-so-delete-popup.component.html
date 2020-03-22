@@ -5,10 +5,10 @@
     </button>
 </div>
 <div class="modal-body">
-    <p *ngIf="signature.id">Bạn có muốn xóa chữ ký số <b>{{ signature.fileName }}</b></p>
+    <p *ngIf="signature.id">Bạn có muốn xóa chữ ký số <b>{{ signature.fileName }}</b> ?</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="deleteSignature(signature.id)" >Xóa</button>
+    <button type="button" class="btn btn-secondary" (click)="deleteSignature(signature.id, signature.fileName)" >Xóa</button>
     <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()">Hủy</button>
 </div>
 

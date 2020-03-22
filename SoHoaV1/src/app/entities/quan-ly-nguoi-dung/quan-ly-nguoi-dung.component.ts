@@ -44,6 +44,10 @@ export class QuanLyNguoiDungComponent implements OnInit {
       tags: true
     }
     this.user = new User();
+    this.userService.listen()
+      .subscribe((m : any) => {
+        this.loadPages(this.page.toString());
+      })
   }
 
   ngOnInit() {
@@ -177,6 +181,11 @@ export class QuanLyNguoiDungComponent implements OnInit {
       })
     }
   }
+
+  // onClose() {
+  //   this.userService.filter('Register');
+  // }
+
   ngOnDestroy(): void {
     
   }

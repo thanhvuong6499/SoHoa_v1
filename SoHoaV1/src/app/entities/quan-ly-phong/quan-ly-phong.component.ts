@@ -65,8 +65,8 @@ export class QuanLyPhongComponent implements OnInit, OnDestroy {
       multiple: true,
       tags: true
     }
-    this.phongService.listen().subscribe((m:any)=>{
-      this.loadAll();
+    this.phongService.listen().subscribe((m : any) => {
+      this.loadPages(this.page.toString());
     })
    }
 

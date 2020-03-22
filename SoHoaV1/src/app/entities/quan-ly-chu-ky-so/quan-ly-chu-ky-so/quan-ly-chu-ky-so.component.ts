@@ -44,7 +44,12 @@ export class QuanLyChuKySoComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private toast: ToastrService,
     private popup: ChuKySoPopupService
-    ) { }
+    ) {
+        this.service.listen()
+          .subscribe((m : any) => {
+            this.loadPages(this.page);
+          });
+      }
 
   ngOnInit() {
     this.organNameArr = new Array<Select2OptionData>();
@@ -63,7 +68,6 @@ export class QuanLyChuKySoComponent implements OnInit {
   }
 
   openDeleteDialog(id: any) {
-    
     this.popup.open(ChuKySoDeletePopupComponent as Component, id);
   }
 
@@ -144,8 +148,10 @@ export class QuanLyChuKySoComponent implements OnInit {
     this.service.signatureCreate(formData)
       .subscribe((result) => {
         if (result.isSuccess && result.errorCode == "0") {
+          this.onClose();
           this.loading = false;
           this.toast.success("Thêm mới chữ ký số thành công", "Thông báo");
+          this.clearQueueAndInput();
         }
         else {
           if (result.errorCode == "-2") {
@@ -157,6 +163,14 @@ export class QuanLyChuKySoComponent implements OnInit {
                   if (result.isSuccess) {
                     this.loading = false;
                     this.toast.info("Ghi đè chữ ký số thành công", "Thông báo");
+                    this.onClose();
+                    this.clearQueueAndInput();
+                  }
+                  else {
+                    this.loading = false;
+                    this.toast.error("Ghi đè chữ ký số thất bại", "Thông báo");
+                  //  this.onClose();
+                    this.clearQueueAndInput();
                   }
                 }, (error) => {
                   this.loading = false;
@@ -170,23 +184,30 @@ export class QuanLyChuKySoComponent implements OnInit {
           else {
             this.loading = false;
             this.toast.error("Thêm mới chữ ký số thất bại", "Thông báo");
+            this.clearQueueAndInput();
           }
           
         }
       }, (error) => {
         this.loading = false;
         this.toast.error("Thêm mới chữ ký số thất bại", "Thông báo");
+        this.clearQueueAndInput();
       },
       () => {
 
       })
   }
 
+  clearQueueAndInput () {
+    this.uploader.clearQueue();
+    $('#file:file').val('');
+    $(document).find('#image').attr('src', '#');
+  }
+
   getPaging() {
     this.showSpinner("dataTable", "timer", "0.8");
       this.service.signatureGetPaging()
       .subscribe((result) => {
-        console.log(result);
         this.signature = result.itemList;
         this.page = 1;
         this.pageSize = 5;
@@ -238,5 +259,7 @@ export class QuanLyChuKySoComponent implements OnInit {
         this.spinner.hide(name);
       }, 100);
     }
-
+    onClose() {
+      this.service.filter('Register click');
+    }
 }

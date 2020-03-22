@@ -4,12 +4,14 @@ import { User } from '../../model/user.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserGroup } from '../../model/user-group.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService implements OnInit, OnDestroy { 
 
+  private _listen = new Subject();
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
@@ -51,6 +53,14 @@ export class UserService implements OnInit, OnDestroy {
   }
   getAllRole() {
     return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetAllRole");
+  }
+
+  listen () {
+    return this._listen.asObservable();
+  }
+
+  filter(filterName: string) {
+    this._listen.next(filterName);
   }
 
   ngOnDestroy(): void {

@@ -19,7 +19,7 @@ export class QuanLyHoSoComponent implements OnInit {
   hoso: HoSo;
   lstHoSo: HoSo[] = new Array<HoSo>();
   page = 1;
-  pageSize: number;
+  pageSize: number = 5;
   totalRecords: number;
   options: Options;
   condition: BaseCondition<HoSo> = new BaseCondition<HoSo>();
@@ -47,8 +47,8 @@ export class QuanLyHoSoComponent implements OnInit {
       multiple: true,
       tags: true,
     }
-    this.service.listen().subscribe((m:any)=>{
-      this.loadData();
+    this.service.listen().subscribe( (m : any ) => {
+      this.loadPages(this.page, this.pageSize);
     })
    }
 
