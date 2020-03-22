@@ -126,7 +126,6 @@ export const navItems: INavData[] = [
     icon: 'fa fa-address-book-o'
   }
   
-//   {
 //     title: true,
 //     name: 'Theme'
 //   },
