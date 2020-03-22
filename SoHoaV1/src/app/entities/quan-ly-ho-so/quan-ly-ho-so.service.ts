@@ -20,7 +20,9 @@ export class QuanLyHoSoService {
   public getListVanBanByHoSoId (id: number) {
     
   }
-
+  public getProfileByGearBoxId(gearBoxId: string){
+    return this._httpClient.get<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/GetProfileByGearBoxId/" + gearBoxId);
+  }
   public getAllProfilesWithPaging(condi?: BaseCondition<HoSo>) {
     var condition = {};
     if (condi != undefined) {
@@ -74,7 +76,10 @@ export class QuanLyHoSoService {
   public getProfilesById (id : any) {
     return this._httpClient.get<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/GetProfilesById?profileId=" + id);
   }
-
+  public getComputerFilesByProfileId (id : any) {
+    return this._httpClient.get<ReturnResult<FileUpload>>(ApiUrl.apiUrl + "Profile/GetComputerFileByProfileId/" + id);
+  }
+  
   public GetListFilesByProfileId (condi?: BaseCondition<HoSo>) {
     var condition = {};
     if (condi != undefined) {

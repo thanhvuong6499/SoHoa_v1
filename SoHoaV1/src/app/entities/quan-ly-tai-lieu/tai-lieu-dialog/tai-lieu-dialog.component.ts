@@ -28,6 +28,7 @@ export class TaiLieuDialogComponent implements OnInit {
   confidenceLevelId: number;
   languageId: number;
   formatId: number;
+  
   docTypeId: number;
   issuedDate: Date;
   constructor(
@@ -45,6 +46,8 @@ export class TaiLieuDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+
     this.isEdit = false;
     this.taiLieuService.getDocumentTypeList()
       .subscribe((result) => {
@@ -160,6 +163,7 @@ export class TaiLieuDialogComponent implements OnInit {
     this.activeModal.dismiss('cancel');
   
   }
+  
   save() {
     if (this.isEdit) {
       console.log(this.document);
