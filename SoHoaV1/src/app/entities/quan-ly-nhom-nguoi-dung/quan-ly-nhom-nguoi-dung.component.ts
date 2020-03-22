@@ -33,7 +33,7 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
               private toastService: ToastrService
   ) { 
     this.userGroupService.listen().subscribe((m: any) =>{
-      this.loadAll();
+      this.loadPages(this.page.toString());
     })
     this.searchText = "";
     this.condition = new BaseCondition<UserGroup>();

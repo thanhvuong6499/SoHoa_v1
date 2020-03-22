@@ -22,7 +22,8 @@ export class QuanLyChuKySoService implements OnInit, OnDestroy{
     return this._listners.asObservable();
   }
 
-  filter(filterBy: string){
+  filter (filterBy: string){
+    this.listen();
     this._listners.next(filterBy);
   }
 
@@ -52,9 +53,9 @@ export class QuanLyChuKySoService implements OnInit, OnDestroy{
     return this._httpClient.get<any>(ApiUrl.apiUrl + "DigitalSignature/GetDigitalById?id=" + id);
   }
 
-  signatureDelete (id: any) {
+  signatureDelete (id: any, name?: string) {
     var data = { id: id };
-    return this._httpClient.post<any>(ApiUrl.apiUrl + "DigitalSignature/Delete?id=" + id, { headers: HttpHeadersOptions.headers });
+    return this._httpClient.post<any>(ApiUrl.apiUrl + "DigitalSignature/Delete?id=" + id + "&name=" + name, { headers: HttpHeadersOptions.headers });
   }
 
   ngOnDestroy(): void {

@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row" style="margin-top: 10px;">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
-        <h3><i class="fa fa-file"></i> &nbsp;Quản lí Tài liệu</h3>
-        <!-- <app-them-moi-phong actionType="Thêm mới" iconClass="fa fa-plus" btnClass="btn btn-primary btn-sm"></app-them-moi-phong> -->
-        
+        <h4><i class="fa fa-file"></i> &nbsp;Quản lý tài liệu</h4>
+        <hr/>
+
         <div class="form-group row">
           <label class="col-md-1 col-form-label" for="text-input">Mã văn bản:</label>
           <div class="col-md-2">
@@ -30,11 +30,13 @@
             <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']" routerLinkActive="router-link-active">
               <span class="fa fa-plus"></span>
               <span >
-                  Thêm mới cơ quan
+                  Thêm mới tài liệu
               </span>
           </button>
           </div>
          </div>
+
+      </div>
       <div class="card-body">
         <table class="table table-bordered table-striped table-sm">
           <thead>
@@ -77,11 +79,10 @@
         </table>
         <nav>
           <ul class="pagination">
-            <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event)"></ngb-pagination>
           </ul>
         </nav>
         </div>
-      </div>
     </div>
   </div>
   <!--/.col-->

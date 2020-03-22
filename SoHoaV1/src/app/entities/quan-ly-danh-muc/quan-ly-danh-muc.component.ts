@@ -78,8 +78,8 @@ export class QuanLyDanhMucComponent implements OnInit {
       closeOnSelect: true,
       width: "100%"
     }
-    this.danhMucService.listen().subscribe((m: any) =>{
-      this.loadAll();
+    this.danhMucService.listen().subscribe((m: any) => {
+      this.loadPages(this.page.toString());
     })
   }
   openDialog(id?: number) {

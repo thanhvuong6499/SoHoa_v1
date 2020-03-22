@@ -1,4 +1,5 @@
 export class FileUpload {
+    fileId?: number;
     fileName?: string;
     url?: string;
     createdBy?: string;

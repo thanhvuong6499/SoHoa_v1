@@ -191,7 +191,8 @@ export class NguoiDungDialogComponent implements OnInit {
     this.toast.warning(message);
   }
 
-  onClose(){
+
+  onClose() {
     this.userService.filter('Register click');
   }
 }

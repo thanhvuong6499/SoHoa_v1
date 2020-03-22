@@ -264,7 +264,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
           this.uploader.clearQueue();
           this.clear();
           this.success("Thêm mới hồ sơ thành công", "Thêm mới hồ sơ");
-
         }
       },
       (error) => {

@@ -24,15 +24,13 @@ export class ChuKySoDeletePopupComponent implements OnInit {
     this.signature = this.popupService.result.item;
   }
 
-  
-
-  deleteSignature(id : any) {
-    this.service.signatureDelete(id)
+  deleteSignature(id : any, name?: string) {
+    this.service.signatureDelete(id, name)
       .subscribe((result) => {
         if (result.isSuccess) {
-          this.activeModal.dismiss('successfully');
-          this.toast.success("Xóa thành công", "Thông báo");
           this.onClose();
+          this.activeModal.dismiss('successfully');
+          this.toast.info("Xóa thành công", "Thông báo");
         }
         else {
           this.toast.error("Xóa thất bại", "Thông báo");
@@ -46,5 +44,5 @@ export class ChuKySoDeletePopupComponent implements OnInit {
   onClose() {
     this.service.filter('Register click');
   }
-  
+
 }
