@@ -2,6 +2,13 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
+          <ngx-spinner name="dataTable">
+            <br>
+            <p class="loading" style="color: blue;">Đang tải dữ liệu, vui lòng chờ...</p>
+          </ngx-spinner>
+          <ngx-spinner name="filterOptions">
+            <br>
+          </ngx-spinner>
           <i class="fa fa-align-justify"></i> Danh sách tài khoản
           <div style="margin-left: 6px;margin-right: 0px;margin-bottom: 10px;" class="row">
             <div class="col-md-4 row col-lg-4">
@@ -34,32 +41,34 @@
             <thead>
               <tr>
                 <th>Tên tài khoản</th>
-                <th>Mật khẩu</th>
                 <th>Người tạo</th>
                 <th>Ngày tạo</th>
                 <th>Trạng thái</th>
                 <th>Nhóm quyền</th>
-                <th>Quyền</th>
+                <!-- <th>Quyền</th> -->
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let user of users">
                 <td><b>&nbsp;{{ user.userName }}</b></td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.createBy }}</td>
                 <td>{{ user.createDate.split('T')[0] }}</td>
                 <td *ngIf="user.status == 1 else inactive">
                   <span class="badge badge-success">Hoạt động</span>
                 </td>
-                <td>{{ user.roleName }}</td>
-                <td *ngIf="user.roleName == 'USER' else admin">
-                  <span *ngIf="user.menuRole && user.menuRole == 'create' else role" style="color: green;">Nhập tài liệu</span>
+                <td>
+                  <span *ngIf="user.roleName == 'ADMIN'" style="color: orange"> {{ user.roleName }}</span>
+                  <span *ngIf="user.roleName != 'ADMIN'" style="color: green;"> {{ user.roleName }}</span>
                 </td>
-                <td style="width:137px">
-                    <button class="btn btn-primary fa fa-eye"></button>
+                <!-- <td *ngIf="user.roleName == 'USER' else admin">
+                  <span style="color: orange">User</span>
+                  <span style="color: green;">Nhập tài liệu</span>
+                </td> -->
+                <td style="width:137px;text-align: center;">
+                    <!-- <button class="btn btn-primary fa fa-eye"></button> -->
                     <button class="btn btn-primary fa fa-edit" (click)="openDialog(user.id)"></button>
-                    <button class="btn btn-primary fa fa-trash"></button>
+                    <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(user.id)"></button> -->
                 </td>
               </tr>
             </tbody>
@@ -77,13 +86,13 @@
       <span class="badge badge-danger" style="margin-top: 5px;">Không hoạt động</span>
     </td>
     </ng-template>
-    <ng-template #role>
+    <!-- <ng-template #role>
       <span style="color: red;">Sửa tài liệu</span>
     </ng-template>
     <ng-template #admin>
       <td>
       <span style="color: orange">ADMIN</span>
     </td>
-    </ng-template>
+    </ng-template> -->
     <!--/.col-->
   </div>

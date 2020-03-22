@@ -8,6 +8,10 @@ import { User } from '../../../model/user.model';
 import { UserService } from '../user.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserGroupService } from '../../quan-ly-nhom-nguoi-dung/user-group.service';
+import { Select2OptionData } from 'ng-select2';
+import { Options } from 'select2';
+import { QuanLyNguoiDungPopupService } from '../quan-ly-nguoi-dung-popup.service';
 
 export interface StateGroup {
   letter: string;
@@ -26,45 +30,74 @@ export const _filter = (opt: string[], value: string): string[] => {
   styleUrls: ['./nguoi-dung-dialog.component.css']
 })
 export class NguoiDungDialogComponent implements OnInit {
-
   user: User = new User();
-
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three', 'fdsfsfd', 'fdsfsf', 'fdsfsdf'];
   filteredOptions: Observable<string[]>;
   create: boolean = false;
   edit: boolean = false;
   formGroup: FormGroup;
+  lstRole: Array<Select2OptionData>;
+  optionTypes: Options;
+  form: FormGroup;
+  submitted = false;
 
   constructor(
     public activeModal: NgbActiveModal,
     private _formBuilder: FormBuilder,
     private userService: UserService,
+    private userGroupService: UserGroupService,
+    private popupService: QuanLyNguoiDungPopupService,
     private authenticationService: AuthenticationService,
-    private toast: ToastrService
+    private toast: ToastrService,private formBuilder: FormBuilder
   ) {
-      
+    this.optionTypes = {
+      multiple: false,
+      theme: 'classic',
+      closeOnSelect: true,
+      width: "100%"
+    }
    }
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value))
+    // );
     this.user.roles = "1";
-    this.user.Status = 0;
-
-    // form
-    // this.formGroup = this._formBuilder.group({
-    //   UserName: ['', Validators.required],
-    //   Password: ['', Validators.required],
-    //   checkArray: [this._formBuilder.array([])]
-    // });
-    this.user.CreateBy = JSON.parse(localStorage.getItem('currentUser')).userName;
+    this.user.status = 0;
+    
+    this.form = this.formBuilder.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
+      roleID: ['', Validators.required],
+      status: [''],
+    });
+    
+    this.edit = false;
+    this.userGroupService.getAllRole()
+      .subscribe((result) => {
+        if (result != undefined) {
+          var organs = [];
+          for (var item of result.itemList) {
+            var temp = { id: item.roleID, text: item.roleName };
+            organs.push(temp);
+          }
+          this.lstRole = organs;
+        }
+      },
+      (error) => {
+      }, () => {
+      });
+      if(this.popupService.result.item != undefined){
+        this.user = this.popupService.result.item;
+        this.edit = true;
+      }
+    this.user.createBy = JSON.parse(localStorage.getItem('currentUser')).userName;
   }
 
-  public get f() {
-    return this.formGroup.value;
+  get f() {
+    return this.form.controls;
   }
 
   private _filter(value: string): string[] {
@@ -75,34 +108,90 @@ export class NguoiDungDialogComponent implements OnInit {
   clear() {
     this.activeModal.dismiss('cancel');
   }
-  save(event){
-    // do something
-    this.userService.createNewUser(this.user)
-      .subscribe((result) => {
-        this.clear();
-        this.toast.success("Thêm mới thành công.", "Thông báo");
-      },
-      (error) => {
-      })
-  }
-
-  onChangeCreateRole(value: boolean) {
-    this.user.userrole.create = value;
-    if (value == true) {
-      this.edit = true;
+  save(){
+    this.submitted = true;
+    if (this.form.invalid) { return; }
+    if (this.edit) {
+      this.userService.updateUser(this.user)
+        .subscribe((result) => {
+          // this.loadData();
+          if (result.errorCode == '0') {
+            this.clear();
+            this.onSaveSuccess("Chỉnh sửa thành công");
+          }
+          else if(result.errorCode == '1'){
+            this.onSaveWarning(result.errorMessage);
+          }
+          else {
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+          }
+        },
+        (error)=> {
+          // this.onSaveError();
+          this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+        },
+        () => {
+          this.onClose();
+        });
     }
     else {
-      this.edit = false;
+        this.userService.insertNewUser(this.user)
+        .subscribe((result) => {
+          debugger;
+          // this.loadData();
+          if (result.errorCode == '0') {
+            this.toast.success("Thêm mới thành công");
+            this.clear();
+            this.onClose();
+          }
+          else if(result.errorCode == '1'){
+            this.onSaveWarning(result.errorMessage);
+          }
+          else {
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+          }
+        },
+        (error) => {
+          this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+        }, () => {
+          // this.activeModal.dismiss("Create new successfully");
+        });
     }
   }
 
-  onChangeEditRole(value : boolean) {
-    this.user.userrole.edit = value;
-    if(value == true) {
-      this.create = true;
-    }
-    else {
-      this.create = false;
-    }
+  // onChangeCreateRole(value: boolean) {
+  //   this.user.userrole.create = value;
+  //   if (value == true) {
+  //     this.edit = true;
+  //   }
+  //   else {
+  //     this.edit = false;
+  //   }
+  // }
+
+  // onChangeEditRole(value : boolean) {
+  //   this.user.userrole.edit = value;
+  //   if(value == true) {
+  //     this.create = true;
+  //   }
+  //   else {
+  //     this.create = false;
+  //   }
+  // }
+
+  onSaveSuccess(message: string) {
+    this.toast.success(message);
+  }
+
+  onSaveError(message: string){
+    this.toast.error(message);
+  }
+
+  onSaveWarning(message: string){
+    this.toast.warning(message);
+  }
+
+  onClose(){
+    this.userService.filter('Register click');
   }
 }

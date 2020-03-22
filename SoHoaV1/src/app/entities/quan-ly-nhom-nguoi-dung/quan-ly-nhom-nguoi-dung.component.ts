@@ -114,8 +114,7 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
       .subscribe((result) => {
         var arrTypes = [];
         for (const item of result.itemList) {
-          let value = { id: item.roleId, text: item.roleName }
-          arrTypes.push(value);
+          arrTypes.push({ id: item.roleID, text: item.roleName });
         }
         this.userGroupArr = arrTypes;
       }, 
