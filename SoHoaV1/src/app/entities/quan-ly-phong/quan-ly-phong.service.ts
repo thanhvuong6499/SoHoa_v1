@@ -9,6 +9,7 @@ import { BaseCondition, HttpUtilities, ApiUrl, ReturnResult, HttpHeadersOptions 
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { async } from 'rxjs/internal/scheduler/async';
+import { Language } from '../../model/language.model';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +92,10 @@ export class QuanLyPhongService {
 
   deletePhong (id: number) {
     return this.httpClient.post<ReturnResult<Phong>>(ApiUrl.apiUrl + "Font/DeleteFont?id=" + id, { headers :HttpHeadersOptions.headers });
+  }
+  
+  public getLanguageList(){
+    return this.httpClient.get<ReturnResult<Language>>(ApiUrl.apiUrl + "Language/GetAllLanguage");
   }
 
   private _listners = new Subject();

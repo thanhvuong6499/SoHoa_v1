@@ -25,7 +25,7 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   form: FormGroup;
   submitted = false;
   loading = false;
-  
+  languageList: Array<Select2OptionData>;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -51,7 +51,7 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
       fontNumber: ['', Validators.required],
       fontName: ['', Validators.required],
       organID: ['', Validators.required],
-      lang: [''],
+      languageId: [''],
       lookupTools: [''],
       history: [''],
       note: ['']
@@ -67,10 +67,32 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
       (error) => {
       }, () => {
       });
+
+      this.service.getLanguageList()
+      .subscribe((result) => {
+        var languageList = [];
+        for (var item of result.itemList) {
+          var temp = { id: item.languageId, text: item.languageName }
+          languageList.push(temp);
+        }
+        
+        this.languageList = languageList;
+      },
+      (error) => {
+        console.log(error);
+        setTimeout(() => {
+          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+        }, 1000);
+      },
+      () => {
+        
+      });
+
       if(this.phongPopupService.result.item != undefined){
         this.phong = this.phongPopupService.result.item;
         this.isEdit = true;
       }
+      
   }
 
   get f() {
