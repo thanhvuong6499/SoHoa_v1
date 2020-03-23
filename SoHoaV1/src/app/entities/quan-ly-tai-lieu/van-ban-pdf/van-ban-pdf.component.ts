@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./van-ban-pdf.component.css']
 })
 export class VanBanPdfComponent implements OnInit {
-  pdfSrc: string | PDFSource | ArrayBuffer = '../../assets/test.pdf';
+  pdfSrc: string | PDFSource | ArrayBuffer = 'https://localhost:44357/FilesUpload/234/tunguyenduy.pdf';
   document: Document = new Document();
   computerFile: FileUpload = new FileUpload();
   value1 = 'Default';
@@ -442,10 +442,11 @@ export class VanBanPdfComponent implements OnInit {
           for (const item of data.itemList) {
             var temp = { id: item.fileId, text: item.fileName, path: item.url }
             computerFileList.push(temp);
-            this.computerFileList.push({fileId: item.fileId, url: item.url});
+            this.computerFileList.push({fileId: item.fileId, url: item.url, clientUrl: item.clientUrl});
           }
-        
+          
           this.computerFileSelect2 = computerFileList;
+          console.log(this.computerFileSelect2);
         }
         else{
           this.computerFileList = [];
@@ -460,13 +461,14 @@ export class VanBanPdfComponent implements OnInit {
   }
   
   onFileSelected(id?: any) {
-    
-    this.computerFileList.forEach((item) => {
-      console.log(item);
-      if(item.fileId == id){
-        this.pdfSrc = item.url;
-      }
-    });
+    this.pdfSrc = "https://localhost:44357/FilesUpload/234/sample1asdf.pdf";
+    // this.computerFileList.forEach((item) => {
+    //   console.log(item.clientUrl);
+    //   if(item.fileId == id){
+    //     this.pdfSrc = item.clientUrl;
+    //   }
+    // });
+
     // let $img: any = document.querySelector('#file');
 
     // if (typeof (FileReader) !== 'undefined') {

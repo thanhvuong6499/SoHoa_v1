@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
 
     <div class="modal-header" aria-hidden="true">
-        <div *ngIf="hoso.fileCode != null else themMoi">
+        <div *ngIf="hoso.profileId != null else themMoi">
             <h4 class="">Chỉnh sửa hồ sơ</h4>
         </div>
 
@@ -83,15 +83,6 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ: <span style="color: red;"> (*)</span></label>
-            <div class="col-md-9">
-                <input type="text" id="title" name="title" formControlName="title"  class="form-control" [(ngModel)]="hoso.title" placeholder="Nhập tiêu đề hồ sơ" [ngClass]="{'is-invalid': submitted && f.title.errors}" />
-                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
-                    <div *ngIf="f.title.errors.required">Tiêu đề hồ sơ không được để trống.</div>
-                  </div>
-            </div>
-        </div>
-        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
                 <input id="fileNotation" formControlName="fileNotation" placeholder="Nhập số hồ sơ" name="fileNotation" class="form-control" [(ngModel)]="hoso.fileNotation" [ngClass]="{'is-invalid': submitted && f.fileNotation.errors}" />
@@ -101,19 +92,26 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ: <span style="color: red;"> (*)</span></label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hồ sơ: <span style="color: red;"> (*)</span></label>
+            <div class="col-md-9">
+                <input type="text" id="title" name="title" formControlName="title"  class="form-control" [(ngModel)]="hoso.title" placeholder="Nhập tiêu đề hồ sơ" [ngClass]="{'is-invalid': submitted && f.title.errors}" />
+                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">Tiêu đề hồ sơ không được để trống.</div>
+                  </div>
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Loại hồ sơ: </label>
             <div class="col-md-9">
                 <ng-select2
-                formControlName="profileTypeId"
-                [data]="allProfileType"
-                [placeholder]="'Chọn loại hồ sơ...'"
-                [options]="options"
-                name="profileTypeId"
-                [(ngModel)]="hoso.profileTypeId"
+                    formControlName="profileTypeId"
+                    [data]="allProfileType"
+                    [placeholder]="'Chọn loại hồ sơ...'"
+                    [options]="options"
+                    name="profileTypeId"
+                    [(ngModel)]="hoso.profileTypeId"
               ></ng-select2>
-              <div *ngIf="submitted && f.profileTypeId.status == 'INVALID'">
-                <div class="error">Vui lòng chọn loại hồ sơ.</div>
-              </div>
             </div>
         </div>
         <div class="form-group row">
@@ -128,13 +126,27 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng:</label>
             <div class="col-md-9">
-                <input type="text" name="rights" formControlName="rights" [(ngModel)]="hoso.rights" placeholder="Chế độ sử dụng" class="form-control">
+                <ng-select2
+                    formControlName="rights"
+                    [data]="allRights"
+                    [placeholder]="'Chọn chế độ sử dụng...'"
+                    [options]="options"
+                    name="rights"
+                    [(ngModel)]="hoso.rights"
+              ></ng-select2>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
             <div class="col-md-9">
-                <input type="text" name="language" formControlName="language" [(ngModel)]="hoso.language" placeholder="Nhập ngôn ngữ" class="form-control">
+                    <ng-select2
+                        formControlName="language"
+                        [data]="languages"
+                        [placeholder]="'Chọn ngôn ngữ...'"
+                        [options]="options"
+                        name="language"
+                        [(ngModel)]="hoso.language"
+                  ></ng-select2>
             </div>
         </div>
         <div class="form-group row">
@@ -155,7 +167,7 @@
                   </div>
             </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
                 <input type="number" min="0" name="totalDoc" formControlName="totalDoc" [(ngModel)]="hoso.totalDoc" placeholder="Tổng số văn bản" class="form-control" [ngClass]="{'is-invalid': submitted && f.totalDoc.errors}" />
@@ -163,7 +175,7 @@
                     <div *ngIf="f.totalDoc.errors.required">Nhập tổng số văn bản có trong hồ sơ (số nguyên không âm).</div>
                   </div>
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
             <div class="col-md-9">

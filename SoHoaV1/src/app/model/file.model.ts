@@ -8,4 +8,5 @@ export class FileUpload {
     size? : string;
     pageNumber?: number;
     profileId? : number;
+    clientUrl? : string;
 }

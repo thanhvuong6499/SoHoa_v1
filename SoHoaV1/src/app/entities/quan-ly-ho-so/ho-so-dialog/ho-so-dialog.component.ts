@@ -13,6 +13,7 @@ import { HtmlParser } from '@angular/compiler';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BaseCdkCell } from '@angular/cdk/table';
 import { Alert } from '../../../containers/_alert';
+import { Rights, Languages } from '../../../common/Variables';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -38,6 +39,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
 
   allGearBox: Array<Select2OptionData>;
   allProfileType: Array<Select2OptionData>;
+  allRights: Array<Select2OptionData>;
+  languages: Array<Select2OptionData>;
 
   isOverwrite: boolean = false;
   profile: HoSo = new HoSo();
@@ -60,6 +63,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     this.gearBoxTitleList = new Array<Select2OptionData>();
     this.allGearBox = new Array<Select2OptionData>();
     this.allProfileType = new Array<Select2OptionData>();
+    this.allRights = new Array<Select2OptionData>();
+    this.languages = new Array<Select2OptionData>();
     this.hoso = new HoSo();
     this.hoso.profileId = undefined;
     this.options = {
@@ -77,13 +82,13 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       fileCode: ['', Validators.required],
       title: ['', Validators.required],
       fileNotation: ['', Validators.required],
-      profileTypeId: ['', Validators.required],
+      profileTypeId: [''],
       maintenance: ['', Validators.required],
       rights: [''],
       language: [''],
       startDate: [undefined, Validators.required],
       endDate: [undefined, Validators.required],
-      totalDoc: ['', Validators.required],
+      totalDoc: [''],
       description: [''],
       inforSign: [''],
       keyWord: [''],
@@ -130,9 +135,11 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   }
   
   save() {
+    console.log(this.hoso);
     this.submitted = true;
+    console.log(this.f);
     if (this.form.invalid) return;
-
+    console.log('Form submited');
     this.loading = true;
 
     var files = new FormData();
@@ -208,54 +215,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
             }
           }
         }
-
-        // if (!result.isSuccess && result.errorCode == "-2") {
-        //   var lstFilesAlreadyExists : string[] = new Array<string>();
-        //   var arrFileName: string[] = new Array<string>();
-        //   if (result.returnValue && result.returnValue != undefined) {
-        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
-        //     for (const file of lstFilesAlreadyExists) {
-        //       let fileNameArr = file.split('\\');
-        //       let fileName = fileNameArr[fileNameArr.length -1];
-        //       arrFileName.push(fileName);
-        //     }
-        //   }
-
-        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
-        //   \nDanh sách file đã tồn tại:\n${
-        //     arrFileName.toString().split(',').join('\n')
-        //   }`)) {
-        //     files = this.uploadSubmit();
-        //     files.append('overwrite', 'accept');
-        //     this.service.insertSingleProfile(this.hoso, files)
-        //       .subscribe((result) => {
-        //         if (result.isSuccess) {
-        //           this.isOverwrite = true;
-        //         }
-        //         else {
-        //           console.log(result.errorCode);
-        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
-        //         }
-        //       },
-        //       (error) => {
-        //         console.log(error);
-        //       },
-        //       () => {
-        //         if (this.isOverwrite) {
-        //           this.activeModal.dismiss('success');
-        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
-        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
-        //           this.uploader.clearQueue();
-        //         }
-        //       });
-        //   }
-        //   else {
-        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
-        //   }
-        // }
-        // else if (!result.isSuccess) {
-        //   this.toastr.error("Thêm mới thất bại", "Thông báo");
-        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -327,6 +286,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
                         this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
                         this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
                         this.uploader.clearQueue();
+                      //  this.onClose();
                       }
                     });
                 }
@@ -342,54 +302,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
             }
           }
         }
-
-        // if (!result.isSuccess && result.errorCode == "-2") {
-        //   var lstFilesAlreadyExists : string[] = new Array<string>();
-        //   var arrFileName: string[] = new Array<string>();
-        //   if (result.returnValue && result.returnValue != undefined) {
-        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
-        //     for (const file of lstFilesAlreadyExists) {
-        //       let fileNameArr = file.split('\\');
-        //       let fileName = fileNameArr[fileNameArr.length -1];
-        //       arrFileName.push(fileName);
-        //     }
-        //   }
-        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
-        //   \nDanh sách file đã tồn tại:\n${
-        //     arrFileName.toString().split(',').join('\n')
-        //   }`)) {
-        //     files = this.uploadSubmit();
-        //     files.append('overwrite', 'accept');
-        //     this.service.updateSingleProfile(this.hoso, files)
-        //       .subscribe((result) => {
-        //         if (result.isSuccess) {
-                  
-        //           this.isOverwrite = true;
-        //         }
-        //         else {
-        //           console.log(result);
-        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
-        //         }
-        //       },
-        //       (error) => {
-        //         console.log(error);
-        //       },
-        //       () => {
-        //         if (this.isOverwrite) {
-        //           this.activeModal.dismiss('success');
-        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
-        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
-        //           this.uploader.clearQueue();
-        //         }
-        //       });
-        //   }
-        //   else {
-        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
-        //   }
-        // }
-        // else if (!result.isSuccess) {
-        //   this.toastr.error("Cập nhật thông tin hồ sơ thất bại, vui lòng thử lại", "Thông báo");
-        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -439,6 +351,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   }
 
   getAddNew () {
+    this.allRights = Rights;
+    this.languages = Languages;
     this.service.getAllGearBoxAndProfileType()
       .subscribe((result) => {
         var arrGearBox = [];
@@ -454,7 +368,9 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
         }
         this.allProfileType = arrGearBox;
       }, (error) => {
-        console.log(error);
+        setTimeout(() => {
+          alert("Không thể tải dữ liệu, vui lòng xem lại, lỗi: " + JSON.stringify(error));
+        }, 5000);
       },
       () => {
 

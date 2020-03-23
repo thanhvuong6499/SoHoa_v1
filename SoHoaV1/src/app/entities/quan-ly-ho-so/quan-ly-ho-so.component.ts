@@ -147,12 +147,12 @@ export class QuanLyHoSoComponent implements OnInit {
           }
           this.gearBoxIdFilter = arrTypes;
         }, 
-      (error => {
-        setTimeout(() => {
-          alert("Lỗi: " + JSON.stringify(error));
-          this.hideSpinner("filterOptions");
-        }, 5000);
-      }),
+        (error) => {
+          setTimeout(() => {
+            alert("Lỗi: " + JSON.stringify(error));
+            this.hideSpinner("filterOptions");
+          }, 5000);
+        },
       () => {
         this.hideSpinner("filterOptions");
       });
