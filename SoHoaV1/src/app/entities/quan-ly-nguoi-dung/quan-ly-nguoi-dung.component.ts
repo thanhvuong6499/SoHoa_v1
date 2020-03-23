@@ -76,7 +76,7 @@ export class QuanLyNguoiDungComponent implements OnInit {
   }
 
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.2");
+    this.showSpinner("dataTable", "timer", "0.8");
     this.userService.userGetSearchWithPaging().subscribe((data : any) => {
       console.log(data);
       this.users = data.itemList;

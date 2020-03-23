@@ -88,38 +88,45 @@
         </div>
 
     </div>
-    <div class="card-footer">
-        <table *ngIf="danhmucs" class="table table-bordered table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Tên mục lục hồ sơ</th>
-                    <th>Mục lục số</th>
-                    <th>Số lượng hộp số</th>
-                    <th>Ghi chú</th>
+    <div *ngIf="phong" class="card-footer">
+        <div *ngIf="phong.fontNumber"><h5>Danh sách mục lục trong phông có mã phông : {{ phong.fontNumber }} </h5></div>
+        <hr/>
+        <div *ngIf="totalRecords > 0 else nondata">
+            <table *ngIf="danhmucs" class="table table-bordered table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên mục lục hồ sơ</th>
+                        <th>Mục lục số</th>
+                        <th>Số lượng hộp số</th>
+                        <th>Ghi chú</th>
 
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let danhmuc of danhmucs; index as i">
-                    <td>{{i+1}}</td>
-                    <td>{{ danhmuc.tabOfContName }}</td>
-                    <td>{{ danhmuc.tabOfContCode }}</td>
-                    <td>{{ danhmuc.gearBoxCount }}</td>
-                    <td>{{ danhmuc.note }}</td>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let danhmuc of danhmucs; index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{ danhmuc.tabOfContName }}</td>
+                        <td>{{ danhmuc.tabOfContCode }}</td>
+                        <td>{{ danhmuc.gearBoxCount }}</td>
+                        <td>{{ danhmuc.note }}</td>
 
-                    <td style="width:137px;text-align: center;">
-                        <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
-                            routerLinkActive="router-link-active"></button>
-                        <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                            <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true" queryParamsHandling="merge">
-                            </button>
-                        <!-- <button class="btn btn-primary fa fa-trash"></button> -->
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <ngb-pagination *ngIf="phong" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,phong.fontID)"></ngb-pagination>
+                        <td style="width:137px;text-align: center;">
+                            <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
+                                routerLinkActive="router-link-active"></button>
+                            <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                                <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true" queryParamsHandling="merge">
+                                </button>
+                            <!-- <button class="btn btn-primary fa fa-trash"></button> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ngb-pagination *ngIf="phong" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,phong.fontID)"></ngb-pagination>
+        </div>
     </div>
+    <ng-template #nondata>
+        <div>Không có dữ liệu phù hợp.</div>
+    </ng-template>
 </div>

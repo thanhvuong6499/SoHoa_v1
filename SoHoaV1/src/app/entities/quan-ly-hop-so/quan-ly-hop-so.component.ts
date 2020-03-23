@@ -94,7 +94,7 @@ export class QuanLyHopSoComponent implements OnInit {
   }
 
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.2");
+    this.showSpinner("dataTable", "timer", "0.8");
     this.quanLyHopSoService.getAllHopSoWithPaging().subscribe((data : any) => {
       this.hopsos = data.itemList;
       this.pageSize = 5;

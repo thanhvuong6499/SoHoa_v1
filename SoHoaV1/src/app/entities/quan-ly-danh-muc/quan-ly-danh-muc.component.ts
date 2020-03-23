@@ -134,7 +134,7 @@ export class QuanLyDanhMucComponent implements OnInit {
   }
 
   loadAll(){
-    this.showSpinner("dataTable", "timer", "0.2");
+    this.showSpinner("dataTable", "timer", "0.8");
     this.danhMucService.getAllDanhMucWithPaging().subscribe((data : any) => {
       this.danhmucs = data.itemList;
       this.pageSize = 5;
