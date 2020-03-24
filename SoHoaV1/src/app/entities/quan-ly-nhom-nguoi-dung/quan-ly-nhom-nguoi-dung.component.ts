@@ -78,7 +78,6 @@ export class QuanLyNhomNguoiDungComponent implements OnInit {
       this.totalRecords = data.totalRows;
     }, (error) => {
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
     });
   }
 

@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .subscribe((result) => {
-        console.log(result);
         if (result.isSuccess == true) {
           this.error = '';
           this.router.navigate(['']);
@@ -64,7 +63,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.error = error["message"];
         this.loading = false;
         alert("Không thành công, vui lòng kiểm tra kết nối đến server và thử lại.");
-        console.log(error);
       }, () => {
         this.loading = false;
       });

@@ -5,7 +5,7 @@ export class User {
        public id: number;
        public userName: string;
        public userRole?: string;
-       public password? : string;
+       public passwordNew? : string;
        public roles?: string;
        public createBy?: string;
        public updateBy?: string;
@@ -15,4 +15,5 @@ export class User {
        public roleName: string;
        public menuRole: string;
        public token?: Token = new Token();
+       public confirmPassword?: string
 }

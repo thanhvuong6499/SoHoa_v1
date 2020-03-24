@@ -78,7 +78,6 @@ export class QuanLyNguoiDungComponent implements OnInit {
   loadAll(){
     this.showSpinner("dataTable", "timer", "0.8");
     this.userService.userGetSearchWithPaging().subscribe((data : any) => {
-      console.log(data);
       this.users = data.itemList;
       this.pageSize = 5;
       this.page = 1;
@@ -130,7 +129,6 @@ export class QuanLyNguoiDungComponent implements OnInit {
     this.userService.getAllRole()
       .subscribe((result) => {
         var arrTypes = [];
-        console.log(result);
         for (const item of result.itemList) {
           arrTypes.push({ id: item.roleID, text: item.roleName });
         }

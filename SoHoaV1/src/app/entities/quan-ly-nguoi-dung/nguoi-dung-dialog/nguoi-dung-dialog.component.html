@@ -19,16 +19,42 @@
           <input type="text" formControlName="userName" placeholder="Nhập tên tài khoản" name="userName" [(ngModel)]="user.userName" class="form-control" [ngClass]="{'is-invalid': submitted && f.userName.errors}" />
           <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
             <div *ngIf="f.userName.errors.required">Tên tài khoản không được để trống.</div>
+            <div *ngIf="f.userName.errors.minlength">Tài khoản phải lớn hơn 6 ký tự.</div>
           </div>
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label" for="text-input">Mật khẩu <span style="color: red;">(*)</span></label>
+        <label class="col-md-3 col-form-label" for="text-input">Mật khẩu</label>
         <div class="col-md-9">
-          <input type="password" formControlName="password" placeholder="Nhập mật khẩu" name="password" [(ngModel)]="user.password" class="form-control" [ngClass]="{'is-invalid': submitted && f.password.errors}" />
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Mật khẩu là bắt buộc.</div>
+          <div *ngIf="user.id != null; else nonData">
+            <input type="password" formControlName="passwordNew" placeholder="Nhập mật khẩu mới" name="passwordNew" [(ngModel)]="user.passwordNew" class="form-control" />
+            <div *ngIf="f.passwordNew.errors?.minlength"><p style="color:red">Mật khẩu phải lớn hơn 6 ký tự.</p></div>
           </div>
+          <ng-template #nonData>
+            <input type="password" formControlName="passwordNew" placeholder="Nhập mật khẩu" name="passwordNew" [(ngModel)]="user.passwordNew" class="form-control" [ngClass]="{'is-invalid': submitted && f.passwordNew.errors}"/>
+            <div *ngIf="submitted && f.passwordNew.errors" class="invalid-feedback">
+              <div *ngIf="f.passwordNew.errors.required">Mật khẩu không được để trống.</div>
+              <div *ngIf="f.passwordNew.errors.minlength">Mật khẩu phải lớn hơn 6 ký tự.</div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Nhập lại mật khẩu</label>
+        <div class="col-md-9">
+          <div *ngIf="user.id != null; else nonDataCF">
+            <input type="password" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu mới" name="confirmPassword" [(ngModel)]="user.confirmPassword" class="form-control" />
+            <div *ngIf="f.confirmPassword.errors?.minlength"><p style="color:red">Mật khẩu phải lớn hơn 6 ký tự.</p></div>
+            <div *ngIf="f.confirmPassword.errors?.mustMatch"><p style="color:red">Nhập lại mật khẩu phải được trùng khớp với mật khẩu.</p></div>
+          </div>
+          <ng-template #nonDataCF>
+            <input type="password" formControlName="confirmPassword" placeholder="Nhập lại mật khẩu" name="confirmPassword" [(ngModel)]="user.confirmPassword" class="form-control" [ngClass]="{'is-invalid': submitted && f.confirmPassword.errors}"/>
+            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPassword.errors.required">Nhập lại mật khẩu không được để trống.</div>
+              <div *ngIf="f.confirmPassword.errors.minlength">Mật khẩu phải lớn hơn 6 ký tự.</div>
+              <div *ngIf="f.confirmPassword.errors.mustMatch">Nhập lại mật khẩu phải được trùng khớp với mật khẩu.</div>
+            </div>
+          </ng-template>
         </div>
       </div>
       <div class="form-group row">

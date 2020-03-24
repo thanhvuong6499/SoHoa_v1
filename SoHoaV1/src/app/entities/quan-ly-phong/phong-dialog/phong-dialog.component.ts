@@ -79,7 +79,6 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
         this.languageList = languageList;
       },
       (error) => {
-        console.log(error);
         setTimeout(() => {
           alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
