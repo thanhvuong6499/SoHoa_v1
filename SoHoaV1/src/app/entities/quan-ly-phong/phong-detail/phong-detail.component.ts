@@ -95,7 +95,6 @@ export class PhongDetailComponent implements OnInit {
       }, (error) => {
         this.pageSize = 5;
       }, () => {
-        console.log("Lấy dữ liệu thành công");
       });
     }catch (e) {
       alert(JSON.stringify(e))

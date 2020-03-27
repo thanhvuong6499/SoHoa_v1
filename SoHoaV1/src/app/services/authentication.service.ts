@@ -28,6 +28,10 @@ export class AuthenticationService implements OnInit, OnDestroy {
     return JSON.parse(localStorage.getItem('currentUser')).userName;
   }
 
+  public get getRoleName() : string {
+    return JSON.parse(localStorage.getItem('role')).roleName;
+  }
+
   login(UserName : string, Password: string) {
     var account = {
       UserName: UserName,
@@ -48,6 +52,8 @@ export class AuthenticationService implements OnInit, OnDestroy {
           localStorage.setItem('currentUser', JSON.stringify(user.item));
           localStorage.setItem('access-token', user.item.token["jwtToken"]);
           localStorage.setItem('expiration', user.item.token["expiration"]);
+          localStorage.setItem('role', user.item["roleName"]);
+          localStorage.setItem('user', user.item["userName"]);
           this.behaviorUserSubject.next(user.item);
         }
         return user;
@@ -58,6 +64,8 @@ export class AuthenticationService implements OnInit, OnDestroy {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('access-token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('role');
+    localStorage.removeItem('user');
     this.behaviorUserSubject.next(null);
   }
 

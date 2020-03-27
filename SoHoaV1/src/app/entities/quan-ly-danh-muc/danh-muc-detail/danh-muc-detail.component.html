@@ -50,38 +50,45 @@
         </div>
 
     </div>
-    <div class="card-footer">
-        <table class="table table-bordered table-striped table-sm">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Mã hộp số</th>
-                <th>Tiêu đề hộp số</th>
-                <th>Số lượng hồ sơ</th>
-                <th>Số lượng văn bản</th>
-                <th>Ghi chú</th>
+    <div *ngIf="danhmuc" class="card-footer">
+        <div *ngIf="danhmuc.tabOfContCode"><h5>Danh sách hộp số trong mục lục có mã mục lục : {{ danhmuc.tabOfContCode }} </h5></div>
+        <hr/>
+        <div *ngIf="totalRecords > 0 else nondata">
+            <table class="table table-bordered table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã hộp số</th>
+                    <th>Tiêu đề hộp số</th>
+                    <th>Số lượng hồ sơ</th>
+                    <th>Số lượng văn bản</th>
+                    <th>Ghi chú</th>
+                    
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let hopso of hopsos; index as i">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ hopso.gearBoxCode }}</td>
+                    <td>{{ hopso.gearBoxTitle }}</td>
+                    <td>{{ hopso.profileCount }}</td>
+                    <td>{{ hopso.numDoc }}</td>
+                    <td>{{ hopso.note }}</td>
                 
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let hopso of hopsos; index as i">
-                <td>{{ i+1 }}</td>
-                <td>{{ hopso.gearBoxCode }}</td>
-                <td>{{ hopso.gearBoxTitle }}</td>
-                <td>{{ hopso.profileCount }}</td>
-                <td>{{ hopso.numDoc }}</td>
-                <td>{{ hopso.note }}</td>
-               
-                <td style="width:137px;text-align: center;">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]" routerLinkActive="router-link-active" ></button>
-                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
-                  <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <ngb-pagination *ngIf="danhmuc" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,danhmuc.tableOfContID)"></ngb-pagination>
+                    <td style="width:137px;text-align: center;">
+                    <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]" routerLinkActive="router-link-active" ></button>
+                    <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
+                    <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
+                    <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+            <ngb-pagination *ngIf="danhmuc" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,danhmuc.tableOfContID)"></ngb-pagination>
+        </div>
     </div>
+    <ng-template #nondata>
+        <div>Không có dữ liệu phù hợp.</div>
+    </ng-template>
 </div>

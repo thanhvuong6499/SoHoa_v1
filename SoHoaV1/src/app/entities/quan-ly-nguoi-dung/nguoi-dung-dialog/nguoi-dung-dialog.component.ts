@@ -66,14 +66,6 @@ export class NguoiDungDialogComponent implements OnInit {
     // );
     this.user.roles = "1";
     this.user.status = 0;
-    
-    this.form = this.formBuilder.group({
-      userName: ['', Validators.required],
-      password: ['', Validators.required],
-      roleID: ['', Validators.required],
-      status: [''],
-    });
-    
     this.edit = false;
     this.userGroupService.getAllRole()
       .subscribe((result) => {
@@ -92,7 +84,30 @@ export class NguoiDungDialogComponent implements OnInit {
       if(this.popupService.result.item != undefined){
         this.user = this.popupService.result.item;
         this.edit = true;
+        this.form = this.formBuilder.group({
+          userName: ['', [Validators.required, Validators.minLength(5)]],
+          passwordNew: ['',Validators.minLength(6)],
+          confirmPassword: ['',Validators.minLength(6)],
+          roleID: ['', Validators.required],
+          status: [''],
+        },
+        {
+          validator: this.MustMatch('passwordNew', 'confirmPassword')
+        });
       }
+      else{
+        this.form = this.formBuilder.group({
+          userName: ['', [Validators.required, Validators.minLength(5)]],
+          passwordNew: ['',[Validators.required, Validators.minLength(6)]],
+          confirmPassword: ['',[Validators.required, Validators.minLength(6)]],
+          roleID: ['', Validators.required],
+          status: [''],
+        },
+        {
+          validator: this.MustMatch('passwordNew', 'confirmPassword')
+        });
+      }
+      console.log(this.form);
     this.user.createBy = JSON.parse(localStorage.getItem('currentUser')).userName;
   }
 
@@ -111,50 +126,55 @@ export class NguoiDungDialogComponent implements OnInit {
   save(){
     this.submitted = true;
     if (this.form.invalid) { return; }
-    if (this.edit) {
-      this.userService.updateUser(this.user)
-        .subscribe((result) => {
-          // this.loadData();
-          if (result.errorCode == '0') {
-            this.clear();
-            this.onSaveSuccess("Chỉnh sửa thành công");
-          }
-          else if(result.errorCode == '1'){
-            this.onSaveWarning(result.errorMessage);
-          }
-          else {
-            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
-          }
-        },
-        (error)=> {
-          // this.onSaveError();
-          this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
-        },
-        () => {
-          this.onClose();
-        });
+    if(this.user.confirmPassword != this.user.passwordNew){
+      this.onSaveWarning("Mật khẩu phải được trùng khớp.");
     }
-    else {
-        this.userService.insertNewUser(this.user)
-        .subscribe((result) => {
-          // this.loadData();
-          if (result.errorCode == '0') {
-            this.toast.success("Thêm mới thành công");
-            this.clear();
+    else{
+      if (this.edit) {
+          this.userService.updateUser(this.user)
+          .subscribe((result) => {
+            // this.loadData();
+            if (result.errorCode == '0') {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else if(result.errorCode == '1'){
+              this.onSaveWarning(result.errorMessage);
+            }
+            else {
+              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+            }
+          },
+          (error)=> {
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+          },
+          () => {
             this.onClose();
-          }
-          else if(result.errorCode == '1'){
-            this.onSaveWarning(result.errorMessage);
-          }
-          else {
+          });
+        }
+      else {
+          this.userService.insertNewUser(this.user)
+          .subscribe((result) => {
+            // this.loadData();
+            if (result.errorCode == '0') {
+              this.toast.success("Thêm mới thành công");
+              this.clear();
+              this.onClose();
+            }
+            else if(result.errorCode == '1'){
+              this.onSaveWarning(result.errorMessage);
+            }
+            else {
+              this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+            }
+          },
+          (error) => {
             this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
-          }
-        },
-        (error) => {
-          this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
-        }, () => {
-          // this.activeModal.dismiss("Create new successfully");
-        });
+          }, () => {
+            // this.activeModal.dismiss("Create new successfully");
+          });
+        }
     }
   }
 
@@ -177,6 +197,31 @@ export class NguoiDungDialogComponent implements OnInit {
   //     this.create = false;
   //   }
   // }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if(control.value == null || control.value == undefined){
+          if(matchingControl.value == null || matchingControl.value == undefined){
+              matchingControl.setErrors(null);
+              return;
+          }
+        }
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+  }
 
   onSaveSuccess(message: string) {
     this.toast.success(message);

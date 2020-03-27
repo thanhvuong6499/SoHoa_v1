@@ -72,7 +72,6 @@ export class QuanLyLoaiVanBanComponent implements OnInit {
       this.totalRecords = data.totalRows;
     }, (error) => {
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
     });
   }
 

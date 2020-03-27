@@ -27,7 +27,7 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     var role = localStorage.getItem('role');
-    if (role === 'admin') {
+    if (role.toLowerCase() === 'admin') {
       this.navItems = navItems;
     }
     else {

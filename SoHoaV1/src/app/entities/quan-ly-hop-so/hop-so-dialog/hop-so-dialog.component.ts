@@ -64,8 +64,6 @@ export class HopSoDialogComponent implements OnInit {
       tabOfContID: ['', Validators.required],
       gearBoxCode: ['', Validators.required],
       gearBoxTitle: ['', Validators.required],
-      stDate: ['',Validators.required],
-      eDate: ['',Validators.required],
       note: ['']
     })
 
@@ -147,6 +145,7 @@ export class HopSoDialogComponent implements OnInit {
     (error) => {
     }, () => {
     });
+
     if(this.hopSoPopupService.result.item != undefined){
       this.hopso = this.hopSoPopupService.result.item;
       if(this.hopso.startDate != undefined && this.hopso.startDate !=null){
@@ -168,9 +167,7 @@ export class HopSoDialogComponent implements OnInit {
     if (this.form.invalid) { return; }
     this.loading = true;
 
-    if(this.hopso.stDate == "" || this.hopso.eDate == "" 
-    || this.hopso.stDate == undefined || this.hopso.eDate == undefined 
-    || this.hopso.tabOfContID == 0 || this.hopso.tabOfContID == undefined){
+    if(this.hopso.tabOfContID == 0 || this.hopso.tabOfContID == undefined){
       this.onSaveError("Nhập đầy đủ thông tin!!!");
     }
     else{

@@ -31,7 +31,6 @@ export class NhomNguoiDungDeleteComponent implements OnInit {
   deleteUserGroup(id : any) {
     this.nhomNguoiDungService.deleteUserGroup(id)
       .subscribe((result) => {
-        console.log(result.isSuccess);
         if(result.isSuccess)
           this.onDeleteSuccess('Xóa thành công!!!');
         else  

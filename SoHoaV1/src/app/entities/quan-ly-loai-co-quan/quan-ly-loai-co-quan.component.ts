@@ -74,7 +74,6 @@ export class QuanLyOrganTypeComponent implements OnInit {
       this.totalRecords = data.totalRows;
     }, (error) => {
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
     });
   }
 
