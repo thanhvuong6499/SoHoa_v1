@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { removeSummaryDuplicates } from '@angular/compiler';
 import { ChuKySoPopupService } from '../chu-ky-so-popup-service.service';
 import { ChuKySoDeletePopupComponent } from '../chu-ky-so-delete-popup/chu-ky-so-delete-popup.component';
+import { ChuKySoUpdateStatusPopupComponent } from '../chu-ky-so-update-status-popup/chu-ky-so-update-status-popup.component';
 
 @Component({
   selector: 'app-quan-ly-chu-ky-so',
@@ -259,6 +260,11 @@ export class QuanLyChuKySoComponent implements OnInit {
         this.spinner.hide(name);
       }, 100);
     }
+
+    openUpdateDialog(id : any, status?: any) {
+        this.popup.open(ChuKySoUpdateStatusPopupComponent as Component, id);
+    }
+
     onClose() {
       this.service.filter('Register click');
     }

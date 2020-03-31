@@ -1,16 +1,16 @@
-<form (ngSubmit)="save()" [formGroup]="form" enctype="multipart/form-data" class="form-horizontal">
+<form [formGroup]="form" enctype="multipart/form-data" class="form-horizontal">
 
 <mat-drawer-container class="example-container">
     <mat-drawer mode="side" opened="true" style="width:50%;">
-        <div class="modal-header bg-primary" aria-hidden="true" style="margin-top: 10px;">
+        <!-- <div class="modal-header" aria-hidden="true" style="margin-top: 10px;">
             <div *ngIf="document.documentId != null; else themMoi">
                 <h4 class="modal-title">Chỉnh sửa tài liệu</h4>
             </div>
             <ng-template #themMoi>
                 <h4 class="modal-title">Thêm mới tài liệu</h4>
             </ng-template>
-        </div>
-        <div class="modal-body">
+        </div> -->
+        <div class="modal-body" >
             <!-- <div class="form-group">
             <label class="form-control-label">Mã phông</label>
             <input type="number" class="form-control" name="maphong" id="field_maphong"
@@ -29,17 +29,17 @@
                 </div>
             </div> -->
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="textarea-input">Mã văn bản<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="textarea-input">Mã văn bản: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    <input type="text" formControlName="documentCode" placeholder="Nhập mã văn bản" name="documentCode" [(ngModel)]="document.documentCode" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.documentCode.errors}" />
-                    <div *ngIf="submitted && formControl.documentCode.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.documentCode.errors.required">Mã cơ quan không được để trống.</div>
+                    <input type="text" formControlName="documentCode" placeholder="Nhập mã văn bản" name="documentCode" [(ngModel)]="document.documentCode" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.documentCode.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.documentCode.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.documentCode.status == 'INVALID'">Mã văn bản không được để trống.</div>
                     </div>
                 </div>
                 
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Cơ quan <span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Cơ quan: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                     <ng-select2
                         formControlName="organID"
@@ -56,12 +56,12 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Phông <span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Phông: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                     <ng-select2
                         formControlName="fontID"
                         [data]="lstFont"
-                        [placeholder]="'Chọn Phông...'"
+                        [placeholder]="'Chọn phông...'"
                         [options]="options"
                         name="fontID"
                         (valueChanged)="onFontChange($event)"
@@ -74,13 +74,13 @@
             </div>
     
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Danh mục <span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Danh mục: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                     <ng-select2
                         formControlName="tabOfContID"
                         required
                         [data]="lstDanhMuc"
-                        [placeholder]="'Chọn Danh Mục...'"
+                        [placeholder]="'Chọn danh mục...'"
                         [options]="options"
                         name="tabOfContID"
                         (valueChanged)="onTableOfContentChange($event)"
@@ -92,7 +92,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Mã hộp số<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Mã hộp số: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                     <ng-select2
                         formControlName="gearBox"
@@ -102,7 +102,7 @@
                         [options]="options"
                         name="gearBoxId"
                         (valueChanged)="onGearBoxChange($event)"
-                        
+                        [(ngModel)]="gearBoxId"
                     ></ng-select2>
                     <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">
                         <div class="error"><span style="color:red;">Vui lòng chọn hộp số.</span></div>
@@ -110,26 +110,28 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Mã hồ sơ <span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Số hồ sơ: </label>
                 <div class="col-md-9">
-                    <ng-select2
+                    <!-- <ng-select2
                       formControlName = "profile"
                       [data]="profileList"
-                      [placeholder]="'Chọn tình trạng vật lý...'"
+                      [placeholder]="'Chọn mã hồ sơ...'"
                       [options]="options"
                       name="profileList"
                       (valueChanged)="onProfileChange($event)"
                       [(ngModel)]="document.fileId"
-                    ></ng-select2>
-                    <div *ngIf="submitted && formControl.profile.status == 'INVALID'">
+                    ></ng-select2> -->
+                    <!-- <div *ngIf="submitted && formControl.profile.status == 'INVALID'">
                       <div class="error">Vui lòng chọn mã hồ sơ.</div>
-                  </div>
+                  </div> -->
+                  <input type="text" class="form-control" placeholder="Số hồ sơ..." formControlName="profile" name="fileId" [(ngModel)]="document.fileId" readonly="readonly"/>
                   </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Danh sách file <span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">File số: </label>
                 <div class="col-md-9">
-                    <ng-select2
+                    <input type="number" class="form-control" placeholder="File số..." formControlName="computerFileId" name="computerFileId" [(ngModel)]="document.computerFileId" readonly="readonly"/>
+                    <!-- <ng-select2
                       formControlName = "computerFile"
                       [data]="computerFileSelect2"
                       [placeholder]="'Chọn file...'"
@@ -137,32 +139,31 @@
                       name="computerFileList"
                       (valueChanged)="onFileSelected($event)"
                       [(ngModel)]="document.computerFileId"
-                    ></ng-select2>
-                    <div *ngIf="submitted && formControl.computerFile.status == 'INVALID'">
+                    ></ng-select2> -->
+                    <!-- <div *ngIf="submitted && formControl.computerFile.status == 'INVALID'">
                       <div class="error">Vui lòng chọn file.</div>
-                  </div>
+                  </div> -->
                   </div>
             </div>
         
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Văn bản số<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="text-input">Văn bản số: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    
-                    <input type="text" formControlName="codeNumber" placeholder="Nhập Văn bản số" name="documentCode" [(ngModel)]="document.codeNumber" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.codeNumber.errors}" />
-                    <div *ngIf="submitted && formControl.codeNumber.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.codeNumber.errors.required">Văn bản số không được để trống.</div>
+                    <input type="text" formControlName="codeNumber" placeholder="Nhập văn bản số" name="codeNumber" [(ngModel)]="document.codeNumber" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.codeNumber.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.codeNumber.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.codeNumber.status == 'INVALID'">Văn bản số không được để trống.</div>
                     </div>
                 </div>
                 
             </div>
             
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="document-type">Loại văn bản<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="document-type">Loại văn bản: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                   <ng-select2
                   formControlName = "docType"
                   [data]="documentTypeList"
-                  [placeholder]="'Chọn Loại văn bản...'"
+                  [placeholder]="'Chọn loại văn bản...'"
                   [options]="options"
                   name="docTypeId"
                   [(ngModel)]="document.docTypeId"
@@ -174,44 +175,39 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Số thứ tự văn bản</label>
+                <label class="col-md-3 col-form-label" for="text-input">Số thứ tự văn bản: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    <input type="number" formControlName="docOrdinal" placeholder="Nhập số thứ tự văn bản" name="docOrdinal" [(ngModel)]="document.docOrdinal" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.docOrdinal.errors}" />
-                    <div *ngIf="submitted && formControl.codeNumber.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.codeNumber.errors.required">Số thứ tự văn bản không được để trống.</div>
+                    <input type="number" formControlName="docOrdinal" placeholder="Nhập số thứ tự văn bản" name="docOrdinal" [(ngModel)]="document.docOrdinal" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.docOrdinal.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.docOrdinal.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.docOrdinal.status == 'INVALID'">Số thứ tự văn bản không được để trống.</div>
                     </div>
                 </div>
                 
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu văn bản</label>
+                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu văn bản: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    <input type="text" formControlName="codeNotation" placeholder="Ký hiệu văn bản" name="codeNotation" [(ngModel)]="document.codeNotation" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.codeNotation.errors}" />
-                    <div *ngIf="submitted && formControl.codeNumber.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.codeNumber.errors.required">Ký hiệu văn bản không được để trống.</div>
+                    <input type="text" formControlName="codeNotation" placeholder="Ký hiệu văn bản" name="codeNotation" [(ngModel)]="document.codeNotation" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.codeNotation.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.codeNotation.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.codeNotation.status == 'INVALID'">Ký hiệu văn bản không được để trống.</div>
                     </div>
                 </div>
                 
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Số tờ<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="text-input">Số tờ: </label>
                 <div class="col-md-9">
-                    <input type="number" formControlName="pageAmount" placeholder="Số tờ" name="pageAmount" [(ngModel)]="document.pageAmount" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.pageAmount.errors}" />
-                    <div *ngIf="submitted && formControl.pageAmount.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.pageAmount.errors.required">Số tờ không được để trống.</div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Nội dung</label>
-                <div class="col-md-9">
-                    <input type="text" formControlName="subject" id="text-input" name="noidung" class="form-control" [(ngModel)]="document.subject">
+                    <input type="number" formControlName="pageAmount" placeholder="Số tờ..." name="pageAmount" [(ngModel)]="document.pageAmount" class="form-control" readonly="readonly"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Ngôn ngữ<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="text-input">Nội dung: </label>
+                <div class="col-md-9">
+                    <textarea style="height: 15em; resize: none; overflow: hidden;" type="text" formControlName="subject" id="text-area-content" name="subject" class="form-control" [(ngModel)]="document.subject"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select1">Ngôn ngữ: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                   <ng-select2
                     formControlName = "language"
@@ -228,16 +224,16 @@
             </div>
            
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="date-input">Ngày tháng năm văn bản<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="date-input">Ngày / tháng / năm văn bản: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    <input type="date" formControlName="issuedDate" placeholder="Ngày tháng năm văn bản" name="issuedDate" [(ngModel)]="document.issuedDate" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.issuedDate.errors}" />
-                    <div *ngIf="submitted && formControl.issuedDate.errors" class="invalid-feedback">
-                        <div *ngIf="formControl.language.errors.required">Ngày tháng năm văn bản không được để trống.</div>
+                    <input type="date" formControlName="issuedDate" placeholder="Ngày tháng năm văn bản" name="issuedDate" [(ngModel)]="document.issuedDate" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.issuedDate.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.issuedDate.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.language.status == 'INVALID'">Ngày / tháng / năm văn bản không được để trống.</div>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Tình trạng vật lý<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Tình trạng vật lý: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                   <ng-select2
                   formControlName = "format"
@@ -254,31 +250,31 @@
                 
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
+                <label class="col-md-3 col-form-label" for="text-input">Ghi chú: </label>
                 <div class="col-md-9">
-                    <input type="text" id="text-input" formControlName="description" name="noidung" class="form-control" [(ngModel)]="document.description">
+                    <input type="text" formControlName="description" name="noidung" class="form-control" [(ngModel)]="document.description">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin</label>
+                <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin: </label>
                 <div class="col-md-9">
-                    <input type="text" id="text-input" formControlName="inforSign" name="noidung" class="form-control" [(ngModel)]="document.inforSign">
+                    <input type="text" formControlName="inforSign" name="noidung" class="form-control" [(ngModel)]="document.inforSign">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Từ khóa</label>
+                <label class="col-md-3 col-form-label" for="text-input">Từ khóa: </label>
                 <div class="col-md-9">
-                    <input type="text" id="text-input" formControlName="keyword" name="noidung" class="form-control" [(ngModel)]="document.keyword">
+                    <input type="text" formControlName="keyword" name="noidung" class="form-control" [(ngModel)]="document.keyword">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng</label>
+                <label class="col-md-3 col-form-label" for="text-input">Chế độ sử dụng: </label>
                 <div class="col-md-9">
-                    <input type="text" id="text-input" formControlName="mode" name="noidung" class="form-control" [(ngModel)]="document.mode">
+                    <input type="text" formControlName="mode" name="noidung" class="form-control" [(ngModel)]="document.mode">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="select1">Mức độ bảo mật<span style="color: red;">(*)</span></label>
+                <label class="col-md-3 col-form-label" for="select1">Mức độ bảo mật: <span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
                   <ng-select2
                     formControlName="confidenceLevel"
@@ -294,35 +290,52 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="text-input">Bút tích</label>
+                <label class="col-md-3 col-form-label" for="text-input">Bút tích: </label>
                 <div class="col-md-9">
-                    <input type="text" id="text-input" formControlName="autograph" name="stttronghs" class="form-control"
+                    <input type="text" formControlName="autograph" name="stttronghs" class="form-control"
                         [(ngModel)]="document.autograph">
                 </div>
-            </div> 
-            
-            
-            
-             
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Chữ ký số: </label>
+                <div class="col-md-7" style="margin-top: 10px;">
+                    <mat-checkbox class="example-margin" formControlName="signature" name="signature" [(ngModel)]="checked" (change)="getSignatureStatus()"></mat-checkbox>
+                    <div *ngIf="loadingSignature" style="margin-bottom: 4px; margin-left: 0.12em; display: inline-block;"><span class="spinner-border spinner-border-sm mr-1"></span> <span> Vui lòng đợi...</span></div>
+                </div>
+            </div>
+            <div *ngIf="!loadingSignature && hasImage" class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input"></label>
+                <div class="col-md-9" style="margin-top: 10px;">
+                    <img src="{{ imageSrc }}" alt="" class="image"/>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-                <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+            <button type="submit" class="btn btn-primary" (click)="save('save')">
+                <span *ngIf="saveLoading" class="spinner-border spinner-border-sm mr-1"></span><span class="fa fa-save"></span>&nbsp;<span>Lưu</span>
             </button>
-            <button type="submit" class="btn btn-primary">
-                <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+            <button type="submit" class="btn btn-info" (click)="save('continue')">
+                <span *ngIf="continueLoading" class="spinner-border spinner-border-sm mr-1"></span><span class="fa fa-save"></span>&nbsp;<span>Lưu và tiếp tục</span>
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="exit()">
+                <span class="fa fa-ban"></span>&nbsp;<span>Thoát</span>
             </button>
         </div>
-        <input (change)="onFileSelected()" type="file" id="file">
+        <!-- <input (change)="onFileSelected()" type="file" id="file"> -->
     </mat-drawer>
-        <mat-drawer-content style="height: 650px;" >
-            <pdf-viewer [src]="pdfSrc" 
-            [render-text]="true"
-            [show-borders]="true"
-            [autoresize]="true"
-            [original-size]="false"
-            style="position: sticky;"
-            ></pdf-viewer>
+        <mat-drawer-content style="height: 650px; margin-top: 7px;" >
+            <!-- <div class="image-container">
+                <img class="image-preview" src="{{ imageSrc }}" alt=""/>
+            </div> -->
+                <pdf-viewer [src]="pdfSrc" 
+                [render-text]="true"
+                [show-borders]="true"
+                [autoresize]="true"
+                [original-size]="false"
+                style="position: sticky;"
+                (scroll)="scrollHandler($event)"
+                >
+            </pdf-viewer>
         </mat-drawer-content>
   </mat-drawer-container>
   </form>

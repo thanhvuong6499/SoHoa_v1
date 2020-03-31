@@ -215,6 +215,54 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
             }
           }
         }
+
+        // if (!result.isSuccess && result.errorCode == "-2") {
+        //   var lstFilesAlreadyExists : string[] = new Array<string>();
+        //   var arrFileName: string[] = new Array<string>();
+        //   if (result.returnValue && result.returnValue != undefined) {
+        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
+        //     for (const file of lstFilesAlreadyExists) {
+        //       let fileNameArr = file.split('\\');
+        //       let fileName = fileNameArr[fileNameArr.length -1];
+        //       arrFileName.push(fileName);
+        //     }
+        //   }
+
+        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+        //   \nDanh sách file đã tồn tại:\n${
+        //     arrFileName.toString().split(',').join('\n')
+        //   }`)) {
+        //     files = this.uploadSubmit();
+        //     files.append('overwrite', 'accept');
+        //     this.service.insertSingleProfile(this.hoso, files)
+        //       .subscribe((result) => {
+        //         if (result.isSuccess) {
+        //           this.isOverwrite = true;
+        //         }
+        //         else {
+        //           console.log(result.errorCode);
+        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //         }
+        //       },
+        //       (error) => {
+        //         console.log(error);
+        //       },
+        //       () => {
+        //         if (this.isOverwrite) {
+        //           this.activeModal.dismiss('success');
+        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+        //           this.uploader.clearQueue();
+        //         }
+        //       });
+        //   }
+        //   else {
+        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //   }
+        // }
+        // else if (!result.isSuccess) {
+        //   this.toastr.error("Thêm mới thất bại", "Thông báo");
+        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -286,7 +334,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
                         this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
                         this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
                         this.uploader.clearQueue();
-                      //  this.onClose();
+                        this.onClose();
                       }
                     });
                 }
@@ -302,6 +350,54 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
             }
           }
         }
+
+        // if (!result.isSuccess && result.errorCode == "-2") {
+        //   var lstFilesAlreadyExists : string[] = new Array<string>();
+        //   var arrFileName: string[] = new Array<string>();
+        //   if (result.returnValue && result.returnValue != undefined) {
+        //     lstFilesAlreadyExists = JSON.parse(result.returnValue);
+        //     for (const file of lstFilesAlreadyExists) {
+        //       let fileNameArr = file.split('\\');
+        //       let fileName = fileNameArr[fileNameArr.length -1];
+        //       arrFileName.push(fileName);
+        //     }
+        //   }
+        //   if (confirm(`Tồn tại file đã được upload trên hệ thống, chọn OK để tiến hành ghi đè file đã tồn tại bằng file mới, chọn Cancel để hủy bỏ.
+        //   \nDanh sách file đã tồn tại:\n${
+        //     arrFileName.toString().split(',').join('\n')
+        //   }`)) {
+        //     files = this.uploadSubmit();
+        //     files.append('overwrite', 'accept');
+        //     this.service.updateSingleProfile(this.hoso, files)
+        //       .subscribe((result) => {
+        //         if (result.isSuccess) {
+                  
+        //           this.isOverwrite = true;
+        //         }
+        //         else {
+        //           console.log(result);
+        //           this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //         }
+        //       },
+        //       (error) => {
+        //         console.log(error);
+        //       },
+        //       () => {
+        //         if (this.isOverwrite) {
+        //           this.activeModal.dismiss('success');
+        //           this.toastr.info(`Ghi đè ${lstFilesAlreadyExists.length} file thành công`, "Thông báo");
+        //           this.toastr.info("Bạn vừa tải lên " + this.uploader.queue.length + " file.", "Thông báo");
+        //           this.uploader.clearQueue();
+        //         }
+        //       });
+        //   }
+        //   else {
+        //     this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
+        //   }
+        // }
+        // else if (!result.isSuccess) {
+        //   this.toastr.error("Cập nhật thông tin hồ sơ thất bại, vui lòng thử lại", "Thông báo");
+        // }
         else {
           // toàn file mới
           if (this.uploader.queue.length > 0) {
@@ -368,9 +464,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
         }
         this.allProfileType = arrGearBox;
       }, (error) => {
-        setTimeout(() => {
-          alert("Không thể tải dữ liệu, vui lòng xem lại, lỗi: " + JSON.stringify(error));
-        }, 5000);
+        console.log(error);
       },
       () => {
 

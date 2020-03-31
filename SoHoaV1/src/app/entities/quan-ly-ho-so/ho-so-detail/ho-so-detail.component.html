@@ -130,6 +130,15 @@
                 <span>&nbsp;<button class="btn-link" (click)="openFileDetailDialog(profileId)">Xem chi tiết...</button></span>
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" >Trạng thái:</label>
+            <div class="col-md-9">
+                <label *ngIf="hoso.status == 1 else inactive"> <span class="badge badge-success">Hoàn thành</span> </label>
+            </div>
+            <ng-template #inactive>
+                <label><span class="badge badge-danger" style="margin-top: 5px;">Chưa hoàn thành</span></label>
+              </ng-template>
+        </div>
 
     </div>
     <div class="card-footer">

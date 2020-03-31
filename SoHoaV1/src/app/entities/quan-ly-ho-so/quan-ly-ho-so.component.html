@@ -66,7 +66,7 @@
               <th>Tiêu đề</th>
               <th>Loại hồ sơ</th>
               <th>Thời hạn bảo quản</th>
-              <th>Ghi chú</th>
+              <th>Trạng thái</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -77,7 +77,9 @@
               <td> {{ item.title }}</td>
               <td> {{ item.profileTypeName }}</td>
               <td> {{ item.maintenance }}</td>
-              <td> {{ item.description }}</td>
+              <td *ngIf="item.status == 1 else inactive">
+                <span class="badge badge-success">Hoàn thành</span>
+              </td>
               <td style="width:137px" class="center">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyHoSo/hoSo', item.profileId]"
                   routerLinkActive="router-link-active"></button>
@@ -96,6 +98,11 @@
               </div>
               <ng-template #nondata>
                 <div>Không có dữ liệu phù hợp.</div>
+              </ng-template>
+              <ng-template #inactive>
+                <td>
+                <span class="badge badge-danger" style="margin-top: 5px;">Chưa hoàn thành</span>
+              </td>
               </ng-template>
             </ul>
           </nav>

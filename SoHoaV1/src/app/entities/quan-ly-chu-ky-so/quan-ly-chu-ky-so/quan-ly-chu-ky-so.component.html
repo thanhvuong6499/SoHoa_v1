@@ -44,7 +44,7 @@
                                 <button type="submit" (click)="onSubmit($event)" class="btn btn-primary btn-md">
                                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                     <span>
-                                        Save
+                                        Lưu
                                     </span>
                                 </button>
                             </div>
@@ -70,6 +70,7 @@
                             <th>Kích thước</th>
                             <th>Ngày tải</th>
                             <th>Người tải</th>
+                            <th>Trạng thái</th>
                             <th>Image</th>
                             <th>Thao tác</th>
                         </tr>
@@ -80,8 +81,15 @@
                             <td> {{ item.size }} </td>
                             <td> {{ item.createDate.toString().split('T')[0] | date: 'dd/MM/yyyy' }} </td>
                             <td> {{ item.createBy }}</td>
+                            <td *ngIf="item.status == 1 else inactive">
+                                <span class="badge badge-success">Đang áp dụng</span>
+                              </td>
                             <td class="center"><img src="{{ item.base64String }}" alt="item.fileName" class="size"/></td>
-                            <td class="center"><button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(item.id)"></button></td>
+                            <td width="137px" class="center">
+                                <button *ngIf="item.status == 0" class="btn btn-primary fa fa-check-square" (click)="openUpdateDialog(item.id, item.status)" title="Áp dụng chữ ký số"></button>
+                                <button *ngIf="item.status == 1" class="btn btn-primary fa fa-minus-square" (click)="openUpdateDialog(item.id, item.status)" title="Bỏ áp dụng chữ ký số"></button>
+                                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(item.id)"></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,7 +103,11 @@
                 <ng-template #nondata>
                     <div>Không có dữ liệu phù hợp.</div>
                 </ng-template>
-    
+                <ng-template #inactive>
+                    <td>
+                    <span class="badge badge-danger" style="margin-top: 5px;">Không áp dụng</span>
+                  </td>
+                  </ng-template>
             </div>
         </div>
        

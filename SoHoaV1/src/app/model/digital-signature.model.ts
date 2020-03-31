@@ -6,4 +6,6 @@ export class DigitalSignature {
     public createDate? : Date;
     public path? : string;
     public base64String?: string;
+    public status?: number;
+    public serverPath?: string;
 }

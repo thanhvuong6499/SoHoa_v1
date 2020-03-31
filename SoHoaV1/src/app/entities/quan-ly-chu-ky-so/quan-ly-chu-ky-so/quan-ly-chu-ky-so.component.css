@@ -6,10 +6,9 @@
 }
 .center {
     text-align: center;
-    width: 80px;
 }
 
 .size {
-    max-width: 200px;
-    max-height: 200px;
+    max-height: 13em;
+    width: auto;
 }

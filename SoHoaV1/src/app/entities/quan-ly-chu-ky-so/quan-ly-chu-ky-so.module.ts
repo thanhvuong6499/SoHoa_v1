@@ -15,14 +15,17 @@ import { QuanLyChuKySoService } from './quan-ly-chu-ky-so.service';
 import { ChuKySoDeletePopupComponent } from './chu-ky-so-delete-popup/chu-ky-so-delete-popup.component';
 import { ChuKySoPopupService } from './chu-ky-so-popup-service.service';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ChuKySoUpdateStatusPopupComponent } from './chu-ky-so-update-status-popup/chu-ky-so-update-status-popup.component';
 
 @NgModule({
   declarations: [
     QuanLyChuKySoComponent,
-    ChuKySoDeletePopupComponent
+    ChuKySoDeletePopupComponent,
+    ChuKySoUpdateStatusPopupComponent
   ],
   entryComponents: [
-    ChuKySoDeletePopupComponent
+    ChuKySoDeletePopupComponent,
+    ChuKySoUpdateStatusPopupComponent
   ],
   imports: [
     CommonModule,

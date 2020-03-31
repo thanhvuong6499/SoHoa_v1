@@ -14,8 +14,9 @@
                   <th>Ngày tải lên</th>
                   <th>Người tải lên</th>
                   <th>Dung lượng</th>
-                  <th>Path</th>
+                  <!-- <th>Path</th> -->
                   <th>Số tờ</th>
+                  <th>Trạng thái</th>
                   <!-- <th>Thao tác</th> -->
                 </tr>
               </thead>
@@ -25,8 +26,11 @@
                   <td> {{ file.createdDate | date: 'dd/MM/yyyy' }} </td>
                   <td> {{ file.createdBy }}</td>
                   <td> {{ file.size + ' MB' }}</td>     
-                  <td> {{ file.url }} </td>  
-                  <td> {{ file.pageNumber }} </td>  
+                  <!-- <td> {{ file.url }} </td>   -->
+                  <td> {{ file.pageNumber }} </td>
+                  <td *ngIf="file.status == 1 else inactive">
+                    <span class="badge badge-success">Đã số hóa</span>
+                  </td>
                 </tr>
                 </tbody>
               </table>
@@ -38,6 +42,11 @@
           </div>
           <ng-template #nondata>
             <div>Không có dữ liệu phù hợp.</div>
+          </ng-template>
+          <ng-template #inactive>
+            <td>
+            <span class="badge badge-danger" style="margin-top: 5px;">Chưa số hóa</span>
+          </td>
           </ng-template>
           </div>
           <div class="modal-footer">

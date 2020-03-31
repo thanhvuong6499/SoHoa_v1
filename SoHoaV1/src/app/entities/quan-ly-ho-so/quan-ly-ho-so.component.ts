@@ -47,14 +47,14 @@ export class QuanLyHoSoComponent implements OnInit {
       multiple: true,
       tags: true,
     }
-    this.service.listen().subscribe( (m : any ) => {
+    this.service.listen().subscribe((m : any ) => {
       this.loadPages(this.page, this.pageSize);
     })
    }
 
   ngOnInit() {
-    this.loadFilterOptions();
     this.loadData();
+    this.loadFilterOptions();
   }
   openDialog(id?: number) {
     if (id) {

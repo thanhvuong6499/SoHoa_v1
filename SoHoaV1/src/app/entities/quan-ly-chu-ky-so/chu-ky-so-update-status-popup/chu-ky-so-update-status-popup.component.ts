@@ -6,12 +6,11 @@ import { QuanLyChuKySoService } from '../quan-ly-chu-ky-so.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-chu-ky-so-delete-popup',
-  templateUrl: './chu-ky-so-delete-popup.component.html',
-  styleUrls: ['./chu-ky-so-delete-popup.component.css']
+  selector: 'app-chu-ky-so-update-status-popup',
+  templateUrl: './chu-ky-so-update-status-popup.component.html',
+  styles: []
 })
-export class ChuKySoDeletePopupComponent implements OnInit {
-
+export class ChuKySoUpdateStatusPopupComponent implements OnInit {
   signature: DigitalSignature;
   constructor(private popupService: ChuKySoPopupService,
       private activeModal: NgbActiveModal,
@@ -20,27 +19,27 @@ export class ChuKySoDeletePopupComponent implements OnInit {
       ) { }
 
   ngOnInit(): void {
-    console.log(this.popupService.result.item);
     this.signature = this.popupService.result.item;
   }
 
-  deleteSignature(id : any, name?: string) {
-    this.service.signatureDelete(id, name)
+  updateStatus(id : any, status?: any) {
+    this.service.signatureUpdateStatus(id)
       .subscribe((result) => {
         if (result.isSuccess) {
           this.onClose();
           this.activeModal.dismiss('successfully');
-          this.toast.info("Xóa thành công", "Thông báo");
+          this.toast.info("Cập nhật thành công", "Thông báo");
         }
         else {
-          this.toast.warning(result.errorMessage, "Thông báo");
+          this.toast.error("Cập nhật thất bại", "Thông báo");
         }
       }, (error) => {
-        this.toast.error("Xóa thất bại", "Thông báo");
+        this.toast.error("Cập nhật thất bại", "Thông báo");
       }, () => {
 
       })
   }
+
   onClose() {
     this.service.filter('Register click');
   }

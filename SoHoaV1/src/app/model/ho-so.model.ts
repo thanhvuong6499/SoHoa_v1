@@ -44,6 +44,7 @@ export class HoSo  {
     public profileId?: number;
     public totalFiles? : number;
     public profileNumber?: number;
+    public status?: number;
 }
 
 export const hosos : HoSo[] = [

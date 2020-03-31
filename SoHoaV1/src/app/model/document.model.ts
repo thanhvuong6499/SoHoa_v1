@@ -8,7 +8,7 @@ export class Document  {
       public docTypeId?: number
       // Loại văn bản
       public typeName?: string
-      // Mã id hồ sơ trong db
+      // Mã hồ sơ trong db
       public fileId?: number
       // Mã định danh hồ sơ
       public fileCode?: number
@@ -44,6 +44,8 @@ export class Document  {
       public autograph?: string
       // Tên tệp lưu trữ
       public computerFileName?:string
+      
+      // id file ứng với văn bản
       public computerFileId?:number
       public languageId?:number
       public confidenceLevelId?: number
@@ -52,6 +54,12 @@ export class Document  {
       public createdBy?: string
       public updatedDate?: Date
       public createdDate?: Date
+      public signature?: number;
+      // đường dẫn tuyệt đối đến file trên server
+      public serverPath?: string;
+      public status?: number;
+      public confirmed?: number;
+      public fileName?: string;
     }
 
 // export const documents : Document[] = [

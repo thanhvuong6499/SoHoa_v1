@@ -9,4 +9,5 @@ export class FileUpload {
     pageNumber?: number;
     profileId? : number;
     clientUrl? : string;
+    status?: number;
 }

@@ -13,6 +13,7 @@ import { VanBanPdfComponent } from './van-ban-pdf/van-ban-pdf.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgSelect2Module } from 'ng-select2';
+import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgSelect2Module } from 'ng-select2';
     QuanLyTaiLieuRoutingModule,
     MatSidenavModule,
     NgSelect2Module,
+    MatCheckboxModule
   ],
   entryComponents:[
     TaiLieuDialogComponent,

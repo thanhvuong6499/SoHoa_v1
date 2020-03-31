@@ -58,6 +58,14 @@ export class QuanLyChuKySoService implements OnInit, OnDestroy{
     return this._httpClient.post<any>(ApiUrl.apiUrl + "DigitalSignature/Delete?id=" + id + "&name=" + name, { headers: HttpHeadersOptions.headers });
   }
 
+  signatureUpdateStatus(id : any, status?: any) {
+    return this._httpClient.post<any>(ApiUrl.apiUrl + "DigitalSignature/UpdateStatus?id=" + id, { headers:HttpHeadersOptions.headers });
+  }
+
+  signatureGetStatus() {
+    return this._httpClient.get<any>(ApiUrl.apiUrl + "DigitalSignature/GetStatus");
+  }
+
   ngOnDestroy(): void {
     
   }

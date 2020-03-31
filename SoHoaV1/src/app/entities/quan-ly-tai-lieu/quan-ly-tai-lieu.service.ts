@@ -66,9 +66,13 @@ export class QuanLyTaiLieuService {
   }
   
 
-  public createDocument(document: Document){
+  public createDocument(document: Document, checked?: boolean, signatureName?: string, docPath?: string){
     document.createdBy = this.authenticationService.getUserName;
-    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/CreateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+    let signature: string = '';
+    if (checked === true && signatureName !== '') {
+      signature = `?checked=true&name=${signatureName}&docPath=${docPath}`;
+    }
+    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/CreateDocument" + signature, JSON.stringify(document), { headers: HttpHeadersOptions.headers })
   }
   public deleteDocument(id : number){
     var document ={
