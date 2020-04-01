@@ -339,6 +339,14 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
           if (result.isSuccess) {
             this.onSaveSuccess("Thêm mới thành công");
             this.clear();
+            if (value == 'save') {
+              this.saveLoading = false;
+              window.location.href = '#/QuanLyTaiLieu/taiLieu';
+            }
+            else {
+              this.continueLoading = false;
+              this.onGearBoxChange(this.gearBoxId);
+            }
           }
           else {
             this.toastr.warning(result.errorMessage, "Thông báo");
@@ -350,14 +358,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
               this.toastr.warning("Thêm mới thất bại, vui lòng thử lai.", "Thông báo");
             }, 5000);
           }, () => {
-             if (value == 'save') {
-                this.saveLoading = false;
-                window.location.href = '#/QuanLyTaiLieu/taiLieu';
-              }
-            else {
-              this.continueLoading = false;
-              this.onGearBoxChange(this.gearBoxId);
-            }
+             // do something
           });
     }
   }
