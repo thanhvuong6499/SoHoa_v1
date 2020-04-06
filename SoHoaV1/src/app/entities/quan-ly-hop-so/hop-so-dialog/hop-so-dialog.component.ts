@@ -148,12 +148,6 @@ export class HopSoDialogComponent implements OnInit {
 
     if(this.hopSoPopupService.result.item != undefined){
       this.hopso = this.hopSoPopupService.result.item;
-      if(this.hopso.startDate != undefined && this.hopso.startDate !=null){
-        this.hopso.stDate = this.hopso.startDate.toString().split('T')[0];
-      }
-      if(this.hopso.endDate != undefined && this.hopso.endDate !=null){
-        this.hopso.eDate = this.hopso.endDate.toString().split('T')[0];
-      }
       this.isEdit = true;
     }
   }
@@ -171,49 +165,45 @@ export class HopSoDialogComponent implements OnInit {
       this.onSaveError("Nhập đầy đủ thông tin!!!");
     }
     else{
-      if(new Date(this.hopso.stDate) > new Date(this.hopso.eDate)){
-        this.onSaveError("Ngày bắt đầu phải nhỏ hơn ngày kết thúc!!!");
-      }
-      else{
-        if (this.isEdit) {
-          this.hopsoService.updateHopSo(this.hopso)
-            .subscribe((result) => {
-              this.loadData();
-              if (result.isSuccess) {
-                this.clear();
-                this.onSaveSuccess("Chỉnh sửa thành công");
-              }
-              else {
-                this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
-              }
-            },
-            (error)=> {
-              // this.onSaveError();
+
+      if (this.isEdit) {
+        this.hopsoService.updateHopSo(this.hopso)
+          .subscribe((result) => {
+            this.loadData();
+            if (result.isSuccess) {
+              this.clear();
+              this.onSaveSuccess("Chỉnh sửa thành công");
+            }
+            else {
               this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
-            },
-            () => {
+            }
+          },
+          (error)=> {
+            // this.onSaveError();
+            this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+          },
+          () => {
+            this.onClose();
+          });
+      }
+      else {
+          this.hopsoService.insertNewHopSo(this.hopso)
+          .subscribe((result) => {
+            this.loadData();
+            if (result.isSuccess) {
+              this.toastr.success("Thêm mới thành công");
+              this.clear();
               this.onClose();
-            });
-        }
-        else {
-            this.hopsoService.insertNewHopSo(this.hopso)
-            .subscribe((result) => {
-              this.loadData();
-              if (result.isSuccess) {
-                this.toastr.success("Thêm mới thành công");
-                this.clear();
-                this.onClose();
-              }
-              else {
-                this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
-              }
-            },
-            (error) => {
+            }
+            else {
               this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
-            }, () => {
-              // this.activeModal.dismiss("Create new successfully");
-            });
-        }
+            }
+          },
+          (error) => {
+            this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
+          }, () => {
+            // this.activeModal.dismiss("Create new successfully");
+          });
       }
     }
   }

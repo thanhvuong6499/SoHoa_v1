@@ -4,6 +4,7 @@ import { ThongKeComponent } from './thong-ke/thong-ke.component';
 import { NhatKyComponent } from './nhat-ky/nhat-ky.component';
 import { ThongKeHopSoComponent} from './thong-ke-hop-so/thong-ke-hop-so.component';
 import { ThongKeHoSoComponent } from './thong-ke-ho-so/thong-ke-ho-so.component';
+import { ThongKeTongQuatComponent } from './thong-ke-tong-quat/thong-ke-tong-quat.component';
 
 
 
@@ -41,6 +42,13 @@ const routes: Routes = [
                 title: "Thống kê hồ số"
             },
             component: ThongKeHoSoComponent
+          },
+          {
+            path: 'thongKeTongQuat',
+            data: {
+                title: "Thống kê"
+            },
+            component: ThongKeTongQuatComponent
           },
           
       ]

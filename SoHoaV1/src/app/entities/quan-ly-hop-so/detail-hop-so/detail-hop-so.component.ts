@@ -9,6 +9,8 @@ import { QuanLyHoSoPopupService } from '../../quan-ly-ho-so/quan-ly-ho-so-popup.
 import { HoSoDialogComponent } from '../../quan-ly-ho-so/ho-so-dialog/ho-so-dialog.component';
 import { HoSoDeleteComponent } from '../../quan-ly-ho-so/ho-so-delete/ho-so-delete.component';
 import { BaseCondition } from '../../../common';
+import { StatusService } from '../../../services/common-status-service';
+import { Status } from '../../../model/common-status';
 
 @Component({
   selector: 'app-detail-hop-so',
@@ -19,6 +21,7 @@ export class DetailHopSoComponent implements OnInit {
   hosos: HoSo[];
   hopso: HopSo;
   page = 1;
+  statuss: Status[];
   previousPage : number;
   pageSize : number;
   totalRecords : number;
@@ -29,7 +32,8 @@ export class DetailHopSoComponent implements OnInit {
   constructor(
     private quanLyHopSoService: QuanLyHopSoService,
     private route: ActivatedRoute,
-    private hosoPopupService: QuanLyHoSoPopupService
+    private hosoPopupService: QuanLyHoSoPopupService,
+    private statusService: StatusService
   ) {
       this.condition = new BaseCondition<HoSo>();
    }
@@ -38,6 +42,7 @@ export class DetailHopSoComponent implements OnInit {
     this.subscription = this.route.params.subscribe((params) => {
       this.load(params['id']);
     });
+    this.getAllStatus();
   }
   load(id){
     var params = id;
@@ -69,6 +74,23 @@ export class DetailHopSoComponent implements OnInit {
       alert(JSON.stringify(e))
     }
   }
+
+  getAllStatus(){
+    this.statusService.getAllStatus()
+    .subscribe((result) => {
+      if(result != undefined)
+      {
+        if(result.itemList != undefined && result.itemList !=null)
+          this.statuss = result.itemList;
+        else
+          this.statuss = [];
+      }
+    },
+    (error) => {
+    }, () => {
+    });
+  }
+
   getHoSoByHopSoID(params : any){
     var condition : BaseCondition<HoSo> = new BaseCondition<HoSo>();
     this.condition.PageIndex = 1;

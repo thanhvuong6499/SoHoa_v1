@@ -1,6 +1,6 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { BaseCondition, ReturnResult, ApiUrl, HttpUtilities, HttpHeadersOptions } from '../../common';
-import { User } from '../../model/user.model';
+import { User, UserDTO } from '../../model/user.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { UserGroup } from '../../model/user-group.model';
@@ -53,6 +53,10 @@ export class UserService implements OnInit, OnDestroy {
   // }
   getAllRole() {
     return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetAllRole");
+  }
+
+  getAllUser() {
+    return this.httpClient.get<ReturnResult<UserDTO>>(ApiUrl.apiUrl + "User/GetAllUser");
   }
 
   getUserByID (id: number) {

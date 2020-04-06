@@ -107,7 +107,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/ThongKe/thongKe',
+    url: '/ThongKe/thongKeTongQuat',
     icon: 'icon-chart'
   },
   {

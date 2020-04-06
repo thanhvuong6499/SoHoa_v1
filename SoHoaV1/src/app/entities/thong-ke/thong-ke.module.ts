@@ -9,11 +9,15 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ThongKeHopSoComponent } from './thong-ke-hop-so/thong-ke-hop-so.component';
 import { ThongKeHoSoComponent } from './thong-ke-ho-so/thong-ke-ho-so.component';
+import { ThongKeTongQuatComponent } from './thong-ke-tong-quat/thong-ke-tong-quat.component';
+import { Select2Module } from 'ng-select2-component';
+import { NgSelect2Module } from 'ng-select2';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
 @NgModule({
-  declarations: [ThongKeComponent, NhatKyComponent,ThongKeHopSoComponent,ThongKeHoSoComponent],
+  declarations: [ThongKeComponent, NhatKyComponent,ThongKeHopSoComponent,ThongKeHoSoComponent,ThongKeTongQuatComponent],
   imports: [
     CommonModule,
     ThongKeRoutingModule,
@@ -23,6 +27,10 @@ import { ThongKeHoSoComponent } from './thong-ke-ho-so/thong-ke-ho-so.component'
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    Select2Module,
+    HttpClientModule,
+    NgSelect2Module,
+    NgxSpinnerModule
   ]
 })
 export class ThongKeModule { }
