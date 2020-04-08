@@ -12,6 +12,8 @@ import { Options } from 'select2';
 import { DanhMuc } from '../../model/danh-muc.model';
 import {QuanLyDanhMucService} from '../quan-ly-danh-muc/quan-ly-danh-muc.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { StatusService } from '../../services/common-status-service';
+import { Status } from '../../model/common-status';
 @Component({
   selector: 'app-quan-ly-hop-so',
   templateUrl: './quan-ly-hop-so.component.html',
@@ -21,6 +23,7 @@ export class QuanLyHopSoComponent implements OnInit {
   searchText: string = "";
   danhmuc: DanhMuc;
   hopsos: HopSo[];
+  statuss: Status[];
   page = 1;
   previousPage : number;
   pageSize : number;
@@ -33,16 +36,21 @@ export class QuanLyHopSoComponent implements OnInit {
   condition: BaseCondition<HopSo>;
   tableOfContArr: Array<Select2OptionData>;
   arrayTableOfContValue: string[];
-  
+  arrayStatusValue: string[];
+  statusArr : Array<Select2OptionData>;
+
+
   constructor(
     private hopSoPopupService: QuanLyHopSoPopupService, 
     private danhMucService: QuanLyDanhMucService,
     private quanLyHopSoService: QuanLyHopSoService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private statusService: StatusService
   ) { 
       this.searchText = "";
       this.condition = new BaseCondition<HopSo>();
       this.tableOfContArr = new Array<Select2OptionData>();
+      this.statusArr = new Array<Select2OptionData>();
       this.options = {
         width: "100%",
         closeOnSelect: true,
@@ -58,6 +66,7 @@ export class QuanLyHopSoComponent implements OnInit {
   ngOnInit() {
     this.loadFilterOptionsDanhMuc();
     this.loadAll();
+    this.getAllStatus();
   }
   openDialog(id?: number) {
 
@@ -132,6 +141,41 @@ export class QuanLyHopSoComponent implements OnInit {
         // this.hideSpinner("filterOptions");
       })
 
+      this.statusService.getAllStatus()
+      .subscribe((result) => {
+      //  this.organFilterData = result;
+        var arrTypes = [];
+        for (const item of result.itemList) {
+          let value = { id: item.statusID, text: item.note }
+          arrTypes.push(value);
+        }
+        this.statusArr = arrTypes;
+      }, 
+      (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          // this.hideSpinner("filterOptions");
+        }, 5000);
+      }),
+      () => {
+        // this.hideSpinner("filterOptions");
+      })
+  }
+
+  getAllStatus(){
+    this.statusService.getAllStatus()
+    .subscribe((result) => {
+      if(result != undefined)
+      {
+        if(result.itemList != undefined && result.itemList !=null)
+          this.statuss = result.itemList;
+        else
+          this.statuss = [];
+      }
+    },
+    (error) => {
+    }, () => {
+    });
   }
 
   getFilterTypes(value : string[]) {
@@ -149,10 +193,10 @@ export class QuanLyHopSoComponent implements OnInit {
   }
   onChange(searchText: string){
     this.searchText = searchText;
-    this.getFilterOptions(this.arrayTableOfContValue);
+    this.getFilterOptions(this.arrayTableOfContValue,this.arrayStatusValue);
   }
 
-  getFilterOptions (types: string[]) {
+  getFilterOptions (types: string[],statuss: string[]) {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
@@ -174,6 +218,11 @@ export class QuanLyHopSoComponent implements OnInit {
         field: "sh.GhiChu",
         op: "",
         value: ""
+      },
+      {
+        field: "sh.Status",
+        op: "",
+        value: ""
       }
     ]
     this.arrayTableOfContValue = types;
@@ -184,6 +233,17 @@ export class QuanLyHopSoComponent implements OnInit {
       }
       else {
         this.condition.FilterRuleList[0].op = "and_in_strings";
+      }
+    }
+
+    this.arrayStatusValue = statuss;
+    if (this.arrayStatusValue != undefined) {
+      this.condition.FilterRuleList[4].value = statuss.toString();
+      if (statuss.length == 1) {
+        this.condition.FilterRuleList[4].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[4].op = "and_in_strings";
       }
     }
 

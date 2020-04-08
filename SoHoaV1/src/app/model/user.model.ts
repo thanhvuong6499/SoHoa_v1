@@ -17,3 +17,9 @@ export class User {
        public token?: Token = new Token();
        public confirmPassword?: string
 }
+
+export class UserDTO {
+       public userID: number;
+       public userName: string;
+}
+

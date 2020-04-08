@@ -49,6 +49,27 @@
             </div>
         </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Trạng thái</label>
+            <div class="col-md-9">
+                <span *ngIf="statuss">
+                    <span *ngFor="let status of statuss">
+                      <span *ngIf="hopso.status == status.statusID && hopso.status == 1" class="badge badge-success">
+                        {{status.note}}
+                      </span>
+                      <span *ngIf="hopso.status == status.statusID && hopso.status == 3" class="badge badge-warning">
+                        {{status.note}}
+                      </span>
+                      <span *ngIf="hopso.status == status.statusID && hopso.status == 2" class="badge badge-info">
+                        {{status.note}}
+                      </span>
+                      <span *ngIf="hopso.status == status.statusID && hopso.status != 1 &&  hopso.status != 2 &&  hopso.status != 3" class="badge badge-Light">
+                        {{status.note}}
+                      </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ghi chú</label>
             <div class="col-md-9">
                 <span>{{hopso.note}}</span>

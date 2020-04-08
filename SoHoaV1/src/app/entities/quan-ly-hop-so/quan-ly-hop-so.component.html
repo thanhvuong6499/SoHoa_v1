@@ -21,7 +21,19 @@
                 [placeholder]="'Chọn tên danh mục...'"
                 [options]="options"
                 [(ngModel)]="arrayTableOfContValue"
-                (valueChanged)="getFilterOptions($event)"
+                (valueChanged)="getFilterOptions($event,arrayStatusValue)"
+            ></ng-select2>
+            </div>
+          </div>
+          <div class="col-md-4 row col-lg-4">
+            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Trạng thái:</label>
+            <div style="margin-top:5px;" class="col-md-8 col-sm-6">
+              <ng-select2
+                [data]="statusArr"
+                [placeholder]="'Chọn trạng thái...'"
+                [options]="options"
+                [(ngModel)]="arrayStatusValue"
+                (valueChanged)="getFilterOptions(arrayTableOfContValue,$event)"
             ></ng-select2>
             </div>
           </div>
@@ -58,7 +70,7 @@
               <th>Số lượng hồ sơ</th>
               <th>Số lượng văn bản</th>
               <th>Ghi chú</th>
-
+              <th>Trạng thái</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -71,7 +83,24 @@
               <td>{{ hopso.profileCount }}</td>
               <td>{{ hopso.numDoc }}</td>
               <td>{{ hopso.note }}</td>
-
+              <td> 
+                <span *ngIf="statuss">
+                  <span *ngFor="let status of statuss">
+                    <span *ngIf="hopso.status == status.statusID && hopso.status == 1" class="badge badge-success">
+                      {{status.note}}
+                    </span>
+                    <span *ngIf="hopso.status == status.statusID && hopso.status == 3" class="badge badge-warning">
+                      {{status.note}}
+                    </span>
+                    <span *ngIf="hopso.status == status.statusID && hopso.status == 2" class="badge badge-info">
+                      {{status.note}}
+                    </span>
+                    <span *ngIf="hopso.status == status.statusID && hopso.status != 1 &&  hopso.status != 2 &&  hopso.status != 3" class="badge badge-Light">
+                      {{status.note}}
+                    </span>
+                  </span>
+                </span>
+              </td>
               <td style="width:137px;text-align: center;">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]"
                   routerLinkActive="router-link-active"></button>

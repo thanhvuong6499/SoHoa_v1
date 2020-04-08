@@ -107,7 +107,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Thống kê báo cáo',
-    url: '/ThongKe/thongKe',
+    url: '/ThongKe/thongKeTongQuat',
     icon: 'icon-chart'
   },
   {
@@ -125,8 +125,6 @@ export const navItems: INavData[] = [
     url: '/QuanLyChuKySo/chuKySo',
     icon: 'fa fa-address-book-o'
   }
-//   },
-//   {
 //     name: 'Colors',
 //     url: '/theme/colors',
 //     icon: 'icon-drop'
