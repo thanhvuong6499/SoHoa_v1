@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterContentInit, HostListener, AfterViewChecked } from '@angular/core';
 import { PDFSource } from 'ng2-pdf-viewer';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
@@ -22,15 +22,17 @@ import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { QuanLyChuKySoService } from '../../quan-ly-chu-ky-so/quan-ly-chu-ky-so.service';
 import { DigitalSignature } from '../../../model/digital-signature.model';
 import { Compiler } from '@angular/core';
+import { setDate } from 'ngx-bootstrap/chronos/utils/date-setters';
 
 @Component({
   selector: 'app-van-ban-pdf',
   templateUrl: './van-ban-pdf.component.html',
   styleUrls: ['./van-ban-pdf.component.css']
 })
-export class VanBanPdfComponent implements OnInit, AfterContentInit {
+export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChecked {
   pdfSrc: string | PDFSource | ArrayBuffer = undefined;
   document: Document = new Document();
+
   computerFile: FileUpload = new FileUpload();
   value1 = 'Default';
   isEdit: boolean = false;
@@ -53,7 +55,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
   formatId: number;
   form: FormGroup;
   docTypeId: number;
-  issuedDate: Date;
   submitted = false;
   documentId: number;
   loading = false;
@@ -61,6 +62,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
   organ: CoQuan;
   phong: Phong;
   organID: any;
+  issuedDate: string;
   fontID: any;
   subscription: Subscription;
   saveLoading: boolean = false;
@@ -91,6 +93,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     private signatureService: QuanLyChuKySoService,
     private _compiler : Compiler
   ) {
+    this.document = new Document();
     this.hopso = new HopSo();
     this.organ = new CoQuan();
     this.phong = new Phong();
@@ -141,16 +144,16 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         if (result != undefined) {
           var organList = [];
           for (var item of result.itemList) {
-            var temp = { id: item.organID.toString(), text: item.tenCoQuan };
+            var temp = { id: item.organID, text: item.tenCoQuan };
             organList.push(temp);
           }
           this.lstOrgan = organList;
           
-          if(this.lstOrgan != null){
-            this.organID = this.lstOrgan[0].id;
-          }
-          else 
-            this.organID = 0;
+          // if(this.lstOrgan != null){
+          //   this.organID = this.lstOrgan[0].id;
+          // }
+          // else 
+          //   this.organID = 0;
         }
       },
         (error) => {
@@ -177,25 +180,25 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         }, () => {
         });
 
-    this.taiLieuService.getProfileList()
-      .subscribe((result) => {
-        var profileList = [];
-        for (const item of result) {
-          var temp = { id: item.profileId, text: item.fileNotation }
-          profileList.push(temp);
-        }
+    // this.taiLieuService.getProfileList()
+    //   .subscribe((result) => {
+    //     var profileList = [];
+    //     for (const item of result) {
+    //       var temp = { id: item.profileId, text: item.fileNotation }
+    //       profileList.push(temp);
+    //     }
         
-        this.profileList = profileList;
-      },
-        (error) => {
-          console.log(error);
-          // setTimeout(() => {
-          //   alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
-          // }, 1000);
-        },
-        () => {
+    //     this.profileList = profileList;
+    //   },
+    //     (error) => {
+    //       console.log(error);
+    //       setTimeout(() => {
+    //         alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+    //       }, 1000);
+    //     },
+    //     () => {
 
-        });
+    //     });
 
     this.taiLieuService.getLanguageList()
       .subscribe((result) => {
@@ -210,7 +213,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         (error) => {
           console.log(error);
           setTimeout(() => {
-            alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+            alert("Lấy dữ liệu về ngôn ngữ thất bại. Lỗi: " + JSON.stringify(error));
           }, 1000);
         },
         () => {
@@ -229,7 +232,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         (error) => {
           console.log(error);
           setTimeout(() => {
-            alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+            alert("Lấy dữ liệu về tình trạng vật lý thất bại. Lỗi: " + JSON.stringify(error));
           }, 1000);
         },
         () => {
@@ -248,7 +251,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         (error) => {
           console.log(error);
           setTimeout(() => {
-            alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+            alert("Lấy dữ liệu về mức độ bảo mật thất bại. Lỗi: " + JSON.stringify(error));
           }, 1000);
         },
         () => {
@@ -256,22 +259,22 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         });
     // edit
     if (this.documentId != null) {
-
+      debugger
       this.taiLieuService.getDocumentById(this.documentId)
                 .subscribe((result) => {
                     const document : Document = result.item;
                     this.document = document;
-                    this.organID = this.document.fileId;
+                    
+                    this.issuedDate = document.issuedDate.toString().split('T')[0]; 
+                    console.log(this.issuedDate);
+                    
+                    this.onOrganChange(document.organId);
                 }, (error) => {
                 }, () => {
                 });
-      // binding .Net Datetime to typeScript Date
-      // this.issuedDate.getDate = (new Date(this.document.issuedDate.toString())).getDate;
-      // this.languageId = this.document.languageId;
-      // this.confidenceLevelId = this.document.confidenceLevelId;
-      // this.formatId = this.document.formatId;
-      // this.docTypeId = this.document.docTypeId;
       this.isEdit = true;
+      
+      
     }
   }
   clear() {
@@ -309,10 +312,11 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     }
     this.loading = true;
     if (this.isEdit) {
-      console.log(this.document);
       this.taiLieuService.updateDocument(this.document)
         .subscribe((result) => {
-          
+          if(result.errorCode != '0'){
+            alert("Lỗi: " + result.errorCode +". Mess: " + result.errorMessage);
+          }
         },
           (error) => {
             console.log(error);
@@ -372,7 +376,13 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
 
   }
   onOrganChange(organID : any){
-    
+    // if organ select2 box is changed, set value of its child to empty
+    this.lstFont = null;
+    this.lstDanhMuc = null;
+    this.gearBoxList = null;
+    this.profileList = null;
+    this.computerFileSelect2 = null;
+
     var params = organID;
     if(params == undefined || params == null || params == "")
       params  = this.organID;
@@ -387,11 +397,11 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
             }
             this.lstFont = phongs;
             
-            if(this.lstFont != null){
-              this.fontID = this.lstFont[0].id;
-            }
-            else 
-              this.fontID = 0;
+            // if(this.lstFont != null){
+            //   this.fontID = this.lstFont[0].id;
+            // }
+            // else 
+            //   this.fontID = 0;
         }
         else{
           this.lstFont = [];
@@ -405,9 +415,15 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
       },
       () => {
       });
-    }
+    } 
   }
   onFontChange(fontID : any){
+    // if font select2 box is changed, set value of its child to empty
+    this.lstDanhMuc = null;
+    this.gearBoxList = null;
+    this.profileList = null;
+    this.computerFileSelect2 = null;
+
     var params = fontID;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
@@ -428,7 +444,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         }
       },
       (error) => {
-        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+        alert("Lấy dữ liệu danh mục thất bại. Lỗi: " + JSON.stringify(error));
       },
       () => {
       });
@@ -436,7 +452,10 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
   }
 
   onTableOfContentChange(tabOfContID : any){
-    
+    // if table of content select2 box is changed, set value of its child to empty
+    this.gearBoxList = null;
+    this.profileList = null;
+    this.computerFileSelect2 = null;
     var params = tabOfContID;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
@@ -456,7 +475,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
         }
       },
       (error) => {
-        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+        alert("Lấy dữ liệu hộp số thất bại. Lỗi: " + JSON.stringify(error));
       },
       () => {
 
@@ -464,44 +483,70 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     }
   }
   onGearBoxChange(gearBoxId : any){
+    // TU code
+    // var params = gearBoxId;
+    // if(params == undefined || params == null || params == "")
+    // {
+    //     params = this.fontID;
+    // }
+    // else {
+    //   this.hoSoService.getProfileByGearBoxId(gearBoxId)
+    //   .subscribe((data) => {
+    //     if (data.isSuccess) {
+    //       this.document.fileId = data.item.profileId;
+    //       if (this.document.fileId != undefined) {
+    //         this.onProfileChange(this.document.fileId);
+    //       }
+    //     }
+    //     else {
+    //       switch(data.errorCode) {
+    //         case "CO": {
+    //           this.toastr.warning(data.errorMessage, "Thông báo");
+    //           setTimeout(() => {
+    //             window.location.reload();
+    //           }, 2000);
+    //           break;
+    //         }
+    //         case "EN": {
+    //           this.toastr.warning(data.errorMessage, "Thông báo");
+    //           this.document.fileId = undefined;
+    //           this.document.computerFileId = undefined;
+    //           break;
+    //         }
+    //         default: {
+    //           this.toastr.warning(data.errorMessage, "Thông báo");
+    //           break;
+    //         }
+    //       }
+    // if  select2 gearbox box is changed, set value of its child to empty
+    this.profileList = null;
+    this.computerFileSelect2 = null;
     var params = gearBoxId;
     if(params == undefined || params == null || params == "")
-    {
-        params = this.fontID;
-    }
-    else {
+      params  = this.fontID;
+    else{
+      
       this.hoSoService.getProfileByGearBoxId(gearBoxId)
       .subscribe((data) => {
-        if (data.isSuccess) {
-          this.document.fileId = data.item.profileId;
-          if (this.document.fileId != undefined) {
-            this.onProfileChange(this.document.fileId);
+        if(data.errorCode != '0'){
+          alert(data.errorMessage);
+        }else{
+          if (data != undefined && data.itemList.length !=0) {
+            var profileList = [];
+            for (const item of data.itemList) {
+              var temp = { id: item.profileId, text: item.fileCode }
+              profileList.push(temp);
+            }
+            
+            this.profileList = profileList;
           }
-        }
-        else {
-          switch(data.errorCode) {
-            case "CO": {
-              this.toastr.warning(data.errorMessage, "Thông báo");
-              setTimeout(() => {
-                window.location.reload();
-              }, 2000);
-              break;
-            }
-            case "EN": {
-              this.toastr.warning(data.errorMessage, "Thông báo");
-              this.document.fileId = undefined;
-              this.document.computerFileId = undefined;
-              break;
-            }
-            default: {
-              this.toastr.warning(data.errorMessage, "Thông báo");
-              break;
-            }
+          else{
+            this.profileList = [];
           }
         }
       },
       (error) => {
-        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+        alert("Lấy dữ liệu hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
       },
       () => {
         // hoàn thành
@@ -510,8 +555,9 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     }
   }
 
-  onProfileChange(profileId : any) {
-    this.pdfSrc = undefined;
+  // onProfileChange(profileId : any) {
+  //   this.pdfSrc = undefined;
+  onProfileChange(profileId : any){
     var params = profileId;
     if(params == undefined || params == null || params == "")
     {
@@ -520,26 +566,44 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     else {
       this.hoSoService.getComputerFilesByProfileId(profileId)
       .subscribe((data) => {
-        this._compiler.clearCache();
-        if (data != undefined && data.itemList.length != 0) {
-          // var computerFileList = [];
-          // for (const item of data.itemList) {
-          //   var temp = { id: item.fileId, text: item.fileName, path: item.url }
-          //   computerFileList.push(temp);
-          //   this.computerFileList.push({fileId: item.fileId, url: item.url, clientUrl: item.clientUrl});
-          // }
-          // this.computerFileSelect2 = computerFileList;
-          this.document.serverPath = data.item.clientUrl;
-          this.document.computerFileId = data.item.fileId;
-          this.document.pageAmount = data.item.pageNumber;
-          this.pdfSrc = data.item.clientUrl;
-        }
-        else {
-          this.computerFileList = [];
+        //tu code
+        // this._compiler.clearCache();
+        // if (data != undefined && data.itemList.length != 0) {
+        //   // var computerFileList = [];
+        //   // for (const item of data.itemList) {
+        //   //   var temp = { id: item.fileId, text: item.fileName, path: item.url }
+        //   //   computerFileList.push(temp);
+        //   //   this.computerFileList.push({fileId: item.fileId, url: item.url, clientUrl: item.clientUrl});
+        //   // }
+        //   // this.computerFileSelect2 = computerFileList;
+        //   this.document.serverPath = data.item.clientUrl;
+        //   this.document.computerFileId = data.item.fileId;
+        //   this.document.pageAmount = data.item.pageNumber;
+        //   this.pdfSrc = data.item.clientUrl;
+        // }
+        // else {
+        //   this.computerFileList = [];
+        
+        if(data.errorCode != '0'){
+          alert(data.errorMessage);
+        }else{
+          if (data != undefined && data.itemList.length !=0) {
+            var computerFileList = [];
+            for (const item of data.itemList) {
+              var temp = { id: item.fileId, text: item.fileName, path: item.url }
+              computerFileList.push(temp);
+              this.computerFileList.push({fileId: item.fileId, url: item.url});
+            }
+          
+            this.computerFileSelect2 = computerFileList;
+          }
+          else{
+            this.computerFileList = [];
+          }
         }
       },
       (error) => {
-        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+        alert("Lấy dữ liệu danh sách file thất bại. Lỗi: " + JSON.stringify(error));
       },
       () => {
         // hoàn thành
@@ -555,6 +619,13 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     //   }
     // });
 
+    
+    this.computerFileList.forEach((item) => {
+  
+      if(item.fileId == id){
+        this.pdfSrc = item.url;
+      }
+    });
     // let $img: any = document.querySelector('#file');
 
     // if (typeof (FileReader) !== 'undefined') {
@@ -609,6 +680,26 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit {
     }
 
   ngAfterContentInit() {
-    this._compiler.clearCache();
+    this._compiler.clearCache();}
+  displayDate(document : Document): void {
+    
+    if (this.isEdit == true) {
+      console.log(document)
+      
+    }
+  }
+  
+  ngAfterViewChecked(){
+    
+    if (this.isEdit == true) {
+    
+      this.setDocumentDate(this.issuedDate);
+    }
+    
+  }
+  setDocumentDate(issuedDate : string){
+    if (this.issuedDate != undefined) {
+      $(document).find('#issuedDate').val(this.issuedDate);
+    }
   }
 }
