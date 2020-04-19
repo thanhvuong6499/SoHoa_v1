@@ -7,6 +7,7 @@ import { QuanLyTaiLieuPopupService } from './quan-ly-tai-lieu-popup.service';
 import { TaiLieuDialogComponent } from './tai-lieu-dialog/tai-lieu-dialog.component';
 import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.component';
 import { Select2OptionData } from 'ng-select2';
+import { QuanLyHoSoService } from '../quan-ly-ho-so/quan-ly-ho-so.service';
 @Component({
   selector: 'app-quan-ly-tai-lieu',
   templateUrl: './quan-ly-tai-lieu.component.html',
@@ -20,19 +21,28 @@ export class QuanLyTaiLieuComponent implements OnInit {
   previousPage : number;
   pageSize : number;
   totalRecords : number;
+  fileCodeList: Array<Select2OptionData>;
   condition: BaseCondition<Document>;
+  confirmedSelect2List: Array<Select2OptionData>;
+  statusSelect2List: Array<Select2OptionData>;
   options: Options;
   documentCodeArr: string[];
   fileCodeArr: string[];
+  confirmedArr: string[];
+  statusArr:string[];
   documentCodeList: Array<Select2OptionData>;
   documentNameList: Array<Select2OptionData>;
   constructor(
     private taiLieuPopupService: QuanLyTaiLieuPopupService,
-    private taiLieuService: QuanLyTaiLieuService
+    private taiLieuService: QuanLyTaiLieuService,
+    private quanLyHoSoservice: QuanLyHoSoService
   ) { 
+    this.statusSelect2List = new Array<Select2OptionData>();
+    this.fileCodeList = new Array<Select2OptionData>();
     this.condition = new BaseCondition<Document>();
     this.documentCodeList = new Array<Select2OptionData>();
     this.documentNameList = new Array<Select2OptionData>();
+    this.confirmedSelect2List = new Array<Select2OptionData>();
     this.options = {
     multiple: true,
     closeOnSelect: true,
@@ -64,14 +74,34 @@ export class QuanLyTaiLieuComponent implements OnInit {
         this.documentCodeList = documentCodeList;
       },
       (error) => {
-        console.log(error);
         setTimeout(() => {
           alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
       },
       () => {
-        
       });
+
+      this.quanLyHoSoservice.getAllProfiles()
+      .subscribe((result) => {
+        var fileCodeList = [];
+          for (const item of result.lstFileCode) {
+            let value = { id: item, text: item }
+            fileCodeList.push(value);
+          }
+          this.fileCodeList = fileCodeList;
+          console.log(this.fileCodeList)
+        }, 
+      (error => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+        }, 5000);
+      }),
+      () => {
+      });
+      this.confirmedSelect2List.push({id: "0", text:"Chưa duyệt"});
+      this.confirmedSelect2List.push({id: "1", text:"Đã duyệt"});
+      this.statusSelect2List.push({id: "1", text:"Đã sửa"});
+      this.statusSelect2List.push({id: "0", text:"Chưa sửa"});
   }
   openDialog(id?: number) {
     if (id) {
@@ -170,8 +200,7 @@ export class QuanLyTaiLieuComponent implements OnInit {
 
   }
 
-  getFilterOptions (documentCodeArr: string[], fileCodeArr : string[]) {
-    console.log(documentCodeArr);
+  getFilterOptions (documentCodeArr: string[], fileCodeArr : string[], confirmedArr : string[], statusArr : string[]) {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
@@ -180,13 +209,25 @@ export class QuanLyTaiLieuComponent implements OnInit {
         value: ""
       },
       {
-        field: "S_VanBan.MaHoSo",
+        field: "S_HoSo.MaHoSo",
+        op: "",
+        value: ""
+      },
+      {
+        field: "S_VanBan.Confirmed",
+        op: "",
+        value: ""
+      },
+      {
+        field: "S_VanBan.Status",
         op: "",
         value: ""
       },
     ]
     this.documentCodeArr = documentCodeArr;
     this.fileCodeArr = fileCodeArr;
+    this.confirmedArr = confirmedArr;
+    this.statusArr = statusArr;
     if (this.documentCodeArr != undefined) {
       this.condition.FilterRuleList[0].value = documentCodeArr.toString();
       if (documentCodeArr.length == 1) {
@@ -205,8 +246,26 @@ export class QuanLyTaiLieuComponent implements OnInit {
         this.condition.FilterRuleList[1].op = "and_in_strings";
       }
     }
+    if (this.confirmedArr != undefined) {
+      this.condition.FilterRuleList[2].value = confirmedArr.toString();
+      if (confirmedArr.length == 1) {
+        this.condition.FilterRuleList[2].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[2].op = "and_in_strings";
+      }
+    }
+    if (this.statusArr != undefined) {
+      this.condition.FilterRuleList[3].value = statusArr.toString();
+      if (statusArr.length == 1) {
+        this.condition.FilterRuleList[3].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[3].op = "and_in_strings";
+      }
+    }
     
-    if (fileCodeArr != undefined || documentCodeArr != undefined) {
+    if (fileCodeArr != undefined || documentCodeArr != undefined || statusArr != undefined || confirmedArr != undefined) {
       this.taiLieuService.getAllTaiLieuWithPaging(this.condition)
       .subscribe((data) => {
         this.documents = data["itemList"];

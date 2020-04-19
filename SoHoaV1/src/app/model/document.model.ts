@@ -15,6 +15,11 @@ export class Document  {
       // Văn bản số
       public codeNumber?: string
       public organName?:string
+      public fontId?: number
+      public tableOfContentId?: number
+      public gearBoxId?: number
+      public organId?:number
+      public computerFileId?: number
       // Ký hiệu của văn bản
       public codeNotation?: string
       /// Ngày, tháng, năm văn bản
@@ -46,19 +51,18 @@ export class Document  {
       public computerFileName?:string
       
       // id file ứng với văn bản
-      public computerFileId?:number
       public languageId?:number
       public confidenceLevelId?: number
       public isDeleted?: string
       public updatedBy?: string
+      public status?: number
+      public confirmed?: number
       public createdBy?: string
       public updatedDate?: Date
       public createdDate?: Date
       public signature?: number;
       // đường dẫn tuyệt đối đến file trên server
       public serverPath?: string;
-      public status?: number;
-      public confirmed?: number;
       public fileName?: string;
     }
 
