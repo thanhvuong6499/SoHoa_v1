@@ -65,7 +65,7 @@
                         [options]="options"
                         name="fontID"
                         (valueChanged)="onFontChange($event)"
-                        
+                        [(ngModel)]="document.fontId"
                     ></ng-select2>
                     <div *ngIf="submitted && formControl.fontID.status == 'INVALID'">
                         <div class="error"><span style="color:red;">Vui lòng chọn phông.</span></div>
@@ -84,7 +84,7 @@
                         [options]="options"
                         name="tabOfContID"
                         (valueChanged)="onTableOfContentChange($event)"
-                        
+                        [(ngModel)]="document.tableOfContentId"
                     ></ng-select2>
                     <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">
                         <div class="error"><span style="color:red;">Vui lòng chọn danh mục.</span></div>
@@ -102,7 +102,7 @@
                         [options]="options"
                         name="gearBoxId"
                         (valueChanged)="onGearBoxChange($event)"
-                        
+                        [(ngModel)]="document.gearBoxId"
                     ></ng-select2>
                     <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">
                         <div class="error"><span style="color:red;">Vui lòng chọn hộp số.</span></div>
@@ -230,7 +230,7 @@
             <div class="form-group row">
                 <label class="col-md-3 col-form-label" for="date-input">Ngày tháng năm văn bản<span style="color: red;">(*)</span></label>
                 <div class="col-md-9">
-                    <input type="date" formControlName="issuedDate" placeholder="Ngày tháng năm văn bản" name="issuedDate" [(ngModel)]="document.issuedDate" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.issuedDate.errors}" />
+                    <input type="date" id = "issuedDate" formControlName="issuedDate" placeholder="Ngày tháng năm văn bản" name="document.issuedDate" [(ngModel)] = "document.issuedDate" class="form-control" [ngClass]="{'is-invalid': submitted && formControl.issuedDate.errors}" />
                     <div *ngIf="submitted && formControl.issuedDate.errors" class="invalid-feedback">
                         <div *ngIf="formControl.language.errors.required">Ngày tháng năm văn bản không được để trống.</div>
                     </div>

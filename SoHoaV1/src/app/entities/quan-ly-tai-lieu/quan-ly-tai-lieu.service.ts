@@ -59,7 +59,8 @@ export class QuanLyTaiLieuService {
     return this.httpClient.get<ReturnResult<ConfidenceLevel>>(ApiUrl.apiUrl + "ConfidenceLevel/GetAllConfidenceLevel");
   }
   public updateDocument(document : Document){
-    return this.httpClient.post<Document>(ApiUrl.apiUrl + "Document/UpdateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+    document.updatedBy = this.authenticationService.getUserName;
+    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/UpdateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
   }
   public getGearBoxByTableOfContentId(id : string){
     return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetGearBoxByTabOfContID/' + id);

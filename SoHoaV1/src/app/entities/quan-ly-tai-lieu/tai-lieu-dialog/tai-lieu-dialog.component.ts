@@ -68,25 +68,7 @@ export class TaiLieuDialogComponent implements OnInit {
       }, () => {
       });
     
-    this.taiLieuService.getProfileList()
-      .subscribe((result) => {
-        var profileList = [];
-        for (const item of result) {
-          var temp = { id: item.profileId, text: item.fileNotation }
-          profileList.push(temp);
-        }
-        console.log(profileList);
-        this.profileList = profileList;
-      },
-      (error) => {
-        console.log(error);
-        setTimeout(() => {
-          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
-        }, 1000);
-      },
-      () => {
-        
-      });
+    
 
     this.taiLieuService.getLanguageList()
       .subscribe((result) => {
@@ -101,7 +83,7 @@ export class TaiLieuDialogComponent implements OnInit {
       (error) => {
         console.log(error);
         setTimeout(() => {
-          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+          alert("Lấy dữ liệu về ngôn ngữ thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
       },
       () => {
@@ -112,7 +94,7 @@ export class TaiLieuDialogComponent implements OnInit {
         var formatList = [];
         for (var item of result.itemList) {
           var temp = { id: item.formatId, text: item.formatName }
-          formatList.push(temp);
+          formatList.push(temp);  
         }
         
         this.formatList = formatList;
@@ -120,7 +102,7 @@ export class TaiLieuDialogComponent implements OnInit {
       (error) => {
         console.log(error);
         setTimeout(() => {
-          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+          alert("Lấy dữ liệu về tình trạng vật lý thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
       },
       () => {
@@ -139,7 +121,7 @@ export class TaiLieuDialogComponent implements OnInit {
       (error) => {
         console.log(error);
         setTimeout(() => {
-          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+          alert("Lấy dữ liệu về mức độ bảo mật thất bại. Lỗi: " + JSON.stringify(error));
         }, 1000);
       },
       () => {

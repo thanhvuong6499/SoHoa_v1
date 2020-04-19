@@ -13,17 +13,37 @@
             [placeholder]="'Chọn mã văn bản...'"
             [options]="options"
             [(ngModel)]="documentCodeArr"
-            (valueChanged)="getFilterOptions($event, fileCodeArr)"
+            (valueChanged)="getFilterOptions($event, fileCodeArr, confirmedArr, statusArr)"
         ></ng-select2>
           </div>
           <label class="col-md-1 col-form-label" for="text-input">Mã hồ sơ:</label>
           <div class="col-md-2">
             <ng-select2
-            [data]="fileList"
+            [data]="fileCodeList"
             [placeholder]="'Chọn mã hồ sơ...'"
             [options]="options"
-            [(ngModel)]="fileId"
-            (valueChanged)="getFilterOptions(fileCodeArr, $event)"
+            [(ngModel)]="fileCodeArr"
+            (valueChanged)="getFilterOptions(documentCodeArr, $event, confirmedArr, statusArr)"
+        ></ng-select2>
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">TT Duyệt:</label>
+          <div class="col-md-2">
+            <ng-select2
+            [data]="confirmedSelect2List"
+            [placeholder]="'Chọn TT Duyệt...'"
+            [options]="options"
+            [(ngModel)]="confirmedArr"
+            (valueChanged)="getFilterOptions(documentCodeArr, fileCodeArr, $event, statusArr)"
+        ></ng-select2>
+          </div>
+          <label class="col-md-1 col-form-label" for="text-input">Trạng thái:</label>
+          <div class="col-md-2">
+            <ng-select2
+            [data]="statusSelect2List"
+            [placeholder]="'Chọn trạng thái...'"
+            [options]="options"
+            [(ngModel)]="statusArr"
+            (valueChanged)="getFilterOptions(documentCodeArr, fileCodeArr,confirmedArr,  $event)"
         ></ng-select2>
           </div>
           <div class="col-md-2">
@@ -34,6 +54,7 @@
               </span>
           </button>
           </div>
+          
          </div>
 
       </div>
@@ -51,6 +72,8 @@
               <th>Mức độ tin cậy</th>
               <th>Tình trạng</th>
               <th>Ghi chú</th>
+              <th>TT Duyệt</th>
+              <th>Trạng thái</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -66,6 +89,10 @@
               <td>{{ document.confidenceLevel }}</td>
               <td>{{ document.format }}</td>
               <td>{{ document.description }}</td>
+              <td *ngIf = 'document.confirmed == 1'><span class="badge badge-success">Đã duyệt</span></td>
+              <td *ngIf = 'document.confirmed == 0'><span class="badge badge-danger">Chưa duyệt</span></td>
+              <td *ngIf = 'document.status == 1'><span class="badge badge-success">Đã sửa</span></td>
+              <td *ngIf = 'document.status == 0'><span class="badge badge-danger">Chưa sửa</span></td>
               <td style="width:137px">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', document.documentId]"
                   routerLinkActive="router-link-active"></button>
