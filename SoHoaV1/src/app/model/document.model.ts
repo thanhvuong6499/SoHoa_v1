@@ -28,7 +28,7 @@ export class Document  {
       public subject?: string
       // Ngôn ngữ
       public language?: string
-      // Ghi ch
+      // Ghi chu
       public description?: string
       // Số tờ
       public pageAmount?: number
