@@ -125,7 +125,6 @@ export const navItems: INavData[] = [
     url: '/QuanLyChuKySo/chuKySo',
     icon: 'fa fa-address-book-o'
   }
-//     name: 'Colors',
 //     url: '/theme/colors',
 //     icon: 'icon-drop'
 //   },
