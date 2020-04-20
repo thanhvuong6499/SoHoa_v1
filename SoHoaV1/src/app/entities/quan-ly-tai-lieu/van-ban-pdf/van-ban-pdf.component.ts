@@ -616,7 +616,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         else
         {
           if (data != undefined && data.itemList.length != 0) {
-            this.document.serverPath = data.item.clientUrl;
+            //this.document.serverPath = data.item.clientUrl;
             var computerFileList = [];
             var files = [];
             if (!this.isEdit) {
@@ -659,6 +659,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       if(item.fileId == id){
         this.pdfSrc = item.url;
         this.document.pageAmount = item.pageNumber;
+        this.document.serverPath = item.url;
       }
     });
     
