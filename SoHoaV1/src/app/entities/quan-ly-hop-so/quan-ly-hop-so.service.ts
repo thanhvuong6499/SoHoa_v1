@@ -120,7 +120,7 @@ export class QuanLyHopSoService {
     return this.httpClient.get<danhMucSelect2[]>(ApiUrl.apiUrl + "GearBox/GetTableOfContentsByFontIDSelect2", { params: params });
   }
 
-  getTabByFontId (id: string) {
+  getTabByFontId (id: any) {
     var params = {
       fontID: id
     }

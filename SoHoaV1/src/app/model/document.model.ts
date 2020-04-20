@@ -64,6 +64,7 @@ export class Document  {
       // đường dẫn tuyệt đối đến file trên server
       public serverPath?: string;
       public fileName?: string;
+      public clientUrl?: string;
     }
 
 // export const documents : Document[] = [

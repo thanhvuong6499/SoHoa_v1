@@ -170,11 +170,9 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             var temp = { id: item.documentTypeId.toString(), text: item.typeName };
             documentTypeList.push(temp);
           }
-
           this.documentTypeList = documentTypeList;
-          console.log(this.documentTypeList);
         }
-      },
+        },
         (error) => {
           console.log(error);
         }, () => {
@@ -259,27 +257,36 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         });
     // edit
     if (this.documentId != null) {
-      debugger
       this.taiLieuService.getDocumentById(this.documentId)
-                .subscribe((result) => {
-                    const document : Document = result.item;
-                    this.document = document;
-                    
-                    this.issuedDate = document.issuedDate.toString().split('T')[0]; 
-                    console.log(this.issuedDate);
-                    
-                    this.onOrganChange(document.organId);
-                }, (error) => {
-                }, () => {
-                });
+            .subscribe((result) => {
+                if (result.isSuccess) {
+                  $.ajaxSetup({ cache: false });
+                  const document : Document = result.item;
+                  this.document = document;
+                  this.issuedDate = document.issuedDate.toString().split('T')[0];
+                  this.pdfSrc = result.item.clientUrl;
+                  if (this.document.signature == 1)
+                  {
+                    this.checked = true;
+                  }
+                  
+                  this.onOrganChange(document.organId);
+                }
+                else {
+                  this.toastr.info(result.errorMessage, "Thông báo");
+                }
+            }, 
+            (error) => {
+              console.log(error);
+            }, 
+            () => {
+
+            });
       this.isEdit = true;
-      
-      
     }
   }
   clear() {
     this.document.documentCode = '';
-    this.document.fileId = undefined;
     this.document.computerFileId = undefined;
     this.document.codeNumber = '';
     this.document.docOrdinal = undefined;
@@ -302,7 +309,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   }
   save(value : string) {
     this.submitted = true;
-    console.log(this.formControl);
     if (this.form.invalid) { return; }
     if (value == 'save') {
       this.saveLoading = true;
@@ -312,21 +318,17 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     }
     this.loading = true;
     if (this.isEdit) {
-      this.taiLieuService.updateDocument(this.document)
+      this.taiLieuService.updateDocument(this.document, this.checked, this.imageSrc, this.document.clientUrl)
         .subscribe((result) => {
           if(result.errorCode != '0'){
             alert("Lỗi: " + result.errorCode +". Mess: " + result.errorMessage);
           }
-        },
-          (error) => {
-            console.log(error);
-
-            // this.onSaveError();
-          },
-          () => {
+          else {
             // do something
+            
             if (value == 'save') {
               this.saveLoading = false;
+              jQuery.ajaxSetup({ cache: false });
               window.location.href = '#/QuanLyTaiLieu/taiLieu';
             }
             else {
@@ -334,10 +336,17 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             }
             this.activeModal.dismiss("Update successfully.");
             this.onSaveSuccess("Chỉnh sửa thành công");
+          } 
+          },
+          (error) => {
+            console.log(error);
+            // this.onSaveError();
+          },
+          () => {
+            //jQuery.ajaxSetup({ cache: false });
           });
     }
     else {
-      console.log(this.document);
       this.taiLieuService.createDocument(this.document, this.checked, this.imageSrc, this.document.serverPath)
         .subscribe((result) => {
           if (result.isSuccess) {
@@ -345,11 +354,22 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             this.clear();
             if (value == 'save') {
               this.saveLoading = false;
+              jQuery.ajaxSetup({ cache: false });
               window.location.href = '#/QuanLyTaiLieu/taiLieu';
             }
             else {
               this.continueLoading = false;
-              this.onGearBoxChange(this.gearBoxId);
+              //this.onGearBoxChange(this.gearBoxId);
+              this.pdfSrc = undefined;
+              // for(let i = 0; i < this.computerFileList.length; i ++) {
+              //   if (this.document.computerFileId == this.computerFileList[i].fileId) {
+              //     this.computerFileList.splice(i, 1);
+              //     break;
+              //   }
+              //   this.onProfileChange(this.document.fileId);
+              // }
+              // this.computerFileSelect2 = null;
+              // this.onProfileChange(this.document.fileId);
             }
           }
           else {
@@ -360,9 +380,13 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             console.log(error);
             setTimeout(() => {
               this.toastr.warning("Thêm mới thất bại, vui lòng thử lai.", "Thông báo");
+              this.continueLoading = false;
             }, 5000);
           }, () => {
-             // do something
+            // do something
+            //jQuery.ajaxSetup({ cache: false });
+            this.computerFileSelect2 = null;
+            this.onProfileChange(this.document.fileId);
           });
     }
   }
@@ -436,7 +460,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             var temp = { id: item.tabOfContID, text: item.tabOfContName }
             danhmucs.push(temp);
           }
-          console.log(this.lstDanhMuc);
           this.lstDanhMuc = danhmucs;
         }
         else{
@@ -524,14 +547,17 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     var params = gearBoxId;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
-    else{
-      
+    else
+    {
       this.hoSoService.getProfileByGearBoxId(gearBoxId)
       .subscribe((data) => {
-        if(data.errorCode != '0'){
-          alert(data.errorMessage);
-        }else{
-          if (data != undefined && data.itemList.length !=0) {
+        if(data.errorCode != '0') {
+          this.toastr.info(data.errorMessage, "Thông báo");
+        }
+        else
+        {
+          if (data != undefined && data.itemList.length != 0) {
+            console.log(data);
             var profileList = [];
             for (const item of data.itemList) {
               var temp = { id: item.profileId, text: item.fileCode }
@@ -555,9 +581,8 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     }
   }
 
-  // onProfileChange(profileId : any) {
-  //   this.pdfSrc = undefined;
   onProfileChange(profileId : any){
+    this.pdfSrc = null;
     var params = profileId;
     if(params == undefined || params == null || params == "")
     {
@@ -584,21 +609,38 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         // else {
         //   this.computerFileList = [];
         
-        if(data.errorCode != '0'){
-          alert(data.errorMessage);
-        }else{
-          if (data != undefined && data.itemList.length !=0) {
+        if(!data.isSuccess) {
+          this.toastr.info(data.errorMessage, "Thông báo");
+          this.computerFileSelect2 = null;
+        }
+        else
+        {
+          if (data != undefined && data.itemList.length != 0) {
+            this.document.serverPath = data.item.clientUrl;
             var computerFileList = [];
-            for (const item of data.itemList) {
-              var temp = { id: item.fileId, text: item.fileName, path: item.url }
-              computerFileList.push(temp);
-              this.computerFileList.push({fileId: item.fileId, url: item.url});
+            var files = [];
+            if (!this.isEdit) {
+              files = data.itemList.filter(item => item.status === 0);
             }
-          
-            this.computerFileSelect2 = computerFileList;
+            else {
+              files = data.itemList;
+            }
+            if (files.length > 0) {
+              for (const item of files) {
+                var temp = { id: item.fileId, text: item.fileName, path: item.url }
+                computerFileList.push(temp);
+                //this.computerFileList.push({fileId: item.fileId, url: item.url});
+                this.computerFileList.push({fileId: item.fileId, url: item.clientUrl, pageNumber: item.pageNumber});
+              }
+              this.computerFileSelect2 = computerFileList;
+            }
+            else {
+              this.computerFileSelect2 = [];
+              this.toastr.info("Không còn file trong hồ sơ, vui lòng tải thêm file lên hoặc chọn hồ sơ khác.", "Thông báo");
+            }
           }
-          else{
-            this.computerFileList = [];
+          else {
+            this.computerFileSelect2 = [];
           }
         }
       },
@@ -613,19 +655,19 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   }
   
   onFileSelected(id?: any) {
-    // this.computerFileList.forEach((item) => {
-    //   if(item.fileId == id){
-    //     this.pdfSrc = item.clientUrl;
-    //   }
-    // });
-
-    
     this.computerFileList.forEach((item) => {
-  
       if(item.fileId == id){
         this.pdfSrc = item.url;
+        this.document.pageAmount = item.pageNumber;
       }
     });
+    
+    // this.computerFileList.forEach((item) => {
+  
+    //   if(item.fileId == id){
+    //     this.pdfSrc = item.url;
+    //   }
+    // });
     // let $img: any = document.querySelector('#file');
 
     // if (typeof (FileReader) !== 'undefined') {
@@ -654,6 +696,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
               this.loadingSignature = false;
               this.hasImage = true;
               this.imageSrc = this.signature[0].serverPath;
+              //this.document.serverPath = this.signature[0].serverPath;
               //$(document).find("[data-page-number=1]").append(`<img class="image-preview" src="${this.imageSrc}" alt=""/>`)
             }
             else {
@@ -676,16 +719,16 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   }
   @HostListener('window:scroll', ['$event']) 
     scrollHandler(event) {
-      console.log("Scroll Event");
+
     }
 
   ngAfterContentInit() {
-    this._compiler.clearCache();}
-  displayDate(document : Document): void {
-    
+    $('body').append('<script src="script.js?'+Math.random()+'"></script>');
+    this._compiler.clearCache();
+  }
+    displayDate(document : Document): void {
     if (this.isEdit == true) {
-      console.log(document)
-      
+
     }
   }
   

@@ -49,7 +49,7 @@
           <input matInput value="" id="text-input-name" name="tencoquan" [(ngModel)]="coQuan.tencoquan">
         </mat-form-field> -->
         <div class="form-group row">
-          <label class="col-md-3 col-form-label" for="organ-type">Loại cơ quan: <span style="color: red;">(*)</span></label>
+          <label class="col-md-3 col-form-label" for="organ-type">Loại cơ quan: </label>
           <div class="col-md-9">
             <!-- <select2 [data]="organTypeList" (update)="update1($event)" id="organ-type" [value]="defaultValue">
             </select2> -->
@@ -61,9 +61,6 @@
             name="loaiCoQuanID"
             [(ngModel)]="coQuan.loaiCoQuanID"
           ></ng-select2>
-          <div *ngIf="submitted && f.loaiCoQuanID.status == 'INVALID'">
-            <div class="error">Vui lòng chọn loại cơ quan.</div>
-          </div>
           </div>
         </div>
     <div class="form-group row">

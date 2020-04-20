@@ -63,7 +63,7 @@ export class HopSoDialogComponent implements OnInit {
       fontID: ['', Validators.required],
       tabOfContID: ['', Validators.required],
       gearBoxCode: ['', Validators.required],
-      gearBoxTitle: ['', Validators.required],
+      gearBoxTitle: [''],
       note: ['']
     })
 

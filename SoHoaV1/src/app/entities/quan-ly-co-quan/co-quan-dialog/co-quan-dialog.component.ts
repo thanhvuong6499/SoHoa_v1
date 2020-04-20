@@ -71,7 +71,7 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
     this.form = this.formBuilder.group({
       organCode: ['', Validators.required],
       tenCoQuan: ['', Validators.required],
-      loaiCoQuanID: ['', Validators.required],
+      loaiCoQuanID: [''],
       tinhID: ['', Validators.required],
       huyenID: ['', Validators.required],
       xaPhuongID: [''],

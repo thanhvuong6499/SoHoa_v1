@@ -59,6 +59,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelect2Module } from 'ng-select2';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HttpClientInterceptor } from './interceptors/httpclient.interceptor';
 @NgModule({
   imports: [
     BrowserModule,
@@ -94,6 +95,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpClientInterceptor,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,

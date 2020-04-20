@@ -93,13 +93,15 @@
               <td *ngIf = 'document.confirmed == 0'><span class="badge badge-danger">Chưa duyệt</span></td>
               <td *ngIf = 'document.status == 1'><span class="badge badge-success">Đã sửa</span></td>
               <td *ngIf = 'document.status == 0'><span class="badge badge-danger">Chưa sửa</span></td>
-              <td style="width:137px">
+              <td></td>
+              <td></td>
+              <td style="width:137px" class="center">
                 <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', document.documentId]"
                   routerLinkActive="router-link-active"></button>
                 <span *ngIf="roles == 'edit' || roles == 'admin'"><button class="btn btn-primary fa fa-edit"
                   [routerLink]="['/QuanLyTaiLieu/taiLieuPdf', document.documentId]"     replaceUrl="true" queryParamsHandling="merge"></button></span>
-                <span *ngIf="roles == 'admin'"><button class="btn btn-primary fa fa-trash"
-                    (click)="openDeleteDialog(document.documentId)"></button></span>
+                <!-- <span *ngIf="roles == 'admin'"><button class="btn btn-primary fa fa-trash"
+                    (click)="openDeleteDialog(document.documentId)"></button></span> -->
               </td>
             </tr>
           </tbody>

@@ -32,6 +32,24 @@
             </div>
         </div>
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Cơ quan:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.organName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Phông:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.fontName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Danh mục:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.tableOfContentName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số:</label>
             <div class="col-md-9">
                 <label> {{ hoso.gearBoxTitle }} </label>
@@ -150,32 +168,28 @@
             <thead>
               <tr>
                 <th>Hồ sơ số</th>
-                <th>Văn bản số</th>
-                <th>Tên loại văn bản</th>
+                <th>Tài liệu số</th>
+                <th>Stt trong hồ sơ</th>
+                <th>Tên loại tài liệu</th>
                 <th>Nội dung</th>
                 <th>Số tờ</th>
-                <th>Mức độ tin cậy</th>
-                <th>Tình trạng</th>
                 <th>Ghi chú</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let vanban of lstDocuments">
-                <td>{{ vanban.fileCode }}</td>
-                <td>{{ vanban.codeNumber }}</td>
-                <td>{{ vanban.typeName }}</td>
-                <td>{{ vanban.subject }}</td>
-                <td>{{ vanban.pageAmount }}</td>
-                <td>{{ vanban.confidenceLevel }}</td>
-                <td>{{ vanban.formatName }}</td>
-                <td>{{ vanban.description }}</td>
-               
+              <tr *ngFor="let document of lstDocuments">
+                <td>{{ document.fileCode }}</td>
+                <td>{{ document.documentCode }}</td>
+                <td>{{ document.docOrdinal }}</td>
+                <td>{{ document.typeName }}</td>
+                <td>{{ document.subject }}</td>
+                <td>{{ document.pageAmount }}</td>
+                <td>{{ document.description }}</td>
                 <td style="width:137px" class="center">
-                  <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', vanban.documentId]" routerLinkActive="router-link-active"  ></button>
-                  <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                  <button class="btn btn-primary fa fa-edit" (click)="openDialog(vanban.documentId)"  replaceUrl="true" queryParamsHandling="merge"></button>
-              </td>
+                    <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyTaiLieu/taiLieu', document.documentId]" routerLinkActive="router-link-active"></button>
+                    <button class="btn btn-primary fa fa-edit" [routerLink]="['/QuanLyTaiLieu/taiLieuPdf', document.documentId]" routerLinkActive="router-link-active"  replaceUrl="true" queryParamsHandling="merge"></button>
+                </td>
             </tr>
             </tbody>
           </table>

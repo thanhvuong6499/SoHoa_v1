@@ -75,19 +75,19 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hộp số <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
-                <input type="text" formControlName="gearBoxCode" placeholder="Nhập mã hộp sơ" name="gearBoxCode" [(ngModel)]="hopso.gearBoxCode" class="form-control" [ngClass]="{'is-invalid': submitted && f.gearBoxCode.errors}" />
+                <input type="text" formControlName="gearBoxCode" placeholder="Nhập mã hộp số" name="gearBoxCode" [(ngModel)]="hopso.gearBoxCode" class="form-control" [ngClass]="{'is-invalid': submitted && f.gearBoxCode.errors}" />
                 <div *ngIf="submitted && f.gearBoxCode.errors" class="invalid-feedback">
-                    <div *ngIf="f.gearBoxCode.errors.required">Mã hộp sơ không được để trống.</div>
+                    <div *ngIf="f.gearBoxCode.errors.required">Mã hộp số không được để trống.</div>
                 </div>
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số </label>
             <div class="col-md-9">
-                <input type="text" formControlName="gearBoxTitle" placeholder="Nhập tiêu đề hộp số" name="gearBoxTitle" [(ngModel)]="hopso.gearBoxTitle" class="form-control" [ngClass]="{'is-invalid': submitted && f.gearBoxTitle.errors}" />
-                <div *ngIf="submitted && f.gearBoxTitle.errors" class="invalid-feedback">
+                <input type="text" formControlName="gearBoxTitle" placeholder="Nhập tiêu đề hộp số" name="gearBoxTitle" [(ngModel)]="hopso.gearBoxTitle" class="form-control" />
+                <!-- <div *ngIf="submitted && f.gearBoxTitle.errors" class="invalid-feedback">
                     <div *ngIf="f.gearBoxTitle.errors.required">Tiêu đề hộp số không được để trống.</div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="form-group row">

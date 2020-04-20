@@ -14,6 +14,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BaseCdkCell } from '@angular/cdk/table';
 import { Alert } from '../../../containers/_alert';
 import { Rights, Languages } from '../../../common/Variables';
+import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
+import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -24,6 +26,9 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
 
   hoso: HoSo;
   date: Date;
+  lstOrgan: Array<Select2OptionData>;
+  lstFont: Array<Select2OptionData>;
+  lstDanhMuc: Array<Select2OptionData>;
   
   public uploader : FileUploader = new FileUploader({
     isHTML5: true
@@ -49,13 +54,18 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   form : FormGroup;
   submitted = false;
   loading = false;
+  organId: any;
+  fontId: any;
+  tableOfContentId: number;
 
   constructor (
    private activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
    private toastr: ToastrService,
    private service: QuanLyHoSoService,
-   private formBuilder: FormBuilder
+   private formBuilder: FormBuilder,
+   private hopsoService: QuanLyHopSoService,
+   private danhmucService: QuanLyDanhMucService
   )
   {
     this.profileTypeList = new Array<Select2OptionData>();
@@ -78,7 +88,10 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   //  this.hoso = this.hoSoPopupService.getHoSoById()
   //  this.hoso = this.hoSoPopupService.profile;
     this.form = this.formBuilder.group({
-      gearBoxId: ['', Validators.required],
+      organId: ['', Validators.required],
+      tableOfContentId: ['', Validators.required],
+      fontId: ['', Validators.required],
+      gearBox: ['', Validators.required],
       fileCode: ['', Validators.required],
       title: ['', Validators.required],
       fileNotation: ['', Validators.required],
@@ -87,7 +100,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       rights: [''],
       language: [''],
       startDate: [undefined, Validators.required],
-      endDate: [undefined, Validators.required],
+      endDate: [undefined],
       totalDoc: [''],
       description: [''],
       inforSign: [''],
@@ -97,13 +110,19 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       format: ['']
     })
     this.getAddNew();
+    
     if (this.hoSoPopupService.profile != undefined) {
       this.isUpdate = true;
       this.hoso = this.hoSoPopupService.profile.item;
-      this.hoso.gearBoxId = this.hoSoPopupService.profile.item.gearBoxId;
-      this.hoso.profileTypeId = this.hoSoPopupService.profile.item.profileTypeId;
+      //this.hoso.gearBoxId = this.hoSoPopupService.profile.item.gearBoxId;
+      //this.hoso.profileTypeId = this.hoSoPopupService.profile.item.profileTypeId;
+      this.organId = this.hoso.organId;
+      this.fontId = this.hoso.fontId;
+      this.tableOfContentId = this.hoso.tableOfContentId;
+      console.log(this.hoso);
     }
-    
+
+    this.getAllOrgan();
   }
 
   get f() {
@@ -137,7 +156,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   save() {
     console.log(this.hoso);
     this.submitted = true;
-    console.log(this.f);
     if (this.form.invalid) return;
     console.log('Form submited');
     this.loading = true;
@@ -452,11 +470,11 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     this.service.getAllGearBoxAndProfileType()
       .subscribe((result) => {
         var arrGearBox = [];
-        for (const item of result.lstGearBox) {
-          var temp = { id: item.gearBoxID, text: item.gearBoxTitle }
-          arrGearBox.push(temp);
-        }
-        this.allGearBox = arrGearBox;
+        // for (const item of result.lstGearBox) {
+        //   var temp = { id: item.gearBoxID, text: item.gearBoxTitle }
+        //   arrGearBox.push(temp);
+        // }
+        // this.allGearBox = arrGearBox;
         arrGearBox = [];
         for (const item of result.lstProfileTypes) {
           var temp = { id: item.profileTypeId, text: item.profileTypeName }
@@ -497,8 +515,136 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     });
 
   }
-  onClose(){
+  onClose() {
     this.service.filter('Register click');
   }
 
+  onOrganChange(organID : any){
+    // if organ select2 box is changed, set value of its child to empty
+    if (organID != this.organId && this.isUpdate) {
+
+    }
+    this.lstFont = null;
+    this.lstDanhMuc = null;
+    this.allGearBox = null;
+    var params = organID;
+    if(params == undefined || params == null || params == "")
+        params  = this.organId;
+    else {
+
+      this.hopsoService.getFontByOrganId(params)
+      .subscribe((data) => {
+        if (data != undefined && data.length != 0) {
+            var phongs = [];
+            for (const item of data) {
+              var temp = { id: item.fontID, text: item.fontName }
+              phongs.push(temp);
+            }
+            this.lstFont = phongs;
+        }
+        else{
+          this.lstFont = [];
+          this.lstDanhMuc = [];
+        }
+      },
+      (error) => {
+        this.lstFont = [];
+        this.lstDanhMuc = [];
+        alert("Lấy dữ liệu phông thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+
+      });
+    } 
+  }
+  onFontChange(fontID : any){
+    // if font select2 box is changed, set value of its child to empty
+    this.lstDanhMuc = null;
+    this.hoso.tableOfContentId = undefined;
+    var params = fontID;
+    if (params == undefined || params == null || params == "")
+    {
+
+      params  = undefined;
+      this.lstDanhMuc = null;
+      return;
+    }
+    else {
+      this.hopsoService.getTabByFontId(params)
+      .subscribe((data) => {
+        if (data != undefined && data.length != 0) {
+          var danhmucs = [];
+          for (const item of data) {
+            var temp = { id: item.tabOfContID, text: item.tabOfContName }
+            danhmucs.push(temp);
+          }
+          this.lstDanhMuc = danhmucs;
+        }
+        else {
+          this.lstDanhMuc = [];
+        }
+      },
+      (error) => {
+        alert("Lấy dữ liệu danh mục thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+
+      });
+    }
+  }
+
+  onTableOfContentChange(tabOfContID : any){
+    // if table of content select2 box is changed, set value of its child to empty
+    var params = tabOfContID;
+    if(params == undefined || params == null || params == "")
+        params  = this.fontId;
+    else {
+      this.hopsoService.getGearBoxByTableOfContentId(tabOfContID)
+      .subscribe((data) => {
+        if (data != undefined && data.itemList.length !=0) {
+          var hopsos = [];
+          for (const item of data.itemList) {
+            var temp = { id: item.gearBoxID, text: item.gearBoxName }
+            hopsos.push(temp);
+          }
+          this.allGearBox = hopsos;
+        }
+        else{
+          this.allGearBox = [];
+        }
+      },
+      (error) => {
+        alert("Lấy dữ liệu hộp số thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+
+      });
+    }
+  }
+  public getAllOrgan() {
+    this.danhmucService.getAllCoQuan()
+      .subscribe((result) => {
+        
+        if (result != undefined) {
+          var organList = [];
+          for (var item of result.itemList) {
+            var temp = { id: item.organID, text: item.tenCoQuan };
+            organList.push(temp);
+          }
+          this.lstOrgan = organList;
+          
+          // if(this.lstOrgan != null){
+          //   this.organID = this.lstOrgan[0].id;
+          // }
+          // else 
+          //   this.organID = 0;
+        }
+      },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+
+        });
+  }
 }

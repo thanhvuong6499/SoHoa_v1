@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Document } from '../../model/document.model';
 import { BaseCondition } from '../../common/BaseCondition';
-import { HttpHeadersOptions, ApiUrl } from '../../common/Enviroment';
-import { HttpClient } from '@angular/common/http';
+import { HttpHeadersOptions, ApiUrl, CacheHeaders } from '../../common/Enviroment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ReturnResult } from '../../common/ReturnResult';
 import { DocumentType } from '../../model/document-type.model';
@@ -18,9 +18,10 @@ import { HopSo } from '../../model/hop-so.model';
 export class QuanLyTaiLieuService {
   documents: Document[];
   constructor(private httpClient : HttpClient, private authenticationService: AuthenticationService) { }
+
   public getDocumentById(id) {
-    return this.httpClient.get<ReturnResult<Document>>(ApiUrl.apiUrl + 'Document/GetDocumentById/' + id);
-  };
+    return this.httpClient.get<ReturnResult<Document>>(ApiUrl.apiUrl + 'Document/GetDocumentById/' + id, { headers: CacheHeaders.headers });
+  }
 
   public getAllTaiLieuWithPaging(condi? : BaseCondition<Document>) {
     var condition = {};
@@ -58,9 +59,13 @@ export class QuanLyTaiLieuService {
   public getConfidenceLevelList(){
     return this.httpClient.get<ReturnResult<ConfidenceLevel>>(ApiUrl.apiUrl + "ConfidenceLevel/GetAllConfidenceLevel");
   }
-  public updateDocument(document : Document){
+  public updateDocument(document : Document, checked?: boolean, signatureName?: string, docPath?: string){
     document.updatedBy = this.authenticationService.getUserName;
-    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/UpdateDocument", JSON.stringify(document), { headers: HttpHeadersOptions.headers })
+    let signature: string = '';
+    if (checked === true && signatureName !== '') {
+      signature = `?checked=true&name=${signatureName}&docPath=${docPath}`;
+    }
+    return this.httpClient.post<ReturnResult<Document>>(ApiUrl.apiUrl + "Document/UpdateDocument" + signature, JSON.stringify(document), { headers: HttpHeadersOptions.headers })
   }
   public getGearBoxByTableOfContentId(id : string){
     return this.httpClient.get<HopSo[]>(ApiUrl.apiUrl + 'GearBox/GetGearBoxByTabOfContID/' + id);

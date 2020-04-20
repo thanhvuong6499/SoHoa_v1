@@ -57,18 +57,72 @@
                 ></ng-select2>
             </div>
         </div> -->
+
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan: <span style="color: red;">(*)</span></label>
+            <div class="col-md-9">
+                <ng-select2
+                    formControlName="organId"
+                    [data]="lstOrgan"
+                    [placeholder]="'Chọn cơ quan...'"
+                    [options]="options"
+                    name="organId"
+                    (valueChanged)="onOrganChange($event)"
+                    [(ngModel)]="hoso.organId"
+                ></ng-select2>
+                <div *ngIf="submitted && f.organId.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn cơ quan.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Phông: <span style="color: red;">(*)</span></label>
+            <div class="col-md-9">
+                <ng-select2
+                    formControlName="fontId"
+                    [data]="lstFont"
+                    [placeholder]="'Chọn phông...'"
+                    [options]="options"
+                    name="fontId"
+                    (valueChanged)="onFontChange($event)"
+                    [(ngModel)]="hoso.fontId"
+                ></ng-select2>
+                <div *ngIf="submitted && f.fontId.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn phông.</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Danh mục: <span style="color: red;">(*)</span></label>
+            <div class="col-md-9">
+                <ng-select2
+                    formControlName="tableOfContentId"
+                    required
+                    [data]="lstDanhMuc"
+                    [placeholder]="'Chọn danh mục...'"
+                    [options]="options"
+                    name="tableOfContentId"
+                    (valueChanged)="onTableOfContentChange($event)"
+                    [(ngModel)]="hoso.tableOfContentId"
+                ></ng-select2>
+                <div *ngIf="submitted && f.tableOfContentId.status == 'INVALID'">
+                    <div class="error"><span style="color:red;">Vui lòng chọn danh mục.</span></div>
+                </div>
+            </div>
+        </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Hộp số: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
                 <ng-select2
-                    formControlName="gearBoxId"
+                    formControlName="gearBox"
+                    required
                     [data]="allGearBox"
                     [placeholder]="'Chọn hộp số...'"
                     [options]="options"
                     name="gearBoxId"
                     [(ngModel)]="hoso.gearBoxId"
                 ></ng-select2>
-                <div *ngIf="submitted && f.gearBoxId.status == 'INVALID'">
+                <div *ngIf="submitted && f.gearBox.status == 'INVALID'">
                     <div class="error">Vui lòng chọn hộp số.</div>
                   </div>
             </div>
@@ -159,12 +213,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc: <span style="color: red;"> (*)</span></label>
+            <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc: </label>
             <div class="col-md-9">
-                <input class="form-control" id="date-input-end" type="date" formControlName="endDate" name="endDate" [(ngModel)]="hoso.endDate" [ngClass]="{'is-invalid': submitted && f.endDate.errors}">
-                <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
-                    <div *ngIf="f.endDate.errors.required">Nhập thời gian kết thúc</div>
-                  </div>
+                <input class="form-control" id="date-input-end" type="date" formControlName="endDate" name="endDate" [(ngModel)]="hoso.endDate">
             </div>
         </div>
         <!-- <div class="form-group row">

@@ -15,7 +15,8 @@ export class HopSo  {
         public fontID?:  number,
         public organName?: string,
         public fontName?: string,
-        public status?: number
+        public status?: number,
+        public gearBoxName?: string
     ) {
     }
 }

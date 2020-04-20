@@ -11,6 +11,13 @@ export const HttpHeadersOptions = {
     })
 }
 
+export const CacheHeaders = {
+    headers: new HttpHeaders({
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+    })
+}
+
 export const HttpHeaderOptionsFormData = {
     headers: new HttpHeaders({
         'Content-Type': 'multipart/form-data',

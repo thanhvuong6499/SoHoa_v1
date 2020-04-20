@@ -45,6 +45,13 @@ export class HoSo  {
     public totalFiles? : number;
     public profileNumber?: number;
     public status?: number;
+
+    public fontId?: number;
+    public tableOfContentId?: number;
+
+    public organName?: string;
+    public fontName?: string;
+    public tableOfContentName ?: string;
 }
 
 export const hosos : HoSo[] = [
