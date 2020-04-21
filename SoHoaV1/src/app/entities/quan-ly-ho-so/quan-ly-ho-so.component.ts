@@ -79,7 +79,6 @@ export class QuanLyHoSoComponent implements OnInit {
     else {
       this.showSpinner("dataTable", "timer", "0.8");
     }
-  //  this.showSpinner("dataTable", "timer", "0.8");
     this.service.getAllProfilesWithPaging(condi)
       .subscribe((result) => {
         if (result.isSuccess) {
@@ -97,11 +96,22 @@ export class QuanLyHoSoComponent implements OnInit {
         }
         else {
           alert("Lỗi: " + result.errorMessage);
+          if (condi != undefined) {
+            this.hideSpinner("paging");
+          }
+          else {
+            this.hideSpinner("dataTable");
+          }
         }
       }, (error) => {
         setTimeout(() => {
           alert("Lỗi: " + JSON.stringify(error));
-          this.hideSpinner("dataTable");
+          if (condi != undefined) {
+            this.hideSpinner("paging");
+          }
+          else {
+            this.hideSpinner("dataTable");
+          }
         }, 5000);
       }, () => {
         if (condi != undefined) {
@@ -109,7 +119,7 @@ export class QuanLyHoSoComponent implements OnInit {
         }
         else {
           this.hideSpinner("dataTable");
-          this.showSpinner("filterOptions","timer", "0.8");
+          //this.showSpinner("filterOptions","timer", "0.8");
         }
       });
   }

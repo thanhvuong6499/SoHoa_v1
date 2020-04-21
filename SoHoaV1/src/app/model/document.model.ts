@@ -61,6 +61,7 @@ export class Document  {
       public updatedDate?: Date
       public createdDate?: Date
       public signature?: number;
+      public profileId?: number;
       // đường dẫn tuyệt đối đến file trên server
       public serverPath?: string;
       public fileName?: string;
