@@ -162,7 +162,7 @@ export class QuanLyNguoiDungComponent implements OnInit {
     this.arrayTypeValue = types;
     if (this.arrayTypeValue != undefined) {
       this.condition.FilterRuleList[0].value = types.toString();
-      if (types.length == 1) {
+      if (types != undefined &&  types.length == 1) {
         this.condition.FilterRuleList[0].op = "and_contains";
       }
       else {

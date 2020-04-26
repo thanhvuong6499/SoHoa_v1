@@ -14,18 +14,18 @@
 
         <div class="form-group row">
           <div class="col-md-4 row col-lg-4">
-            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Danh mục:</label>
+            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Mục lục:</label>
             <div style="margin-top:5px;" class="col-md-8 col-sm-6">
               <ng-select2
                 [data]="tableOfContArr"
-                [placeholder]="'Chọn tên danh mục...'"
+                [placeholder]="'Chọn tên Mục lục...'"
                 [options]="options"
                 [(ngModel)]="arrayTableOfContValue"
                 (valueChanged)="getFilterOptions($event,arrayStatusValue)"
             ></ng-select2>
             </div>
           </div>
-          <div class="col-md-4 row col-lg-4">
+          <!-- <div class="col-md-4 row col-lg-4">
             <label class="col-md-4 col-sm-6 col-form-label" for="select1">Trạng thái:</label>
             <div style="margin-top:5px;" class="col-md-8 col-sm-6">
               <ng-select2
@@ -36,7 +36,7 @@
                 (valueChanged)="getFilterOptions(arrayTableOfContValue,$event)"
             ></ng-select2>
             </div>
-          </div>
+          </div> -->
           <div class="row col-md-4 col-lg-4">
             <label class="col-md-4 col-sm-6 col-form-label" for="text-input">Tìm kiếm:</label>
             <div class="col-md-8 col-sm-6" style="margin-top: 5px;">
@@ -45,7 +45,7 @@
           </div>
           <div style="margin-left:0px;margin-top: 9px;" class="row col-md-4 col-lg-4">
             <div>
-              <button class="btn btn-primary btn-sm"(click)="openDialog()">
+              <button class="btn btn-primary btn-sm" (click)="openDialog()">
                 <span class="fa fa-plus"></span>
                 <span>
                   Thêm mới hộp số
@@ -64,7 +64,7 @@
           <thead>
             <tr>
               <th>STT</th>
-              <th>Mã danh mục</th>
+              <th>Mục lục số</th>
               <th>Mã hộp số</th>
               <th>Tiêu đề hộp số</th>
               <th>Số lượng hồ sơ</th>
@@ -77,7 +77,7 @@
           <tbody>
             <tr *ngFor="let hopso of hopsos; index as i">
               <td>{{i+1}}</td>
-              <td>{{ hopso.tabOfContCode }}</td>
+              <td>{{ hopso.tabOfContNumber }}</td>
               <td>{{ hopso.gearBoxCode }}</td>
               <td>{{ hopso.gearBoxTitle }}</td>
               <td>{{ hopso.profileCount }}</td>

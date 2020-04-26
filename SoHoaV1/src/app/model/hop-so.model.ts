@@ -5,6 +5,7 @@ export class HopSo  {
         public gearBoxCode?: string,
         public tabOfContID?: number,
         public tabOfContCode?: string,
+        public tabOfContNumber?: string,
         public gearBoxTitle?: string,
         public profileCount?: number,
         public numDoc?: number,

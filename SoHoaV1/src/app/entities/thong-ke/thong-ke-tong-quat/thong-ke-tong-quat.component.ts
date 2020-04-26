@@ -20,6 +20,8 @@ export class ThongKeTongQuatComponent implements OnInit {
   pageSize : number;
   totalRecords : number;
   condition: BaseCondition<FilterDTO>;
+  fromDate: any;
+  toDate: any;
   link: string = "";
 
   constructor( 
@@ -33,14 +35,20 @@ export class ThongKeTongQuatComponent implements OnInit {
      }
 
   ngOnInit() {
+    var date = new Date();
+    this.fromDate = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().slice(0, 10);
+    this.toDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
     // this.loadFilterOptions();
-    this.getLinkExportExcel();
+    this.getLinkExportExcel(this.fromDate,this.toDate);
     this.loadAll();
   }
   
   loadPages(page : number) {
     this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     var condi : BaseCondition<FilterDTO> = new BaseCondition<FilterDTO>();
+    if (this.condition.FilterRuleList != undefined) {
+      condi.FilterRuleList = this.condition.FilterRuleList;
+    }
     condi.PageIndex = page;
     this.service.GetDataStatisticsPagingWithSearchResults(condi).subscribe((data : any) => {
       this.thongKes = data.itemList;
@@ -56,7 +64,37 @@ export class ThongKeTongQuatComponent implements OnInit {
     });
   }
 
-  loadAll(){
+  search () {
+    this.condition.PageIndex = 1;
+    this.condition.FilterRuleList = [
+      {
+        field: "vb.NgayCapNhat",
+        op: "",
+        value: ""
+      }
+    ]
+    if (this.fromDate != undefined && this.toDate != undefined) {
+      var filter = this.fromDate.toString() + "/" + this.toDate.toString();
+      this.condition.FilterRuleList[0].value = filter.toString();
+    }
+    if (this.fromDate != undefined && this.toDate != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
+      this.service.GetDataStatisticsPagingWithSearchResults(this.condition).subscribe((data : any) => {
+        this.thongKes = data.itemList;
+        this.pageSize = 5;
+        this.page = 1;
+        this.totalRecords = data.totalRows;
+      }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("dataTable");
+        }, 5000);
+      }, () => {
+        this.hideSpinner("dataTable");
+      });
+    }
+  }
+  loadAll (){
     this.showSpinner("dataTable", "timer", "0.8");
     this.service.GetDataStatisticsPagingWithSearchResults().subscribe((data : any) => {
       this.thongKes = data.itemList;
@@ -73,8 +111,8 @@ export class ThongKeTongQuatComponent implements OnInit {
     });
   }
 
-  getLinkExportExcel() {
-    this.link = ApiUrl.apiUrl + 'Export/ExportExcel';
+  getLinkExportExcel(fromDate,toDate) {
+    this.link = ApiUrl.apiUrl + 'Export/ExportExcel?fromDate=' + fromDate +'&toDate=' + toDate;
   }
   showSpinner (name?: string, type?: string, opacity? : string) {
     this.spinner.show(

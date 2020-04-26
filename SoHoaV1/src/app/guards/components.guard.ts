@@ -10,7 +10,13 @@ export class ComponentsGuard implements CanActivate {
   constructor(private router : Router, private authentication : AuthenticationService) 
   {}
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    var urlRedirect = location.hash.replace("#", "");
     var role = localStorage.getItem('role');
+    if (role.toLowerCase() === 'user') {
+      if(urlRedirect !== '/QuanLyTaiLieu/taiLieu'){
+        this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
+      }
+    }
     if (role === 'user') {
       this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
       return false;

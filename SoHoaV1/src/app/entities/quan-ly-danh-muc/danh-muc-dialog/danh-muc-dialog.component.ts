@@ -54,7 +54,6 @@ export class DanhMucDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       tabOfContName: ['', Validators.required],
       tabOfContNumber: ['', Validators.required],
-      tabOfContCode: ['', Validators.required],
       fontID: ['', Validators.required],
       note: ['']
     });

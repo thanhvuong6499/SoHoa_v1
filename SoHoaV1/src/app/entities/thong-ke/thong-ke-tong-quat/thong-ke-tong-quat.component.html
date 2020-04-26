@@ -14,11 +14,21 @@
           <div class="form-group row">
             <label class="col-md-1 col-form-label" for="text-input">Ngày bắt đầu:</label>
             <div class="col-md-2">
-              <input type="date" id="text-input" name="ngaybatdau" class="form-control">
+              <input type="date" id="text-input" name="fromDate" [(ngModel)]="fromDate" class="form-control">
             </div>
             <label class="col-md-1 col-form-label" for="text-input">Ngày kết thúc:</label>
             <div class="col-md-2">
-              <input type="date" id="text-input" name="ngayketthuc" class="form-control">
+              <input type="date" id="text-input" name="toDate" [(ngModel)]="toDate" class="form-control">
+            </div>
+            <div style="margin-left:0px;margin-top: 9px;" class="col-md-6 col-lg-6">
+              <div style="float: right;">
+                <button class="btn btn-primary btn-sm" (click)="search()">
+                  <span class="fa fa-plus"></span>
+                  <span>
+                    Tìm kiếm
+                  </span>
+                </button>
+              </div>
             </div>
             <!-- <label class="col-md-1 col-form-label" for="text-input">Trạng thái</label>
             <div class="col-md-3">
@@ -27,7 +37,7 @@
           </div>
           <div class="row" style="margin-left:0px;padding-left: 0px;">
             <div style="margin-left:0px;padding-left: 0px;" class="row col-md-12 col-lg-12">
-              <div style="display:flex">
+              <div style="display:flex;font-size: 20px;">
                 <a href="{{link}}"> Xuất Excel</a>
                 <!-- <button type="button" class="btn btn-primary" (click)="ExportExcel()" >Xuất Excel</button> -->
               </div>

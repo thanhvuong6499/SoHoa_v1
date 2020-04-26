@@ -49,7 +49,7 @@ export const navItems: INavData[] = [
   //   icon: 'icon-home'
   // },
   {
-    name: 'Quản lý danh mục',
+    name: 'Quản lý mục lục số',
     url: '/QuanLyDanhMuc/danhMuc',
     icon: 'icon-list',
     // children: [
@@ -108,7 +108,19 @@ export const navItems: INavData[] = [
   {
     name: 'Thống kê báo cáo',
     url: '/ThongKe/thongKeTongQuat',
-    icon: 'icon-chart'
+    icon: 'icon-chart',
+    children: [
+      {
+        name: 'Thống kê văn bản',
+        url: '/ThongKe/thongKeVanBan',
+        icon: 'fa fa-file-text'
+      },
+      {
+        name: 'Thống kê hồ sơ',
+        url: '/ThongKe/thongKeHoSo',
+        icon: 'fa fa-folder'
+      },
+    ]
   },
   {
     name: 'Nhật ký',
