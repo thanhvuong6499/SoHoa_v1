@@ -138,7 +138,6 @@ export const navItems: INavData[] = [
   //   //     icon: 'icon-lock-open'
   //   //   }
   //   // ]
-  // },
 //   },
 //   {
 //     name: 'Typography',
