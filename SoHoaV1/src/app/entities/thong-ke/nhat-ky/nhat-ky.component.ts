@@ -27,6 +27,8 @@ export class NhatKyComponent implements OnInit {
   options: Options;
   userArr: Array<Select2OptionData>;
   arrayUserValue: string[];
+  fromDate: any;
+  toDate: any;
 
   constructor( 
     private route: ActivatedRoute,
@@ -46,6 +48,9 @@ export class NhatKyComponent implements OnInit {
      }
 
   ngOnInit() {
+    // var date = new Date();
+    // this.fromDate = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().slice(0, 10);
+    // this.toDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
     this.loadFilterOptions();
     this.loadAll();
   }
@@ -53,6 +58,9 @@ export class NhatKyComponent implements OnInit {
   loadPages(page : number) {
     this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     var condi : BaseCondition<LogActivity> = new BaseCondition<LogActivity>();
+    if (this.condition.FilterRuleList != undefined) {
+      condi.FilterRuleList = this.condition.FilterRuleList;
+    }
     condi.PageIndex = page;
     this.service.getAlllogActivityWithPaging(condi).subscribe((data : any) => {
       this.logActivitys = data.itemList;
@@ -114,7 +122,12 @@ export class NhatKyComponent implements OnInit {
         field: "us.UserName",
         op: "",
         value: ""
-      }
+      },
+      {
+        field: "vb.NgayTao",
+        op: "",
+        value: ""
+      },
     ]
     this.arrayUserValue = types;
     if (this.arrayUserValue != undefined) {
@@ -126,7 +139,11 @@ export class NhatKyComponent implements OnInit {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
-    if (types != undefined) {
+    if (this.fromDate != undefined && this.toDate !=undefined) {
+      this.condition.FilterRuleList[1].value = this.fromDate.toString() + "/" + this.toDate.toString();
+      this.condition.FilterRuleList[1].op = "and_date_between_custom";
+    }
+    if (types != undefined || (this.fromDate != undefined && this.toDate !=undefined)) {
       this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.service.getAlllogActivityWithPaging(this.condition)
       .subscribe((data: any) => {

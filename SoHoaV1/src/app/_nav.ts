@@ -11,132 +11,134 @@ export const navItems: INavData[] = [
   //   }
   // },
   {
-    name: 'Quản lý cơ quan',
-    url: '/QuanLyCoQuan/coQuan',
-    icon: 'fa fa-institution'
+    name: 'Quản lý chức năng',
+    url: "",
+    icon: 'icon-note',
+    children:[
+      {
+        name: 'Quản lý cơ quan',
+        url: '/QuanLyCoQuan/coQuan',
+        icon: 'fa fa-institution'
+      },
+      {
+        name: 'Quản lý Phông',
+        url: "/QuanLyPhong/phong",
+        icon: 'icon-note',
+      },
+      {
+        name: 'Quản lý mục lục số',
+        url: '/QuanLyDanhMuc/danhMuc',
+        icon: 'icon-list'
+      },
+      {
+        name: 'Quản lý hộp số',
+        url: '/HopSo/quanLyHopSo',
+        icon: 'fa fa-cube'
+      },
+      {
+        name: 'Quản lý hồ sơ',
+        url: '/QuanLyHoSo/hoSo',
+        icon: 'fa fa-folder'
+      },
+      {
+        name: 'Quản lý tài liệu',
+        url: '/QuanLyTaiLieu/taiLieu',
+        icon: 'fa fa-file-text'
+      },
+      {
+        name: 'Quản lý chữ ký số',
+        url: '/QuanLyChuKySo/chuKySo',
+        icon: 'fa fa-address-book-o'
+      }
+    ]
   },
   {
-    name: 'Quản lý Phông',
-    url: "/QuanLyPhong/phong",
-    icon: 'icon-note',
-    // children:[
-    //   {
-    //      name: "Phông",
-         
-    //      icon: "fa fa-navicon"
-    //   },
-    //   {
-    //     name:'Hành pháp',
-    //     url: "/",
-    //     icon: "fa fa-legal",
-    //   },
-    //   {
-    //     name:'Tư pháp',
-    //     url: "/",
-    //     icon: "fa fa-balance-scale",
-    //   },
-    //   {
-    //     name:'Đơn vị hành chính',
-    //     url: "",
-    //     icon: "fa fa-institution",
-    //   }
-    // ]
-  },
+    name: 'Quản lý hệ thống',
+    url: "",
+    icon: 'icon-home',
+    children: [
+      {
+        name: 'Thống kê báo cáo',
+        url: '',
+        icon: 'icon-chart',
+        children: [
+          {
+            name: 'Thống kê tổng quát',
+            url: '/ThongKe/thongKeTongQuat',
+            icon: 'icon-chart'
+          },
+          {
+            name: 'Thống kê văn bản',
+            url: '/ThongKe/thongKeVanBan',
+            icon: 'fa fa-file-text'
+          },
+          {
+            name: 'Thống kê hồ sơ',
+            url: '/ThongKe/thongKeHoSo',
+            icon: 'fa fa-folder'
+          },
+        ]
+      },
+      {
+        name: 'Nhật ký',
+        url: '/ThongKe/nhatKy',
+        icon: 'fa fa-address-book-o'
+      },
+      {
+        name: 'Quản lý người dùng',
+        url: '/QuanLyNguoiDung/nguoiDung',
+        icon: 'icon-user'
+      }
+    ]
+  }
 
   // {
   //   name: 'Quản lý kho',
   //   url: '/stock',
   //   icon: 'icon-home'
   // },
-  {
-    name: 'Quản lý mục lục số',
-    url: '/QuanLyDanhMuc/danhMuc',
-    icon: 'icon-list',
-    // children: [
-    //   {
-    //     name: 'Loại văn bản',
-    //     url: '/QuanLyLoaiVanBan/loaiVanBan/',
-    //     icon: 'icon-folder-alt'
-    //   },
-    //   {
-    //     name: 'Loại hồ sơ',
-    //     url: '/QuanLyLoaiHoSo/loaiHoSo/',
-    //     icon: 'icon-book-open'
-    //   },
-    //   {
-    //     name: 'Loại cơ quan',
-    //     url: '/QuanLyOrganType/organType/',
-    //     icon: 'icon-home'
-    //   },
-    //   {
-    //     name: 'Ngôn ngữ',
-    //     url: '/QuanLyNgonNgu/ngonNgu/',
-    //     icon: 'icon-map'
-    //   },
-    //   {
-    //     name: 'Công cụ tra cứu',
-    //     url: '',
-    //     icon: 'icon-briefcase'
-    //   },
-    //   {
-    //     name: 'Tình trạng vật lý',
-    //     url: '/QuanLyTinhTrangVatLy/tinhTrangVatLy/',
-    //     icon: 'icon-info'
-    //   },
-    //   {
-    //     name: 'Mức độ tin cậy',
-    //     url: '/QuanLyMucDoTinCay/mucDoTinCay/',
-    //     icon: 'icon-lock-open'
-    //   }
-    // ]
-  },
-  {
-    name: 'Quản lý hộp số',
-    url: '/HopSo/quanLyHopSo',
-    icon: 'fa fa-cube'
-  },
-  {
-    name: 'Quản lý hồ sơ',
-    url: '/QuanLyHoSo/hoSo',
-    icon: 'fa fa-folder'
-  },
-  {
-    name: 'Quản lý tài liệu',
-    url: '/QuanLyTaiLieu/taiLieu',
-    icon: 'fa fa-file-text'
-  },
-  {
-    name: 'Thống kê báo cáo',
-    url: '/ThongKe/thongKeTongQuat',
-    icon: 'icon-chart',
-    children: [
-      {
-        name: 'Thống kê văn bản',
-        url: '/ThongKe/thongKeVanBan',
-        icon: 'fa fa-file-text'
-      },
-      {
-        name: 'Thống kê hồ sơ',
-        url: '/ThongKe/thongKeHoSo',
-        icon: 'fa fa-folder'
-      },
-    ]
-  },
-  {
-    name: 'Nhật ký',
-    url: '/ThongKe/nhatKy',
-    icon: 'fa fa-address-book-o'
-  },
-  {
-    name: 'Quản lý người dùng',
-    url: '/QuanLyNguoiDung/nguoiDung',
-    icon: 'icon-user'
-  },
-  {
-    name: 'Quản lý chữ ký số',
-    url: '/QuanLyChuKySo/chuKySo',
-    icon: 'fa fa-address-book-o'
-  }
+  // {
+  //   name: 'Quản lý mục lục số',
+  //   url: '/QuanLyDanhMuc/danhMuc',
+  //   icon: 'icon-list',
+  //   // children: [
+  //   //   {
+  //   //     name: 'Loại văn bản',
+  //   //     url: '/QuanLyLoaiVanBan/loaiVanBan/',
+  //   //     icon: 'icon-folder-alt'
+  //   //   },
+  //   //   {
+  //   //     name: 'Loại hồ sơ',
+  //   //     url: '/QuanLyLoaiHoSo/loaiHoSo/',
+  //   //     icon: 'icon-book-open'
+  //   //   },
+  //   //   {
+  //   //     name: 'Loại cơ quan',
+  //   //     url: '/QuanLyOrganType/organType/',
+  //   //     icon: 'icon-home'
+  //   //   },
+  //   //   {
+  //   //     name: 'Ngôn ngữ',
+  //   //     url: '/QuanLyNgonNgu/ngonNgu/',
+  //   //     icon: 'icon-map'
+  //   //   },
+  //   //   {
+  //   //     name: 'Công cụ tra cứu',
+  //   //     url: '',
+  //   //     icon: 'icon-briefcase'
+  //   //   },
+  //   //   {
+  //   //     name: 'Tình trạng vật lý',
+  //   //     url: '/QuanLyTinhTrangVatLy/tinhTrangVatLy/',
+  //   //     icon: 'icon-info'
+  //   //   },
+  //   //   {
+  //   //     name: 'Mức độ tin cậy',
+  //   //     url: '/QuanLyMucDoTinCay/mucDoTinCay/',
+  //   //     icon: 'icon-lock-open'
+  //   //   }
+  //   // ]
+  // },
 //   },
 //   {
 //     name: 'Typography',

@@ -32,7 +32,7 @@ export class ThongKeTongQuatComponent implements OnInit {
     ) 
     {
       this.condition = new BaseCondition<FilterDTO>();
-     }
+    }
 
   ngOnInit() {
     var date = new Date();
