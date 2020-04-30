@@ -49,7 +49,6 @@ export class ThongKeHopSoComponent implements OnInit {
       }, (error) => {
         this.pageSize = 5;
       }, () => {
-        console.log("Lấy dữ liệu thành công");
       });
     }catch (e) {
       alert(JSON.stringify(e))
@@ -64,7 +63,6 @@ export class ThongKeHopSoComponent implements OnInit {
       this.totalRecords = data.totalRows;
     }, (error) => {
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
     });
   }
 

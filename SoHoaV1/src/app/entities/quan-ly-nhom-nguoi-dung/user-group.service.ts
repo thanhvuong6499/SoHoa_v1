@@ -53,6 +53,10 @@ export class UserGroupService implements OnInit, OnDestroy {
     return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetAllRole");
   }
 
+  getRoleName (id : string) {
+    return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetRoleByUserName/" + id);
+  }
+
   getUserGroupById (id: number) {
     return this.httpClient.get<ReturnResult<UserGroup>>(ApiUrl.apiUrl + "Role/GetRoleByID/" + id);
   }

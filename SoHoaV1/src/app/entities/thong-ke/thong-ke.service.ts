@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ApiUrl, BaseCondition, HttpHeadersOptions } from '../../common';
 import { ThongKe, FilterDTO } from '../../model/thong-ke';
 import { LogActivity } from '../../model/log-activity';
+import { HoSo } from '../../model/ho-so.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,25 @@ export class ThongKeService {
 
     }
   return this.httpClient.post<ThongKe[]>(ApiUrl.apiUrl + 'ThongKe/GetFontWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  public GetDataExportProfile(condi? : BaseCondition<HoSo>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  return this.httpClient.post<HoSo[]>(ApiUrl.apiUrl + 'ExportProfile/GetDataExportProfile', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
   public GetDataStatisticsPagingWithSearchResults(condi? : BaseCondition<FilterDTO>) {

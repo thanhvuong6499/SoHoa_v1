@@ -53,7 +53,7 @@
                 <th>Ngày tạo</th>
                 <th>Trạng thái</th>
                 <th>Nhóm quyền</th>
-                <!-- <th>Quyền</th> -->
+                <th>Quyền</th>
                 <th>Thao tác</th>
               </tr>
             </thead>
@@ -66,13 +66,13 @@
                   <span class="badge badge-success">Hoạt động</span>
                 </td>
                 <td>
-                  <span *ngIf="user.roleName == 'ADMIN'" style="color: orange"> {{ user.roleName }}</span>
-                  <span *ngIf="user.roleName != 'ADMIN'" style="color: green;"> {{ user.roleName }}</span>
+                  <span *ngIf="user.roleName == 'ADMIN'" style="color: red"> {{ user.roleName }}</span>
+                  <span *ngIf="user.roleName != 'ADMIN'" style="color: orange;"> {{ user.roleName }}</span>
                 </td>
-                <!-- <td *ngIf="user.roleName == 'USER' else admin">
-                  <span style="color: orange">User</span>
+                <td *ngIf="user.roleName == 'USER' else admin">
+                  <span style="color:orange;">Sửa tài liệu</span>
                   <span style="color: green;">Nhập tài liệu</span>
-                </td> -->
+                </td>
                 <td style="width:137px;text-align: center;">
                     <!-- <button class="btn btn-primary fa fa-eye"></button> -->
                     <button class="btn btn-primary fa fa-edit" (click)="openDialog(user.id)"></button>
@@ -94,13 +94,10 @@
       <span class="badge badge-danger" style="margin-top: 5px;">Không hoạt động</span>
     </td>
     </ng-template>
-    <!-- <ng-template #role>
-      <span style="color: red;">Sửa tài liệu</span>
-    </ng-template>
     <ng-template #admin>
       <td>
-      <span style="color: orange">ADMIN</span>
+      <span style="color:red">Quản trị hệ thống</span>
     </td>
-    </ng-template> -->
+    </ng-template>
     <!--/.col-->
   </div>

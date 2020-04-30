@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseCondition } from '../../../common';
+import { BaseCondition, ApiUrl } from '../../../common';
 import { ActivatedRoute } from '@angular/router';
 import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { ThongKeService } from '../thong-ke.service';
 import { HopSo } from '../../../model/hop-so.model';
 import { HoSo } from '../../../model/ho-so.model';
 import { QuanLyHoSoService } from '../../quan-ly-ho-so/quan-ly-ho-so.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-thong-ke-ho-so',
@@ -22,19 +23,25 @@ export class ThongKeHoSoComponent implements OnInit {
   totalRecords : number;
   condition: BaseCondition<HoSo>;
   link: string = "";
+  fromDate: any;
+  toDate: any;
 
   constructor( 
     private route: ActivatedRoute,
-    public service: QuanLyHoSoService,
-    private thongKeService: ThongKeService
-    ) { }
+    private service: ThongKeService,
+    private spinner: NgxSpinnerService
+    ) { this.condition = new BaseCondition<HoSo>(); }
 
   ngOnInit() {
-    this.getLinkExportHoSo();
+    var date = new Date();
+    this.fromDate = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().slice(0, 10);
+    this.toDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
+    this.getLinkExportExcel(this.fromDate,this.toDate);
     this.loadAll();
   }
 
   loadPages(page : string) {
+    this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try{
       var condi : BaseCondition<HoSo> = new BaseCondition<HoSo>();
       if(this.condition!=undefined){
@@ -43,34 +50,95 @@ export class ThongKeHoSoComponent implements OnInit {
         }
       }
       condi.PageIndex = parseInt(page);
-      this.service.getAllProfilesWithPaging(condi).subscribe((data : any) => {
+      this.service.GetDataExportProfile(condi).subscribe((data : any) => {
         this.hosos = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows;
-      }, (error) => {
-        this.pageSize = 5;
-      }, () => {
-        console.log("Lấy dữ liệu thành công");
-      });
+      },(error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("paging");
+        }, 5000);
+    }, () => {
+      this.hideSpinner("paging");
+    });
     }catch (e) {
       alert(JSON.stringify(e))
     }
   }
  
+  search () {
+    this.condition.PageIndex = 1;
+    this.condition.FilterRuleList = [
+      {
+        field: "hs.NgayTao",
+        op: "",
+        value: ""
+      }
+    ]
+    if (this.fromDate != undefined && this.toDate != undefined) {
+      var filter = this.fromDate.toString() + "/" + this.toDate.toString();
+      this.condition.FilterRuleList[0].value = filter.toString();
+    }
+    if (this.fromDate != undefined && this.toDate != undefined) {
+      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
+      this.service.GetDataExportProfile(this.condition).subscribe((data : any) => {
+        this.hosos = data.itemList;
+        this.pageSize = 5;
+        this.page = 1;
+        this.totalRecords = data.totalRows;
+      }, (error) => {
+        setTimeout(() => {
+          alert("Lỗi: " + JSON.stringify(error));
+          this.hideSpinner("dataTable");
+        }, 5000);
+      }, () => {
+        this.hideSpinner("dataTable");
+      });
+    }
+  }
+
   loadAll(){
-    this.service.getAllProfilesWithPaging().subscribe((data: any) => {
+    this.showSpinner("dataTable", "timer", "0.8");
+    this.service.GetDataExportProfile().subscribe((data: any) => {
       this.hosos = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
     }, (error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+        this.hideSpinner("dataTable");
+      }, 5000);
     }, () => {
-      console.log('Lấy dữ liệu thành công.');
+      this.hideSpinner("dataTable");
     });
   }
 
-  getLinkExportHoSo(){
-    this.link =  this.thongKeService.getLinkExportHoSo();
+  showSpinner (name?: string, type?: string, opacity? : string) {
+    this.spinner.show(
+      name,
+      {
+        type: `${type}`,
+        size: 'small',
+        bdColor: `rgba(255,255,255, ${opacity})`,
+        color: 'rgb(0,191,255)',
+        fullScreen: false
+      }
+    );
+  }
+
+  hideSpinner (name? : string) {
+    setTimeout(() => {
+      this.spinner.hide(name);
+    }, 100);
+  }
+
+  getLinkExportExcel(fromDate,toDate) {
+    this.link = ApiUrl.apiUrl + 'ExportProfile/ExportProfile?fromDate=' + fromDate +'&toDate=' + toDate;
+  }
+  ngOnDestroy(): void {
+  
   }
 }

@@ -26,11 +26,21 @@
             </div>
             <label class="col-md-1 col-form-label" for="text-input">Ngày bắt đầu:</label>
             <div class="col-md-2">
-              <input type="date" id="text-input" name="ngaybatdau" class="form-control">
+              <input type="date" id="text-input" name="fromDate" [(ngModel)]="fromDate" class="form-control">
             </div>
             <label class="col-md-1 col-form-label" for="text-input">Ngày kết thúc:</label>
             <div class="col-md-2">
-              <input type="date" id="text-input" name="ngayketthuc" class="form-control">
+              <input type="date" id="text-input" name="toDate" [(ngModel)]="toDate" class="form-control">
+            </div>
+            <div style="margin-left:0px;margin-top: 9px;" class="col-md-6 col-lg-6">
+              <div style="float: left;">
+                <button class="btn btn-primary btn-sm" (click)="getFilterOptions(arrayUserValue)">
+                  <span class="fa fa-plus"></span>
+                  <span>
+                    Tìm kiếm
+                  </span>
+                </button>
+              </div>
             </div>
            
           </div>

@@ -8,6 +8,7 @@ import { TaiLieuDialogComponent } from './tai-lieu-dialog/tai-lieu-dialog.compon
 import { TaiLieuDeleteComponent } from './tai-lieu-delete/tai-lieu-delete.component';
 import { Select2OptionData } from 'ng-select2';
 import { QuanLyHoSoService } from '../quan-ly-ho-so/quan-ly-ho-so.service';
+import { UserGroupService } from '../quan-ly-nhom-nguoi-dung/user-group.service';
 @Component({
   selector: 'app-quan-ly-tai-lieu',
   templateUrl: './quan-ly-tai-lieu.component.html',
@@ -32,11 +33,14 @@ export class QuanLyTaiLieuComponent implements OnInit {
   statusArr:string[];
   documentCodeList: Array<Select2OptionData>;
   documentNameList: Array<Select2OptionData>;
+  userName: string;
   constructor(
     private taiLieuPopupService: QuanLyTaiLieuPopupService,
     private taiLieuService: QuanLyTaiLieuService,
-    private quanLyHoSoservice: QuanLyHoSoService
+    private quanLyHoSoservice: QuanLyHoSoService,
+    private userGroupService: UserGroupService
   ) { 
+    this.userName = localStorage.getItem('user');
     this.statusSelect2List = new Array<Select2OptionData>();
     this.fileCodeList = new Array<Select2OptionData>();
     this.condition = new BaseCondition<Document>();
@@ -52,14 +56,7 @@ export class QuanLyTaiLieuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userRole = localStorage.getItem('role');
-    if (this.userRole === 'user') {
-      this.roles = localStorage.getItem('roles');
-      console.log(this.roles);
-    }
-    else {
-      this.roles = 'admin';
-    }
+    this.getRoleByUserName();
     this.loadAll();
     this.taiLieuService.getAllDocument()
       .subscribe((result) => {
@@ -280,6 +277,28 @@ export class QuanLyTaiLieuComponent implements OnInit {
     }
     
   }
+
+  getRoleByUserName() {
+    this.userGroupService.getRoleName(this.userName)
+    .subscribe((result) => {
+        this.userRole = result.item.roleName;
+        if (this.userRole === 'user') {
+          this.roles = localStorage.getItem('roles');
+          console.log(this.roles);
+        }
+        else {
+          this.roles = 'admin';
+        }
+    }, 
+    (error => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+      }, 5000);
+    }),
+    () => {
+    })
+  }
+
   ngOnDestroy(): void {
     
   }

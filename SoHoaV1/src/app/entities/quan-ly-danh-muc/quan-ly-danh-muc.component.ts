@@ -229,7 +229,7 @@ export class QuanLyDanhMucComponent implements OnInit {
         value: ""
       },
       {
-        field: "sm.MaDanhMuc",
+        field: "sm.MucLucSo",
         op: "",
         value: ""
       },
