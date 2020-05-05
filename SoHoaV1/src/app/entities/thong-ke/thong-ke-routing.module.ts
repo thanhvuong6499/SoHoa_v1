@@ -5,6 +5,7 @@ import { NhatKyComponent } from './nhat-ky/nhat-ky.component';
 import { ThongKeHopSoComponent} from './thong-ke-hop-so/thong-ke-hop-so.component';
 import { ThongKeHoSoComponent } from './thong-ke-ho-so/thong-ke-ho-so.component';
 import { ThongKeTongQuatComponent } from './thong-ke-tong-quat/thong-ke-tong-quat.component';
+import { ThongKeVanBanComponent } from './thong-ke-van-ban/thong-ke-van-ban.component';
 
 
 
@@ -42,6 +43,13 @@ const routes: Routes = [
                 title: "Thống kê hồ số"
             },
             component: ThongKeHoSoComponent
+          },
+          {
+            path: 'thongKeVanBan',
+            data: {
+                title: "Thống kê văn bản"
+            },
+            component: ThongKeVanBanComponent
           },
           {
             path: 'thongKeTongQuat',

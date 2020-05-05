@@ -5,6 +5,7 @@ import { ApiUrl, BaseCondition, HttpHeadersOptions } from '../../common';
 import { ThongKe, FilterDTO } from '../../model/thong-ke';
 import { LogActivity } from '../../model/log-activity';
 import { HoSoDTO } from '../../model/ho-so-dto';
+import { VanBanDTO } from '../../model/van-ban-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -103,6 +104,25 @@ export class ThongKeService {
 
     }
   return this.httpClient.post<LogActivity[]>(ApiUrl.apiUrl + 'LogActivity/LogActivityGetSearchWithPaging', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  public GetDataExportDocument(condi? : BaseCondition<VanBanDTO>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+  return this.httpClient.post<VanBanDTO[]>(ApiUrl.apiUrl + 'ExportDocument/GetDataExportDocument', JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
 
 

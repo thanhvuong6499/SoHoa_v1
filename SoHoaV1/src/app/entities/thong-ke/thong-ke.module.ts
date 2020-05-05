@@ -13,11 +13,12 @@ import { ThongKeTongQuatComponent } from './thong-ke-tong-quat/thong-ke-tong-qua
 import { Select2Module } from 'ng-select2-component';
 import { NgSelect2Module } from 'ng-select2';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ThongKeVanBanComponent } from './thong-ke-van-ban/thong-ke-van-ban.component';
 
 
 
 @NgModule({
-  declarations: [ThongKeComponent, NhatKyComponent,ThongKeHopSoComponent,ThongKeHoSoComponent,ThongKeTongQuatComponent],
+  declarations: [ThongKeComponent, NhatKyComponent,ThongKeHopSoComponent,ThongKeHoSoComponent,ThongKeTongQuatComponent,ThongKeVanBanComponent],
   imports: [
     CommonModule,
     ThongKeRoutingModule,
