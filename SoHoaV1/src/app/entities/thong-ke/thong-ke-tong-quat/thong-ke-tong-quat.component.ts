@@ -76,9 +76,10 @@ export class ThongKeTongQuatComponent implements OnInit {
     if (this.fromDate != undefined && this.toDate != undefined) {
       var filter = this.fromDate.toString() + "/" + this.toDate.toString();
       this.condition.FilterRuleList[0].value = filter.toString();
+      this.getLinkExportExcel(this.fromDate,this.toDate);
     }
     if (this.fromDate != undefined && this.toDate != undefined) {
-      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
+      this.showSpinner("dataTable", "ball-spin-clockwise", "0.2");
       this.service.GetDataStatisticsPagingWithSearchResults(this.condition).subscribe((data : any) => {
         this.thongKes = data.itemList;
         this.pageSize = 5;

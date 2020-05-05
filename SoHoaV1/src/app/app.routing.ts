@@ -92,15 +92,18 @@ export const routes: Routes = [
       },
       {
         path: 'QuanLyTaiLieu',
-        loadChildren: () => import('./entities/quan-ly-tai-lieu/quan-ly-tai-lieu.module').then(m => m.QuanLyTaiLieuModule)
+        loadChildren: () => import('./entities/quan-ly-tai-lieu/quan-ly-tai-lieu.module').then(m => m.QuanLyTaiLieuModule),
+        canActivate: [ComponentsGuard]
       },
       {
         path: 'ThongKe',
-        loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule)
+        loadChildren: () => import('./entities/thong-ke/thong-ke.module').then(m => m.ThongKeModule),
+        canActivate: [ComponentsGuard]
       },
       {
         path: 'QuanLyChuKySo',
-        loadChildren: () => import('./entities/quan-ly-chu-ky-so/quan-ly-chu-ky-so.module').then(m => m.QuanLyChuKySoModule)
+        loadChildren: () => import('./entities/quan-ly-chu-ky-so/quan-ly-chu-ky-so.module').then(m => m.QuanLyChuKySoModule),
+        canActivate: [ComponentsGuard]
       },
       {
         path: 'QuanLyNhomNguoiDung',

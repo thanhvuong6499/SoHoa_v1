@@ -14,18 +14,26 @@ export class ComponentsGuard implements CanActivate {
   {  }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    var urlRedirect = location.hash.replace("#", "");
+    var urlRedirect = state.url;
     var userNavItems = ['/QuanLyTaiLieu/taiLieu','/HopSo/quanLyHopSo','/QuanLyHoSo/hoSo'];
+    this.getRoleName();
+    if(this.roleName != undefined){
+      if (this.roleName.toLowerCase() === 'user') {
+        if(!userNavItems.includes(urlRedirect)){
+          // this.router.navigate([this.router.url]);
+          this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  getRoleName () {
     var userName =  localStorage.getItem('user');
     this.userGroupService.getRoleName(userName)
     .subscribe((result) => {
         this.roleName = result.item.roleName;
-        if (this.roleName.toLowerCase() === 'user') {
-          if(!userNavItems.includes(urlRedirect)){
-            this.router.navigate(['/404'], { queryParams: { role: 'access-denied' } });
-            return false;
-          }
-        }
     }, 
     (error => {
       setTimeout(() => {
@@ -33,6 +41,5 @@ export class ComponentsGuard implements CanActivate {
     }),
     () => {
     })
-    return true;
   }
 }

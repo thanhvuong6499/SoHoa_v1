@@ -144,7 +144,6 @@ export class QuanLyHopSoComponent implements OnInit {
       this.statusService.getAllStatus()
       .subscribe((result) => {
       //  this.organFilterData = result;
-        console.log(result);
         var arrTypes = [];
         for (const item of result.itemList) {
           let value = { id: item.statusID, text: item.note }
