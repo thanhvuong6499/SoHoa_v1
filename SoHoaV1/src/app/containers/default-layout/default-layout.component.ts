@@ -44,6 +44,7 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
   getRoleByUserName() {
     this.userGroupService.getRoleName(this.userName)
     .subscribe((result) => {
+      if(result != undefined && result.item != undefined && result.item.roleName != undefined){
         this.roleName = result.item.roleName;
         if(this.roleName != undefined){
           if (this.roleName.toLowerCase() === 'admin') {
@@ -53,6 +54,7 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
             this.navItems = this.userNavItems;
           }
         }
+      }
     }, 
     (error => {
       setTimeout(() => {

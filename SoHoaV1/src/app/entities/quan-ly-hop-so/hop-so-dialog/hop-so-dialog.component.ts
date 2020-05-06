@@ -175,7 +175,13 @@ export class HopSoDialogComponent implements OnInit {
               this.onSaveSuccess("Chỉnh sửa thành công");
             }
             else {
-              this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+              if(result.errorCode == '1'){
+                this.clear();
+                this.onSaveWarning("Hộp số đã tồn tại trên hệ thống, vui lòng thử lại.");
+              }
+              else{
+                this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
+              }
             }
           },
           (error)=> {
@@ -191,9 +197,16 @@ export class HopSoDialogComponent implements OnInit {
           .subscribe((result) => {
             this.loadData();
             if (result.isSuccess) {
-              this.toastr.success("Thêm mới thành công");
-              this.clear();
-              this.onClose();
+              if(result.errorCode == '1'){
+                this.toastr.warning("Hộp số đã tồn tại trên hệ thống, vui lòng thử lại.");
+                this.clear();
+                this.onClose();
+              }
+              else{
+                this.toastr.success("Thêm mới thành công");
+                this.clear();
+                this.onClose();
+              }
             }
             else {
               this.onSaveError("Thêm mới thất bại, vui lòng thử lại");
@@ -209,6 +222,10 @@ export class HopSoDialogComponent implements OnInit {
   }
   onSaveSuccess(message: string) {
     this.toastr.success(message);
+  }
+
+  onSaveWarning(message: string) {
+    this.toastr.warning(message);
   }
 
   onSaveError(message: string){
