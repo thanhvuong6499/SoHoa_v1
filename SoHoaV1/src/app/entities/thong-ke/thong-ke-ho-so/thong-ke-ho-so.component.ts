@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { ThongKeService } from '../thong-ke.service';
 import { HopSo } from '../../../model/hop-so.model';
-import { HoSo } from '../../../model/ho-so.model';
 import { QuanLyHoSoService } from '../../quan-ly-ho-so/quan-ly-ho-so.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { HoSoDTO } from '../../../model/ho-so-dto';
 
 @Component({
   selector: 'app-thong-ke-ho-so',
@@ -14,14 +14,14 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./thong-ke-ho-so.component.css']
 })
 export class ThongKeHoSoComponent implements OnInit {
-  hosos: HoSo[];
-  hoso: HoSo;
+  hosos: HoSoDTO[];
+  hoso: HoSoDTO;
   searchText: string = "";
   page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
-  condition: BaseCondition<HoSo>;
+  condition: BaseCondition<HoSoDTO>;
   link: string = "";
   fromDate: any;
   toDate: any;
@@ -30,7 +30,7 @@ export class ThongKeHoSoComponent implements OnInit {
     private route: ActivatedRoute,
     private service: ThongKeService,
     private spinner: NgxSpinnerService
-    ) { this.condition = new BaseCondition<HoSo>(); }
+    ) { this.condition = new BaseCondition<HoSoDTO>(); }
 
   ngOnInit() {
     var date = new Date();
@@ -43,7 +43,7 @@ export class ThongKeHoSoComponent implements OnInit {
   loadPages(page : string) {
     this.showSpinner("paging", "ball-spin-clockwise", "0.2");
     try{
-      var condi : BaseCondition<HoSo> = new BaseCondition<HoSo>();
+      var condi : BaseCondition<HoSoDTO> = new BaseCondition<HoSoDTO>();
       if(this.condition!=undefined){
         if (this.condition.FilterRuleList != undefined) {
           condi.FilterRuleList = this.condition.FilterRuleList;
@@ -80,9 +80,10 @@ export class ThongKeHoSoComponent implements OnInit {
     if (this.fromDate != undefined && this.toDate != undefined) {
       var filter = this.fromDate.toString() + "/" + this.toDate.toString();
       this.condition.FilterRuleList[0].value = filter.toString();
+      this.getLinkExportExcel(this.fromDate,this.toDate);
     }
     if (this.fromDate != undefined && this.toDate != undefined) {
-      this.showSpinner("paging", "ball-spin-clockwise", "0.2");
+      this.showSpinner("dataTable", "ball-spin-clockwise", "0.2");
       this.service.GetDataExportProfile(this.condition).subscribe((data : any) => {
         this.hosos = data.itemList;
         this.pageSize = 5;

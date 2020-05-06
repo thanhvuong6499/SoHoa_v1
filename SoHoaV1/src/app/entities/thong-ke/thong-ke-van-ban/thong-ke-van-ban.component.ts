@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { BaseCondition, ApiUrl } from '../../../common';
 import { ActivatedRoute } from '@angular/router';
 import { ThongKeService } from '../thong-ke.service';
-import { ThongKe, FilterDTO } from '../../../model/thong-ke';
 import { UserService } from '../../quan-ly-nguoi-dung/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { VanBanDTO } from '../../../model/van-ban-dto';
 
 @Component({
-  selector: 'app-thong-ke-tong-quat',
-  templateUrl: './thong-ke-tong-quat.component.html',
-  styleUrls: ['./thong-ke-tong-quat.component.css']
+  selector: 'app-thong-ke-van-ban',
+  templateUrl: './thong-ke-van-ban.component.html',
+  styleUrls: ['./thong-ke-van-ban.component.css']
 })
-export class ThongKeTongQuatComponent implements OnInit {
-  thongKes: ThongKe[];
-  thongKe: ThongKe;
+export class ThongKeVanBanComponent implements OnInit {
+  vanBans: VanBanDTO[];
+  vanBan: VanBanDTO;
   searchText: string = "";
   page = 1;
   previousPage : number;
   pageSize : number;
   totalRecords : number;
-  condition: BaseCondition<FilterDTO>;
+  condition: BaseCondition<VanBanDTO>;
   fromDate: any;
   toDate: any;
   link: string = "";
@@ -31,7 +31,7 @@ export class ThongKeTongQuatComponent implements OnInit {
     private spinner: NgxSpinnerService
     ) 
     {
-      this.condition = new BaseCondition<FilterDTO>();
+      this.condition = new BaseCondition<VanBanDTO>();
     }
 
   ngOnInit() {
@@ -45,13 +45,13 @@ export class ThongKeTongQuatComponent implements OnInit {
   
   loadPages(page : number) {
     this.showSpinner("paging", "ball-spin-clockwise", "0.2");
-    var condi : BaseCondition<FilterDTO> = new BaseCondition<FilterDTO>();
+    var condi : BaseCondition<VanBanDTO> = new BaseCondition<VanBanDTO>();
     if (this.condition.FilterRuleList != undefined) {
       condi.FilterRuleList = this.condition.FilterRuleList;
     }
     condi.PageIndex = page;
-    this.service.GetDataStatisticsPagingWithSearchResults(condi).subscribe((data : any) => {
-      this.thongKes = data.itemList;
+    this.service.GetDataExportDocument(condi).subscribe((data : any) => {
+      this.vanBans = data.itemList;
       this.page = page;
       this.totalRecords = data.totalRows;
       },(error) => {
@@ -68,7 +68,7 @@ export class ThongKeTongQuatComponent implements OnInit {
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "vb.NgayCapNhat",
+        field: "S_VanBan.NgayTao",
         op: "",
         value: ""
       }
@@ -80,8 +80,8 @@ export class ThongKeTongQuatComponent implements OnInit {
     }
     if (this.fromDate != undefined && this.toDate != undefined) {
       this.showSpinner("dataTable", "ball-spin-clockwise", "0.2");
-      this.service.GetDataStatisticsPagingWithSearchResults(this.condition).subscribe((data : any) => {
-        this.thongKes = data.itemList;
+      this.service.GetDataExportDocument(this.condition).subscribe((data : any) => {
+        this.vanBans = data.itemList;
         this.pageSize = 5;
         this.page = 1;
         this.totalRecords = data.totalRows;
@@ -98,7 +98,7 @@ export class ThongKeTongQuatComponent implements OnInit {
   loadAll (){
     this.showSpinner("dataTable", "timer", "0.8");
     this.service.GetDataStatisticsPagingWithSearchResults().subscribe((data : any) => {
-      this.thongKes = data.itemList;
+      this.vanBans = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
@@ -113,7 +113,7 @@ export class ThongKeTongQuatComponent implements OnInit {
   }
 
   getLinkExportExcel(fromDate,toDate) {
-    this.link = ApiUrl.apiUrl + 'Export/ExportExcel?fromDate=' + fromDate +'&toDate=' + toDate;
+    this.link = ApiUrl.apiUrl + 'ExportDocument/ExportDocument?fromDate=' + fromDate +'&toDate=' + toDate;
   }
   showSpinner (name?: string, type?: string, opacity? : string) {
     this.spinner.show(
