@@ -14,17 +14,18 @@
             [(ngModel)]="phong.maphong" required/>
     </div> -->
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
+            <div class="col-md-9">
+                <span>{{phong.organName}}</span>
+            </div>
+        </div>
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã phông</label>
             <div class="col-md-9">
                 <span>{{phong.fontNumber}}</span>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Cơ quan</label>
-            <div class="col-md-9">
-               <span>{{phong.organName}}</span>
-            </div>
-        </div>
+
 
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tên phông</label>
@@ -83,14 +84,16 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="textarea-input">Ghi chú</label>
             <div class="col-md-9">
-               <span>{{phong.note}}</span>
+                <span>{{phong.note}}</span>
             </div>
         </div>
 
     </div>
     <div *ngIf="phong" class="card-footer">
-        <div *ngIf="phong.fontNumber"><h5>Danh sách mục lục trong phông có mã phông : {{ phong.fontNumber }} </h5></div>
-        <hr/>
+        <div *ngIf="phong.fontNumber">
+            <h5>Danh sách mục lục trong phông có mã phông : {{ phong.fontNumber }} </h5>
+        </div>
+        <hr />
         <div *ngIf="totalRecords > 0 else nondata">
             <table *ngIf="danhmucs" class="table table-bordered table-striped table-sm">
                 <thead>
@@ -113,17 +116,20 @@
                         <td>{{ danhmuc.note }}</td>
 
                         <td style="width:137px;text-align: center;">
-                            <button class="btn btn-primary fa fa-eye" [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
+                            <button class="btn btn-primary fa fa-eye"
+                                [routerLink]="['/QuanLyDanhMuc/danhMuc', danhmuc.tabOfContID]"
                                 routerLinkActive="router-link-active"></button>
                             <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
-                                <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true" queryParamsHandling="merge">
-                                </button>
+                            <button class="btn btn-primary fa fa-edit" type="submit"
+                                (click)="openDialog(danhmuc.tabOfContID)" replaceUrl="true" queryParamsHandling="merge">
+                            </button>
                             <!-- <button class="btn btn-primary fa fa-trash"></button> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <ngb-pagination *ngIf="phong" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,phong.fontID)"></ngb-pagination>
+            <ngb-pagination *ngIf="phong" [collectionSize]="totalRecords" [(page)]="page" [pageSize]="pageSize"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages($event,phong.fontID)"></ngb-pagination>
         </div>
     </div>
     <ng-template #nondata>

@@ -13,15 +13,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="text-input">Mã phông <span style="color: red;">(*)</span></label>
-      <div class="col-md-9">
-        <input type="text" formControlName="fontNumber" placeholder="Nhập mã phông" name="fontNumber" [(ngModel)]="phong.fontNumber" class="form-control" [ngClass]="{'is-invalid': submitted && f.fontNumber.errors}" />
-        <div *ngIf="submitted && f.fontNumber.errors" class="invalid-feedback">
-          <div *ngIf="f.fontNumber.errors.required">Mã phông không được để trống.</div>
-        </div>
-      </div>
-    </div>
+  
     <div class="form-group row">
       <label class="col-md-3 col-form-label" for="select1">Cơ quan <span style="color: red;">(*)</span></label>
       <div class="col-md-9">
@@ -35,6 +27,15 @@
         ></ng-select2>
         <div *ngIf="submitted && f.organID.status == 'INVALID'">
           <div class="error"><span style="color:red;">Vui lòng chọn cơ quan.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="text-input">Mã phông <span style="color: red;">(*)</span></label>
+      <div class="col-md-9">
+        <input type="text" formControlName="fontNumber" placeholder="Nhập mã phông" name="fontNumber" [(ngModel)]="phong.fontNumber" class="form-control" [ngClass]="{'is-invalid': submitted && f.fontNumber.errors}" />
+        <div *ngIf="submitted && f.fontNumber.errors" class="invalid-feedback">
+          <div *ngIf="f.fontNumber.errors.required">Mã phông không được để trống.</div>
         </div>
       </div>
     </div>

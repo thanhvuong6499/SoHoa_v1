@@ -41,7 +41,7 @@ export const navItems: INavData[] = [
         icon: 'fa fa-folder'
       },
       {
-        name: 'Quản lý tài liệu',
+        name: 'Quản lý văn bản',
         url: '/QuanLyTaiLieu/taiLieu',
         icon: 'fa fa-file-text'
       },
