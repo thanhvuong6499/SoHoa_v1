@@ -93,7 +93,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="select1">Danh mục: <span style="color: red;">(*)</span></label>
+            <label class="col-md-3 col-form-label" for="select1">Mục lục: <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
                 <ng-select2
                     formControlName="tableOfContentId"
@@ -106,7 +106,7 @@
                     [(ngModel)]="hoso.tableOfContentId"
                 ></ng-select2>
                 <div *ngIf="submitted && f.tableOfContentId.status == 'INVALID'">
-                    <div class="error"><span style="color:red;">Vui lòng chọn danh mục.</span></div>
+                    <div class="error"><span style="color:red;">Vui lòng chọn mục lục.</span></div>
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ: <span style="color: red;"> (*)</span></label>
+            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
                 <input id="fileNotation" formControlName="fileNotation" placeholder="Nhập số hồ sơ" name="fileNotation" class="form-control" [(ngModel)]="hoso.fileNotation" [ngClass]="{'is-invalid': submitted && f.fileNotation.errors}" />
                 <div *ngIf="submitted && f.fileNotation.errors" class="invalid-feedback">
@@ -190,19 +190,7 @@
               ></ng-select2>
             </div>
         </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
-            <div class="col-md-9">
-                    <ng-select2
-                        formControlName="language"
-                        [data]="languages"
-                        [placeholder]="'Chọn ngôn ngữ...'"
-                        [options]="options"
-                        name="language"
-                        [(ngModel)]="hoso.language"
-                  ></ng-select2>
-            </div>
-        </div>
+  
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
@@ -227,24 +215,7 @@
                   </div>
             </div>
         </div> -->
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
-            <div class="col-md-9">
-                <textarea id="description" name="description" formControlName="description" [(ngModel)]="hoso.description" rows="9" class="form-control"></textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
-            <div class="col-md-9">
-                <input type="text" name="inforSign" formControlName="inforSign" [(ngModel)]="hoso.inforSign" placeholder="Nhập ký hiệu thông tin" class="form-control">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
-            <div class="col-md-9">
-                <input type="text" id="keyword" name="keyWord" formControlName="keyWord" [(ngModel)]="hoso.keyWord" placeholder="Nhập từ khoá" class="form-control">
-            </div>
-        </div>
+      
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Số lượng tờ: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
@@ -264,6 +235,39 @@
             <label class="col-md-3 col-form-label" >Tình trạng vật lý:</label>
             <div class="col-md-9">
                 <input type="text" id="format" name="format" formControlName="format" [(ngModel)]="hoso.format" placeholder="Tình trạng vật lý" class="form-control">
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
+            <div class="col-md-9">
+                    <ng-select2
+                        formControlName="language"
+                        [data]="languages"
+                        [placeholder]="'Chọn ngôn ngữ...'"
+                        [options]="options"
+                        name="language"
+                        [(ngModel)]="hoso.language"
+                  ></ng-select2>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
+            <div class="col-md-9">
+                <textarea id="description" name="description" formControlName="description" [(ngModel)]="hoso.description" rows="9" class="form-control"></textarea>
+            </div>
+        </div>
+      
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
+            <div class="col-md-9">
+                <input type="text" name="inforSign" formControlName="inforSign" [(ngModel)]="hoso.inforSign" placeholder="Nhập ký hiệu thông tin" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
+            <div class="col-md-9">
+                <input type="text" id="keyword" name="keyWord" formControlName="keyWord" [(ngModel)]="hoso.keyWord" placeholder="Nhập từ khoá" class="form-control">
             </div>
         </div>
         <div class="form-group row">
@@ -317,6 +321,7 @@
                   </mat-card-content>
             </div>
         </div>
+        
         
     </div>
     <div class="modal-footer">

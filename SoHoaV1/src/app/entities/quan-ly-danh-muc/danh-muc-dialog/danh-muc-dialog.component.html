@@ -2,12 +2,12 @@
 
     <div class="modal-header bg-primary " aria-hidden="true" >
         <div *ngIf="danhmuc.tabOfContID != null; else themMoi" style="text-align: center;">
-            <h4 class="modal-title">Chỉnh sửa danh mục</h4>
+            <h4 class="modal-title">Chỉnh sửa mục lục</h4>
  
         </div>
 
         <ng-template #themMoi>
-            <h4 class="modal-title" >Thêm mới danh mục</h4>
+            <h4 class="modal-title" >Thêm mới mục lục</h4>
 
         </ng-template>
         <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -25,15 +25,6 @@
             </div>
         </div> -->
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tên danh mục <span style="color: red;">(*)</span></label>
-            <div class="col-md-9">
-                <input type="text" formControlName="tabOfContName" placeholder="Nhập mã danh mục" name="tabOfContName" [(ngModel)]="danhmuc.tabOfContName" class="form-control" [ngClass]="{'is-invalid': submitted && f.tabOfContName.errors}" />
-                <div *ngIf="submitted && f.tabOfContName.errors" class="invalid-feedback">
-                    <div *ngIf="f.tabOfContName.errors.required">Tên danh mục không được để trống.</div>
-                </div>
-            </div>
-        </div>
-          <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Phông <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
               <ng-select2
@@ -49,12 +40,23 @@
               </div>
             </div>
           </div>
+      
+         
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mục lục số <span style="color: red;">(*)</span></label>
             <div class="col-md-9">
                 <input type="text" formControlName="tabOfContNumber" placeholder="Nhập mục lục số" name="tabOfContNumber" [(ngModel)]="danhmuc.tabOfContNumber" class="form-control" [ngClass]="{'is-invalid': submitted && f.tabOfContNumber.errors}" />
                 <div *ngIf="submitted && f.tabOfContNumber.errors" class="invalid-feedback">
                     <div *ngIf="f.tabOfContNumber.errors.required">Mục lục số không được để trống.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tên mục lục <span style="color: red;">(*)</span></label>
+            <div class="col-md-9">
+                <input type="text" formControlName="tabOfContName" placeholder="Nhập mã mục lục" name="tabOfContName" [(ngModel)]="danhmuc.tabOfContName" class="form-control" [ngClass]="{'is-invalid': submitted && f.tabOfContName.errors}" />
+                <div *ngIf="submitted && f.tabOfContName.errors" class="invalid-feedback">
+                    <div *ngIf="f.tabOfContName.errors.required">Tên mục lục không được để trống.</div>
                 </div>
             </div>
         </div>

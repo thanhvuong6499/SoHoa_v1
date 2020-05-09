@@ -18,6 +18,31 @@
                 ></ng-select2>
             </div>
         </div> -->
+        
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Cơ quan:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.organName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Phông:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.fontName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Mục lục:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.tableOfContentName }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.gearBoxTitle }} </label>
+            </div>
+        </div>
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mã hồ sơ:</label>
             <div class="col-md-9">
@@ -32,31 +57,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Cơ quan:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.organName }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Phông:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.fontName }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Danh mục:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.tableOfContentName }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tiêu đề hộp số:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.gearBoxTitle }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số hồ sơ:</label>
+            <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số:</label>
             <div class="col-md-9">
                 <label> {{ hoso.fileNotation }} </label>
             </div>
@@ -80,9 +81,11 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
+            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
             <div class="col-md-9">
-                <label> {{ hoso.language }} </label>
+                <!-- <label> {{ hoso.totalDoc }} </label> -->
+                <!-- <label> {{ hoso.totalFiles }} </label> -->
+                <label> {{ totalRecords }} </label>
             </div>
         </div>
         <div class="form-group row">
@@ -95,32 +98,6 @@
             <label class="col-md-3 col-form-label" for="end-input">Thời gian kết thúc:</label>
             <div class="col-md-9">
                 <label> {{ hoso.endDate | date: 'dd/MM/yyyy' }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tổng số văn bản trong hồ sơ:</label>
-            <div class="col-md-9">
-                <!-- <label> {{ hoso.totalDoc }} </label> -->
-                <!-- <label> {{ hoso.totalFiles }} </label> -->
-                <label> {{ totalRecords }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.description }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.inforSign }} </label>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
-            <div class="col-md-9">
-                <label> {{ hoso.keyWord }} </label>
             </div>
         </div>
         <div class="form-group row">
@@ -141,6 +118,32 @@
                 <label> {{ hoso.format }} </label>
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.language }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="textarea-input">Mô tả / Chú giải:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.description }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Ký hiệu thông tin:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.inforSign }} </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Từ khóa:</label>
+            <div class="col-md-9">
+                <label> {{ hoso.keyWord }} </label>
+            </div>
+        </div>
+       
+       
         <div class="form-group row">
             <label class="col-md-3 col-form-label" >Số lượng tệp đã tải lên:</label>
             <div class="col-md-9">
