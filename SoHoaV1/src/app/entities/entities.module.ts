@@ -22,6 +22,7 @@ import { QuanLyNgonNguModule } from './quan-ly-ngon-ngu/quan-ly-ngon-ngu.module'
 import { QuanLyTinhTrangVatLyModule } from './quan-ly-tinh-trang-vat-ly/quan-ly-tt-vat-ly.module';
 import { QuanLyMucDoTinCayModule } from './quan-ly-muc-do-tin-cay/muc-do-tin-cay.module';
 import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
+import { TraCuuModule } from './tra-cuu/tra-cuu.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
     QuanLyLoaiVanBanModule,
     QuanLyNgonNguModule,
     QuanLyTinhTrangVatLyModule,
-    QuanLyMucDoTinCayModule
+    QuanLyMucDoTinCayModule,
+    TraCuuModule
   ]
 })
 export class EntitiesModule { }

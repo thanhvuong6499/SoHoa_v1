@@ -139,6 +139,11 @@ export const routes: Routes = [
         path: 'QuanLyMucDoTinCay',
         loadChildren: () => import('./entities/quan-ly-muc-do-tin-cay/muc-do-tin-cay.module').then(m => m.QuanLyMucDoTinCayModule),
         canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'TraCuu',
+        loadChildren: () => import('./entities/tra-cuu/tra-cuu.module').then(m => m.TraCuuModule),
+        canActivate: [ComponentsGuard]
       }
       // {
       //   path: 'quanLyHopSo',
