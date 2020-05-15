@@ -49,6 +49,11 @@ export const navItems: INavData[] = [
         name: 'Quản lý chữ ký số',
         url: '/QuanLyChuKySo/chuKySo',
         icon: 'fa fa-address-book-o'
+      },
+      {
+        name: 'Tra Cứu',
+        url: '/TraCuu/traCuu',
+        icon: 'fa fa-search'
       }
     ]
   },
@@ -88,10 +93,46 @@ export const navItems: INavData[] = [
         name: 'Quản lý người dùng',
         url: '/QuanLyNguoiDung/nguoiDung',
         icon: 'icon-user'
-      }
+      },
+      {
+        name: 'Quản lý danh mục ',
+        url: '/QuanLyDanhMuc/danhMuc',
+        icon: 'icon-list',
+        children: [
+          {
+            name: 'Loại văn bản',
+            url: '/QuanLyLoaiVanBan/loaiVanBan/',
+            icon: 'icon-folder-alt'
+          },
+          {
+            name: 'Loại hồ sơ',
+            url: '/QuanLyLoaiHoSo/loaiHoSo/',
+            icon: 'icon-book-open'
+          },
+          {
+            name: 'Loại cơ quan',
+            url: '/QuanLyOrganType/organType/',
+            icon: 'icon-home'
+          },
+          {
+            name: 'Ngôn ngữ',
+            url: '/QuanLyNgonNgu/ngonNgu/',
+            icon: 'icon-map'
+          },
+          {
+            name: 'Tình trạng vật lý',
+            url: '/QuanLyTinhTrangVatLy/tinhTrangVatLy/',
+            icon: 'icon-info'
+          },
+          {
+            name: 'Mức độ tin cậy',
+            url: '/QuanLyMucDoTinCay/mucDoTinCay/',
+            icon: 'icon-lock-open'
+          }
+        ]
+      },
     ]
   }
-  // {
   //   name: 'Quản lý kho',
   //   url: '/stock',
   //   icon: 'icon-home'
