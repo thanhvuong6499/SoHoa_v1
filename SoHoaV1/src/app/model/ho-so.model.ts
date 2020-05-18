@@ -52,6 +52,7 @@ export class HoSo  {
     public organName?: string;
     public fontName?: string;
     public tableOfContentName ?: string;
+    public tableOfContentNumber ?: string;
 }
 
 export const hosos : HoSo[] = [

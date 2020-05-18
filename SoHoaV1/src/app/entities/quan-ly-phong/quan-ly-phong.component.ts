@@ -1,18 +1,13 @@
-import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 import { QuanLyPhongPopupService } from './quan-ly-phong-popup.service';
-import { phongs } from '../../model/phong.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Phong } from '../../model/phong.model';
 import { ActivatedRoute } from '@angular/router';
 import { PhongDialogComponent } from './phong-dialog/phong-dialog.component';
 import { PhongDeleteComponent } from './phong-delete/phong-delete.component';
 import { QuanLyPhongService } from './quan-ly-phong.service';
-import { HttpResponse } from '@angular/common/http';
 import { BaseCondition } from '../../common/BaseCondition';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
-import { CoQuan } from '../../model/co-quan.model';
 import { OrganFilter } from '../../model/organ-filter.model';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { QuanLyDanhMucService } from '../quan-ly-danh-muc/quan-ly-danh-muc.service';

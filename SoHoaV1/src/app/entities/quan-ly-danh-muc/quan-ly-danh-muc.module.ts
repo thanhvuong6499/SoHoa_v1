@@ -12,7 +12,7 @@ import { Select2Module } from 'ng-select2-component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgSelect2Module } from 'ng-select2';
 import { RouterModule } from '@angular/router';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { QuanLyDanhMucRoutingModule } from './quan-ly-danh-muc-routing.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 

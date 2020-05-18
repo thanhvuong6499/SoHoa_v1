@@ -2,7 +2,7 @@
 export class ThongKe  {
     constructor(
         public fontName?: string,
-        public tableOfName?: string,
+        public tableOfNumber?: string,
         public gearBoxCode?: string,
         public profileCode?: string,
         public docNumber?: string,

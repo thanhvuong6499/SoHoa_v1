@@ -575,7 +575,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
         if (data != undefined && data.length != 0) {
           var danhmucs = [];
           for (const item of data) {
-            var temp = { id: item.tabOfContID, text: item.tabOfContName }
+            var temp = { id: item.tabOfContID, text: item.tabOfContNumber }
             danhmucs.push(temp);
           }
           this.lstDanhMuc = danhmucs;

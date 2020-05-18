@@ -59,7 +59,7 @@
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
                         <ng-select2 formControlName="tabOfContID" required [data]="lstDanhMuc"
-                            [placeholder]="'Chọn mục lục...'" [options]="options" name="tabOfContID"
+                            [placeholder]="'Chọn mục lục số...'" [options]="options" name="tabOfContID"
                             (valueChanged)="onTableOfContentChange($event)" [(ngModel)]="document.tableOfContentId">
                         </ng-select2>
                         <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">

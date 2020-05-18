@@ -30,12 +30,12 @@
                 <span>{{danhmuc.tabOfContCode}}</span>
             </div>
         </div> -->
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Tên mục lục</label>
             <div class="col-md-9">
                 <span>{{danhmuc.tabOfContName}}</span>
             </div>
-        </div>
+        </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mục lục số</label>
             <div class="col-md-9">
@@ -80,7 +80,7 @@
                     <button class="btn btn-primary fa fa-eye" [routerLink]="['/HopSo/quanLyHopSo',hopso.gearBoxID]" routerLinkActive="router-link-active" ></button>
                     <!-- <app-them-moi-phong [data]="['nguyễn duy tú', 'nguyễn văn a']" btnClass="btn btn-primary fa fa-edit"></app-them-moi-phong> -->
                     <button class="btn btn-primary fa fa-edit" type="submit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true" queryParamsHandling="merge"></button>
-                    <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
+                    <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button> -->
                 </td>
                 </tr>
                 </tbody>

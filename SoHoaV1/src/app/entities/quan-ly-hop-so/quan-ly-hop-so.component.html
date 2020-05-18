@@ -14,11 +14,11 @@
 
         <div class="form-group row">
           <div class="col-md-4 row col-lg-4">
-            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Mục lục:</label>
+            <label class="col-md-4 col-sm-6 col-form-label" for="select1">Mục lục số:</label>
             <div style="margin-top:5px;" class="col-md-8 col-sm-6">
               <ng-select2
                 [data]="tableOfContArr"
-                [placeholder]="'Chọn tên Mục lục...'"
+                [placeholder]="'Chọn Mục lục số...'"
                 [options]="options"
                 [(ngModel)]="arrayTableOfContValue"
                 (valueChanged)="getFilterOptions($event,arrayStatusValue)"
@@ -106,7 +106,7 @@
                   routerLinkActive="router-link-active"></button>
                 <button class="btn btn-primary fa fa-edit" (click)="openDialog(hopso.gearBoxID)" replaceUrl="true"
                   queryParamsHandling="merge"></button>
-                <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button>
+                <!-- <button class="btn btn-primary fa fa-trash" (click)="openDeleteDialog(hopso.gearBoxID)"></button> -->
               </td>
             </tr>
             </tbody>

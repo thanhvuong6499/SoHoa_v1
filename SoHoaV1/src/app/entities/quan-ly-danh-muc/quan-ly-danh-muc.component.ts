@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DanhMuc } from '../../model/danh-muc.model';
-import { danhmucs } from '../../model/danh-muc.model';
 import { QuanLyDanhMucPopupService } from './quan-ly-danh-muc-popup.service';
 import { DanhMucDialogComponent } from './danh-muc-dialog/danh-muc-dialog.component';
 import { DanhMucDeleteComponent } from './danh-muc-delete/danh-muc-delete.component';
 import { ActivatedRoute } from '@angular/router';
 import {QuanLyDanhMucService} from './quan-ly-danh-muc.service';
-import { ModalDirective, BsModalRef } from 'ngx-bootstrap';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
-import { HttpResponse } from '@angular/common/http';
 import { BaseCondition } from '../../common/BaseCondition';
 import { Phong } from '../../model/phong.model';
-import { CoQuan } from '../../model/co-quan.model';
 import { QuanLyPhongService } from './../quan-ly-phong/quan-ly-phong.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { QuanLyCoQuanService } from '../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { OrganFilter } from '../../model/organ-filter.model';
-import { StringMapWithRename } from '@angular/compiler/src/compiler_facade_interface';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({

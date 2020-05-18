@@ -52,7 +52,7 @@ export class DanhMucDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      tabOfContName: ['', Validators.required],
+      tabOfContName: [''],
       tabOfContNumber: ['', Validators.required],
       fontID: ['', Validators.required],
       note: ['']
@@ -99,8 +99,13 @@ export class DanhMucDialogComponent implements OnInit {
         this.service.updateDanhMuc(this.danhmuc)
           .subscribe((result) => {
             if (result.isSuccess) {
-              this.clear();
-              this.onSaveSuccess("Chỉnh sửa thành công");
+              if(result.errorCode === '0'){
+                this.clear();
+                this.onSaveSuccess("Chỉnh sửa thành công");
+              }
+              else{
+                this.toastr.warning("Đã tồn tại Mục lục số , xin mời nhập lại");
+              }
             }
             else {
               this.onSaveError("Chỉnh sửa thất bại, vui lòng thử lại.");
@@ -118,9 +123,15 @@ export class DanhMucDialogComponent implements OnInit {
           this.service.insertNewDanhMuc(this.danhmuc)
           .subscribe((result) => {
             if (result.isSuccess) {
-              this.toastr.success("Thêm mới thành công");
-              this.clear();
-              this.onClose();
+              console.log(result);
+              if(result.errorCode === '0'){
+                this.toastr.success("Thêm mới thành công");
+                this.clear();
+                this.onClose();
+              }
+              else{
+                this.toastr.warning("Đã tồn tại Mục lục số , xin mời nhập lại");
+              }
             }
             else {
               this.onSaveError("Thêm mới thất bại, vui lòng thử lại");

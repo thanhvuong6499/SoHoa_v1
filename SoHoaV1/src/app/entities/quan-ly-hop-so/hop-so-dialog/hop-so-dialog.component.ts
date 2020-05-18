@@ -175,7 +175,7 @@ export class HopSoDialogComponent implements OnInit {
               this.onSaveSuccess("Chỉnh sửa thành công");
             }
             else {
-              if(result.errorCode == '1'){
+              if(result.errorCode === '1'){
                 this.clear();
                 this.onSaveWarning("Hộp số đã tồn tại trên hệ thống, vui lòng thử lại.");
               }

@@ -126,7 +126,7 @@ export class QuanLyHopSoComponent implements OnInit {
       //  this.organFilterData = result;
         var arrTypes = [];
         for (const item of result.itemList) {
-          let value = { id: item.tabOfContID, text: item.tabOfContName }
+          let value = { id: item.tabOfContID, text: item.tabOfContNumber }
           arrTypes.push(value);
         }
         this.tableOfContArr = arrTypes;
