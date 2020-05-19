@@ -34,7 +34,7 @@
                 [options]="options"
                 name="fontID"
                 [(ngModel)]="danhmuc.fontID"
-                (valueChanged)="getFontNumberByFontID(danhmuc.fontID)"
+                (valueChanged)="getFontNumberByFontID($event)"
               ></ng-select2>
               <div *ngIf="submitted && f.fontID.status == 'INVALID'">
                 <div class="error"><span style="color:red;">Vui lòng chọn phông.</span></div>
@@ -45,7 +45,7 @@
         <div class="form-group row">
         <label class="col-md-3 col-form-label" for="select1">Phông số:</label>
         <div class="col-md-9">
-            <input readonly placeholder="Phông số" type="text" name="fontNumber" class="form-control" [(ngModel)]="fontNumber">
+            <span>{{fontNumber}}</span>
         </div>
         </div>
         <div class="form-group row">

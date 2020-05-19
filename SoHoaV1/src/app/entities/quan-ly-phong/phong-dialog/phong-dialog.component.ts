@@ -34,8 +34,6 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     public phongPopupService: QuanLyPhongPopupService,
     public service: QuanLyPhongService,
     private toastr: ToastrService,
-    private router: Router,
-    private route: ActivatedRoute,
     private organService: QuanLyCoQuanService,
     private formBuilder: FormBuilder)
     {
@@ -98,13 +96,15 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
   }
 
   getOrganCodeByOrganId(organID: number) {
-    this.organCode = "";
-    this.organService.getCoQuanById(organID)
-    .subscribe((res=>{
-        if(res != undefined && res != null && res.item != undefined){
-          this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
-        }
-    }));
+    if(organID != undefined && organID != null && organID.toString() != ""){
+      this.organCode = "";
+      this.organService.getCoQuanById(organID)
+      .subscribe((res=>{
+          if(res != undefined && res != null && res.item != undefined){
+            this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
+          }
+      }));
+    }
   }
 
   get f() {

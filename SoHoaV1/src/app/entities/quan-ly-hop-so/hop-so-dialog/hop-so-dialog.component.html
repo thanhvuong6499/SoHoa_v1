@@ -31,7 +31,6 @@
                     name="organID"
                     (valueChanged)="onOrganChange($event)"
                     [(ngModel)]="hopso.organID"
-                    (valueChanged)="getOrganCodeByOrganID(hopso.organID)"
                 ></ng-select2>
                 <div *ngIf="submitted && f.organID.status == 'INVALID'">
                     <div class="error"><span style="color:red;">Vui lòng chọn cơ quan.</span></div>
@@ -41,7 +40,7 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Mã cơ quan:</label>
             <div class="col-md-9">
-              <input readonly placeholder="Mã cơ quan" type="text" name="organCode" class="form-control" [(ngModel)]="organCode">
+              <span>{{organCode}}</span>
             </div>
         </div>
         <div class="form-group row">
@@ -55,7 +54,6 @@
                     name="fontID"
                     (valueChanged)="onFontChange($event)"
                     [(ngModel)]="hopso.fontID"
-                    (valueChanged)="getFontNumberByFontID(hopso.fontID)"
                 ></ng-select2>
                 <div *ngIf="submitted && f.fontID.status == 'INVALID'">
                     <div class="error"><span style="color:red;">Vui lòng chọn phông.</span></div>
@@ -65,7 +63,7 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Phông số:</label>
             <div class="col-md-9">
-              <input readonly placeholder="Phông số" type="text" name="fontNumber" class="form-control" [(ngModel)]="fontNumber">
+              <span>{{fontNumber}}</span>
             </div>
         </div>
         <div class="form-group row">

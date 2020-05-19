@@ -33,7 +33,9 @@ export class ComponentsGuard implements CanActivate {
     var userName =  localStorage.getItem('user');
     this.userGroupService.getRoleName(userName)
     .subscribe((result) => {
-        this.roleName = result.item.roleName;
+        if(result != undefined && result.item != undefined){
+          this.roleName = result.item.roleName;
+        }
     }, 
     (error => {
       setTimeout(() => {

@@ -85,13 +85,15 @@ export class DanhMucDialogComponent implements OnInit {
   
   
   getFontNumberByFontID(fontID: number) {
-    this.fontNumber = "";
-    this.fontService.getPhongById(fontID)
-    .subscribe((res=>{
-        if(res != undefined && res != null && res.item != undefined){
-          this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
-        }
-    }));
+    if(fontID != undefined && fontID != null && fontID.toString() != ""){
+      this.fontNumber = "";
+      this.fontService.getPhongById(fontID)
+      .subscribe((res=>{
+          if(res != undefined && res != null && res.item != undefined){
+            this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
+          }
+      }));
+    }
   }
 
   get f() {

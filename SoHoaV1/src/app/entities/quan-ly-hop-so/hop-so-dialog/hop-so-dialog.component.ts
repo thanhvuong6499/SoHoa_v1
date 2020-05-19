@@ -82,24 +82,28 @@ export class HopSoDialogComponent implements OnInit {
   }
 
   getOrganCodeByOrganId(organID: number) {
-    this.organCode = "";
-    this.fontNumber = "";
-    this.organService.getCoQuanById(organID)
-    .subscribe((res=>{
-        if(res != undefined && res != null && res.item != undefined){
-          this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
-        }
-    }));
+    if(organID != undefined && organID != null && organID.toString() != ""){
+      this.organCode = "";
+      this.fontNumber = "";
+      this.organService.getCoQuanById(organID)
+      .subscribe((res=>{
+          if(res != undefined && res != null && res.item != undefined){
+            this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
+          }
+      }));
+    }
   }
    
   getFontNumberByFontID(fontID: number) {
-    this.fontNumber = "";
-    this.fontService.getPhongById(fontID)
-    .subscribe((res=>{
-        if(res != undefined && res != null && res.item != undefined){
-          this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
-        }
-    }));
+    if(fontID != undefined && fontID != null && fontID.toString() != ""){
+      this.fontNumber = "";
+      this.fontService.getPhongById(fontID)
+      .subscribe((res=>{
+          if(res != undefined && res != null && res.item != undefined){
+            this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
+          }
+      }));
+    }
   }
 
   get f() {
@@ -111,6 +115,7 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.organID;
     else{
+      this.getOrganCodeByOrganId(params);
       this.hopsoService.getFontsByOrganIDSelect2(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -140,6 +145,7 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
     else{
+      this.getFontNumberByFontID(params);
       this.hopsoService.getTabByFontIDSelect2(params)
       .subscribe((data) => {
         if (data != undefined && data.length !=0) {
