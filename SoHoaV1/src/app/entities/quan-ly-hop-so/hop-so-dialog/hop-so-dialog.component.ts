@@ -12,6 +12,8 @@ import { CoQuan, organSelect2 } from '../../../model/co-quan.model';
 import { Phong, fontSelect2 } from '../../../model/phong.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { danhMucSelect2 } from '../../../model/danh-muc.model';
+import { QuanLyCoQuanService } from '../../quan-ly-co-quan/quan-ly-co-quan-service.service';
+import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
 
 @Component({
   selector: 'app-hop-so-dialog',
@@ -21,6 +23,8 @@ import { danhMucSelect2 } from '../../../model/danh-muc.model';
 export class HopSoDialogComponent implements OnInit {
   isEdit: boolean = false;
   defaultValue : string;
+  fontNumber: string;
+  organCode: string;
   data: any;
   lstOrgan: organSelect2[];
   lstFont: fontSelect2[];
@@ -44,6 +48,8 @@ export class HopSoDialogComponent implements OnInit {
     private route: ActivatedRoute,
     private hopsoService: QuanLyHopSoService,
     private danhmucService: QuanLyDanhMucService,
+    private organService: QuanLyCoQuanService,
+    private fontService: QuanLyPhongService,
     private formBuilder: FormBuilder)
     {
       this.hopso = new HopSo();
@@ -58,6 +64,8 @@ export class HopSoDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.organCode = "";
+    this.fontNumber = "";
     this.form = this.formBuilder.group({
       organID: ['', Validators.required],
       fontID: ['', Validators.required],
@@ -71,6 +79,27 @@ export class HopSoDialogComponent implements OnInit {
     this.isEdit = false;
     
     this.loadData();
+  }
+
+  getOrganCodeByOrganId(organID: number) {
+    this.organCode = "";
+    this.fontNumber = "";
+    this.organService.getCoQuanById(organID)
+    .subscribe((res=>{
+        if(res != undefined && res != null && res.item != undefined){
+          this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
+        }
+    }));
+  }
+   
+  getFontNumberByFontID(fontID: number) {
+    this.fontNumber = "";
+    this.fontService.getPhongById(fontID)
+    .subscribe((res=>{
+        if(res != undefined && res != null && res.item != undefined){
+          this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
+        }
+    }));
   }
 
   get f() {

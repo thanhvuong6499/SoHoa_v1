@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { DanhMuc, danhmucs } from '../../../model/danh-muc.model';
+import { DanhMuc } from '../../../model/danh-muc.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { QuanLyDanhMucPopupService } from '../quan-ly-danh-muc-popup.service';
 import { QuanLyDanhMucService } from '../quan-ly-danh-muc.service';
-import { Phong, phongs } from '../../../model/phong.model';
+import { Phong } from '../../../model/phong.model';
 import { Select2OptionData } from 'ng-select2';
 import { Subscription } from 'rxjs';
 import { Options } from 'select2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
 
 @Component({
   selector: 'app-danh-muc-dialog',
@@ -19,6 +20,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class DanhMucDialogComponent implements OnInit {
   danhmuc: DanhMuc;
   phongs: Phong[];
+  fontNumber: string;
   isEdit: boolean = false;
   defaultValue : string;
   data: any;
@@ -39,6 +41,7 @@ export class DanhMucDialogComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
+    private fontService: QuanLyPhongService,
     private formBuilder: FormBuilder)
     {
       this.danhmuc = new DanhMuc();
@@ -51,6 +54,7 @@ export class DanhMucDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.fontNumber = "";
     this.form = this.formBuilder.group({
       tabOfContName: [''],
       tabOfContNumber: ['', Validators.required],
@@ -79,6 +83,17 @@ export class DanhMucDialogComponent implements OnInit {
       }
   }
   
+  
+  getFontNumberByFontID(fontID: number) {
+    this.fontNumber = "";
+    this.fontService.getPhongById(fontID)
+    .subscribe((res=>{
+        if(res != undefined && res != null && res.item != undefined){
+          this.fontNumber = res.item.fontNumber != undefined ? res.item.fontNumber : "";
+        }
+    }));
+  }
+
   get f() {
     return this.form.controls;
   }

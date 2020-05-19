@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuanLyPhongPopupService } from '../quan-ly-phong-popup.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Phong, phongs } from '../../../model/phong.model';
+import { Phong } from '../../../model/phong.model';
 import { QuanLyPhongService } from '../quan-ly-phong.service';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { organSelect2 } from '../../../model/co-quan.model';
+import { QuanLyCoQuanService } from '../../quan-ly-co-quan/quan-ly-co-quan-service.service';
 
 @Component({
   selector: 'app-phong-dialog',
@@ -17,6 +18,7 @@ import { organSelect2 } from '../../../model/co-quan.model';
 })
 export class PhongDialogComponent implements OnInit, OnDestroy {
   phong = new Phong();
+  organCode: string;
   isEdit: boolean = false;
   defaultValue : string;
   data: any;
@@ -34,6 +36,7 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
+    private organService: QuanLyCoQuanService,
     private formBuilder: FormBuilder)
     {
       this.phong = new Phong();
@@ -46,7 +49,7 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-
+    this.organCode = "";
     this.form = this.formBuilder.group({
       fontNumber: ['', Validators.required],
       fontName: ['', Validators.required],
@@ -92,6 +95,16 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
         this.isEdit = true;
       }
       
+  }
+
+  getOrganCodeByOrganId(organID: number) {
+    this.organCode = "";
+    this.organService.getCoQuanById(organID)
+    .subscribe((res=>{
+        if(res != undefined && res != null && res.item != undefined){
+          this.organCode = res.item.organCode != undefined ? res.item.organCode : "";
+        }
+    }));
   }
 
   get f() {
