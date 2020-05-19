@@ -133,7 +133,6 @@ export const navItems: INavData[] = [
       },
     ]
   }
-  
   //   name: 'Quản lý kho',
   //   url: '/stock',
   //   icon: 'icon-home'
