@@ -1,11 +1,11 @@
 <div class="modal-header bg-danger">
-    <h4 class="modal-title">Xóa nhóm người dùng</h4>
+    <h4 class="modal-title">Xóa loại văn bản</h4>
     <button type="button" class="close" (click)="activeModal.dismiss()" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <p *ngIf="loaiVanBan">Bạn có muốn xóa cơ quan {{loaiVanBan.tenLoaiVanBan}}</p>
+    <p *ngIf="loaiVanBan">Bạn có muốn xóa loại văn bản {{loaiVanBan.tenLoaiVanBan}}</p>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="deleteLoaiVanBan(loaiVanBan.loaiVanBanID)" >Xóa</button>
