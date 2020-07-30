@@ -107,7 +107,6 @@ export class NguoiDungDialogComponent implements OnInit {
           validator: this.MustMatch('passwordNew', 'confirmPassword')
         });
       }
-      console.log(this.form);
     this.user.createBy = JSON.parse(localStorage.getItem('currentUser')).userName;
   }
 

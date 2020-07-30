@@ -34,8 +34,6 @@ export class FilePopupService {
           condition.Item = hoso;
           condition.PageIndex = 1;
           condition.PageSize = 5;
-          console.log(condition);
-          console.log(id);
           this.service.GetListFilesByProfileId(condition)
             .subscribe((result) => {
             //  this.lstFile = result.itemList;

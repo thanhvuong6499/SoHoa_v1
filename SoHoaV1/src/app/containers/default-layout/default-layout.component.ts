@@ -19,11 +19,6 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
   public sidebarMinimized = false;
   public userNavItems = [
     {
-      name: 'Quản lý tài liệu',
-      url: '/QuanLyTaiLieu/taiLieu',
-      icon: 'fa fa-file-text'
-    },
-    {
       name: 'Quản lý hộp số',
       url: '/HopSo/quanLyHopSo',
       icon: 'fa fa-cube'
@@ -32,6 +27,11 @@ export class DefaultLayoutComponent implements OnInit, OnDestroy {
       name: 'Quản lý hồ sơ',
       url: '/QuanLyHoSo/hoSo',
       icon: 'fa fa-folder'
+    },
+    {
+      name: 'Quản lý tài liệu',
+      url: '/QuanLyTaiLieu/taiLieu',
+      icon: 'fa fa-file-text'
     }
   ];
   public adminNavItems = navItems;

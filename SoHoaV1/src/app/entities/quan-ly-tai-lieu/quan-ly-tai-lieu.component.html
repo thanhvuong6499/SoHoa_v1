@@ -47,7 +47,7 @@
         ></ng-select2>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']" routerLinkActive="router-link-active">
+            <button class="btn btn-primary btn-sm" style="margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf']" routerLinkActive="router-link-active">
               <span class="fa fa-plus"></span>
               <span >
                   Thêm mới tài liệu
@@ -78,8 +78,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let document of documents">
-              <td>{{ document.documentCode }}</td>
+            <tr *ngFor="let document of documents;index as i">
+              <td>{{i+1}}</td>
               <td>{{ document.fileCode }}</td>
               <td>{{ document.documentCode }}</td>
               <td>{{ document.docOrdinal }}</td>

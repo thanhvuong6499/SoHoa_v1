@@ -29,7 +29,6 @@ export class QuanLyHoSoPopupService {
           if (id) {
                 this.service.getProfilesById(id)
                 .subscribe((result) => {
-                    console.log(result);
                     if (result.isSuccess)
                     {
                         this.profile = result;

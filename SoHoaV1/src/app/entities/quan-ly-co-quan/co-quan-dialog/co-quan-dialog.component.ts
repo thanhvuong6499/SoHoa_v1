@@ -80,7 +80,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
       addressDetail: ['']
     });
 
-    console.log(this.f)
     this.isEdit = false;
     this.service.getListOrganType()
       .subscribe((result) => {
@@ -136,7 +135,6 @@ export class CoQuanDialogComponent implements OnInit, OnDestroy {
 
   }
   save() {
-    console.log(this.coQuan);
     this.submitted = true;
     if (this.form.invalid) { return; }
 

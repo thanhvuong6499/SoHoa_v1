@@ -51,7 +51,6 @@ export class TaiLieuDialogComponent implements OnInit {
     this.isEdit = false;
     this.taiLieuService.getDocumentTypeList()
       .subscribe((result) => {
-        console.log(result);
         if (result != undefined) {
           var documentTypeList = [];
           for (var item of result.itemList) {
@@ -60,7 +59,6 @@ export class TaiLieuDialogComponent implements OnInit {
           }
           
           this.documentTypeList = documentTypeList;
-          console.log(this.documentTypeList);
         }
       },
       (error) => {
@@ -133,7 +131,6 @@ export class TaiLieuDialogComponent implements OnInit {
       this.document = this.taiLieuPopupService.result.item;
       // binding .Net Datetime to typeScript Date
       this.issuedDate.getDate = (new Date(this.document.issuedDate.toString())).getDate;
-      console.log(this.document.issuedDate.toString());
       this.languageId = this.document.languageId;
       this.confidenceLevelId = this.document.confidenceLevelId;
       this.formatId = this.document.formatId;
@@ -148,7 +145,6 @@ export class TaiLieuDialogComponent implements OnInit {
   
   save() {
     if (this.isEdit) {
-      console.log(this.document);
       this.taiLieuService.updateDocument(this.document)
         .subscribe((result) => {
         },
@@ -164,7 +160,6 @@ export class TaiLieuDialogComponent implements OnInit {
         });
     }
     else {
-      console.log(this.document)
         this.taiLieuService.createDocument(this.document)
         .subscribe((result) => {
           console.log(result);

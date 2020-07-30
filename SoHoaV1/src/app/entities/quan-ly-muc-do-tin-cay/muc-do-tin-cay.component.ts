@@ -28,7 +28,7 @@ export class QuanLyMucDoTinCayComponent implements OnInit {
               private toastService: ToastrService
   ) { 
     this.MucDoTinCayService.listen().subscribe((m: any) =>{
-      this.loadAll();
+      this.loadPages(this.page.toString());
     })
     this.searchText = "";
     this.condition = new BaseCondition<MucDoTinCay>();

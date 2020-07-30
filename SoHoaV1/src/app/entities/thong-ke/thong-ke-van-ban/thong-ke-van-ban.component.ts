@@ -5,6 +5,7 @@ import { ThongKeService } from '../thong-ke.service';
 import { UserService } from '../../quan-ly-nguoi-dung/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { VanBanDTO } from '../../../model/van-ban-dto';
+import { QuanLyTaiLieuService } from '../../quan-ly-tai-lieu/quan-ly-tai-lieu.service';
 
 @Component({
   selector: 'app-thong-ke-van-ban',
@@ -28,7 +29,8 @@ export class ThongKeVanBanComponent implements OnInit {
     private route: ActivatedRoute,
     private service: ThongKeService,
     private userService: UserService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private taiLieuService: QuanLyTaiLieuService,
     ) 
     {
       this.condition = new BaseCondition<VanBanDTO>();
@@ -97,11 +99,12 @@ export class ThongKeVanBanComponent implements OnInit {
   }
   loadAll (){
     this.showSpinner("dataTable", "timer", "0.8");
-    this.service.GetDataStatisticsPagingWithSearchResults().subscribe((data : any) => {
+    this.taiLieuService.getAllTaiLieuWithPaging().subscribe((data : any) => {
       this.vanBans = data.itemList;
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
+      console.log(this.vanBans);
     }, (error) => {
       setTimeout(() => {
         alert("Lỗi: " + JSON.stringify(error));

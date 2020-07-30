@@ -33,7 +33,6 @@ export class QuanLyTaiLieuPopupService {
               this.id = id;
               this.taiLieuService.getDocumentById(id)
                 .subscribe((result) => {
-                    console.log(result);
                     this.result = result;
                     const document : Document = result.item;
                 }, (error) => {

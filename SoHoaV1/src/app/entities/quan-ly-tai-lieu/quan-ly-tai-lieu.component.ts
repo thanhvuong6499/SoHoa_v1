@@ -61,7 +61,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
     this.taiLieuService.getAllDocument()
       .subscribe((result) => {
         var documentCodeList = [];
-        console.log(result);
         for (const item of result.itemList) {
           
           var temp = { id: item.documentCode, text: item.documentCode };
@@ -86,7 +85,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
             fileCodeList.push(value);
           }
           this.fileCodeList = fileCodeList;
-          console.log(this.fileCodeList)
         }, 
       (error => {
         setTimeout(() => {
@@ -122,14 +120,13 @@ export class QuanLyTaiLieuComponent implements OnInit {
       }
       condi.PageIndex = parseInt(page);
       this.taiLieuService.getAllTaiLieuWithPaging(condi).subscribe((data : any) => {
-        console.log(data);
         this.documents = data.itemList;
         this.pageSize = 5;
         this.page = parseInt(page);
         this.totalRecords = data.totalRows
       }, (error) => {
         console.log(error);
-      }, () => {
+      }, () => {  
 
       });
     }
@@ -184,7 +181,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
   //   // }
   getFilterTypes(value : string[]) {
     if (value != undefined) {
-      console.log(value.toString());
     }
     
   }
@@ -284,7 +280,6 @@ export class QuanLyTaiLieuComponent implements OnInit {
         this.userRole = result.item.roleName;
         if (this.userRole === 'user') {
           this.roles = localStorage.getItem('roles');
-          console.log(this.roles);
         }
         else {
           this.roles = 'admin';

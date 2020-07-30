@@ -25,8 +25,6 @@ export class TaiLieuDeleteComponent implements OnInit {
   deleteTaiLieu(id : number) {
     this.documentService.deleteDocument(id)
       .subscribe((result) => {
-        console.log(result)
-        
       },
       (error) => {
         alert("Xóa thất bại. Lỗi: " + JSON.stringify(error));

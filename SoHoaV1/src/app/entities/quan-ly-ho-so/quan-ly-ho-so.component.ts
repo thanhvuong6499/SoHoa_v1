@@ -141,7 +141,7 @@ export class QuanLyHoSoComponent implements OnInit {
           }
           this.profileNameFilter = arrTypes;
           arrTypes = [];
-          for (const item of result.lstGearBoxTitle) {
+          for (const item of result.lstGearBoxCode) {
             let value = { id: item, text: item }
             arrTypes.push(value);
           }
@@ -171,7 +171,7 @@ export class QuanLyHoSoComponent implements OnInit {
         value: ""
       },
       {
-        field: "hps.TieuDeHopSo",
+        field: "hps.MaHopSo",
         op: "",
         value: ""
       }

@@ -140,7 +140,6 @@ export class DanhMucDialogComponent implements OnInit {
           this.service.insertNewDanhMuc(this.danhmuc)
           .subscribe((result) => {
             if (result.isSuccess) {
-              console.log(result);
               if(result.errorCode === '0'){
                 this.toastr.success("Thêm mới thành công");
                 this.clear();

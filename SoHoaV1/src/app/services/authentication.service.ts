@@ -46,7 +46,7 @@ export class AuthenticationService implements OnInit, OnDestroy {
         "Access-Control-Expose-Headers": "xsrf-token"
     }
     );
-    return this.httpClient.post<any>(ApiUrl.apiUrl + "Account/Login", JSON.stringify(account), { headers: headers })
+    return this.httpClient.post<any>(ApiUrl.apiUrl + "Login/Login", JSON.stringify(account), { headers: headers })
       .pipe(map(user => {
         if (user.isSuccess == true) {
           localStorage.setItem('currentUser', JSON.stringify(user.item));

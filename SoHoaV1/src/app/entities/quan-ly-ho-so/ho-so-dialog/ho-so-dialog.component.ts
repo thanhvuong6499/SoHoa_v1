@@ -119,7 +119,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       this.organId = this.hoso.organId;
       this.fontId = this.hoso.fontId;
       this.tableOfContentId = this.hoso.tableOfContentId;
-      console.log(this.hoso);
     }
 
     this.getAllOrgan();
@@ -154,7 +153,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   }
   
   save() {
-    console.log(this.hoso);
     this.submitted = true;
     if (this.form.invalid) return;
     console.log('Form submited');
@@ -202,7 +200,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
                         this.isOverwrite = true;
                       }
                       else {
-                        console.log(result);
                         this.toastr.error("Ghi đè file thất bại, vui lòng kiểm tra và thử lại.", "Thông báo");
                       }
                     },
@@ -604,7 +601,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
         if (data != undefined && data.itemList.length !=0) {
           var hopsos = [];
           for (const item of data.itemList) {
-            var temp = { id: item.gearBoxID, text: item.gearBoxName }
+            var temp = { id: item.gearBoxID, text: item.gearBoxCode }
             hopsos.push(temp);
           }
           this.allGearBox = hopsos;

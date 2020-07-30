@@ -106,7 +106,6 @@ export class HoSoDetailComponent implements OnInit {
   }
 
   openFileDetailDialog(id? : any) {
-      console.log(id);
       this.dialog.open(FileDetailsComponent as Component,  id);
   }
 }
