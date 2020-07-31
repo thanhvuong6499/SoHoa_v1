@@ -226,28 +226,39 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang: </label>
+            <label class="col-md-3 col-form-label" for="text-input">Số lượng trang: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
-                <input type="number" id="page-number" name="pageNumber" formControlName="pageNumber" [(ngModel)]="hoso.pageNumber" [value]="hoso.sheetNumber * 2" placeholder="Số lượng trang" class="form-control" readonly="readonly">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" >Tình trạng vật lý:</label>
-            <div class="col-md-9">
-                <input type="text" id="format" name="format" formControlName="format" [(ngModel)]="hoso.format" placeholder="Tình trạng vật lý" class="form-control">
+                <input type="number" min="0" id="page-number" name="pageNumber" formControlName="pageNumber" [(ngModel)]="hoso.pageNumber" placeholder="Số lượng trang" class="form-control" [ngClass]="{'is-invalid': submitted && f.pageNumber.errors}" />
+                <div *ngIf="submitted && f.pageNumber.errors" class="invalid-feedback">
+                    <div *ngIf="f.pageNumber.errors.required">Nhập tổng số trang có trong hồ sơ (số nguyên không âm).</div>
+                  </div>
             </div>
         </div>
         
         <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Tình trạng vật lý:</label>
+            <div class="col-md-9">
+                    <ng-select2
+                        formControlName="physicalStateId"
+                        [data]="physicalStates"
+                        [placeholder]="'Chọn tình trạng vật lý...'"
+                        [options]="options"
+                        name="physicalStateId"
+                        [(ngModel)]="hoso.physicalStateId"
+                  ></ng-select2>
+            </div>
+        </div>
+
+        <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Ngôn ngữ:</label>
             <div class="col-md-9">
                     <ng-select2
-                        formControlName="language"
+                        formControlName="languageId"
                         [data]="languages"
                         [placeholder]="'Chọn ngôn ngữ...'"
                         [options]="options"
-                        name="language"
-                        [(ngModel)]="hoso.language"
+                        name="languageId"
+                        [(ngModel)]="hoso.languageId"
                   ></ng-select2>
             </div>
         </div>

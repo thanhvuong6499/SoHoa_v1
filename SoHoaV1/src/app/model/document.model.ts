@@ -65,6 +65,7 @@ export class Document  {
       public serverPath?: string;
       public fileName?: string;
       public clientUrl?: string;
+      public profileNumber?: string;
     }
 
 // export const documents : Document[] = [

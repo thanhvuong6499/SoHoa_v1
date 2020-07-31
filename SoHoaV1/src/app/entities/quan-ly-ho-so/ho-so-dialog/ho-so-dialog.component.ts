@@ -16,6 +16,7 @@ import { Alert } from '../../../containers/_alert';
 import { Rights, Languages } from '../../../common/Variables';
 import { QuanLyHopSoService } from '../../quan-ly-hop-so/quan-ly-hop-so.service';
 import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
+import { QuanLyTaiLieuService } from '../../quan-ly-tai-lieu/quan-ly-tai-lieu.service';
 
 @Component({
   selector: 'app-ho-so-dialog',
@@ -46,6 +47,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   allProfileType: Array<Select2OptionData>;
   allRights: Array<Select2OptionData>;
   languages: Array<Select2OptionData>;
+  physicalStates: Array<Select2OptionData>;
 
   isOverwrite: boolean = false;
   profile: HoSo = new HoSo();
@@ -65,7 +67,8 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
    private service: QuanLyHoSoService,
    private formBuilder: FormBuilder,
    private hopsoService: QuanLyHopSoService,
-   private danhmucService: QuanLyDanhMucService
+   private danhmucService: QuanLyDanhMucService,
+   private taiLieuService : QuanLyTaiLieuService,
   )
   {
     this.profileTypeList = new Array<Select2OptionData>();
@@ -98,19 +101,18 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       profileTypeId: [''],
       maintenance: ['', Validators.required],
       rights: [''],
-      language: [''],
+      languageId: [''],
       startDate: [undefined, Validators.required],
       endDate: [undefined],
       totalDoc: [''],
       description: [''],
       inforSign: [''],
       keyWord: [''],
-      pageNumber: [''],
+      pageNumber: ['', Validators.required],
       sheetNumber: ['', Validators.required],
-      format: ['']
+      physicalStateId: ['']
     })
     this.getAddNew();
-    
     if (this.hoSoPopupService.profile != undefined) {
       this.isUpdate = true;
       this.hoso = this.hoSoPopupService.profile.item;
@@ -122,12 +124,57 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     }
 
     this.getAllOrgan();
+    this.getLanguages();
+    this.getPhysicalStates();
   }
 
   get f() {
     return this.form.controls;
   }
 
+  getPhysicalStates() {
+    this.taiLieuService.getFormatList()
+    .subscribe((result) => {
+      var formatList = [];
+      for (var item of result.itemList) {
+        var temp = { id: item.formatId, text: item.formatName }
+        formatList.push(temp);  
+      }
+      
+      this.physicalStates = formatList;
+    },
+    (error) => {
+      console.log(error);
+      setTimeout(() => {
+        alert("Lấy dữ liệu về tình trạng vật lý thất bại. Lỗi: " + JSON.stringify(error));
+      }, 1000);
+    },
+    () => {
+      
+    });
+  }
+  getLanguages() {
+    this.taiLieuService.getLanguageList()
+    .subscribe((result) => {
+      var languageList = [];
+      for (var item of result.itemList) {
+        var temp = { id: item.languageId, text: item.languageName }
+        languageList.push(temp);
+      }
+      
+      this.languages = languageList;
+    },
+    (error) => {
+      console.log(error);
+      setTimeout(() => {
+        alert("Lấy dữ liệu về ngôn ngữ thất bại. Lỗi: " + JSON.stringify(error));
+      }, 1000);
+    },
+    () => {
+      
+    });
+    
+  }
   uploadSubmit () {
     for (var i = 0; i < this.uploader.queue.length; i++) {
       let fileItem = this.uploader.queue[i]._file;

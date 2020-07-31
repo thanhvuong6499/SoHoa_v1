@@ -16,6 +16,7 @@ export class HoSo  {
     public rights? : string;
 
     public language? : string;
+    public languageId? : number;
     public startDate? : Date;
     public endDate? : Date;
     /// <summary>
@@ -35,8 +36,8 @@ export class HoSo  {
     /// số lượng tờ
     /// </summary>
     public sheetNumber? : number;
-    public ageNumber? : number;
-    public format? : string;
+    public pageNumber? : number;
+    public physicalStateId? : number;
     public profileTypeName? : string;
     public gearBoxTitle? : string;
     public createdBy? : string;
