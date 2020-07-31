@@ -1,6 +1,6 @@
 
 
-<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
     <div class="modal-header bg-primary" aria-hidden="true">
       <div *ngIf="loaiHoSo.loaiHoSoID != null; else themMoi">
         <h4 class="modal-title">Chỉnh sửa thông tin loại hồ sơ</h4>
@@ -16,7 +16,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="textarea-input">Tên loại hồ sơ</label>
         <div class="col-md-9">
-          <input id="tenLoaiHoSo" rows="9" class="form-control"  name="tenLoaiHoSo" [(ngModel)]="loaiHoSo.tenLoaiHoSo" required>
+          <input id="tenLoaiHoSo" rows="9" class="form-control"  name="tenLoaiHoSo" [(ngModel)]="loaiHoSo.TenLoaiHoSo" required>
         </div>
       </div>
     </div>

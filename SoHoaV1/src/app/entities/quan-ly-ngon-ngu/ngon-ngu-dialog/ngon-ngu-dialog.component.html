@@ -1,8 +1,8 @@
 
 
-<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
     <div class="modal-header bg-primary" aria-hidden="true">
-      <div *ngIf="ngonNgu.ngonNguId != null; else themMoi">
+      <div *ngIf="ngonNgu.NgonNguId != null; else themMoi">
         <h4 class="modal-title">Chỉnh sửa thông tin ngôn ngữ</h4>
       </div>
       <ng-template #themMoi>
@@ -16,7 +16,7 @@
       <div class="form-group row">
         <label class="col-md-3 col-form-label" for="textarea-input">Tên ngôn ngữ</label>
         <div class="col-md-9">
-          <input id="tenNgonNgu" rows="9" class="form-control"  name="tenNgonNgu" [(ngModel)]="ngonNgu.tenNgonNgu" required>
+          <input id="tenNgonNgu" rows="9" class="form-control"  name="tenNgonNgu" [(ngModel)]="ngonNgu.TenNgonNgu" required>
         </div>
       </div>
     </div>

@@ -41,7 +41,7 @@ export class HopSoDialogComponent implements OnInit {
   fontID: any;
   
    constructor(
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private hopSoPopupService: QuanLyHopSoPopupService,
     private toastr: ToastrService,
     private router: Router,

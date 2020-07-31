@@ -70,11 +70,11 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
 
   // signature
   loadingSignature = false;
-  checked : boolean;
+  checked : boolean = false;
+  IdSecure : boolean = false;
   hasImage: boolean = false;
   imageSrc: string = '#';
   signature: DigitalSignature[];
-
   gearBoxId: number;
   profileId: number;
   fileId: number;
@@ -107,7 +107,8 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   }
 
   ngOnInit() {
-    
+    this.checked = false;
+    this.IdSecure = false;
     this.form = this.formBuilder.group({
       documentCode: ['', Validators.required],
       codeNumber: ['', Validators.required],
@@ -178,26 +179,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         }, () => {
         });
 
-    // this.taiLieuService.getProfileList()
-    //   .subscribe((result) => {
-    //     var profileList = [];
-    //     for (const item of result) {
-    //       var temp = { id: item.profileId, text: item.fileNotation }
-    //       profileList.push(temp);
-    //     }
-        
-    //     this.profileList = profileList;
-    //   },
-    //     (error) => {
-    //       console.log(error);
-    //       setTimeout(() => {
-    //         alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
-    //       }, 1000);
-    //     },
-    //     () => {
-
-    //     });
-
     this.taiLieuService.getLanguageList()
       .subscribe((result) => {
         var languageList = [];
@@ -265,9 +246,13 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
                   this.document = document;
                   this.issuedDate = document.issuedDate.toString().split('T')[0];
                   this.pdfSrc = result.item.clientUrl;
-                  if (this.document.signature == 1)
+                  if (this.document != undefined &&
+                    this.document.signature == 1 && 
+                    this.document.documentId != undefined &&
+                    this.document.documentId != null)
                   {
                     this.checked = true;
+                    this.IdSecure = true;
                   }
                   
                   this.onOrganChange(document.organId);
@@ -411,6 +396,13 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     if(params == undefined || params == null || params == "")
       params  = this.organID;
     else{
+      if(organID != this.document.organId){
+        this.document.fontId = null;
+        this.document.tableOfContentId = null;
+        this.document.gearBoxId = null;
+        this.document.fileId = null;
+        this.document.computerFileId = null;
+      }
       this.hopsoService.getFontByOrganId(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -452,6 +444,12 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
     else{
+      if(fontID != this.document.fontId){
+        this.document.tableOfContentId = null;
+        this.document.gearBoxId = null;
+        this.document.fileId = null;
+        this.document.computerFileId = null;
+      }
       this.hopsoService.getTabByFontId(params)
       .subscribe((data) => {
         if (data != undefined && data.length !=0) {
@@ -483,65 +481,58 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
     else{
-      this.hopsoService.getGearBoxByTableOfContentId(tabOfContID)
-      .subscribe((data) => {
-        if (data != undefined && data.itemList.length !=0) {
-          var hopsos = [];
-          for (const item of data.itemList) {
-            var temp = { id: item.gearBoxID, text: item.gearBoxCode }
-            hopsos.push(temp);
+      if(tabOfContID != this.document.tableOfContentId){
+        this.document.gearBoxId = null;
+        this.document.fileId = null;
+        this.document.computerFileId = null;
+      }
+      if(this.documentId != null){
+        this.hopsoService.getGearBoxByTabOfContForEditID(tabOfContID)
+        .subscribe((data) => {
+          if (data != undefined && data.itemList.length !=0) {
+            var hopsos = [];
+            for (const item of data.itemList) {
+              var temp = { id: item.gearBoxID, text: item.gearBoxCode }
+              hopsos.push(temp);
+            }
+            this.gearBoxList = hopsos;
           }
-          this.gearBoxList = hopsos;
-        }
-        else{
-          this.gearBoxList = [];
-        }
-      },
-      (error) => {
-        alert("Lấy dữ liệu hộp số thất bại. Lỗi: " + JSON.stringify(error));
-      },
-      () => {
-
-      });
+          else{
+            this.gearBoxList = [];
+          }
+        },
+        (error) => {
+          alert("Lấy dữ liệu hộp số thất bại. Lỗi: " + JSON.stringify(error));
+        },
+        () => {
+  
+        });
+      }
+      else{
+        this.hopsoService.getGearBoxByTableOfContentId(tabOfContID)
+        .subscribe((data) => {
+          if (data != undefined && data.itemList.length !=0) {
+            var hopsos = [];
+            for (const item of data.itemList) {
+              var temp = { id: item.gearBoxID, text: item.gearBoxCode }
+              hopsos.push(temp);
+            }
+            this.gearBoxList = hopsos;
+          }
+          else{
+            this.gearBoxList = [];
+          }
+        },
+        (error) => {
+          alert("Lấy dữ liệu hộp số thất bại. Lỗi: " + JSON.stringify(error));
+        },
+        () => {
+  
+        });
+      }
     }
   }
   onGearBoxChange(gearBoxId : any){
-    // TU code
-    // var params = gearBoxId;
-    // if(params == undefined || params == null || params == "")
-    // {
-    //     params = this.fontID;
-    // }
-    // else {
-    //   this.hoSoService.getProfileByGearBoxId(gearBoxId)
-    //   .subscribe((data) => {
-    //     if (data.isSuccess) {
-    //       this.document.fileId = data.item.profileId;
-    //       if (this.document.fileId != undefined) {
-    //         this.onProfileChange(this.document.fileId);
-    //       }
-    //     }
-    //     else {
-    //       switch(data.errorCode) {
-    //         case "CO": {
-    //           this.toastr.warning(data.errorMessage, "Thông báo");
-    //           setTimeout(() => {
-    //             window.location.reload();
-    //           }, 2000);
-    //           break;
-    //         }
-    //         case "EN": {
-    //           this.toastr.warning(data.errorMessage, "Thông báo");
-    //           this.document.fileId = undefined;
-    //           this.document.computerFileId = undefined;
-    //           break;
-    //         }
-    //         default: {
-    //           this.toastr.warning(data.errorMessage, "Thông báo");
-    //           break;
-    //         }
-    //       }
-    // if  select2 gearbox box is changed, set value of its child to empty
     this.profileList = null;
     this.computerFileSelect2 = null;
     var params = gearBoxId;
@@ -549,6 +540,10 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       params  = this.fontID;
     else
     {
+      if(gearBoxId != this.document.gearBoxId){
+        this.document.fileId = null;
+        this.document.computerFileId = null;
+      }
       this.hoSoService.getProfileByGearBoxId(gearBoxId)
       .subscribe((data) => {
         if(data.errorCode != '0') {
@@ -557,7 +552,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         else
         {
           if (data != undefined && data.itemList.length != 0) {
-            console.log(data);
             var profileList = [];
             for (const item of data.itemList) {
               var temp = { id: item.profileId, text: item.fileCode }
@@ -591,30 +585,15 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     else {
       this.hoSoService.getComputerFilesByProfileId(profileId)
       .subscribe((data) => {
-        //tu code
-        // this._compiler.clearCache();
-        // if (data != undefined && data.itemList.length != 0) {
-        //   // var computerFileList = [];
-        //   // for (const item of data.itemList) {
-        //   //   var temp = { id: item.fileId, text: item.fileName, path: item.url }
-        //   //   computerFileList.push(temp);
-        //   //   this.computerFileList.push({fileId: item.fileId, url: item.url, clientUrl: item.clientUrl});
-        //   // }
-        //   // this.computerFileSelect2 = computerFileList;
-        //   this.document.serverPath = data.item.clientUrl;
-        //   this.document.computerFileId = data.item.fileId;
-        //   this.document.pageAmount = data.item.pageNumber;
-        //   this.pdfSrc = data.item.clientUrl;
-        // }
-        // else {
-        //   this.computerFileList = [];
-        
         if(!data.isSuccess) {
           this.toastr.info(data.errorMessage, "Thông báo");
           this.computerFileSelect2 = null;
         }
         else
         {
+          if(profileId != this.document.fileId){
+            this.document.computerFileId = null;
+          }
           if (data != undefined && data.itemList.length != 0) {
             //this.document.serverPath = data.item.clientUrl;
             var computerFileList = [];
@@ -662,24 +641,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
         this.document.serverPath = item.url;
       }
     });
-    
-    // this.computerFileList.forEach((item) => {
-  
-    //   if(item.fileId == id){
-    //     this.pdfSrc = item.url;
-    //   }
-    // });
-    // let $img: any = document.querySelector('#file');
-
-    // if (typeof (FileReader) !== 'undefined') {
-    //   let reader = new FileReader();
-
-    //   reader.onload = (e: any) => {
-    //     this.pdfSrc = e.target.result;
-    //   };
-
-    //   reader.readAsArrayBuffer($img.files[0]);
-    // }
   }
 
   exit() {

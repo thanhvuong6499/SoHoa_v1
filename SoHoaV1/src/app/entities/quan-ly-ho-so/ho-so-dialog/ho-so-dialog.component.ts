@@ -61,7 +61,7 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   tableOfContentId: number;
 
   constructor (
-   private activeModal: NgbActiveModal,
+   public activeModal: NgbActiveModal,
    private hoSoPopupService: QuanLyHoSoPopupService,
    private toastr: ToastrService,
    private service: QuanLyHoSoService,
@@ -575,7 +575,11 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
     if(params == undefined || params == null || params == "")
         params  = this.organId;
     else {
-
+      if(organID != this.hoso.organId){
+        this.hoso.fontId = null;
+        this.hoso.tableOfContentId = null;
+        this.hoso.gearBoxId = null;
+      }
       this.hopsoService.getFontByOrganId(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -604,7 +608,6 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   onFontChange(fontID : any){
     // if font select2 box is changed, set value of its child to empty
     this.lstDanhMuc = null;
-    this.hoso.tableOfContentId = undefined;
     var params = fontID;
     if (params == undefined || params == null || params == "")
     {
@@ -614,6 +617,10 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
       return;
     }
     else {
+      if(fontID != this.hoso.fontId){
+        this.hoso.tableOfContentId = null;
+        this.hoso.gearBoxId = null;
+      }
       this.hopsoService.getTabByFontId(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -638,11 +645,15 @@ export class HoSoDialogComponent implements OnInit, AfterContentInit {
   }
 
   onTableOfContentChange(tabOfContID : any){
+
     // if table of content select2 box is changed, set value of its child to empty
     var params = tabOfContID;
     if(params == undefined || params == null || params == "")
         params  = this.fontId;
     else {
+      if(tabOfContID != this.hoso.tableOfContentId){
+        this.hoso.gearBoxId = null;
+      }
       this.hopsoService.getGearBoxByTableOfContentId(tabOfContID)
       .subscribe((data) => {
         if (data != undefined && data.itemList.length !=0) {

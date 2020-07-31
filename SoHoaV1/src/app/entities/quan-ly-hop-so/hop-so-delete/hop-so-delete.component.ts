@@ -15,7 +15,7 @@ export class HopSoDeleteComponent implements OnInit {
   hopso: HopSo;
   constructor(
     private hopSoPopupService: QuanLyHopSoPopupService,
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private hopSoService: QuanLyHopSoService,
     private toasts: ToastrService
   ) {

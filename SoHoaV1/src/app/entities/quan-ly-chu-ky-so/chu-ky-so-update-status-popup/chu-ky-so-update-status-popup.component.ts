@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ChuKySoUpdateStatusPopupComponent implements OnInit {
   signature: DigitalSignature;
   constructor(private popupService: ChuKySoPopupService,
-      private activeModal: NgbActiveModal,
+      public activeModal: NgbActiveModal,
       private service: QuanLyChuKySoService,
       private toast: ToastrService
       ) { }

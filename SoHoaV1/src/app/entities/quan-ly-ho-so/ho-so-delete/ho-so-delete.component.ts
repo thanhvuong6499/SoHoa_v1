@@ -12,7 +12,7 @@ export class HoSoDeleteComponent implements OnInit {
   hoso: HoSo;
   constructor(
     private hoSoPopupService: QuanLyHoSoPopupService,
-    private activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal
   ) { }
 
   ngOnInit(

@@ -33,7 +33,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Cơ quan: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 formControlName="organID" [data]="lstOrgan" [placeholder]="'Chọn cơ quan...'"
+                        <ng-select2 [disabled]="IdSecure" formControlName="organID" [data]="lstOrgan" [placeholder]="'Chọn cơ quan...'"
                             [options]="options" name="organID" (valueChanged)="onOrganChange($event)"
                             [(ngModel)]="document.organId"></ng-select2>
                         <div *ngIf="submitted && formControl.organID.status == 'INVALID'">
@@ -45,7 +45,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Phông: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 formControlName="fontID" [data]="lstFont" [placeholder]="'Chọn phông...'"
+                        <ng-select2 [disabled]="IdSecure" formControlName="fontID" [data]="lstFont" [placeholder]="'Chọn phông...'"
                             [options]="options" name="fontID" (valueChanged)="onFontChange($event)"
                             [(ngModel)]="document.fontId"></ng-select2>
                         <div *ngIf="submitted && formControl.fontID.status == 'INVALID'">
@@ -58,7 +58,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Mục lục: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 formControlName="tabOfContID" required [data]="lstDanhMuc"
+                        <ng-select2 [disabled]="IdSecure" formControlName="tabOfContID" required [data]="lstDanhMuc"
                             [placeholder]="'Chọn mục lục số...'" [options]="options" name="tabOfContID"
                             (valueChanged)="onTableOfContentChange($event)" [(ngModel)]="document.tableOfContentId">
                         </ng-select2>
@@ -71,7 +71,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Mã hộp số: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 formControlName="gearBox" required [data]="gearBoxList"
+                        <ng-select2 [disabled]="IdSecure" formControlName="gearBox" required [data]="gearBoxList"
                             [placeholder]="'Chọn hộp số...'" [options]="options" name="gearBoxId"
                             (valueChanged)="onGearBoxChange($event)" [(ngModel)]="document.gearBoxId"></ng-select2>
                         <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">
@@ -83,7 +83,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Hồ sơ số: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 formControlName="profile" [data]="profileList" [placeholder]="'Chọn mã hồ sơ...'"
+                        <ng-select2 [disabled]="IdSecure" formControlName="profile" [data]="profileList" [placeholder]="'Chọn mã hồ sơ...'"
                             [options]="options" name="profileList" (valueChanged)="onProfileChange($event)"
                             [(ngModel)]="document.fileId"></ng-select2>
                         <div *ngIf="submitted && formControl.profile.status == 'INVALID'">
@@ -96,7 +96,7 @@
                     <label class="col-md-3 col-form-label" for="select1">File: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9" *ngIf="!isEdit else file">
-                        <ng-select2 formControlName="computerFileId" [data]="computerFileSelect2"
+                        <ng-select2 [disabled]="IdSecure" formControlName="computerFileId" [data]="computerFileSelect2"
                             [placeholder]="'Chọn file...'" [options]="options" name="computerFileList"
                             (valueChanged)="onFileSelected($event)" [(ngModel)]="document.computerFileId"></ng-select2>
                         <div *ngIf="submitted && formControl.computerFileId.status == 'INVALID'">
@@ -105,11 +105,11 @@
                     </div>
                     <ng-template #file>
                         <div class="col-md-9">
-                            <input type="text" style="display:none;" class="form-control" placeholder="Tên file"
+                            <input [disabled]="IdSecure" type="text" style="display:none;" class="form-control" placeholder="Tên file"
                                 formControlName="computerFileId" name="computerFileId"
-                                [(ngModel)]="document.computerFileId" readonly="readonly" />
-                            <input type="text" class="form-control" placeholder="Tên file"
-                                [value]="document.computerFileName" readonly="readonly" />
+                                [(ngModel)]="document.computerFileId" />
+                            <input [disabled]="IdSecure" type="text" class="form-control" placeholder="Tên file"
+                                [value]="document.computerFileName" />
                         </div>
                     </ng-template>
                 </div>
@@ -128,7 +128,7 @@
 
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="textarea-input">Mã văn bản: <span
+                    <label class="col-md-3 col-form-label" for="textarea-input">Mã định danh văn bản: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
                         <input type="text" formControlName="documentCode" placeholder="Nhập mã văn bản"
@@ -175,7 +175,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">Số văn bản: <span
                             style="color: red;">(*)</span></label>
-                    <div class="col-md-9">
+                    <div class="col-md-3">
                         <input type="text" formControlName="codeNumber" placeholder="Nhập số văn bản" name="codeNumber"
                             [(ngModel)]="document.codeNumber" class="form-control"
                             [ngClass]="{'is-invalid': submitted && formControl.codeNumber.status == 'INVALID'}" />
@@ -184,21 +184,17 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">Ký hiệu văn bản: <span
-                            style="color: red;">(*)</span></label>
-                    <div class="col-md-9">
-                        <input type="text" formControlName="codeNotation" placeholder="Ký hiệu văn bản"
-                            name="codeNotation" [(ngModel)]="document.codeNotation" class="form-control"
-                            [ngClass]="{'is-invalid': submitted && formControl.codeNotation.status == 'INVALID'}" />
-                        <div *ngIf="submitted && formControl.codeNotation.status == 'INVALID'" class="invalid-feedback">
-                            <div *ngIf="formControl.codeNotation.status == 'INVALID'">Ký hiệu văn bản không được để
-                                trống.</div>
-                        </div>
+                        style="color: red;">(*)</span></label>
+                <div class="col-md-3">
+                    <input type="text" formControlName="codeNotation" placeholder="Ký hiệu văn bản"
+                        name="codeNotation" [(ngModel)]="document.codeNotation" class="form-control"
+                        [ngClass]="{'is-invalid': submitted && formControl.codeNotation.status == 'INVALID'}" />
+                    <div *ngIf="submitted && formControl.codeNotation.status == 'INVALID'" class="invalid-feedback">
+                        <div *ngIf="formControl.codeNotation.status == 'INVALID'">Ký hiệu văn bản không được để
+                            trống.</div>
                     </div>
-
+                </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">Trích yếu nội dung: </label>
@@ -296,7 +292,7 @@
                     <div class="col-md-7" style="margin-top: 10px;">
                         <mat-checkbox class="example-margin" id="signature" formControlName="signature" name="signature"
                             [(ngModel)]="checked" (change)="getSignatureStatus()"
-                            [disabled]="document.signature == 1 ? 'disabled' : 'false'"></mat-checkbox>
+                            [disabled]="IdSecure"></mat-checkbox>
                         <div *ngIf="loadingSignature"
                             style="margin-bottom: 4px; margin-left: 0.12em; display: inline-block;"><span
                                 class="spinner-border spinner-border-sm mr-1"></span> <span> Vui lòng đợi...</span>

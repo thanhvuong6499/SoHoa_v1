@@ -12,7 +12,7 @@ export class DanhMucDeleteComponent implements OnInit {
   danhmuc: DanhMuc;
   constructor(
     private danhMucPopupService: QuanLyDanhMucPopupService,
-    private activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal
   ) { }
 
   ngOnInit() {

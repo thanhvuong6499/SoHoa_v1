@@ -14,7 +14,7 @@ export class ChuKySoDeletePopupComponent implements OnInit {
 
   signature: DigitalSignature;
   constructor(private popupService: ChuKySoPopupService,
-      private activeModal: NgbActiveModal,
+      public activeModal: NgbActiveModal,
       private service: QuanLyChuKySoService,
       private toast: ToastrService
       ) { }

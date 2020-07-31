@@ -16,7 +16,7 @@ export class NguoiDungDeleteComponent implements OnInit {
   constructor(
     private nguoiDungPopupService: QuanLyNguoiDungPopupService,
     private userService: UserService,
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private toasts: ToastrService
   ) {
     this.user = new User();

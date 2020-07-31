@@ -54,6 +54,7 @@ export class HoSo  {
     public fontName?: string;
     public tableOfContentName ?: string;
     public tableOfContentNumber ?: string;
+    public format? : string;
 }
 
 export const hosos : HoSo[] = [

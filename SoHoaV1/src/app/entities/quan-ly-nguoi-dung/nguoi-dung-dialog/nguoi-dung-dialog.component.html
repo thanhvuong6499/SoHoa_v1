@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="form" (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
+<form [formGroup]="form" (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
     <div class="modal-header bg-primary" aria-hidden="true">
       <div *ngIf="user.id != null; else themMoi">
         <h4 class="modal-title">Chỉnh sửa thông tin tài khoản</h4>

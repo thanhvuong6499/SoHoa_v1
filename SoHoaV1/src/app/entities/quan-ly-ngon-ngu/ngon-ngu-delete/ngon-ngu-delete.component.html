@@ -5,9 +5,9 @@
     </button>
 </div>
 <div class="modal-body">
-    <p *ngIf="ngonNgu">Bạn có muốn xóa ngôn ngữ {{ngonNgu.tenNgonNgu}}</p>
+    <p *ngIf="ngonNgu">Bạn có muốn xóa ngôn ngữ {{ngonNgu.TenNgonNgu}}</p>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="deleteNgonNgu(ngonNgu.ngonNguId)" >Xóa</button>
+    <button type="button" class="btn btn-secondary" (click)="deleteNgonNgu(ngonNgu.NgonNguId)" >Xóa</button>
     <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()">Hủy</button>
 </div>

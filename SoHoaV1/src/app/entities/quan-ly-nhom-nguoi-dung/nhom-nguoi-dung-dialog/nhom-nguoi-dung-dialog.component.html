@@ -1,8 +1,8 @@
 
 
-<form (ngSubmit)="save($event)" enctype="multipart/form-data" class="form-horizontal">
+<form (ngSubmit)="save()" enctype="multipart/form-data" class="form-horizontal">
     <div class="modal-header bg-primary" aria-hidden="true">
-      <div *ngIf="userGroup.roleId != null; else themMoi">
+      <div *ngIf="userGroup.roleID != null; else themMoi">
         <h4 class="modal-title">Chỉnh sửa thông tin nhóm quyền</h4>
       </div>
       <ng-template #themMoi>

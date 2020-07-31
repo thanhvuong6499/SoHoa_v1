@@ -127,7 +127,6 @@ export class TaiLieuDialogComponent implements OnInit {
       });
     // edit
     if(this.taiLieuPopupService.result.item != undefined) {
-      
       this.document = this.taiLieuPopupService.result.item;
       // binding .Net Datetime to typeScript Date
       this.issuedDate.getDate = (new Date(this.document.issuedDate.toString())).getDate;

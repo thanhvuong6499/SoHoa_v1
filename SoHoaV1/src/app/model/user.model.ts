@@ -15,7 +15,8 @@ export class User {
        public roleName: string;
        public menuRole: string;
        public token?: Token = new Token();
-       public confirmPassword?: string
+       public confirmPassword?: string;
+       public roleID?: number;
 }
 
 export class UserDTO {
