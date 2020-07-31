@@ -115,6 +115,10 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.organID;
     else{
+      if(params != this.hopso.organID){
+        this.hopso.fontID = null;
+        this.hopso.tabOfContID = null;
+      }
       this.getOrganCodeByOrganId(params);
       this.hopsoService.getFontsByOrganIDSelect2(params)
       .subscribe((data) => {
@@ -145,6 +149,9 @@ export class HopSoDialogComponent implements OnInit {
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
     else{
+      if(params != this.hopso.fontID){
+        this.hopso.tabOfContID = null;
+      }
       this.getFontNumberByFontID(params);
       this.hopsoService.getTabByFontIDSelect2(params)
       .subscribe((data) => {
