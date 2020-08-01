@@ -3,7 +3,7 @@ export class HoSo  {
     
     public fileCode? : string;
     public identifier? : string;
-    public organId? : string;
+    public organId? : number;
     public gearBoxCode? : string;
     public gearBoxId? : number;
     public fileCatalog? : number;

@@ -9,6 +9,7 @@ import { HttpResponse } from '@angular/common/http';
 import { stringify } from 'querystring'; 
 import { QuanLyDanhMucPopupService } from '../../quan-ly-danh-muc/quan-ly-danh-muc-popup.service';
 import { DanhMucDialogComponent } from '../../quan-ly-danh-muc/danh-muc-dialog/danh-muc-dialog.component';
+import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
 
 
 @Component({
@@ -35,9 +36,13 @@ export class PhongDetailComponent implements OnInit {
   constructor(
     private quanLyPhongService: QuanLyPhongService, 
     private danhMucPopupService: QuanLyDanhMucPopupService,
+    private danhMucService: QuanLyDanhMucService,
     private route: ActivatedRoute
   ) { 
     this.condition = new BaseCondition<DanhMuc>();
+    this.danhMucService.listen().subscribe(( m : any) => {
+      this.load(this.phong.fontID);
+    })
   }
 
   ngOnInit() {
@@ -110,6 +115,19 @@ export class PhongDetailComponent implements OnInit {
     } else {
       this.danhMucPopupService
         .open(DanhMucDialogComponent as Component);
+    }
+
+  }
+
+  openDialogToAddDanhMuc(fontId?: number) {
+
+    if (fontId != undefined && fontId != null) {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component, 0, fontId);
+
+    } else {
+      this.danhMucPopupService
+        .open(DanhMucDialogComponent as Component,0);
     }
 
   }

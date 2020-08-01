@@ -10,6 +10,7 @@ import { HoSoDeleteComponent } from '../../quan-ly-ho-so/ho-so-delete/ho-so-dele
 import { BaseCondition } from '../../../common';
 import { StatusService } from '../../../services/common-status-service';
 import { Status } from '../../../model/common-status';
+import { QuanLyHoSoService } from '../../quan-ly-ho-so/quan-ly-ho-so.service';
 
 @Component({
   selector: 'app-detail-hop-so',
@@ -32,9 +33,13 @@ export class DetailHopSoComponent implements OnInit {
     private quanLyHopSoService: QuanLyHopSoService,
     private route: ActivatedRoute,
     private hosoPopupService: QuanLyHoSoPopupService,
+    private hosoService: QuanLyHoSoService,
     private statusService: StatusService
   ) {
       this.condition = new BaseCondition<HoSo>();
+      this.hosoService.listen().subscribe(( m : any) => {
+        this.load(this.hopso.gearBoxID);
+      })
    }
 
   ngOnInit() {
@@ -125,6 +130,20 @@ export class DetailHopSoComponent implements OnInit {
     }
 
   }
+
+  openDialogToAddHoSo(gearBoxID?: number) {
+
+    if (gearBoxID != undefined && gearBoxID != null) {
+      this.hosoPopupService
+        .open(HoSoDialogComponent as Component, 0, gearBoxID);
+
+    } else {
+      this.hosoPopupService
+        .open(HoSoDialogComponent as Component, 0);
+    }
+
+  }
+
   openDeleteDialog(id?: number) {
     if (id != undefined) {
       this.hosoPopupService

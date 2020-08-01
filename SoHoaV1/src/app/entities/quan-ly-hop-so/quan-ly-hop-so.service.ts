@@ -7,6 +7,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { DanhMuc, danhMucSelect2 } from '../../model/danh-muc.model';
 import { Phong, fontSelect2 } from '../../model/phong.model';
 import { Observable, Subject } from 'rxjs';
+import { ProfileDTO } from '../../model/hosodto';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,10 @@ export class QuanLyHopSoService {
   }
   getGearBoxByTableOfContentId (tabOfContID: number) {
     return this.httpClient.get<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/GetGearBoxByTabOfContID/" + tabOfContID);
+  }
+
+  getFillDataByProfileID(profileID: number){
+    return this.httpClient.get<ReturnResult<ProfileDTO>>(ApiUrl.apiUrl + "Profile/GetFillDataByProfileID/" + profileID);
   }
   getGearBoxByTabOfContForEditID(tabOfContID: number){
     return this.httpClient.get<ReturnResult<HopSo>>(ApiUrl.apiUrl + "GearBox/GetGearBoxByTabOfContForEditID/" + tabOfContID);

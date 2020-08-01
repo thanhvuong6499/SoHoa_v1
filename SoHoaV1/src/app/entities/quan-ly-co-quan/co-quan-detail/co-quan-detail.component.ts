@@ -8,6 +8,7 @@ import { Phong, phongs } from '../../../model/phong.model';
 import { BaseCondition } from '../../../common';
 import { PhongDialogComponent } from '../../quan-ly-phong/phong-dialog/phong-dialog.component';
 import { QuanLyPhongPopupService } from '../../quan-ly-phong/quan-ly-phong-popup.service';
+import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
 
 @Component({
   selector: 'app-co-quan-detail',
@@ -28,9 +29,13 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
   constructor(
     private quanLyCoQuanService: QuanLyCoQuanService,
     private route: ActivatedRoute,
-    private phongPopupService: QuanLyPhongPopupService) {
+    private phongPopupService: QuanLyPhongPopupService,
+    private phongService: QuanLyPhongService) {
       this.coQuan = new CoQuan();
-    //  this.coQuan.coQuanID = 0;
+      this.phongService.listen().subscribe(( m : any) => {
+        this.load(this.coQuan.coQuanID);
+        this.getFontsByOrganId(this.coQuan.coQuanID);
+      })
     }
   ngOnInit() {
      this.subscription = this.route.params.subscribe((params) => {
@@ -84,6 +89,17 @@ export class CoQuanDetailComponent implements OnInit, OnDestroy {
   openDialog(id?: number) {
       this.phongPopupService
         .open(PhongDialogComponent as Component, id);
+  }
+
+  openDialogToAddFont(organId?: number) {
+    if (organId) {
+      this.phongPopupService
+        .open(PhongDialogComponent as Component,0, organId);
+    } else {
+      this.phongPopupService
+        .open(PhongDialogComponent as Component, 0);
+    }
+
   }
 
   ngOnDestroy(): void {

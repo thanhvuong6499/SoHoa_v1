@@ -12,6 +12,7 @@ import {QuanLyHopSoService} from '../quan-ly-hop-so/quan-ly-hop-so.service';
 export class QuanLyHopSoPopupService {
     private ngbModalRef: NgbModalRef;
     private id : number;
+    public tableOfContID: number;
     public result : ReturnResult<HopSo>;
     hopso: HopSo;
   constructor(
@@ -25,9 +26,10 @@ export class QuanLyHopSoPopupService {
     this.ngbModalRef = null;
     this.ngbModalRef = null;
     this.result = new ReturnResult<HopSo>();
+    this.tableOfContID = 0;
   }
     private hopsos : HopSo[];
-    public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    public open(component: Component, id?: number | any, tableOfContID: number = 0): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             return new Promise<NgbModalRef>((resolve, reject) => {
                 const isOpen = this.ngbModalRef !== null;
@@ -35,7 +37,7 @@ export class QuanLyHopSoPopupService {
                     resolve(this.ngbModalRef);
                 }
 
-                if (id) {
+                if (id && id != 0) {
                     this.id = id;
                     this.hopSoService.getHopSoById(id)
                     .subscribe((result) => {
@@ -48,6 +50,9 @@ export class QuanLyHopSoPopupService {
                         resolve(this.ngbModalRef);
                     });
                 } else {
+                    if(tableOfContID != 0){
+                        this.tableOfContID = tableOfContID;
+                    }
                     this.result.item = undefined;
                     setTimeout(() => {
                         this.ngbModalRef = this.hopSoModalRef(component, new HopSo());

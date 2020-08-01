@@ -11,6 +11,7 @@ import { QuanLyPhongService } from './quan-ly-phong.service';
 export class QuanLyPhongPopupService {
     private ngbModalRef: NgbModalRef;
     private id : number;
+    public organId : number;
     public result : ReturnResult<Phong>;
     phong: Phong;
     constructor(
@@ -22,16 +23,17 @@ export class QuanLyPhongPopupService {
     ) {
         this.ngbModalRef = null;
         this.result = new ReturnResult<Phong>();
+        this.organId = 0;
     }
     private phongs : Phong[];
-    public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    public open(component: Component, id?: number | any, organId: number = 0): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
                 resolve(this.ngbModalRef);
             }
 
-            if (id) {
+            if (id && id != 0) {
                 this.id = id;
                 this.phongService.getPhongById(id)
                 .subscribe((result) => {
@@ -44,6 +46,9 @@ export class QuanLyPhongPopupService {
                     resolve(this.ngbModalRef);
                 });
             } else {
+                if(organId != 0){
+                    this.organId = organId;
+                }
                 this.result.item = undefined;
                 setTimeout(() => {
                     this.ngbModalRef = this.phongModalRef(component, new Phong());
@@ -56,4 +61,6 @@ export class QuanLyPhongPopupService {
             const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
             return modalRef;
         }
+
+    
 }

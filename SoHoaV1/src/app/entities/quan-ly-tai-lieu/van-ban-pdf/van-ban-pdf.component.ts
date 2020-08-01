@@ -136,9 +136,18 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       // addressDetail: ['']
     });
     this.subscription = this.route.params.subscribe((params) => {
-      this.documentId = params['id'];
+      if(this.route.url){
+        if(this.route.snapshot.routeConfig.path === "taiLieuPdf/profileId/:id"){
+          this.document.fileId = params['id'];
+          this.onProfileChange(this.document.fileId);
+          this.getFillDataByProfileID(this.document.fileId);
+        }
+        else{
+          this.documentId = params['id'];
+        }
+      }
     });
-    
+
     this.danhmucService.getAllCoQuan()
       .subscribe((result) => {
         
@@ -384,25 +393,15 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   ngOnDestroy(): void {
 
   }
+  getFillDataByProfileId(profileId : number){
+
+  }
   onOrganChange(organID : any){
     // if organ select2 box is changed, set value of its child to empty
-    this.lstFont = null;
-    this.lstDanhMuc = null;
-    this.gearBoxList = null;
-    this.profileList = null;
-    this.computerFileSelect2 = null;
-
     var params = organID;
     if(params == undefined || params == null || params == "")
       params  = this.organID;
     else{
-      if(organID != this.document.organId){
-        this.document.fontId = null;
-        this.document.tableOfContentId = null;
-        this.document.gearBoxId = null;
-        this.document.fileId = null;
-        this.document.computerFileId = null;
-      }
       this.hopsoService.getFontByOrganId(params)
       .subscribe((data) => {
         if (data != undefined && data.length != 0) {
@@ -433,13 +432,29 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       });
     } 
   }
+
+  getFillDataByProfileID(profileId : any){
+    if(profileId != undefined && profileId != null && profileId != ""){
+      this.hopsoService.getFillDataByProfileID(profileId)
+      .subscribe((res) => {
+        if (res != undefined && res != null 
+          && res.item != undefined
+          && res.item != null) {
+            this.document.organId = res.item.organID != undefined ? res.item.organID : null;
+            this.document.fontId = res.item.fontID != undefined ? res.item.fontID : null;
+            this.document.tableOfContentId = res.item.tableOfContID != undefined ? res.item.tableOfContID : null;
+            this.document.gearBoxId = res.item.gearBoxID != undefined ? res.item.gearBoxID : null;
+        }
+      },
+      (error) => {
+        alert("Lấy dữ liệu danh mục thất bại. Lỗi: " + JSON.stringify(error));
+      },
+      () => {
+      });
+    }
+  } 
   onFontChange(fontID : any){
     // if font select2 box is changed, set value of its child to empty
-    this.lstDanhMuc = null;
-    this.gearBoxList = null;
-    this.profileList = null;
-    this.computerFileSelect2 = null;
-
     var params = fontID;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
@@ -474,9 +489,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
 
   onTableOfContentChange(tabOfContID : any){
     // if table of content select2 box is changed, set value of its child to empty
-    this.gearBoxList = null;
-    this.profileList = null;
-    this.computerFileSelect2 = null;
     var params = tabOfContID;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;
@@ -533,8 +545,6 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     }
   }
   onGearBoxChange(gearBoxId : any){
-    this.profileList = null;
-    this.computerFileSelect2 = null;
     var params = gearBoxId;
     if(params == undefined || params == null || params == "")
       params  = this.fontID;

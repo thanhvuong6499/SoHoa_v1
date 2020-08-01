@@ -77,8 +77,27 @@ export class HopSoDialogComponent implements OnInit {
 
     // this.hopso = this.hopSoPopupService.getHopSoById()
     this.isEdit = false;
-    
+    if(this.hopSoPopupService.result.item != undefined){
+      this.hopso = this.hopSoPopupService.result.item;
+      this.isEdit = true;
+    }
+    else if(this.hopSoPopupService.tableOfContID != 0){
+      this.hopso.tabOfContID = this.hopSoPopupService.tableOfContID;
+      this.getDanhMucById(this.hopso.tabOfContID);
+    }
     this.loadData();
+  }
+
+  getDanhMucById(tabOfContID : number){
+    if(tabOfContID != undefined && tabOfContID != null && tabOfContID.toString() != ""){
+      this.danhmucService.getDanhMucById(tabOfContID)
+      .subscribe((res=>{
+          if(res != undefined && res != null && res.item != undefined){
+            this.hopso.fontID = res.item.fontID != undefined ? res.item.fontID : null;
+            this.hopso.organID = res.item.organID != undefined ? res.item.organID : null;
+          }
+      }));
+    }
   }
 
   getOrganCodeByOrganId(organID: number) {
@@ -187,11 +206,6 @@ export class HopSoDialogComponent implements OnInit {
     (error) => {
     }, () => {
     });
-
-    if(this.hopSoPopupService.result.item != undefined){
-      this.hopso = this.hopSoPopupService.result.item;
-      this.isEdit = true;
-    }
   }
   clear() {
     this.activeModal.dismiss('cancel');

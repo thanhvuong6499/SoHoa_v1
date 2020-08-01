@@ -14,6 +14,7 @@ import { QuanLyDanhMucService } from './quan-ly-danh-muc.service';
 export class QuanLyDanhMucPopupService {
     private ngbModalRef: NgbModalRef;
     private id : number;
+    public fontID : number;
     public result : ReturnResult<DanhMuc>;
     danhmuc: DanhMuc;
     constructor(
@@ -26,16 +27,17 @@ export class QuanLyDanhMucPopupService {
         this.ngbModalRef = null;
         this.ngbModalRef = null;
         this.result = new ReturnResult<DanhMuc>();
+        this.fontID = 0;
     }
     private DanhMucs : DanhMuc[];
-    public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+    public open(component: Component, id?: number | any, fontID: number = 0): Promise<NgbModalRef> {
         return new Promise<NgbModalRef>((resolve, reject) => {
             const isOpen = this.ngbModalRef !== null;
             if (isOpen) {
                 resolve(this.ngbModalRef);
             }
 
-            if (id) {
+            if (id && id != 0) {
                 this.id = id;
                 this.danhMucService.getDanhMucById(id)
                 .subscribe((result) => {
@@ -48,6 +50,9 @@ export class QuanLyDanhMucPopupService {
                     resolve(this.ngbModalRef);
             });
             } else {
+                if(fontID != 0){
+                    this.fontID = fontID;
+                }
                 this.result.item = undefined;
                 setTimeout(() => {
                     this.ngbModalRef = this.DanhMucModalRef(component, new DanhMuc());

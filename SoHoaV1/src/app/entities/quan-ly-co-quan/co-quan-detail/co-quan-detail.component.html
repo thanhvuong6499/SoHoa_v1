@@ -50,6 +50,16 @@
     <div class="card-footer">
         <div><h5>Danh sách phông trong cơ quan có mã cơ quan: {{ coQuan.organCode }} </h5></div>
         <hr/>
+        <div style="margin-left: 5px;margin-top: 6px;">
+            <div>
+              <button class="btn btn-primary btn-sm"(click)="openDialogToAddFont(coQuan.coQuanID)" style="float: right;margin-bottom: 10px;">
+                <span class="fa fa-plus"></span>
+                <span>
+                  Thêm mới phông
+                </span>
+              </button>
+            </div>
+          </div>
         <div *ngIf="totalRecords > 0 else nondata">
         <table class="table table-bordered table-striped table-sm">
             <thead>

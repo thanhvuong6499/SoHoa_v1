@@ -104,7 +104,6 @@ export class ThongKeVanBanComponent implements OnInit {
       this.pageSize = 5;
       this.page = 1;
       this.totalRecords = data.totalRows;
-      console.log(this.vanBans);
     }, (error) => {
       setTimeout(() => {
         alert("Lỗi: " + JSON.stringify(error));

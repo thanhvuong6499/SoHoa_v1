@@ -81,6 +81,9 @@ export class DanhMucDialogComponent implements OnInit {
         this.danhmuc = this.danhMucPopupService.result.item;
         this.isEdit = true;
       }
+      else if(this.danhMucPopupService.fontID != 0){
+        this.danhmuc.fontID = this.danhMucPopupService.fontID;
+      }
   }
   
   

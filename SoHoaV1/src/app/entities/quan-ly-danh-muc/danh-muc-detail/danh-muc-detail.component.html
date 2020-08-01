@@ -24,18 +24,6 @@
                 <span>{{danhmuc.fontCode}}</span>
             </div>
         </div>
-        <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Mã danh mục</label>
-            <div class="col-md-9">
-                <span>{{danhmuc.tabOfContCode}}</span>
-            </div>
-        </div> -->
-        <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Tên mục lục</label>
-            <div class="col-md-9">
-                <span>{{danhmuc.tabOfContName}}</span>
-            </div>
-        </div> -->
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Mục lục số</label>
             <div class="col-md-9">
@@ -53,13 +41,23 @@
     <div *ngIf="danhmuc" class="card-footer">
         <div *ngIf="danhmuc.tabOfContCode"><h5>Danh sách hộp số trong mục lục có mã mục lục : {{ danhmuc.tabOfContCode }} </h5></div>
         <hr/>
+        <div>
+            <div style="float: right;margin-bottom: 10px;">
+                <button class="btn btn-primary btn-sm" (click)="openDialogToAddHopSo(danhmuc.tabOfContID)">
+                <span class="fa fa-plus"></span>
+                <span>
+                    Thêm mới hộp số
+                </span>
+                </button>
+            </div>
+        </div>
         <div *ngIf="totalRecords > 0 else nondata">
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                 <tr>
                     <th>STT</th>
+                    <th>Mục lục số</th>
                     <th>Mã hộp số</th>
-                    <th>Tiêu đề hộp số</th>
                     <th>Số lượng hồ sơ</th>
                     <th>Số lượng văn bản</th>
                     <th>Ghi chú</th>
@@ -70,8 +68,8 @@
                 <tbody>
                 <tr *ngFor="let hopso of hopsos; index as i">
                     <td>{{ i+1 }}</td>
+                    <td>{{ hopso.tabOfContNumber }}</td>
                     <td>{{ hopso.gearBoxCode }}</td>
-                    <td>{{ hopso.gearBoxTitle }}</td>
                     <td>{{ hopso.profileCount }}</td>
                     <td>{{ hopso.numDoc }}</td>
                     <td>{{ hopso.note }}</td>

@@ -161,7 +161,6 @@ export class TaiLieuDialogComponent implements OnInit {
     else {
         this.taiLieuService.createDocument(this.document)
         .subscribe((result) => {
-          console.log(result);
         },
         (error) => {
           console.log(error);

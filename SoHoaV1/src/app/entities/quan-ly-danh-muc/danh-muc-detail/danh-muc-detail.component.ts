@@ -40,6 +40,9 @@ export class DanhMucDetailComponent implements OnInit {
     private hopSoPopupService: QuanLyHopSoPopupService,
   ) { 
     this.condition = new BaseCondition<HopSo>();
+    this.quanLyHopSoService.listen().subscribe(( m : any) => {
+      this.load(this.danhmuc.tabOfContID);
+    })
   }
 
   ngOnInit() {
@@ -116,6 +119,19 @@ export class DanhMucDetailComponent implements OnInit {
     }
 
   }
+
+  openDialogToAddHopSo(tableOfContID?: number) {
+    if (tableOfContID != undefined && tableOfContID != null) {
+      this.hopSoPopupService
+        .open(HopSoDialogComponent as Component, 0, tableOfContID);
+
+    } else {
+      this.hopSoPopupService
+        .open(HopSoDialogComponent as Component, 0);
+    }
+
+  }
+
   openDeleteDialog(id?: number) {
     if (id != undefined) {
       this.hopSoPopupService

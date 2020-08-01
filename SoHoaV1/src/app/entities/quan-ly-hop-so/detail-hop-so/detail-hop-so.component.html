@@ -81,6 +81,16 @@
     <div *ngIf="hopso" class="card-footer">
         <div *ngIf="hopso.gearBoxCode"><h5>Danh sách hồ sơ trong hồ sơ có mã hộp số: {{ hopso.gearBoxCode }} </h5></div>
         <hr/>
+        <div>
+            <div style="float: right;margin-bottom: 10px;">
+                <button class="btn btn-primary btn-sm" (click)="openDialogToAddHoSo(hopso.gearBoxID)">
+                <span class="fa fa-plus"></span>
+                <span>
+                    Thêm mới hồ số
+                </span>
+                </button>
+            </div>
+        </div>
         <div *ngIf="totalRecords > 0 else nondata">
             <table class="table table-bordered table-striped table-sm">
                 <thead>

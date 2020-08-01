@@ -165,6 +165,14 @@
     <div class="card-footer">
         <div><h5>Danh sách văn bản có trong hồ sơ số {{ hoso.fileCode }} </h5></div>
         <hr/>
+        <div>
+            <button class="btn btn-primary btn-sm" style="float:right; margin-top: 4px;"  [routerLink]="['/QuanLyTaiLieu/taiLieuPdf/profileId',hoso.profileId]" routerLinkActive="router-link-active">
+              <span class="fa fa-plus"></span>
+              <span >
+                  Thêm mới tài liệu
+              </span>
+          </button>
+        </div>
         <br>
         <div *ngIf="totalRecords > 0 else nondata">
         <table class="table table-bordered table-striped table-sm">

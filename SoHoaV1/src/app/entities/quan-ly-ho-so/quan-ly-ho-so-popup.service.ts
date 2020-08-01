@@ -11,6 +11,7 @@ import { ReturnResult } from '../../common';
 export class QuanLyHoSoPopupService {
   private ngbModalRef: NgbModalRef;
   private id : number;
+  public gearBoxID: number;
   public profile: ReturnResult<HoSo>;
   constructor(
       private modalService: NgbModal,
@@ -19,14 +20,15 @@ export class QuanLyHoSoPopupService {
   ) 
   {
       this.ngbModalRef = null;
+      this.gearBoxID = 0;
   }
-  public open(component: Component, id?: number | any): Promise<NgbModalRef> {
+  public open(component: Component, id?: number | any, gearBoxID: number = 0): Promise<NgbModalRef> {
       return new Promise<NgbModalRef>((resolve, reject) => {
           const isOpen = this.ngbModalRef !== null;
           if (isOpen) {
               resolve(this.ngbModalRef);
           }
-          if (id) {
+          if (id && id != 0) {
                 this.service.getProfilesById(id)
                 .subscribe((result) => {
                     if (result.isSuccess)
@@ -40,6 +42,9 @@ export class QuanLyHoSoPopupService {
                     resolve(this.ngbModalRef);
                 }); 
           } else {
+            if(gearBoxID != 0){
+                this.gearBoxID = gearBoxID;
+            }
               this.profile = undefined;
               // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
               setTimeout(() => {

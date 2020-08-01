@@ -92,6 +92,9 @@ export class PhongDialogComponent implements OnInit, OnDestroy {
         this.phong = this.phongPopupService.result.item;
         this.isEdit = true;
       }
+      else if(this.phongPopupService.organId != 0){
+        this.phong.organID = this.phongPopupService.organId;
+      }
       
   }
 

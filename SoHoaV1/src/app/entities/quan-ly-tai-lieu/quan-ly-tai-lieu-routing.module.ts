@@ -39,6 +39,13 @@ const routes: Routes = [
             data: {
               title: "Chỉnh sửa văn bản"
             }
+          },
+          {
+            path: 'taiLieuPdf/profileId/:id',
+            component: VanBanPdfComponent,
+            data: {
+              title: "Thêm mới văn bản"
+            }
           }
           
       ]

@@ -94,12 +94,21 @@
             <h5>Danh sách mục lục trong phông có mã phông : {{ phong.fontNumber }} </h5>
         </div>
         <hr />
+        <div>
+            <div style="float: right;margin-bottom: 10px;">
+                <button class="btn btn-primary btn-sm" (click)="openDialogToAddDanhMuc(phong.fontID)">
+                <span class="fa fa-plus"></span>
+                <span>
+                    Thêm mới danh mục
+                </span>
+                </button>
+            </div>
+        </div>
         <div *ngIf="totalRecords > 0 else nondata">
             <table *ngIf="danhmucs" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên mục lục hồ sơ</th>
                         <th>Mục lục số</th>
                         <th>Số lượng hộp số</th>
                         <th>Ghi chú</th>
@@ -110,8 +119,7 @@
                 <tbody>
                     <tr *ngFor="let danhmuc of danhmucs; index as i">
                         <td>{{i+1}}</td>
-                        <td>{{ danhmuc.tabOfContName }}</td>
-                        <td>{{ danhmuc.tabOfContCode }}</td>
+                        <td>{{ danhmuc.tabOfContNumber }}</td>
                         <td>{{ danhmuc.gearBoxCount }}</td>
                         <td>{{ danhmuc.note }}</td>
 
