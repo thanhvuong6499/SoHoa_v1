@@ -122,6 +122,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
       confidenceLevel: ['', Validators.required],
       subject: [''],
       description: [''],
+      organizationIssued: [''],
       keyword: [''],
       inforSign: [''],
       mode: [''],

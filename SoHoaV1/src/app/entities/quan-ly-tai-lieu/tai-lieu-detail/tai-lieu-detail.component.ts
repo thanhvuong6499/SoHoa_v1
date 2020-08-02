@@ -31,7 +31,6 @@ export class TaiLieuDetailComponent implements OnInit {
       this.quanLyTaiLieuService.getDocumentById(id)
         .subscribe((result) => {
           this.document = result.item;
-          
         });
     }
     ngOnDestroy(): void {

@@ -7,13 +7,8 @@
                 </div>
             </div>
             <div class="modal-body">
-                <!-- <div class="form-group">
-        <label class="form-control-label">Mã phông</label>
-        <input type="number" class="form-control" name="maphong" id="field_maphong"
-            [(ngModel)]="phong.maphong" required/>
-    </div> -->
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="text-input">Cơ quan phát hành:</label>
+                    <label class="col-md-3 col-form-label" for="text-input">Cơ quan:</label>
                     <div class="col-md-9">
                         <span>{{document.organName}}</span>
                     </div>
@@ -106,7 +101,7 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="inline-radios">Tình trạng vật lý:</label>
                     <div class="col-md-9 col-form-label">
-                        <span>{{document.formatName}}</span>
+                        <span>{{document.format}}</span>
 
                     </div>
                 </div>
@@ -118,36 +113,18 @@
 
                     </div>
                 </div>
-                <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="text-input">Trạng thái</label>
-            <div class="col-md-9">
-                <span>{{document.trangthai}}</span>
-            </div>
-        </div> -->
-              
-
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Cơ quan, tổ chức ban hành:</label>
+                    <div class="col-md-9">
+                        <span>{{document.organizationIssued}}</span>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="text-input">Ghi chú:</label>
                     <div class="col-md-9">
                         <span>{{document.description}}</span>
                     </div>
                 </div>
-            
-              
-                <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Thời gian bắt đầu</label>
-            <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="thoigianbatdau" placeholder="date">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="date-input">Thời gian kết thúc</label>
-            <div class="col-md-9">
-                <input class="form-control" id="date-input" type="date" name="thoigianketthuc" placeholder="date">
-            </div>
-        </div> -->
-
-             
                
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="inline-radios">File đính kèm:</label>
@@ -155,21 +132,7 @@
                         <span>{{document.computerFileName}}</span>
                     </div>
                 </div>
-                <!-- <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="file-multiple-input">Upload File</label>
-            <div class="col-md-9">
-                <input type="file" id="file-multiple-input" name="file-multiple-input" multiple>
             </div>
-        </div> -->
-            </div>
-            <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
-        </button>
-        <button type="submit" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
-        </button>
-    </div> -->
         </div>
     </div>
 </div>
