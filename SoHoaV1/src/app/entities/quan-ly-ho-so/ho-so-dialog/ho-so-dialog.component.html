@@ -96,7 +96,7 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label" for="text-input">Hồ sơ số: <span style="color: red;"> (*)</span></label>
             <div class="col-md-9">
-                <input id="fileNotation" formControlName="fileNotation" placeholder="Nhập số hồ sơ" name="fileNotation" class="form-control" [(ngModel)]="hoso.fileNotation" [ngClass]="{'is-invalid': submitted && f.fileNotation.errors}" />
+                <input maxlength="8" id="fileNotation" formControlName="fileNotation" placeholder="Nhập số hồ sơ" name="fileNotation" class="form-control" [(ngModel)]="hoso.fileNotation" [ngClass]="{'is-invalid': submitted && f.fileNotation.errors}" />
                 <div *ngIf="submitted && f.fileNotation.errors" class="invalid-feedback">
                     <div *ngIf="f.fileNotation.errors.required">Số hồ sơ không được để trống.</div>
                   </div>
@@ -239,57 +239,58 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label" for="file-multiple-input">Tải lên file:</label>
+            <label class="col-md-3 col-form-label" for="file-multiple-input">Tải lên file:<br><span style="color: #f34c4c;">(vui lòng chỉ chọn file với định dạng là pdf)</span></label>
             <div class="col-md-9">
                 <!-- <input type="file" id="file-multiple-input" accept=".pdf" name="file-multiple-input" multiple> -->
                 <mat-card-content>
-                    <!-- <mat-form-field class="form-field">
-                      <mat-label>Select Document Type</mat-label>
-                      <mat-select formControlName="type" required>
-                        <mat-option value="Passport">Passport</mat-option>
-                        <mat-option value="Driving_license">Driving License</mat-option>
-                        <mat-option value="PAN">PAN</mat-option>
-                      </mat-select>
-                    </mat-form-field> -->
-                    <!-- <br> -->
+               
                     <input type="file" ng2FileSelect accept=".pdf" [uploader]="uploader" (change)="fileInputChange(uploaderAfterChange.queue)" multiple/><br/>
                     <br>
-                    <!-- <div class="drop-zone">
-                    <div ng2FileDrop [uploader]="uploader" class="drop-zone">
-                       Drag and drop files to upload
-                    </div>
-                    </div> -->
                     <div *ngIf="uploader.queue.length != 0">
                         <label>Bạn vừa chọn <b>{{ uploader.queue.length }}</b> file.</label>
-                    <table>
-                      <thead>
-                      <tr>
-                        <th width="90%">
-                          Tên file
-                        </th>
-                        <th width="10%">
-                          Delete
-                        </th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr *ngFor="let item of uploader.queue">
-                        <th width="90%">
-                          {{ item.file.name }} ({{ item.file.size/1000000 }} MB)
-                        </th>
-                        <th class="text-center" width="10%">
-                          <mat-icon (click)="item.remove()" style="cursor: pointer;">delete</mat-icon>
-                        </th>
-                      </tr>
-                      </tbody>
-                    </table>
-                </div>
+                        <div>
+                            <button style="float: center;" type="button" class="btn btn-secondary" (click)="deleteItem()">Xóa các tệp đã chọn</button>
+                        </div>
+                        <table>
+                            <thead>
+                            <tr>
+                            <th width="20%">
+                                <input *ngIf="isSelectAll" checked type="checkbox" (click)="selectAllFile(isSelectAll)">
+                                <input *ngIf="!isSelectAll" type="checkbox" (click)="selectAllFile()">
+                            </th>
+                            <th width="80%">
+                                Tên file
+                            </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of fileTemp.queue">
+                            <th width="10%">
+                                <input *ngIf="item.isCancel" checked type="checkbox" (click)="SelectItem(item.isCancel, item.file.name)">
+                                <input *ngIf="!item.isCancel" type="checkbox" (click)="SelectItem(item.isCancel, item.file.name)">
+                            </th>
+                            <th width="90%">
+                                <span *ngIf="item.isCancel" style="color: #ff6565;">{{ item.file.name }} ({{ item.file.size/1000000 }} MB)</span>
+                                <span *ngIf="!item.isCancel" style="color: black;">{{ item.file.name }} ({{ item.file.size/1000000 }} MB)</span>
+                            </th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <br>
-                    <!-- <button mat-raised-button color="accent" type="submit">Upload Data</button> -->
-                  </mat-card-content>
+                </mat-card-content>
+                <nav>
+                    <ul class="pagination">
+                        <div *ngIf="totalRecords > 0 else nondata">
+                        <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="10" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page, pageSize)"></ngb-pagination>
+                        </div>
+                        <ng-template #nondata>
+                        <div>Không có dữ liệu phù hợp.</div>
+                        </ng-template>
+                    </ul>
+                </nav>
             </div>
         </div>
-        
         
     </div>
     <div class="modal-footer">

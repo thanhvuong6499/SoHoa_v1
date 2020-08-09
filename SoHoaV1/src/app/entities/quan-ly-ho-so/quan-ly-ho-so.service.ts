@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HoSo } from '../../model/ho-so.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions, HttpHeaderOptionsFormData } from '../../common';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { BaseCondition, ReturnResult, ApiUrl, HttpHeadersOptions } from '../../common';
 import { AuthenticationService } from '../../services/authentication.service';
 import { FileUpload } from '../../model/file.model';
 import { Document } from '../../model/document.model';
 import { Subject, Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +23,25 @@ export class QuanLyHoSoService {
   public getProfileByGearBoxId(gearBoxId: string){
     return this._httpClient.get<ReturnResult<HoSo>>(ApiUrl.apiUrl + "Profile/GetProfileByGearBoxId/" + gearBoxId);
   }
+
+  public DownloadFile(fileId: any) : Observable<any>
+  {
+    var accessToken = localStorage.getItem('access-token');
+    const headers = new HttpHeaders().set('authorization','Bearer '+ accessToken);
+    return this._httpClient.get(ApiUrl.apiUrl + "File/DownloadFile?fileId=" + fileId, {
+      responseType: 'arraybuffer', headers:headers} );
+  }
+
+
+  public DownloadProfileAttachment(fileId: number): any {
+    return this._httpClient.get(ApiUrl.apiUrl + "File/DownloadProfileAttachment?fileId=" + fileId, { responseType: 'blob'})
+    .pipe(
+      map((res) => {
+        return new Blob([res], { type: res.type })
+      })
+    )
+  }
+
   public getAllProfilesWithPaging(condi?: BaseCondition<HoSo>) {
     var condition = {};
     if (condi != undefined) {

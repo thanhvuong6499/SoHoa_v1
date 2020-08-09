@@ -33,7 +33,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Cơ quan: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 [disabled]="IdSecure" formControlName="organID" [data]="lstOrgan" [placeholder]="'Chọn cơ quan...'"
+                        <ng-select2 [disabled]="IdDisable && isEdit" formControlName="organID" [data]="lstOrgan" [placeholder]="'Chọn cơ quan...'"
                             [options]="options" name="organID" (valueChanged)="onOrganChange($event)"
                             [(ngModel)]="document.organId"></ng-select2>
                         <div *ngIf="submitted && formControl.organID.status == 'INVALID'">
@@ -45,7 +45,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Phông: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 [disabled]="IdSecure" formControlName="fontID" [data]="lstFont" [placeholder]="'Chọn phông...'"
+                        <ng-select2 [disabled]="IdDisable && isEdit" formControlName="fontID" [data]="lstFont" [placeholder]="'Chọn phông...'"
                             [options]="options" name="fontID" (valueChanged)="onFontChange($event)"
                             [(ngModel)]="document.fontId"></ng-select2>
                         <div *ngIf="submitted && formControl.fontID.status == 'INVALID'">
@@ -58,7 +58,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Mục lục: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 [disabled]="IdSecure" formControlName="tabOfContID" required [data]="lstDanhMuc"
+                        <ng-select2 [disabled]="IdDisable && isEdit" formControlName="tabOfContID" required [data]="lstDanhMuc"
                             [placeholder]="'Chọn mục lục số...'" [options]="options" name="tabOfContID"
                             (valueChanged)="onTableOfContentChange($event)" [(ngModel)]="document.tableOfContentId">
                         </ng-select2>
@@ -71,7 +71,7 @@
                     <label class="col-md-3 col-form-label" for="select1">Mã hộp số: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 [disabled]="IdSecure" formControlName="gearBox" required [data]="gearBoxList"
+                        <ng-select2 [disabled]="IdDisable && isEdit" formControlName="gearBox" required [data]="gearBoxList"
                             [placeholder]="'Chọn hộp số...'" [options]="options" name="gearBoxId"
                             (valueChanged)="onGearBoxChange($event)" [(ngModel)]="document.gearBoxId"></ng-select2>
                         <div *ngIf="submitted && formControl.tabOfContID.status == 'INVALID'">
@@ -80,10 +80,10 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-md-3 col-form-label" for="select1">Hồ sơ số: <span
+                    <label class="col-md-3 col-form-label" for="select1">Mã hồ sơ: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9">
-                        <ng-select2 [disabled]="IdSecure" formControlName="profile" [data]="profileList" [placeholder]="'Chọn mã hồ sơ...'"
+                        <ng-select2 [disabled]="IdDisable && isEdit" formControlName="profile" [data]="profileList" [placeholder]="'Chọn mã hồ sơ...'"
                             [options]="options" name="profileList" (valueChanged)="onProfileChange($event)"
                             [(ngModel)]="document.fileId"></ng-select2>
                         <div *ngIf="submitted && formControl.profile.status == 'INVALID'">
@@ -96,7 +96,7 @@
                     <label class="col-md-3 col-form-label" for="select1">File: <span
                             style="color: red;">(*)</span></label>
                     <div class="col-md-9" *ngIf="!isEdit else file">
-                        <ng-select2 [disabled]="IdSecure" formControlName="computerFileId" [data]="computerFileSelect2"
+                        <ng-select2 formControlName="computerFileId" [data]="computerFileSelect2"
                             [placeholder]="'Chọn file...'" [options]="options" name="computerFileList"
                             (valueChanged)="onFileSelected($event)" [(ngModel)]="document.computerFileId"></ng-select2>
                         <div *ngIf="submitted && formControl.computerFileId.status == 'INVALID'">
@@ -105,10 +105,10 @@
                     </div>
                     <ng-template #file>
                         <div class="col-md-9">
-                            <input [disabled]="IdSecure" type="text" style="display:none;" class="form-control" placeholder="Tên file"
+                            <input type="text" style="display:none;" class="form-control" placeholder="Tên file"
                                 formControlName="computerFileId" name="computerFileId"
                                 [(ngModel)]="document.computerFileId" />
-                            <input [disabled]="IdSecure" type="text" class="form-control" placeholder="Tên file"
+                            <input *ngIf="IdDisable && isEdit" readonly type="text" class="form-control" placeholder="Tên file"
                                 [value]="document.computerFileName" />
                         </div>
                     </ng-template>

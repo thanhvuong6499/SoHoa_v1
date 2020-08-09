@@ -129,7 +129,13 @@
                 <div class="form-group row">
                     <label class="col-md-3 col-form-label" for="inline-radios">File đính kèm:</label>
                     <div class="col-md-9 col-form-label">
-                        <span>{{document.computerFileName}}</span>
+                        <span><a (click)="downloadFile(document.computerFileId);">{{document.computerFileName}}</a></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="inline-radios">Tải xuống tệp đính kèm :</label>
+                    <div class="col-md-9 col-form-label">
+                        <button class="btn btn-primary fa fa-download" (click)="downloadFile(document.computerFileId, document.computerFileName)"></button>
                     </div>
                 </div>
             </div>

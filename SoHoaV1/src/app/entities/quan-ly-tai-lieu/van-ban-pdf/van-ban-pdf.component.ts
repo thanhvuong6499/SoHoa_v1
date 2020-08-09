@@ -72,6 +72,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   loadingSignature = false;
   checked : boolean = false;
   IdSecure : boolean = false;
+  IdDisable : boolean = false;
   hasImage: boolean = false;
   imageSrc: string = '#';
   signature: DigitalSignature[];
@@ -109,6 +110,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   ngOnInit() {
     this.checked = false;
     this.IdSecure = false;
+    this.IdDisable = true;
     this.form = this.formBuilder.group({
       documentCode: ['', Validators.required],
       codeNumber: ['', Validators.required],

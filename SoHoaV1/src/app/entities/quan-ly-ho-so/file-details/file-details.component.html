@@ -17,7 +17,7 @@
                   <!-- <th>Path</th> -->
                   <th>Số tờ</th>
                   <th>Trạng thái</th>
-                  <!-- <th>Thao tác</th> -->
+                  <th>Thao tác</th>
                 </tr>
               </thead>
               <tbody>
@@ -30,6 +30,9 @@
                   <td> {{ file.pageNumber }} </td>
                   <td *ngIf="file.status == 1 else inactive">
                     <span class="badge badge-success">Đã số hóa</span>
+                  </td>
+                  <td class="center">
+                    <button class="btn btn-primary fa fa-download" (click)="downloadFileAttachment(file.fileId)"></button>
                   </td>
                 </tr>
                 </tbody>

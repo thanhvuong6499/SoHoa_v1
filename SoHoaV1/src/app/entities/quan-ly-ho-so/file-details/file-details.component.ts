@@ -6,6 +6,8 @@ import { ReturnResult, BaseCondition } from '../../../common';
 import { QuanLyCoQuanService } from '../../quan-ly-co-quan/quan-ly-co-quan-service.service';
 import { HoSo } from '../../../model/ho-so.model';
 import { QuanLyHoSoService } from '../quan-ly-ho-so.service';
+import { saveAs } from 'file-saver';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-file-details',
@@ -49,5 +51,44 @@ export class FileDetailsComponent implements OnInit {
       }, () => {
 
       });
+  }
+
+  downloadFileAttachment(fileId : number) {
+    this.hosoService.DownloadProfileAttachment(fileId).subscribe(response => {
+      if(response) {
+        if(response.type != undefined && response.type){
+          var extension = response.type.split('/')[1];
+          this.handleResponse(response, extension);
+        }
+      }
+    }), error => console.log('Error downloading the file'),
+      () => console.info('File downloaded successfully');
+  }
+
+  handleResponse(data: any,extension: string) {
+    var originalFileName = this.getOriginalFileName(extension);
+    saveAs(data, originalFileName);
+    if(extension === 'pdf'){
+      var fileURL = URL.createObjectURL(data);
+      window.open(fileURL);
+    }
+  }
+
+  getOriginalFileName(extension: string) {
+    var originalFileName = '';
+    if(extension === 'pdf'){
+      originalFileName = "FileHoSo" + moment(new Date()).format('DDMMMYYYY') + ".pdf";
+    }
+    else if(extension === 'csv' || extension === 'xlxs' ||
+    extension === 'vnd.openxmlformatsofficedocument.spreadsheetml.sheet') {
+      originalFileName = "FileHoSo" + moment(new Date()).format('DDMMMYYYY') + ".csv";
+    }
+    else if(extension === 'plain') {
+      originalFileName = "FileHoSo" + moment(new Date()).format('DDMMMYYYY') + ".txt";
+    }
+    else {
+      originalFileName = "FileHoSo" + moment(new Date()).format('DDMMMYYYY') + ".docx";
+    }
+    return originalFileName;
   }
 }
