@@ -652,9 +652,9 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
     this.computerFileList.forEach((item) => {
       if(item.fileId == id){
         this.pdfSrc = ApiUrl.endpoint + item.url;
-        this.pdfSrc = item.url;
         this.document.pageAmount = item.pageNumber;
-        this.document.serverPath = item.url;
+        this.document.serverPath = ApiUrl.endpoint + item.url;
+        ;
       }
     });
   }
