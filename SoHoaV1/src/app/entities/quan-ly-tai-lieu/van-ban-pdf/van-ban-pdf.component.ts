@@ -23,6 +23,7 @@ import { QuanLyChuKySoService } from '../../quan-ly-chu-ky-so/quan-ly-chu-ky-so.
 import { DigitalSignature } from '../../../model/digital-signature.model';
 import { Compiler } from '@angular/core';
 import { setDate } from 'ngx-bootstrap/chronos/utils/date-setters';
+import { ApiUrl } from '../../../common';
 
 @Component({
   selector: 'app-van-ban-pdf',
@@ -257,7 +258,8 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
                   const document : Document = result.item;
                   this.document = document;
                   this.issuedDate = document.issuedDate.toString().split('T')[0];
-                  this.pdfSrc = result.item.clientUrl;
+                  var url = ApiUrl.endpoint + result.item.clientUrl;
+                  this.pdfSrc = url;
                   if (this.document != undefined &&
                     this.document.signature == 1 && 
                     this.document.documentId != undefined &&
@@ -649,6 +651,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
   onFileSelected(id?: any) {
     this.computerFileList.forEach((item) => {
       if(item.fileId == id){
+        this.pdfSrc = ApiUrl.endpoint + item.url;
         this.pdfSrc = item.url;
         this.document.pageAmount = item.pageNumber;
         this.document.serverPath = item.url;
@@ -670,7 +673,7 @@ export class VanBanPdfComponent implements OnInit, AfterContentInit,AfterViewChe
             if (this.signature.length > 0) {
               this.loadingSignature = false;
               this.hasImage = true;
-              this.imageSrc = this.signature[0].serverPath;
+              this.imageSrc = ApiUrl.endpoint + this.signature[0].serverPath;
               //this.document.serverPath = this.signature[0].serverPath;
               //$(document).find("[data-page-number=1]").append(`<img class="image-preview" src="${this.imageSrc}" alt=""/>`)
             }
