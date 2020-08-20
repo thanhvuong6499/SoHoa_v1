@@ -144,6 +144,11 @@ export const routes: Routes = [
         path: 'TraCuu',
         loadChildren: () => import('./entities/tra-cuu/tra-cuu.module').then(m => m.TraCuuModule),
         canActivate: [ComponentsGuard]
+      },
+      {
+        path: 'ImportData',
+        loadChildren: () => import('./entities/import-data/import-data.module').then(m => m.ImportDataModule),
+        canActivate: [ComponentsGuard]
       }
       // {
       //   path: 'quanLyHopSo',

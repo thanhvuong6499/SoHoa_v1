@@ -17,7 +17,8 @@ export class Phong  {
         public archivesTime ?: string
         public paperTotal?: number
         public languageId?: number
-}       
+}
+
 export class fontSelect2 { 
         constructor(
                 public id?: string,
