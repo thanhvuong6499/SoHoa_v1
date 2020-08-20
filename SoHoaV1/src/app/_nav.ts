@@ -63,6 +63,12 @@ export const navItems: INavData[] = [
         url: '/TraCuu/traCuu',
         icon: 'fa fa-search',
         attributes: { style: 'margin-left: 10px;' }
+      },
+      {
+        name: 'Import dữ liệu văn bản',
+        url: '/ImportData/importData',
+        icon: 'fa fa-file',
+        attributes: { style: 'margin-left: 10px;' }
       }
     ]
   },

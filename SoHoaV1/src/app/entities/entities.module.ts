@@ -23,6 +23,7 @@ import { QuanLyTinhTrangVatLyModule } from './quan-ly-tinh-trang-vat-ly/quan-ly-
 import { QuanLyMucDoTinCayModule } from './quan-ly-muc-do-tin-cay/muc-do-tin-cay.module';
 import { FileDropDirective, FileSelectDirective } from "ng2-file-upload";
 import { TraCuuModule } from './tra-cuu/tra-cuu.module';
+import { ImportDataModule } from './import-data/import-data.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { TraCuuModule } from './tra-cuu/tra-cuu.module';
     QuanLyNgonNguModule,
     QuanLyTinhTrangVatLyModule,
     QuanLyMucDoTinCayModule,
-    TraCuuModule
+    TraCuuModule,
+    ImportDataModule
   ]
 })
 export class EntitiesModule { }
