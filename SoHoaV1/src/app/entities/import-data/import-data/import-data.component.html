@@ -106,23 +106,58 @@
               </ngx-spinner>
               <thead>
                 <tr>
-                  <th>Dữ liệu</th>
-                  <th>Chú thích</th>
-                  <th>Loại thông báo</th>
+                    <th>Dòng số</th>
+                    <th>Dữ liệu</th>
+                    <th>Loại dữ liệu</th>
+                    <th>Thông báo</th>
                 </tr>
               </thead>
               <tbody>
-                  <tr>
-                    <th>"Hồ sơ"</th>
-                    <th>Chú thích</th>
-                    <th>
-                        <span class="badge badge-warning">
-                            Cảnh báo
+                <tr style="background-color: #ff8834;" *ngFor="let item of dataValidations">
+                    <td>
+                        <span>
+                            {{item.rowNumber}}
                         </span>
-                    </th>
-                  </tr>
+                    </td>
+                    <td>
+                        <span *ngIf="item.dataType == 0">
+                        </span>
+                        <span *ngIf="item.dataType != 0">
+                            {{item.value}}
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.dataType == 0">
+                            Số TT
+                        </span>
+                        <span *ngIf="item.dataType == 1">
+                            Số ký hiệu
+                        </span>
+                        <span *ngIf="item.dataType == 2">
+                            Ngày tháng
+                        </span>
+                        <span *ngIf="item.dataType == 3">
+                            Tên gọi và trích yếu
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="!item.isisCorrect">
+                            {{item.message}}
+                        </span>
+                    </td>
+                    </tr>
               </tbody>
             </table>
+            <nav>
+                <ul class="pagination">
+                    <div *ngIf="totalRecords > 0 else nondata">
+                    <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="10" [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPages(page, pageSize)"></ngb-pagination>
+                    </div>
+                    <ng-template #nondata>
+                    <div>Không có dữ liệu phù hợp.</div>
+                    </ng-template>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
