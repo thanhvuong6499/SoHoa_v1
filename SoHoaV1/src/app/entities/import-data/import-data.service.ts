@@ -43,7 +43,7 @@ export class ImportDataService implements OnInit, OnDestroy{
       formData = files;
     }
     formData.append('validData', validData);
-    return this._httpClient.post<ReturnResult<any>>(ApiUrl.apiUrl + "BulkData/ValidateBulkInsert" ,formData , { headers:headers});
+    return this._httpClient.post<any>(ApiUrl.apiUrl + "BulkData/ValidateBulkInsert" ,formData , { headers:headers});
   }
 
   listen () : Observable<any>{

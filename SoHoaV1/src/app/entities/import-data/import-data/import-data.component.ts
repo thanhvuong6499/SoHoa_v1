@@ -17,6 +17,7 @@ import { Phong } from '../../../model/phong.model';
 import { QuanLyPhongService } from '../../quan-ly-phong/quan-ly-phong.service';
 import { QuanLyDanhMucService } from '../../quan-ly-danh-muc/quan-ly-danh-muc.service';
 import { ValidImport } from '../../../model/valid-Import.model';
+import { DataValidation } from '../../../model/data-validation';
 
 @Component({
   selector: 'app-import-data',
@@ -24,6 +25,9 @@ import { ValidImport } from '../../../model/valid-Import.model';
   styleUrls: ['./import-data.component.css']
 })
 export class ImportDataComponent implements OnInit {
+  page = 1;
+  pageSize: number = 10;
+  totalRecords: number;
   signature: DigitalSignature[] = new Array<DigitalSignature>();
   validImport : ValidImport = new ValidImport();
   imgSrc: string | ArrayBuffer;
@@ -38,6 +42,8 @@ export class ImportDataComponent implements OnInit {
   public uploader : FileUploader = new FileUploader({
     isHTML5: true
   });
+  dataValidations : DataValidation[] = new Array<DataValidation>();
+  dataResponses : DataValidation[] = new Array<DataValidation>();
 
   constructor (
     private formBuilder: FormBuilder,
@@ -56,6 +62,8 @@ export class ImportDataComponent implements OnInit {
           width: "100%"
         }
         this.validImport = new ValidImport();
+        this.page = 1;
+        this.pageSize = 10;
       }
 
   ngOnInit() {
@@ -110,7 +118,10 @@ export class ImportDataComponent implements OnInit {
   }
 
   fileInputChange(value : any) {
+    this.dataResponses = new Array<DataValidation>();
+    this.dataValidations = new Array<DataValidation>();
     if(this.uploader.queue.length > 1){
+      this.validSuccessfully = false;
       this.uploader.queue[0].remove();
     }
   }
@@ -132,6 +143,9 @@ export class ImportDataComponent implements OnInit {
   }
 
   validFileUpload() {
+    this.page = 1;
+    this.pageSize = 10;
+    this.totalRecords = 0;
     if (this.form.invalid) return;
     var files = new FormData();
     if (this.uploader.queue.length > 0) {
@@ -145,10 +159,17 @@ export class ImportDataComponent implements OnInit {
       if(files != undefined && files){
         this.importDataService.validFileupload(this.validImport, files)
         .subscribe((result) => {
-          console.log(result);
+          if(result){
+            this.validSuccessfully = result.isCorrect;
+            this.dataResponses = result.dataValidationDTOs;
+            if(this.dataResponses && this.dataResponses.length != 0){
+              this.totalRecords = this.dataResponses.length;
+              this.loadPages(this.page, this.pageSize);
+            }
+          }
         },
         (error) => {
-          console.log(error);
+          this.toast.error("Bạn phải chọn 1 tệp đúng theo mẫu để tiếp tục thực hiện!!!");
         },
         () => {
         });
@@ -178,6 +199,37 @@ export class ImportDataComponent implements OnInit {
     var originalFileName = '';
     originalFileName = computerFileName + "_" + moment(new Date()).format('DD/MM/YYYY') + ".xls";
     return originalFileName;
+  }
+
+  loadPages(page : number, pageSize: number) {
+    this.dataValidations = new Array<DataValidation>();
+    this.page = page;
+    this.pageSize = pageSize || 10;
+    var length = 0;
+    if(page == 1){
+      if(10 < this.totalRecords){
+        length = 10;
+      }else {
+        length = this.totalRecords;
+      }
+      for(let i = 0; i < length; i++) {
+        if(this.dataResponses[i]){
+          this.dataValidations.push(this.dataResponses[i]);
+        }
+      }
+    }
+    else{
+      if(((page - 1)*pageSize + 10) < this.totalRecords){
+        length = (page - 1)*pageSize + 10;
+      }else {
+        length = this.totalRecords;
+      }
+      for(let i = (page - 1)*pageSize; i < length; i++) {
+        if(this.dataResponses[i]){
+          this.dataValidations.push(this.dataResponses[i]);
+        }
+      }
+    }
   }
 
   get f() {
