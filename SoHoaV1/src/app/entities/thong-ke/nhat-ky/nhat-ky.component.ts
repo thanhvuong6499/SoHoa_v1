@@ -8,6 +8,8 @@ import { UserDTO } from '../../../model/user.model';
 import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { QuanLyTaiLieuService } from '../../quan-ly-tai-lieu/quan-ly-tai-lieu.service';
+import { isDateValid } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-nhat-ky',
@@ -22,22 +24,29 @@ export class NhatKyComponent implements OnInit {
   page = 1;
   previousPage : number;
   pageSize : number;
+  documentCodeList: Array<Select2OptionData>;
   totalRecords : number;
   condition: BaseCondition<LogActivity>;
   options: Options;
   userArr: Array<Select2OptionData>;
-  arrayUserValue: string[];
-  fromDate: any;
-  toDate: any;
+  userNameArr: string[];
+  documentCodeArr: string[];
+  arrayDocumentValue: string[];
+  fromDate: string;
+  endDate: string;
 
   constructor( 
     private route: ActivatedRoute,
     private service: ThongKeService,
     private userService: UserService,
+    private documentService: QuanLyTaiLieuService,
     private spinner: NgxSpinnerService,
     ) 
     {
+      this.fromDate = new Date().toISOString().split('T')[0];
+      this.endDate = new Date().toISOString().split('T')[0];
       this.condition = new BaseCondition<LogActivity>();
+      this.documentCodeList = new Array<Select2OptionData>();
       this.userArr = new Array<Select2OptionData>();
       this.options = {
         width: "100%",
@@ -50,7 +59,7 @@ export class NhatKyComponent implements OnInit {
   ngOnInit() {
     // var date = new Date();
     // this.fromDate = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().slice(0, 10);
-    // this.toDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
+    // this.endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
     this.loadFilterOptions();
     this.loadAll();
   }
@@ -113,37 +122,90 @@ export class NhatKyComponent implements OnInit {
     () => {
       // this.hideSpinner("filterOptions");
     })
+
+    this.documentService.getAllDocument()
+      .subscribe((result) => {
+        var documentCodeList = [];
+        for (const item of result.itemList) {
+          
+          var temp = { id: item.documentCode, text: item.documentCode };
+          documentCodeList.push(temp);
+        }
+        
+        this.documentCodeList = documentCodeList;
+      },
+      (error) => {
+        setTimeout(() => {
+          alert("Lấy dữ liệu về hồ sơ thất bại. Lỗi: " + JSON.stringify(error));
+        }, 1000);
+      },
+      () => {
+      });
   }
   
-  getFilterOptions (types: string[]) {
+  getFilterOptions (userNameArr: string[], documentCodeArr: string[], fromDate: string, endDate: string) {
+    if(fromDate != undefined && endDate != undefined){
+      if(this.isValidDate(fromDate, endDate)){
+        alert("Lỗi: Ngày kết thúc không được nhỏ hơn ngày bắt đầu. Xin mời nhập lại");
+      }
+    }
+    
+    console.log("invoked");
     this.condition.PageIndex = 1;
     this.condition.FilterRuleList = [
       {
-        field: "us.UserName",
+        field: "Document_Log.UserName",
         op: "",
         value: ""
       },
       {
-        field: "vb.NgayTao",
+        field: "S_VanBan.MaDinhDanh",
         op: "",
         value: ""
       },
+      {
+        field: "Document_Log.NgayTao",
+        op: "",
+        value: ""
+      },
+      {
+        field: "Document_Log.NgayCapNhat",
+        op: "",
+        value: ""
+      },
+      
     ]
-    this.arrayUserValue = types;
-    if (this.arrayUserValue != undefined) {
-      this.condition.FilterRuleList[0].value = types.toString();
-      if (types.length == 1) {
+    this.userNameArr = userNameArr;
+    if (this.userNameArr != undefined) {
+      this.condition.FilterRuleList[0].value = userNameArr.toString();
+      if (userNameArr.length == 1) {
         this.condition.FilterRuleList[0].op = "and_contains";
       }
       else {
         this.condition.FilterRuleList[0].op = "and_in_strings";
       }
     }
-    if (this.fromDate != undefined && this.toDate !=undefined) {
-      this.condition.FilterRuleList[1].value = this.fromDate.toString() + "/" + this.toDate.toString();
-      this.condition.FilterRuleList[1].op = "and_date_between_custom";
+    this.documentCodeArr = documentCodeArr;
+    if (this.documentCodeArr != undefined) {
+      this.condition.FilterRuleList[1].value = documentCodeArr.toString();
+      if (documentCodeArr.length == 1) {
+        this.condition.FilterRuleList[1].op = "and_contains";
+      }
+      else {
+        this.condition.FilterRuleList[1].op = "and_in_strings";
+      }
     }
-    if (types != undefined || (this.fromDate != undefined && this.toDate !=undefined)) {
+
+    console.log(endDate);
+    if (fromDate != undefined && endDate !=undefined) {
+      this.condition.FilterRuleList[2].value = this.fromDate.toString() + "/" + this.endDate.toString();
+      this.condition.FilterRuleList[2].op = "and_date_between_custom";
+      this.condition.FilterRuleList[3].value = this.fromDate.toString() + "/" + this.endDate.toString();
+      this.condition.FilterRuleList[3].op = "or_date_between_custom";
+    }
+    
+    
+    if (this.userNameArr != undefined || this.documentCodeArr != undefined || this.fromDate != undefined || this.endDate != undefined) {
       this.showSpinner("paging", "ball-spin-clockwise", "0.2");
       this.service.getAlllogActivityWithPaging(this.condition)
       .subscribe((data: any) => {
@@ -161,7 +223,9 @@ export class NhatKyComponent implements OnInit {
       })
     }
   }
-
+  isValidDate(fromDate: string, endDate: string){
+    return Date.parse(fromDate) <= Date.parse(endDate) ? false:true
+  }
   showSpinner (name?: string, type?: string, opacity? : string) {
     this.spinner.show(
       name,
