@@ -9,7 +9,6 @@ import { Options } from 'select2';
 import { Select2OptionData } from 'ng-select2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { QuanLyTaiLieuService } from '../../quan-ly-tai-lieu/quan-ly-tai-lieu.service';
-import { isDateValid } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-nhat-ky',
