@@ -42,8 +42,8 @@ export class NhatKyComponent implements OnInit {
     private spinner: NgxSpinnerService,
     ) 
     {
-      this.fromDate = new Date().toISOString().split('T')[0];
-      this.endDate = new Date().toISOString().split('T')[0];
+      // this.fromDate = new Date().toISOString().split('T')[0];
+      // this.endDate = new Date().toISOString().split('T')[0];
       this.condition = new BaseCondition<LogActivity>();
       this.documentCodeList = new Array<Select2OptionData>();
       this.userArr = new Array<Select2OptionData>();

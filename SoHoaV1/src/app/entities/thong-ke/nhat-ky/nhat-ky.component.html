@@ -20,7 +20,7 @@
                   [placeholder]="'Chọn tên tài khoản...'"
                   [options]="options"
                   [(ngModel)]="userNameArr"
-                  (valueChanged)="getFilterOptions($event, documentCodeArr)"
+                  (valueChanged)="getFilterOptions($event, documentCodeArr, fromDate, endDate)"
               ></ng-select2>
               </div>
             
@@ -31,7 +31,7 @@
                 [placeholder]="'Chọn mã văn bản...'"
                 [options]="options"
                 [(ngModel)]="documentCodeArr"
-                (valueChanged)="getFilterOptions(types, $event)"
+                (valueChanged)="getFilterOptions(types, $event, fromDate, endDate)"
             ></ng-select2>
             </div>
             
