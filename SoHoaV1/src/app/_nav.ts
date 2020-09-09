@@ -1,7 +1,6 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-  // {
   //   name: 'Giới thiệu',
   //   url: '/',
   //   icon: 'fa fa-info',
